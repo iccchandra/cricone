@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bacl_splash"
+    tools:context=".activity.HomeActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:id="@+id/head">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:theme="@style/MyDarkToolbarStyle"/>
+        <ImageView
+            android:id="@+id/im_AppIcon"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/logo_splash"
+            android:padding="10dp"
+            android:visibility="visible"
+            android:layout_centerVertical="true"
+            />
+        <ImageView
+            android:id="@+id/im_homewallet"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_marginEnd="5dp"
+            android:layout_toLeftOf="@+id/im_Notification"
+            android:src="@drawable/wallet_icon"
+            android:padding="10dp"
+            android:visibility="gone"
+            android:layout_centerVertical="true"
+            />
+        <ImageView
+            android:id="@+id/im_Notification"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:src="@drawable/notification_icon_active"
+            android:padding="10dp"
+            android:visibility="visible"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            />
+
+    </RelativeLayout>
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:tabMode="fixed"
+        android:elevation="30dp"
+        android:background="@color/white"
+        app:tabIndicatorColor="@color/tabtextselected"
+        app:tabSelectedTextColor="@color/tabtextselected"
+        app:tabTextColor="@color/tabtextunselected"
+        app:tabGravity="fill"
+        app:tabPaddingEnd="-2dp"
+        app:tabPaddingStart="-2dp"
+        app:tabTextAppearance="@style/MyTabLayoutTextAppearance">
+        <com.google.android.material.tabs.TabItem
+            android:text="HOME"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/home_icon_active"
+            />
+        <com.google.android.material.tabs.TabItem
+            android:text="MY CONTEST"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/contest_icon"/>
+        <com.google.android.material.tabs.TabItem
+            android:text="PROFILE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/profile_icon"/>
+        <com.google.android.material.tabs.TabItem
+            android:text="MORE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/more_icon"
+            />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <LinearLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_above="@+id/tabs"
+
+        android:layout_below="@+id/head"/>
+
+</RelativeLayout>
+</layout>

@@ -19,8 +19,8 @@
             android:theme="@style/MyDarkToolbarStyle"/>
         <ImageView
             android:id="@+id/im_AppIcon"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
             android:src="@drawable/logo_splash"
             android:padding="10dp"
             android:visibility="visible"
@@ -73,7 +73,7 @@
             android:icon="@drawable/home_icon_active"
             />
         <com.google.android.material.tabs.TabItem
-            android:text="MY CONTEST"
+            android:text="MY Predict"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/contest_icon"/>

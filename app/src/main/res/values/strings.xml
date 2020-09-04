@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">11Dreamer</string>
+    <string name="app_name">1Cricket</string>
     <string name="let_s_play">Let\'s Play</string>
     <string name="have_a_referral_code">Have a referral code?</string>
     <string name="enter_a_code">Enter a code</string>
@@ -9,7 +9,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="facebook_app_id">172127250769126</string>
     <string name="fb_login_protocol_scheme">fb172127250769126</string>
-    <string name="by_joining_this">By Joining this contest, you accept 11Dreamer\'s T&amp;C and confirm that you are not a resident of Assam, Odisha, Telangana, Nagaland or Sikkim.</string>
+    <string name="by_joining_this">By Joining this contest, you accept 1Cricket\'s T&amp;C and confirm that you are not a resident of Assam, Odisha, Telangana, Nagaland or Sikkim.</string>
     <string name="MinimumWithdrawAmountLimit">500</string>
     <string name="sign_in">SignIn</string>
     <string name="forgot_password"><u>Forgot Password ?</u></string>
@@ -93,7 +93,7 @@
     <string name="c">(C)</string>
     <string name="vc">(VC)</string>
     <string name="amp_vice_captain"><![CDATA[& Vice Captain]]></string>
-    <string name="by_registering_i_agree_to_my11team_s">By registering, I agree to 11Dreamer\'s</string>
+    <string name="by_registering_i_agree_to_my11team_s">By registering, I agree to 1Cricket\'s</string>
     <string name="not_avil_demo">This payment mode is not available on Demo Version</string>
     <string name="cricket">Cricket</string>
     <string name="my_matches">My Matches</string>

@@ -14,9 +14,9 @@ public class Config {
     public static String ProfileIMAGEBASEURL = SERVERURL+"uploads/user/";
 
     //APK URL
-    public static String APKURL = SERVERURL+"apk/11dreamer.apk";
+    public static String APKURL = SERVERURL+"apk/1Cricket.apk";
     //APK NAME
-    public static String APKNAME = "11dreamer.apk";
+    public static String APKNAME = "1Cricket.apk";
 
 
     public static String TEAMFLAGIMAGE = "";

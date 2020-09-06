@@ -73,4 +73,6 @@ public class InviteInContestActivity extends AppCompatActivity {
         finish();
 
     }
+    public interface DataBindingComponent {
+    }
 }

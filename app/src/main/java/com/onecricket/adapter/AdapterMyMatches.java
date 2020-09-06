@@ -15,6 +15,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.onecricket.APICallingPackage.Config;
 import com.onecricket.Bean.BeanHomeMatches;
 import com.onecricket.R;
@@ -86,12 +88,16 @@ public class AdapterMyMatches extends PagerAdapter {
         tv_TeamsName.setText(type);
 
         Glide.with(context).load(Config.TEAMFLAGIMAGE + team_image1)
-                .crossFade()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+               .transition(new DrawableTransitionOptions()
+                                            .crossFade())
+                                            .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                 .into(im_Team1);
         Glide.with(context).load(Config.TEAMFLAGIMAGE + team_image2)
-                .crossFade()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+               .transition(new DrawableTransitionOptions()
+                                            .crossFade())
+                                            .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                 .into(im_Team2);
 
         if (match_status.equals("Fixture")) {

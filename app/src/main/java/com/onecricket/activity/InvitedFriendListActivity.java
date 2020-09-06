@@ -192,4 +192,6 @@ public class InvitedFriendListActivity extends AppCompatActivity implements Resp
         }
 
     }
+    public interface DataBindingComponent {
+    }
 }

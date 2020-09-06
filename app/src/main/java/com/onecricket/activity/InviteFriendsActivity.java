@@ -48,8 +48,7 @@ public class InviteFriendsActivity extends AppCompatActivity implements Response
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, "Your friend " + UserName +" invited you to the" +
-                        " 11Dreamer Fantasy App. " +
-                        "Where you earn real money." +
+                        " 1Cricket App. " +
                         "Download the app using this " +
                         "link:- "+APKURL+" and Enter this unique Code:- " +
                         ReferralCode+" And create your account.");
@@ -88,5 +87,7 @@ public class InviteFriendsActivity extends AppCompatActivity implements Response
     @Override
     public void onError(Context mContext, String type, String message) {
 
+    }
+    public interface DataBindingComponent {
     }
 }

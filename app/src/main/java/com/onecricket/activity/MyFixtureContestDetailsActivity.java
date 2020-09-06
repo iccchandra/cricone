@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.onecricket.databinding.ActivityMyFixtureContestDetailsBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -83,10 +85,12 @@ public class MyFixtureContestDetailsActivity extends AppCompatActivity implement
         binding.inclVsBck.tvHeadTeamTwoName.setText(MyJoinedFixtureContestListActivity.IntentTeamTwoName);
 
         Glide.with(activity).load(Config.TEAMFLAGIMAGE +MyJoinedFixtureContestListActivity.IntentT1Image)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                 .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                 .into(binding.inclVsBck.imTeam1);
         Glide.with(activity).load(Config.TEAMFLAGIMAGE +MyJoinedFixtureContestListActivity.IntentT2Image)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                 .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                 .into(binding.inclVsBck.imTeam2);
 
         responseManager = this;
@@ -253,9 +257,11 @@ public class MyFixtureContestDetailsActivity extends AppCompatActivity implement
             holder.tv_LeaderboardPlayerRank.setText(rank);
 
             Glide.with(activity).load(Config.ProfileIMAGEBASEURL+Image)
-                    .crossFade()
-                    .error(R.drawable.bats_icon_hvr).placeholder(R.drawable.bats_icon_hvr)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .transition(new DrawableTransitionOptions()
+                            .crossFade())
+                    .apply(new RequestOptions()
+
+                    .diskCacheStrategy(DiskCacheStrategy.ALL))
                     .into(holder.im_LeaderboardPlayerAvtar);
 
 
@@ -362,8 +368,10 @@ public class MyFixtureContestDetailsActivity extends AppCompatActivity implement
                         TextView tv_CorVC = to_add.findViewById(R.id.tv_CorVC);
 
                         Glide.with(activity).load(Config.PLAYERIMAGE + PlayerImage)
-                                .crossFade()
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                               .transition(new DrawableTransitionOptions()
+                                            .crossFade())
+                                            .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                                 .into(im_GroundPlayerImage);
                         tv_GroundPlayerName.setText(player_shortname);
                         tv_GroundPlayerCredit.setText(PlayerCredit + " Cr");
@@ -390,8 +398,10 @@ public class MyFixtureContestDetailsActivity extends AppCompatActivity implement
                         TextView tv_CorVC = to_add.findViewById(R.id.tv_CorVC);
 
                         Glide.with(activity).load(Config.PLAYERIMAGE + PlayerImage)
-                                .crossFade()
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                               .transition(new DrawableTransitionOptions()
+                                            .crossFade())
+                                            .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                                 .into(im_GroundPlayerImage);
 
                         tv_GroundPlayerName.setText(player_shortname);
@@ -418,8 +428,10 @@ public class MyFixtureContestDetailsActivity extends AppCompatActivity implement
                         TextView tv_CorVC = to_add.findViewById(R.id.tv_CorVC);
 
                         Glide.with(activity).load(Config.PLAYERIMAGE + PlayerImage)
-                                .crossFade()
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                               .transition(new DrawableTransitionOptions()
+                                            .crossFade())
+                                            .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                                 .into(im_GroundPlayerImage);
                         tv_GroundPlayerName.setText(player_shortname);
                         tv_GroundPlayerCredit.setText(PlayerCredit + " Cr");
@@ -445,8 +457,10 @@ public class MyFixtureContestDetailsActivity extends AppCompatActivity implement
                         TextView tv_CorVC = to_add.findViewById(R.id.tv_CorVC);
 
                         Glide.with(activity).load(Config.PLAYERIMAGE + PlayerImage)
-                                .crossFade()
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                               .transition(new DrawableTransitionOptions()
+                                            .crossFade())
+                                            .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                                 .into(im_GroundPlayerImage);
                         tv_GroundPlayerName.setText(player_shortname);
                         tv_GroundPlayerCredit.setText(PlayerCredit + " Cr");

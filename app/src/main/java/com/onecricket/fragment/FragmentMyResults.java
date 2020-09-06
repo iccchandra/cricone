@@ -20,6 +20,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.onecricket.activity.MyJoinedResultContestListActivity;
 import com.onecricket.databinding.FragmentMyResultsBinding;
 import com.google.gson.Gson;
@@ -228,12 +230,16 @@ public class FragmentMyResults extends Fragment implements ResponseManager {
             holder.tv_TeamTwoName.setText(team_short_name2);
             holder.tv_TeamsName.setText(type);
             Glide.with(getActivity()).load(Config.TEAMFLAGIMAGE+team_image1)
-                    .crossFade()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                   .transition(new DrawableTransitionOptions()
+                                            .crossFade())
+                                            .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                     .into(holder.im_Team1);
             Glide.with(getActivity()).load(Config.TEAMFLAGIMAGE+team_image2)
-                    .crossFade()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                   .transition(new DrawableTransitionOptions()
+                                            .crossFade())
+                                            .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                     .into(holder.im_Team2);
 
             if (match_status.equals("Result")){

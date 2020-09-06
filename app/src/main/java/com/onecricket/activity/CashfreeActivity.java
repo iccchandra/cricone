@@ -584,4 +584,8 @@ public class CashfreeActivity extends AppCompatActivity implements ResponseManag
     public void onNavigateBack() {
 
     }
+    public interface DataBindingComponent {
+    }
+
+
 }

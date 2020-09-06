@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.onecricket.APICallingPackage.Config;
 import com.onecricket.databinding.ActivityMyJoinedContestListBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -84,10 +85,12 @@ public class MyJoinedFixtureContestListActivity extends AppCompatActivity implem
         binding.inclVsBck.tvHeadTeamTwoName.setText(IntentTeamTwoName);
         binding.inclVsBck.tvContestTimer.setText(IntentTime);
         Glide.with(activity).load(Config.TEAMFLAGIMAGE +IntentT1Image)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                 .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                 .into(binding.inclVsBck.imTeam1);
         Glide.with(activity).load(Config.TEAMFLAGIMAGE +IntentT2Image)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                 .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                 .into(binding.inclVsBck.imTeam2);
 
         responseManager = this;

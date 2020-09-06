@@ -528,6 +528,8 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         e.printStackTrace();
         }
     }
+    public interface DataBindingComponent {
+    }
     }
 
 

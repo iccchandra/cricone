@@ -287,4 +287,6 @@ public class EditProfileActivity extends AppCompatActivity implements ResponseMa
 
         }
     }
+    public interface DataBindingComponent {
+    }
 }

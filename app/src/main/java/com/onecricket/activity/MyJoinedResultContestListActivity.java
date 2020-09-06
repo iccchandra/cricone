@@ -17,6 +17,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.onecricket.APICallingPackage.Class.APIRequestManager;
 import com.onecricket.APICallingPackage.Class.Validations;
 import com.onecricket.APICallingPackage.Interface.ResponseManager;
@@ -79,10 +80,12 @@ public class MyJoinedResultContestListActivity extends AppCompatActivity impleme
         binding.inclVsBck.tvContestTimer.setText(IntentTime);
 
         Glide.with(activity).load(Config.TEAMFLAGIMAGE +IntentT1Image)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                 .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                 .into(binding.inclVsBck.imTeam1);
         Glide.with(activity).load(Config.TEAMFLAGIMAGE +IntentT2Image)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                 .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                 .into(binding.inclVsBck.imTeam2);
 
 

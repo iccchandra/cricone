@@ -9,6 +9,7 @@ import android.os.Handler;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.onecricket.APICallingPackage.Config;
 import com.onecricket.R;
 import com.onecricket.utils.SessionManager;
@@ -93,14 +94,16 @@ public class ContestListActivity extends AppCompatActivity implements ResponseMa
             IntentTeamOneImg=getIntent().getStringExtra("TeamsOneImg");
             IntentTeamTwoImg=getIntent().getStringExtra("TeamsTwoImg");
 
-            Glide.with(activity).load(Config.TEAMFLAGIMAGE + IntentTeamOneImg)
+            Glide.with(this).load(Config.TEAMFLAGIMAGE + IntentTeamOneImg)
 
                     //.signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                     .into(binding.inclVsBck.imTeam1);
-            Glide.with(activity).load(Config.TEAMFLAGIMAGE + IntentTeamTwoImg)
+            Glide.with(this).load(Config.TEAMFLAGIMAGE + IntentTeamTwoImg)
                     //.signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                     .into(binding.inclVsBck.imTeam2);
 
         } catch (Exception e) {
@@ -515,5 +518,6 @@ public class ContestListActivity extends AppCompatActivity implements ResponseMa
         }
 
     }
-
+    public interface DataBindingComponent {
+    }
 }

@@ -256,4 +256,6 @@ public class EnterInviteCodeContestActivity extends AppCompatActivity implements
         binding.RLContestList.setVisibility(View.GONE);
 
     }
+    public interface DataBindingComponent {
+    }
 }

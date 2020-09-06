@@ -26,6 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.onecricket.APICallingPackage.Config;
 import com.onecricket.R;
 import com.onecricket.utils.SessionManager;
@@ -124,10 +126,14 @@ public class CreateTeamActivity extends AppCompatActivity implements ResponseMan
             binding.tvTeamTwoName.setText(ContestListActivity.IntentTeamTwoName);
 
             Glide.with(activity).load(Config.TEAMFLAGIMAGE + IntentTeamOneImg)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+
+                    .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                     .into(binding.inclVsBck.imTeam1);
             Glide.with(activity).load(Config.TEAMFLAGIMAGE + IntentTeamTwoImg)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+
+                    .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                     .into(binding.inclVsBck.imTeam2);
 
         } catch (Exception e) {
@@ -289,8 +295,8 @@ public class CreateTeamActivity extends AppCompatActivity implements ResponseMan
                                     TextView tv_GroundPlayerCredit = to_add.findViewById(R.id.tv_GroundPlayerCredit);
 
                                     Glide.with(activity).load(Config.PLAYERIMAGE + PlayerImage)
-                                            .crossFade()
-                                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                            .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                                             .into(im_GroundPlayerImage);
                                     tv_GroundPlayerName.setText(player_shortname);
                                     tv_GroundPlayerCredit.setText(PlayerCredit + " Cr");
@@ -304,8 +310,8 @@ public class CreateTeamActivity extends AppCompatActivity implements ResponseMan
                                     TextView tv_GroundPlayerName = to_add.findViewById(R.id.tv_GroundPlayerName);
                                     TextView tv_GroundPlayerCredit = to_add.findViewById(R.id.tv_GroundPlayerCredit);
                                     Glide.with(activity).load(Config.PLAYERIMAGE + PlayerImage)
-                                            .crossFade()
-                                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                            .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                                             .into(im_GroundPlayerImage);
                                     tv_GroundPlayerName.setText(player_shortname);
                                     tv_GroundPlayerCredit.setText(PlayerCredit + " Cr");
@@ -317,8 +323,10 @@ public class CreateTeamActivity extends AppCompatActivity implements ResponseMan
                                     TextView tv_GroundPlayerName = to_add.findViewById(R.id.tv_GroundPlayerName);
                                     TextView tv_GroundPlayerCredit = to_add.findViewById(R.id.tv_GroundPlayerCredit);
                                     Glide.with(activity).load(Config.PLAYERIMAGE + PlayerImage)
-                                            .crossFade()
-                                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                            .transition(new DrawableTransitionOptions()
+                                            .crossFade())
+                                            .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                                             .into(im_GroundPlayerImage);
                                     tv_GroundPlayerName.setText(player_shortname);
                                     tv_GroundPlayerCredit.setText(PlayerCredit + " Cr");
@@ -330,8 +338,10 @@ public class CreateTeamActivity extends AppCompatActivity implements ResponseMan
                                     TextView tv_GroundPlayerName = to_add.findViewById(R.id.tv_GroundPlayerName);
                                     TextView tv_GroundPlayerCredit = to_add.findViewById(R.id.tv_GroundPlayerCredit);
                                     Glide.with(activity).load(Config.PLAYERIMAGE + PlayerImage)
-                                            .crossFade()
-                                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                            .transition(new DrawableTransitionOptions()
+                                                    .crossFade())
+                                            .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                                             .into(im_GroundPlayerImage);
                                     tv_GroundPlayerName.setText(player_shortname);
                                     tv_GroundPlayerCredit.setText(PlayerCredit + " Cr");
@@ -548,8 +558,10 @@ public class CreateTeamActivity extends AppCompatActivity implements ResponseMan
                 tv_InfoPoints.setText("" + total_points);
 
                 Glide.with(activity).load(InfoPlayerImage)
-                        .crossFade()
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .transition(new DrawableTransitionOptions()
+                                .crossFade())
+                        .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                         .into(im_InfoPlayerImage);
 
 
@@ -788,8 +800,10 @@ public class CreateTeamActivity extends AppCompatActivity implements ResponseMan
 
 
                 Glide.with(activity).load(Config.PLAYERIMAGE + PlayerImage)
-                        .crossFade()
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .transition(new DrawableTransitionOptions()
+                                .crossFade())
+                        .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                         .into(holder.im_PlayerImage);
 
 
@@ -1397,6 +1411,8 @@ class MyComparator implements Comparator<BeanDBTeam> {
             return -1;
 
 
+    }
+    public interface DataBindingComponent {
     }
 }
 

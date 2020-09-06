@@ -156,5 +156,8 @@ public class CreateContestActivity extends AppCompatActivity implements Response
     @Override
     public void onError(Context mContext, String type, String message) {
 
+
+    }
+    public interface DataBindingComponent {
     }
 }

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.onecricket.databinding.ActivityMyResultContestDetailsBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -75,10 +77,14 @@ public class MyResultContestDetailsActivity extends AppCompatActivity implements
         binding.inclVsBck.tvHeadTeamOneName.setText(MyJoinedResultContestListActivity.IntentTeamOneName);
         binding.inclVsBck.tvHeadTeamTwoName.setText(MyJoinedResultContestListActivity.IntentTeamTwoName);
         Glide.with(activity).load(Config.TEAMFLAGIMAGE +MyJoinedResultContestListActivity.IntentT1Image)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+
+                .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                 .into(binding.inclVsBck.imTeam1);
         Glide.with(activity).load(Config.TEAMFLAGIMAGE +MyJoinedResultContestListActivity.IntentT2Image)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+
+                .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                 .into(binding.inclVsBck.imTeam2);
 
         responseManager = this;
@@ -378,9 +384,12 @@ public class MyResultContestDetailsActivity extends AppCompatActivity implements
             holder.tv_LeaderboardPlayerPoints.setText(Points+" Points");
 
             Glide.with(activity).load(Config.ProfileIMAGEBASEURL+Image)
-                    .crossFade()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .error(R.drawable.bats_icon_hvr).placeholder(R.drawable.bats_icon_hvr)
+                    .transition(new DrawableTransitionOptions()
+                            .crossFade())
+                    .apply(new RequestOptions()
+                             .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
+                    .error(R.drawable.bats_icon_hvr).placeholder(R.drawable.bats_icon_hvr))
                     .into(holder.im_LeaderboardPlayerAvtar);
 
 
@@ -476,8 +485,10 @@ public class MyResultContestDetailsActivity extends AppCompatActivity implements
                         TextView tv_CorVC = to_add.findViewById(R.id.tv_CorVC);
 
                         Glide.with(activity).load(Config.PLAYERIMAGE + PlayerImage)
-                                .crossFade()
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .transition(new DrawableTransitionOptions()
+                                        .crossFade())
+                                .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                                 .into(im_GroundPlayerImage);
                         tv_GroundPlayerName.setText(player_shortname);
                         tv_GroundPlayerCredit.setText(PlayerPoint + " Pt");
@@ -500,8 +511,10 @@ public class MyResultContestDetailsActivity extends AppCompatActivity implements
                         TextView tv_GroundPlayerCredit = to_add.findViewById(R.id.tv_GroundPlayerCredit);
                         TextView tv_CorVC = to_add.findViewById(R.id.tv_CorVC);
                         Glide.with(activity).load(Config.PLAYERIMAGE + PlayerImage)
-                                .crossFade()
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .transition(new DrawableTransitionOptions()
+                                        .crossFade())
+                                .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                                 .into(im_GroundPlayerImage);
                         tv_GroundPlayerName.setText(player_shortname);
                         tv_GroundPlayerCredit.setText(PlayerPoint + " Pt");
@@ -522,8 +535,10 @@ public class MyResultContestDetailsActivity extends AppCompatActivity implements
                         TextView tv_GroundPlayerCredit = to_add.findViewById(R.id.tv_GroundPlayerCredit);
                         TextView tv_CorVC = to_add.findViewById(R.id.tv_CorVC);
                         Glide.with(activity).load(Config.PLAYERIMAGE + PlayerImage)
-                                .crossFade()
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .transition(new DrawableTransitionOptions()
+                                        .crossFade())
+                                .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                                 .into(im_GroundPlayerImage);
                         tv_GroundPlayerName.setText(player_shortname);
                         tv_GroundPlayerCredit.setText(PlayerPoint + " Pt");
@@ -544,8 +559,10 @@ public class MyResultContestDetailsActivity extends AppCompatActivity implements
                         TextView tv_GroundPlayerCredit = to_add.findViewById(R.id.tv_GroundPlayerCredit);
                         TextView tv_CorVC = to_add.findViewById(R.id.tv_CorVC);
                         Glide.with(activity).load(Config.PLAYERIMAGE + PlayerImage)
-                                .crossFade()
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .transition(new DrawableTransitionOptions()
+                                        .crossFade())
+                                .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                                 .into(im_GroundPlayerImage);
                         tv_GroundPlayerName.setText(player_shortname);
                         tv_GroundPlayerCredit.setText(PlayerPoint + " Pt");
@@ -567,5 +584,7 @@ public class MyResultContestDetailsActivity extends AppCompatActivity implements
         }
 
 
+    }
+    public interface DataBindingComponent {
     }
 }

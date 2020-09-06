@@ -26,6 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.onecricket.APICallingPackage.Class.APIRequestManager;
 import com.onecricket.APICallingPackage.Class.Validations;
 import com.onecricket.APICallingPackage.Config;
@@ -399,8 +401,11 @@ public class ChooseCandVCActivity extends AppCompatActivity implements ResponseM
                 holder.tv_PlayerPoints.setText(PlayerPoints);
                 holder.tv_PlayerTeamName.setText(TeamShortName);
                 Glide.with(activity).load(Config.PLAYERIMAGE + PlayerImage)
-                        .crossFade()
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                       .transition(new DrawableTransitionOptions()
+                                            .crossFade())
+                                            .apply(new RequestOptions()
+
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                         .into(holder.im_PlayerImage);
 
 

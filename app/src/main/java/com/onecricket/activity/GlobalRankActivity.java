@@ -198,4 +198,6 @@ public class GlobalRankActivity extends AppCompatActivity implements ResponseMan
         }
 
     }
+    public interface DataBindingComponent {
+    }
 }

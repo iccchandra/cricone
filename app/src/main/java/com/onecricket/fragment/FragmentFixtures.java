@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.onecricket.Bean.BeanBanner;
 import com.onecricket.Bean.BeanHomeMatches;
 import com.onecricket.adapter.AdapterHomeBanner;
@@ -374,10 +375,12 @@ public class FragmentFixtures extends Fragment implements ResponseManager {
             holder.tv_TeamTwoName.setText(team_short_name2.trim());
             holder.tv_TeamsName.setText(type);
             Glide.with(getActivity()).load(Config.TEAMFLAGIMAGE + team_image1)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                     .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                     .into(holder.im_Team1);
             Glide.with(getActivity()).load(Config.TEAMFLAGIMAGE + team_image2)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                     .apply(new RequestOptions()
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
                     .into(holder.im_Team2);
 
             if (match_status.equals("Fixture")) {

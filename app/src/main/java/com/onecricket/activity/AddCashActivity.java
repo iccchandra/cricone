@@ -247,4 +247,6 @@ public class AddCashActivity extends AppCompatActivity implements ResponseManage
         }
 
     }
+    public interface DataBindingComponent {
+    }
 }

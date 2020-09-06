@@ -361,4 +361,7 @@ public class ForgotVerifyOTPActivity extends AppCompatActivity implements Respon
         Intent i = new Intent(activity,LoginActivity.class);
         startActivity(i);
     }
+    public interface DataBindingComponent {
+    }
 }
+

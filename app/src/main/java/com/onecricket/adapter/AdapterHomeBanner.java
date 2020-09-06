@@ -10,7 +10,11 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.TransitionOptions;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
+import com.joooonho.SelectableRoundedImageView;
 import com.onecricket.APICallingPackage.Config;
 import com.onecricket.Bean.BeanBanner;
 import com.onecricket.R;
@@ -43,14 +47,18 @@ public class AdapterHomeBanner extends PagerAdapter {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.slider_banner, null);
 
-        ImageView imageView = view.findViewById(R.id.im_banner);
+        SelectableRoundedImageView imageView = (SelectableRoundedImageView)view.findViewById(R.id.im_banner);
 
         String Imagename = mListenerList.get(position).getBanner_image();
         final String Type = mListenerList.get(position).getType();
 
-        Glide.with(context).load(Config.BANNERIMAGE+Imagename)
-                .crossFade()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+        Glide.with(context).asBitmap().load(Config.BANNERIMAGE+Imagename)
+
+
+                                            .apply(new RequestOptions()
+
+                                            .diskCacheStrategy(DiskCacheStrategy.ALL))
+
                 .into(imageView);
 
         ViewPager vp = (ViewPager) container;

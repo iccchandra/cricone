@@ -23,7 +23,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setLogo(R.mipmap.ic_launcher);
             toolbar.setTitleTextColor(ContextCompat.getColor(this,
-                    R.color.wallet_bright_foreground_disabled_holo_light));
+                    R.color.active_yellow));
         }
     }
 

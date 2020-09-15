@@ -145,9 +145,9 @@ public class MyJoinedFixtureContestListActivity extends AppCompatActivity implem
     private void callMyJoinedContestList(boolean isShowLoader) {
         try {
 
-            apiRequestManager.callAPI(MYJOINCONTESTLIST,
+            apiRequestManager.callAPIWithAuthorization(MYJOINCONTESTLIST,
                     createRequestJson(), context, activity, MYJOINCONTESTLISTTYPE,
-                    isShowLoader,responseManager);
+                    isShowLoader,responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -170,9 +170,9 @@ public class MyJoinedFixtureContestListActivity extends AppCompatActivity implem
     private void callWinningInfoList(boolean isShowLoader) {
         try {
 
-            apiRequestManager.callAPI(WINNINGINFOLIST,
+            apiRequestManager.callAPIWithAuthorization(WINNINGINFOLIST,
                     createRequestJsonWin(), context, activity, WINNINGINFOLISTTYPE,
-                    isShowLoader,responseManager);
+                    isShowLoader,responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -99,4 +99,49 @@
     <string name="my_matches">My Matches</string>
     <string name="upcoming_matches">Upcoming Matches</string>
 
+
+    <string name="ek_img_content">ExportKit Image</string>
+    <string name="__06h___13m___35s_string"> 06H : 13M : 35S</string>
+    <string name="___time_string">9:41</string>
+    <string name="credit_left_string">Credit left</string>
+    <string name="_46_5_100_string">46.5/100</string>
+    <string name="ind_string">IND</string>
+    <string name="nz_string">NZ</string>
+    <string name="_3_string">3</string>
+    <string name="_3_ek1_string">3</string>
+    <string name="_1_string">1</string>
+    <string name="_0_string">0</string>
+    <string name="_0_ek1_string">0</string>
+    <string name="pick_2_4_defenders_string">Pick 2-4 Defenders</string>
+    <string name="players_string">Players</string>
+    <string name="points_string">Points</string>
+    <string name="credits_string">Credits</string>
+    <string name="rr_wk_string">RR-WK</string>
+    <string name="j_buttler_string">J Buttler</string>
+    <string name="_138_5_string">138.5</string>
+    <string name="_10_5_string">10.5</string>
+    <string name="csk_wk_string">CSK-WK</string>
+    <string name="m_dhoni_string">M Dhoni</string>
+    <string name="_138_5_ek1_string">138.5</string>
+    <string name="_10_5_ek1_string">10.5</string>
+    <string name="csk_wk_ek1_string">CSK-WK</string>
+    <string name="n_jagadeesan_string">N jagadeesan</string>
+    <string name="_138_5_ek2_string">138.5</string>
+    <string name="_10_5_ek2_string">10.5</string>
+    <string name="continue_string">Continue</string>
+    <string name="max_5_players_from_a_team_string">Max 5 players from a team</string>
+
+    <string name="inprogress">In Progress</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="no_data">No Data available</string>
+    <string name="completed">Completed</string>
+
+    <string name="collapsed">collapsed: %s</string>
+    <string name="expanded">expanded: %s</string>
+    <string name="action_settings">Settings</string>
+    <string name="return_amount">To Return Rs. </string>
+    <string name="label_submit">Submit</string>
+    <string name="label_cancel">Cancel</string>
+
+
 </resources>

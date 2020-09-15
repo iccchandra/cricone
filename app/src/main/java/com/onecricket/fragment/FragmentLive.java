@@ -31,6 +31,7 @@ import com.onecricket.APICallingPackage.Config;
 import com.onecricket.activity.HomeActivity;
 import com.onecricket.activity.MyJoinedLiveContestListActivity;
 import com.onecricket.R;
+import com.onecricket.utils.SessionManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,21 +71,13 @@ public class FragmentLive extends Fragment implements ResponseManager {
 
 
 
-        binding.swipeRefreshLayout.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        binding.swipeRefreshLayout.setRefreshing(true);
-                                        callHomeLive(false);
-                                    }
-                                }
+        binding.swipeRefreshLayout.post(() -> {
+            binding.swipeRefreshLayout.setRefreshing(true);
+            callHomeLive(false);
+        }
         );
 
-        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                callHomeLive(false);
-            }
-        });
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> callHomeLive(false));
 
         return binding.getRoot();
     }
@@ -92,11 +85,13 @@ public class FragmentLive extends Fragment implements ResponseManager {
 
 
     private void callHomeLive(boolean isShowLoader) {
+
+        SessionManager sessionManager = new SessionManager();
         try {
 
-            apiRequestManager.callAPI(HOMEFIXTURES,
+            apiRequestManager.callAPIWithAuthorization(HOMEFIXTURES,
                     createRequestJson(), context, activity, LIVEHOMETYPE,
-                    isShowLoader,responseManager);
+                    isShowLoader,responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

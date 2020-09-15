@@ -121,9 +121,9 @@ public class EnterInviteCodeContestActivity extends AppCompatActivity implements
     private void callWinningInfoList(boolean isShowLoader) {
         try {
 
-            apiRequestManager.callAPI(WINNINGINFOLIST,
+            apiRequestManager.callAPIWithAuthorization(WINNINGINFOLIST,
                     createRequestJsonWin(), context, activity, WINNINGINFOLISTTYPE,
-                    isShowLoader,responseManager);
+                    isShowLoader,responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -144,9 +144,9 @@ public class EnterInviteCodeContestActivity extends AppCompatActivity implements
 
     private void callLoadContest(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPI(CREATEOWNCONTESTLIST,
+            apiRequestManager.callAPIWithAuthorization(CREATEOWNCONTESTLIST,
                     createRequestJson2(), context, activity, CREATEOWNCONTESTLISTTYPE,
-                    isShowLoader,responseManager);
+                    isShowLoader,responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -111,9 +111,9 @@ public class PaymentConfirmationActivity extends AppCompatActivity implements Re
     }
     private void callMyAccountDetails(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPI(MYACCOUNT,
+            apiRequestManager.callAPIWithAuthorization(MYACCOUNT,
                     createRequestJsonWin(), context, activity, MYACCOUNTTYPE,
-                    isShowLoader,responseManager);
+                    isShowLoader,responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -134,9 +134,9 @@ public class PaymentConfirmationActivity extends AppCompatActivity implements Re
 
     private void callJoinContest(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPI(JOINCONTEST,
+            apiRequestManager.callAPIWithAuthorization(JOINCONTEST,
                     createRequestJsonJoin(), context, activity, JOINCONTESTTYPE,
-                    isShowLoader,responseManager);
+                    isShowLoader,responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -247,9 +247,9 @@ public class PaytmActivity extends AppCompatActivity implements PaytmPaymentTran
 
     private void callAddAmount(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPI(ADDAMOUNT,
+            apiRequestManager.callAPIWithAuthorization(ADDAMOUNT,
                     createRequestJson(), context, activity, ADDAMOUNTTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
         } catch (JSONException e) {
             e.printStackTrace();
         }

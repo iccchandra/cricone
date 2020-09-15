@@ -95,9 +95,9 @@ public class MyTransactionActivity extends AppCompatActivity implements Response
 
     private void callTransactionList(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPI(MYTRANSACTIONLIST,
+            apiRequestManager.callAPIWithAuthorization(MYTRANSACTIONLIST,
                     createRequestJson(), context, activity, MYTRANSACTIONTYPE,
-                    isShowLoader,responseManager);
+                    isShowLoader,responseManager, sessionManager.getUser(context).getToken());
         } catch (JSONException e) {
             e.printStackTrace();
         }

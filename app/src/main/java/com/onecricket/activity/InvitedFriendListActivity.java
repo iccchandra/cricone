@@ -93,9 +93,9 @@ public class InvitedFriendListActivity extends AppCompatActivity implements Resp
 
     private void callFriendsList(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPI(INVITEDFRIENDSLIST,
+            apiRequestManager.callAPIWithAuthorization(INVITEDFRIENDSLIST,
                     createRequestJson(), context, activity, INVITEDFRIENDSLISTTYPE,
-                    isShowLoader,responseManager);
+                    isShowLoader,responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

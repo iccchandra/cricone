@@ -46,7 +46,7 @@ public class VolleyApiCalling extends Activity implements VolleyRestClient {
     public void callRestApi(String url, final JSONObject jsonObject, final Context mContext,
                             final Activity activity, final String type,
                             final ServerResponseListner serverResponseListner,
-                            final boolean isShowProgress) {
+                            final boolean isShowProgress, final String authorization) {
 
         Log.e(String.valueOf(activity),"URL:>>>> "+url );
         Log.e(String.valueOf(activity),"Request:>>>> "+jsonObject);
@@ -139,8 +139,13 @@ public class VolleyApiCalling extends Activity implements VolleyRestClient {
 
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
-                    Map<String, String> headers = new HashMap<String, String>();
-                    headers.put("Authentication", Authentication);
+                    Map<String, String> headers = new HashMap<>();
+                    if (authorization != null && authorization.length() > 0) {
+                        headers.put("Authorization", authorization);
+                    }
+                    else {
+                        headers.put("Authentication", Authentication);
+                    }
                     return headers;
                 }
 

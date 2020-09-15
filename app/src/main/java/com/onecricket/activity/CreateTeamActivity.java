@@ -449,9 +449,9 @@ public class CreateTeamActivity extends AppCompatActivity implements ResponseMan
 
     private void callPlayerList(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPI(PLAYERLIST,
+            apiRequestManager.callAPIWithAuthorization(PLAYERLIST,
                     createRequestJson(), context, activity, PLAYERLISTTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -477,9 +477,9 @@ public class CreateTeamActivity extends AppCompatActivity implements ResponseMan
     private void callPlayerInfo(boolean isShowLoader) {
         try {
 
-            apiRequestManager.callAPI(PLAYERINFO,
+            apiRequestManager.callAPIWithAuthorization(PLAYERINFO,
                     createRequestJsonInfo(), context, activity, PLAYERINFOTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

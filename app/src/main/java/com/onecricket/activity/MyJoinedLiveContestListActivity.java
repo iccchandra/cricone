@@ -136,9 +136,9 @@ public class MyJoinedLiveContestListActivity extends AppCompatActivity implement
     private void callMyJoinedContestList(boolean isShowLoader) {
         try {
 
-            apiRequestManager.callAPI(MYJOINLIVECONTESTLIST,
+            apiRequestManager.callAPIWithAuthorization(MYJOINLIVECONTESTLIST,
                     createRequestJson(), context, activity, MYJOINLIVECONTESTLISTTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

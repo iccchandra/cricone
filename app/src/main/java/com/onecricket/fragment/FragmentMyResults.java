@@ -75,22 +75,13 @@ public class FragmentMyResults extends Fragment implements ResponseManager {
         binding.RvMyResult.setItemAnimator(new DefaultItemAnimator());
 
 
-        binding.swipeRefreshLayout.post(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                binding.swipeRefreshLayout.setRefreshing(true);
-                                                callMyResult(false);
-                                            }
-                                        }
+        binding.swipeRefreshLayout.post(() -> {
+            binding.swipeRefreshLayout.setRefreshing(true);
+            callMyResult(false);
+        }
         );
 
-        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-                callMyResult(false);
-            }
-        });
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> callMyResult(false));
 
 
         return binding.getRoot();
@@ -100,9 +91,9 @@ public class FragmentMyResults extends Fragment implements ResponseManager {
     private void callMyResult(boolean isShowLoader) {
         try {
 
-            apiRequestManager.callAPI(MYFIXTURES,
+            apiRequestManager.callAPIWithAuthorization(MYFIXTURES,
                     createRequestJson(), context, activity, MYRESULTTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

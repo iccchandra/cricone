@@ -204,9 +204,9 @@ public class ChooseCandVCActivity extends AppCompatActivity implements ResponseM
     private void callSaveTeam(boolean isShowLoader) {
         try {
 
-            apiRequestManager.callAPI(SAVETEAM,
+            apiRequestManager.callAPIWithAuthorization(SAVETEAM,
                     createRequestJson(), context, activity, SAVETEAMTYPE,
-                    isShowLoader,responseManager);
+                    isShowLoader,responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

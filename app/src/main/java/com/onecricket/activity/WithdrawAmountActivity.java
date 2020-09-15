@@ -97,9 +97,9 @@ public class WithdrawAmountActivity extends AppCompatActivity implements Respons
 
     private void callLoadAccountData(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPI(WITHDRAWAMOUNTUSERDATA,
+            apiRequestManager.callAPIWithAuthorization(WITHDRAWAMOUNTUSERDATA,
                     createRequestJson(), context, activity, WITHDRAWAMOUNTUSERDATATYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -121,9 +121,9 @@ public class WithdrawAmountActivity extends AppCompatActivity implements Respons
     private void callSubmitWithdrawlRequest(boolean isShowLoader) {
         try {
 
-            apiRequestManager.callAPI(WITHDRAWLREQUEST,
+            apiRequestManager.callAPIWithAuthorization(WITHDRAWLREQUEST,
                     createWithdrawlRequestJson(), context, activity, SUBMITWITHDRAWLREQUESTTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -191,17 +191,9 @@ public class WithdrawAmountActivity extends AppCompatActivity implements Respons
     public void ConfirmationDialog(String Amount) {
         AlertDialog.Builder ab = new AlertDialog.Builder(activity);
         ab.setMessage("Confirm your withdrawl request of ₹" + Amount + " ?");
-        ab.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                callSubmitWithdrawlRequest(true);
-            }
-        });
+        ab.setPositiveButton("Confirm", (dialog, id) -> callSubmitWithdrawlRequest(true));
 
-        ab.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
+        ab.setNegativeButton("Cancel", (dialog, id) -> dialog.cancel());
         AlertDialog alert = ab.create();
         alert.show();
 

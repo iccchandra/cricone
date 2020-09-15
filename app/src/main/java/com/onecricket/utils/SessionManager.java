@@ -38,7 +38,7 @@ public class SessionManager {
             String userJSONString = new Gson().toJson(user);
             prefsEditor.putString("users", userJSONString);
         }
-        prefsEditor.commit();
+        prefsEditor.apply();
     }
 
     public void setImage(Context mContext, String user) {

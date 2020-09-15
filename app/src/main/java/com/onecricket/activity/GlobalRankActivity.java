@@ -96,9 +96,9 @@ public class GlobalRankActivity extends AppCompatActivity implements ResponseMan
 
     private void callGlobalRanking(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPI(GLOBALRANKINGLIST,
+            apiRequestManager.callAPIWithAuthorization(GLOBALRANKINGLIST,
                     createRequestJson(), context, activity, GLOBALRANKINGTYPE,
-                    isShowLoader,responseManager);
+                    isShowLoader,responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -213,9 +213,9 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private void callCheckUpdateVersion(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPI(UPDATEAPP,
+            apiRequestManager.callAPIWithAuthorization(UPDATEAPP,
                     createRequestJson(), context, activity, UPDATEAPPTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -391,27 +391,22 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder ab = new AlertDialog.Builder(activity);
-        ab.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
+
+        if (binding.tabs.getSelectedTabPosition() == 1) {
+            binding.tabs.selectTab(binding.tabs.getTabAt(0), true);
+        }
+        else {
+            AlertDialog.Builder ab = new AlertDialog.Builder(activity);
+            ab.setPositiveButton("Exit", (dialog, id) -> {
                 finishAffinity();
                 finish();
-            }
-        });
-        ab.setNeutralButton("Logout", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                Logout();
-
-            }
-        });
-        ab.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-        AlertDialog alert = ab.create();
-        alert.setMessage("Do you want to Logout/Exit?");
-        alert.show();
+            });
+            ab.setNeutralButton("Logout", (dialog, id) -> Logout());
+            ab.setNegativeButton("Cancel", (dialog, id) -> dialog.cancel());
+            AlertDialog alert = ab.create();
+            alert.setMessage("Do you want to Logout/Exit?");
+            alert.show();
+        }
 
     }
 
@@ -523,13 +518,13 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
     public void callTab() {
         try {
             binding.tabs.getTabAt(1).select();
-        }
-        catch (Exception e){
-        e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
     public interface DataBindingComponent {
     }
-    }
+}
 
 

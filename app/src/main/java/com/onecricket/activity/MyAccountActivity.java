@@ -114,9 +114,9 @@ public class MyAccountActivity extends AppCompatActivity implements ResponseMana
 
     private void callMyAccount(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPI(MYACCOUNT,
+            apiRequestManager.callAPIWithAuthorization(MYACCOUNT,
                     createRequestJson(), context, activity, MYACCOUNTTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager,sessionManager.getUser(context).getToken());
         } catch (JSONException e) {
             e.printStackTrace();
         }

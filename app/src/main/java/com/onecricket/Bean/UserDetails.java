@@ -16,6 +16,8 @@ public class UserDetails {
     private String state;
     private String address;
     private String image;
+    private String token;
+
     public String getImage() {
         return image;
     }
@@ -120,4 +122,11 @@ public class UserDetails {
         this.address = address;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 }

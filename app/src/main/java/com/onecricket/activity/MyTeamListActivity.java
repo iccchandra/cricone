@@ -160,9 +160,9 @@ public class MyTeamListActivity extends AppCompatActivity implements ResponseMan
     private void callMyTeamList(boolean isShowLoader) {
         try {
 
-            apiRequestManager.callAPI(MYTEAMLIST,
+            apiRequestManager.callAPIWithAuthorization(MYTEAMLIST,
                     createRequestJson(), context, activity, MYTEAMLISTTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -186,9 +186,9 @@ public class MyTeamListActivity extends AppCompatActivity implements ResponseMan
 
         try {
 
-            apiRequestManager.callAPI(PLAYERLIST,
+            apiRequestManager.callAPIWithAuthorization(PLAYERLIST,
                     createRequestJson1(), context, activity, PLAYERLISTTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

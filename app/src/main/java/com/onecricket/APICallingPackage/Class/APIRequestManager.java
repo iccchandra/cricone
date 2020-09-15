@@ -31,7 +31,21 @@ public class APIRequestManager implements ServerResponseListner {
         this.responseManager = responseManager;
         volleyRestClient = new VolleyApiCalling();
         volleyRestClient.callRestApi(url, jsonObject, mContext, activity, type,
-                this, isShowProgress);
+                this, isShowProgress, "");
+
+    }
+
+    public void callAPIWithAuthorization(String url,
+                                         JSONObject jsonObject,
+                                         Context mContext,
+                                         Activity activity,
+                                         String type,
+                                         boolean isShowProgress,
+                                         ResponseManager responseManager,
+                                         String authorization) throws JSONException {
+        this.responseManager = responseManager;
+        volleyRestClient = new VolleyApiCalling();
+        volleyRestClient.callRestApi(url, jsonObject, mContext, activity, type, this, isShowProgress, authorization);
 
     }
 

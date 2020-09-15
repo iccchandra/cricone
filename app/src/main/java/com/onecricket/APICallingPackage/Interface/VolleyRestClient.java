@@ -16,7 +16,8 @@ public interface VolleyRestClient
 
     public void callRestApi(String url, JSONObject jsonObject, Context mContext, Activity activity,
                             String type, ServerResponseListner serverResponseListner,
-                            boolean isShowProgress);
+                            boolean isShowProgress, String authorization);
+
 
     public void calluploadImageApi(Context mContext, String url, File imagefile, String sessionKey,
                                    String section,

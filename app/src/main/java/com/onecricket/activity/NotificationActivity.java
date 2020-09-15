@@ -95,9 +95,9 @@ public class NotificationActivity extends AppCompatActivity implements ResponseM
 
     private void callNotificationList(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPI(NOTIFICATIONLIST,
+            apiRequestManager.callAPIWithAuthorization(NOTIFICATIONLIST,
                     createRequestJson(), context, activity, NOTIFICATIONTYPE,
-                    isShowLoader,responseManager);
+                    isShowLoader,responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

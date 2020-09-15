@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -72,7 +73,7 @@ public class FragmentFixtures extends Fragment implements ResponseManager {
     private int dotscount1;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentFixturesBinding.inflate(inflater, container, false);
         context = activity = (HomeActivity) getActivity();
         responseManager = this;
@@ -113,9 +114,9 @@ public class FragmentFixtures extends Fragment implements ResponseManager {
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("user_id", sessionManager.getUser(context).getUser_id());
-            apiRequestManager.callAPI(MYMATCHRECORD,
+            apiRequestManager.callAPIWithAuthorization(MYMATCHRECORD,
                     jsonObject, context, activity, MYMATCHRECORDTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -126,9 +127,9 @@ public class FragmentFixtures extends Fragment implements ResponseManager {
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("user_id", sessionManager.getUser(context).getUser_id());
-            apiRequestManager.callAPI(HOMEBANNER,
+            apiRequestManager.callAPIWithAuthorization(HOMEBANNER,
                     jsonObject, getActivity(), getActivity(), HOMEBANNERTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

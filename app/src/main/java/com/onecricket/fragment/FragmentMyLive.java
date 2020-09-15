@@ -105,9 +105,9 @@ public class FragmentMyLive extends Fragment implements ResponseManager {
     private void callMyLive(boolean isShowLoader) {
         try {
 
-            apiRequestManager.callAPI(MYFIXTURES,
+            apiRequestManager.callAPIWithAuthorization(MYFIXTURES,
                     createRequestJson(), context, activity, MYLIVETYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

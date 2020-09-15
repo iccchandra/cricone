@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -44,6 +45,7 @@ import java.util.Map;
 
 import static com.onecricket.APICallingPackage.Class.Validations.ShowToast;
 import static com.onecricket.APICallingPackage.Config.ADDAMOUNT;
+import static com.onecricket.APICallingPackage.Config.Authentication;
 import static com.onecricket.APICallingPackage.Config.JOINCONTEST;
 import static com.onecricket.APICallingPackage.Config.MYACCOUNT;
 import static com.onecricket.APICallingPackage.Constants.ADDAMOUNTTYPE;
@@ -169,9 +171,9 @@ public class CashfreeActivity extends AppCompatActivity implements ResponseManag
     private void callMyAccountDetails(boolean isShowLoader) {
 
         try {
-            apiRequestManager.callAPI(MYACCOUNT,
+            apiRequestManager.callAPIWithAuthorization(MYACCOUNT,
                     createRequestJsonWin(), context, activity, MYACCOUNTTYPE,
-                    isShowLoader,responseManager);
+                    isShowLoader,responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -193,9 +195,9 @@ public class CashfreeActivity extends AppCompatActivity implements ResponseManag
 
     private void callAddAmount(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPI(ADDAMOUNT,
+            apiRequestManager.callAPIWithAuthorization(ADDAMOUNT,
                     createRequestJson(), context, activity, ADDAMOUNTTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -216,9 +218,9 @@ public class CashfreeActivity extends AppCompatActivity implements ResponseManag
 
     private void callJoinContest(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPI(JOINCONTEST,
+            apiRequestManager.callAPIWithAuthorization(JOINCONTEST,
                     createRequestJsonJoin(), context, activity, JOINCONTESTTYPE,
-                    isShowLoader,responseManager);
+                    isShowLoader,responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -556,6 +558,13 @@ public class CashfreeActivity extends AppCompatActivity implements ResponseManag
                 Log.e("params",params.toString());
                 System.out.print("params......"+params);
                 return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", sessionManager.getUser(context).getToken());
+                return headers;
             }
         };
         RequestQueue requestQueue = Volley.newRequestQueue(CashfreeActivity.this);

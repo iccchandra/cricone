@@ -109,9 +109,9 @@ public class SelectPrizeCreateActivity extends AppCompatActivity implements Resp
 
     private void callRankList(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPI(CREATECONTESTRANK,
+            apiRequestManager.callAPIWithAuthorization(CREATECONTESTRANK,
                     createRequestJson1(), context, activity, RANKLISTTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -131,9 +131,9 @@ public class SelectPrizeCreateActivity extends AppCompatActivity implements Resp
 
     private void callCreateContest(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPI(CREATEOWNCONTEST,
+            apiRequestManager.callAPIWithAuthorization(CREATEOWNCONTEST,
                     createRequestJson2(), context, activity, CREATEOWNCONTESTTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

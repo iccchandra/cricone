@@ -140,9 +140,9 @@ public class MyJoinedResultContestListActivity extends AppCompatActivity impleme
     private void callMyJoinedContestList(boolean isShowLoader) {
         try {
 
-            apiRequestManager.callAPI(MYJOINRESULTCONTESTLIST,
+            apiRequestManager.callAPIWithAuthorization(MYJOINRESULTCONTESTLIST,
                     createRequestJson(), context, activity, MYJOINRESULTCONTESTLISTTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -26,6 +26,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.bumptech.glide.Glide;
 import com.onecricket.databinding.FragmentProfileBinding;
@@ -121,12 +123,7 @@ public class ProfileFragment extends Fragment implements ResponseManager {
             }
         });
 
-        binding.tvProfileLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Logout();
-            }
-        });
+        binding.tvProfileLogout.setOnClickListener(view -> Logout());
         binding.tvProfileYourMail.setText(HomeActivity.sessionManager.getUser(getContext()).getEmail() + "");
         String UserEmail = HomeActivity.sessionManager.getUser(getContext()).getEmail();
         String Imageurl = HomeActivity.sessionManager.getUser(getContext()).getImage();
@@ -134,7 +131,6 @@ public class ProfileFragment extends Fragment implements ResponseManager {
         if (TextUtils.isEmpty(Imageurl) || Imageurl.equals("")) {
 
         } else {
-
             Glide.with(getActivity()).load(Config.ProfileIMAGEBASEURL + Imageurl)
                     .into(binding.imProfilepic);
         }
@@ -145,42 +141,27 @@ public class ProfileFragment extends Fragment implements ResponseManager {
         }
 
 
-        binding.tvProfileAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        binding.tvProfileAccount.setOnClickListener(view -> {
 
-                Intent i = new Intent(getActivity(), MyAccountActivity.class);
-                startActivity(i);
-            }
+            Intent i = new Intent(getActivity(), MyAccountActivity.class);
+            startActivity(i);
         });
 
-        binding.tvProfileAddBalance.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), AddCashActivity.class);
-                startActivity(i);
-            }
+        binding.tvProfileAddBalance.setOnClickListener(view -> {
+            Intent i = new Intent(getActivity(), AddCashActivity.class);
+            startActivity(i);
         });
-        binding.tvProfileView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), EditProfileActivity.class);
-                startActivity(i);
-            }
+        binding.tvProfileView.setOnClickListener(view -> {
+            Intent i = new Intent(getActivity(), EditProfileActivity.class);
+            startActivity(i);
         });
-        binding.tvInviteFriends.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), InviteFriendsActivity.class);
-                startActivity(i);
-            }
+        binding.tvInviteFriends.setOnClickListener(view -> {
+            Intent i = new Intent(getActivity(), InviteFriendsActivity.class);
+            startActivity(i);
         });
-        binding.tvMyFriendsList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), InvitedFriendListActivity.class);
-                startActivity(i);
-            }
+        binding.tvMyFriendsList.setOnClickListener(view -> {
+            Intent i = new Intent(getActivity(), InvitedFriendListActivity.class);
+            startActivity(i);
         });
         binding.LLGlobalRanking.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,14 +170,11 @@ public class ProfileFragment extends Fragment implements ResponseManager {
                 startActivity(i);
             }
         });
-        binding.imProfilepic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Build.VERSION.SDK_INT >= 23) {
-                    checkPermissions();
-                } else {
-                    ChooseImageDialog();
-                }
+        binding.imProfilepic.setOnClickListener(view -> {
+            if (Build.VERSION.SDK_INT >= 23) {
+                checkPermissions();
+            } else {
+                ChooseImageDialog();
             }
         });
 
@@ -317,9 +295,9 @@ public class ProfileFragment extends Fragment implements ResponseManager {
 
     private void callMyAccountDetails(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPI(MYACCOUNT,
+            apiRequestManager.callAPIWithAuthorization(MYACCOUNT,
                     createRequestJsonWin(), context, activity, MYACCOUNTTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -339,9 +317,9 @@ public class ProfileFragment extends Fragment implements ResponseManager {
 
     private void callMyHistory(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPI(MYPLAYINGHISTORY,
+            apiRequestManager.callAPIWithAuthorization(MYPLAYINGHISTORY,
                     createRequestJsonHistory(), context, activity, MYPLAYINGHISTORYTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -461,5 +439,24 @@ public class ProfileFragment extends Fragment implements ResponseManager {
         Intent i = new Intent(getActivity(), MainActivity.class);
         startActivity(i);
 
+    }
+
+    private void showCoinsConversionAlert(Context context) {
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(context).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_coins, null);
+
+        final EditText editText = (EditText) dialogView.findViewById(R.id.edt_comment);
+        Button submit = (Button) dialogView.findViewById(R.id.buttonSubmit);
+        Button cancel = (Button) dialogView.findViewById(R.id.buttonCancel);
+
+        cancel.setOnClickListener(view -> dialogBuilder.dismiss());
+        submit.setOnClickListener(view -> {
+            // DO SOMETHINGS
+            dialogBuilder.dismiss();
+        });
+
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
     }
 }

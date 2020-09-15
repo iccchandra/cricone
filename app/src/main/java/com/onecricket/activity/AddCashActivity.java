@@ -148,9 +148,9 @@ public class AddCashActivity extends AppCompatActivity implements ResponseManage
     private void CallAddAmountOffer(boolean isShowLoader) {
         try {
 
-            apiRequestManager.callAPI(ADDAMOUNTOFFER,
+            apiRequestManager.callAPIWithAuthorization(ADDAMOUNTOFFER,
                     createRequestJson(), context, activity, ADDAMOUNTOFFERTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

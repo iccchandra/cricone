@@ -208,9 +208,9 @@ public class ContestListActivity extends AppCompatActivity implements ResponseMa
     private void callMyTeamList(boolean isShowLoader) {
         try {
 
-            apiRequestManager.callAPI(MYTEAMLIST,
+            apiRequestManager.callAPIWithAuthorization(MYTEAMLIST,
                     createRequestJson12(), context, activity, MYTEAMLISTTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -234,9 +234,9 @@ public class ContestListActivity extends AppCompatActivity implements ResponseMa
     private void callContestList(boolean isShowLoader) {
         try {
 
-            apiRequestManager.callAPI(CONTESTLIST,
+            apiRequestManager.callAPIWithAuthorization(CONTESTLIST,
                     createRequestJson(), context, activity, CONTESTLISTTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -259,9 +259,9 @@ public class ContestListActivity extends AppCompatActivity implements ResponseMa
     private void callWinningInfoList(boolean isShowLoader) {
         try {
 
-            apiRequestManager.callAPI(WINNINGINFOLIST,
+            apiRequestManager.callAPIWithAuthorization(WINNINGINFOLIST,
                     createRequestJsonWin(), context, activity, WINNINGINFOLISTTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

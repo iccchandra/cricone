@@ -120,9 +120,9 @@ public class EditProfileActivity extends AppCompatActivity implements ResponseMa
     private void callViewProfile(boolean isShowLoader) {
         try {
 
-            apiRequestManager.callAPI(VIEWPROFILE,
+            apiRequestManager.callAPIWithAuthorization(VIEWPROFILE,
                     createRequestJson(), context, activity, VIEWPROFILETYPE,
-                    isShowLoader,responseManager);
+                    isShowLoader,responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -143,9 +143,9 @@ public class EditProfileActivity extends AppCompatActivity implements ResponseMa
     private void callEditProfile(boolean isShowLoader) {
         try {
 
-            apiRequestManager.callAPI(EDITPROFILE,
+            apiRequestManager.callAPIWithAuthorization(EDITPROFILE,
                     createEditProfileJson(), context, activity, EDITPROFILETYPE,
-                    isShowLoader,responseManager);
+                    isShowLoader,responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

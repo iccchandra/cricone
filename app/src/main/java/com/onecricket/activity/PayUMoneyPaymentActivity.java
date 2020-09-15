@@ -784,9 +784,9 @@ public class PayUMoneyPaymentActivity extends AppCompatActivity implements View.
 
     private void callAddAmount(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPI(ADDAMOUNT,
+            apiRequestManager.callAPIWithAuthorization(ADDAMOUNT,
                     createRequestJson(), context, activity, ADDAMOUNTTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
         } catch (JSONException e) {
             e.printStackTrace();
         }

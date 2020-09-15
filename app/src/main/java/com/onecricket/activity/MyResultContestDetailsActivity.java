@@ -135,9 +135,9 @@ public class MyResultContestDetailsActivity extends AppCompatActivity implements
 
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("contest_id", MyJoinedResultContestListActivity.ContestId);
-            apiRequestManager.callAPI(WINNINGINFOLIST,
+            apiRequestManager.callAPIWithAuthorization(WINNINGINFOLIST,
                     jsonObject, context, activity, WINNINGINFOLISTTYPE,
-                    isShowLoader,responseManager);
+                    isShowLoader,responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -150,9 +150,9 @@ public class MyResultContestDetailsActivity extends AppCompatActivity implements
     private void callLeaderboardList(boolean isShowLoader) {
         try {
 
-            apiRequestManager.callAPI(MYLIVELEADERBOARD,
+            apiRequestManager.callAPIWithAuthorization(MYLIVELEADERBOARD,
                     createRequestJson(), context, activity, MYLIVELEADERBORADTYPE,
-                    isShowLoader,responseManager);
+                    isShowLoader,responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -180,9 +180,9 @@ public class MyResultContestDetailsActivity extends AppCompatActivity implements
             jsonObject.put("match_id", MyJoinedResultContestListActivity.Matchid);
 
 
-            apiRequestManager.callAPI(MYLIVELEADERBOARDTEAM,
+            apiRequestManager.callAPIWithAuthorization(MYLIVELEADERBOARDTEAM,
                     jsonObject, context, activity, MYLIVELEADERBORADTEAMTYPE,
-                    isShowLoader,responseManager);
+                    isShowLoader,responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

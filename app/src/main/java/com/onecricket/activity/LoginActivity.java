@@ -106,7 +106,7 @@ public class LoginActivity extends AppCompatActivity implements ResponseManager,
             @Override
             public void onClick(View view) {
 
-                EmailorMobile = binding.etEmailMobile.getText().toString();
+                EmailorMobile = binding.etEmailMobile.getText().toString().trim();
 
                 if (EmailorMobile.equals("")){
                     ShowToast(context,"Enter Email or Mobile");
@@ -148,8 +148,7 @@ public class LoginActivity extends AppCompatActivity implements ResponseManager,
                 if (Password.equals("")){
 
                     ShowToast(context,"Enter Password");
-                }
-                else if (Password.length()<8&& !Validations.isValidPassword(Password)){
+                } else if (Password.length() < 8 && !Validations.isValidPassword(Password)) {
 
                     ShowToast(context,"Password Pattern Not Macthed");
                 }
@@ -345,6 +344,10 @@ public class LoginActivity extends AppCompatActivity implements ResponseManager,
                     userDetails.setEmail(result.getString("email"));
                     userDetails.setType(result.getString("type"));
                     userDetails.setReferral_code(result.getString("referral_code"));
+                    if (result.has("token")) {
+                        String token = result.getString("token");
+                        userDetails.setToken(token);
+                    }
 
                     userDetails.setVerify(Verify);
                     sessionManager.setUser(context, userDetails);

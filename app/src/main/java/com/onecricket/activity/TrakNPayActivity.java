@@ -203,9 +203,9 @@ public class TrakNPayActivity extends AppCompatActivity implements ResponseManag
     private void callMyAccountDetails(boolean isShowLoader) {
 
         try {
-            apiRequestManager.callAPI(MYACCOUNT,
+            apiRequestManager.callAPIWithAuthorization(MYACCOUNT,
                     createRequestJsonWin(), context, activity, MYACCOUNTTYPE,
-                    isShowLoader,responseManager);
+                    isShowLoader,responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -227,9 +227,9 @@ public class TrakNPayActivity extends AppCompatActivity implements ResponseManag
 
     private void callAddAmount(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPI(ADDAMOUNT,
+            apiRequestManager.callAPIWithAuthorization(ADDAMOUNT,
                     createRequestJson(), context, activity, ADDAMOUNTTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -432,18 +432,18 @@ if(type.equals(ADDAMOUNTTYPE)) {
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PGConstants.REQUEST_CODE) {
-            if(resultCode == Activity.RESULT_OK){
-                try{
-                    String paymentResponse=data.getStringExtra(PGConstants.PAYMENT_RESPONSE);
-                    System.out.println("paymentResponse: "+paymentResponse);
-                    if(paymentResponse.equals("null")){
+            if (resultCode == Activity.RESULT_OK) {
+                try {
+                    String paymentResponse = data.getStringExtra(PGConstants.PAYMENT_RESPONSE);
+                    System.out.println("paymentResponse: " + paymentResponse);
+                    if (paymentResponse.equals("null")) {
                         System.out.println("Transaction Error!");
-                        ShowToast(context,"Transaction Failed");
+                        ShowToast(context, "Transaction Failed");
                         //transactionIdView.setText("Transaction ID: NIL");
                         //transactionStatusView.setText("Transaction Status: Transaction Error!");
-                    }else{
+                    } else {
                         JSONObject response = new JSONObject(paymentResponse);
                         TrakNPayResponse = response;
 
@@ -454,24 +454,25 @@ if(type.equals(ADDAMOUNTTYPE)) {
                         FAmount = response.getString("amount");
                         FMessage = response.getString("response_message");
 
-                        Log.e("TrakNPay", "onActivityResult: "+response);
+                        Log.e("TrakNPay", "onActivityResult: " + response);
                         System.out.print(AddCashActivity.Activity);
                         callAddAmount(true);
-                        if(AddCashActivity.Activity.equals("PaymentConfirmationActivity")){
-                            callMyAccountDetails(true);}
+                        if (AddCashActivity.Activity.equals("PaymentConfirmationActivity")) {
+                            callMyAccountDetails(true);
+                        }
 
                         //transactionIdView.setText("Transaction ID: "+response.getString("transaction_id"));
-                       // transactionStatusView.setText("Transaction Status: "+response.getString("response_message"));
+                        // transactionStatusView.setText("Transaction Status: "+response.getString("response_message"));
                     }
 
-                }catch (JSONException e){
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
-                ShowToast(context,"Transaction Canceled");
+                ShowToast(context, "Transaction Canceled");
             }
 
         }

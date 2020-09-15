@@ -180,9 +180,9 @@ public class UploadKYCActivity extends AppCompatActivity implements ResponseMana
 
     private void callUploadDoc(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPI(UPLOADDOUCMENT,
+            apiRequestManager.callAPIWithAuthorization(UPLOADDOUCMENT,
                     createRequestJson(), context, activity, UPLOADDOCUMENTTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -255,8 +255,8 @@ public class UploadKYCActivity extends AppCompatActivity implements ResponseMana
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_GALLERY &&
                 resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri filePath = data.getData();
@@ -266,19 +266,19 @@ public class UploadKYCActivity extends AppCompatActivity implements ResponseMana
                 binding.imImagePreview.setVisibility(View.VISIBLE);
                 binding.imImagePreview.setImageBitmap(bitmap);
 
-                Log.e("Image Path", "onActivityResult: "+filePath );
+                Log.e("Image Path", "onActivityResult: " + filePath);
             } catch (Exception e) {
                 bitmap = null;
                 e.printStackTrace();
             }
         }
-        if (requestCode == PICK_IMAGE_CAMERA&&resultCode == RESULT_OK ) {
+        if (requestCode == PICK_IMAGE_CAMERA && resultCode == RESULT_OK) {
             try {
                 bitmap = (Bitmap) data.getExtras().get("data");
                 binding.imImagePreview.setVisibility(View.VISIBLE);
                 binding.imImagePreview.setImageBitmap(bitmap);
 
-                Log.e("Image Path", "onActivityResult: " );
+                Log.e("Image Path", "onActivityResult: ");
             } catch (Exception e) {
                 bitmap = null;
                 e.printStackTrace();

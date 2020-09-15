@@ -127,9 +127,9 @@ public class MyFixtureContestDetailsActivity extends AppCompatActivity implement
 
     private void callLeaderboardList(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPI(MYFIXTURELEADERBOARD,
+            apiRequestManager.callAPIWithAuthorization(MYFIXTURELEADERBOARD,
                     createRequestJson(), context, activity, MYFIXTURELEADERBORADTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -155,9 +155,9 @@ public class MyFixtureContestDetailsActivity extends AppCompatActivity implement
             jsonObject.put("team_id", UserTeamId);
             jsonObject.put("match_id", MyJoinedFixtureContestListActivity.Matchid);
 
-            apiRequestManager.callAPI(MYFIXTURELEADERBOARDTEAM,
+            apiRequestManager.callAPIWithAuthorization(MYFIXTURELEADERBOARDTEAM,
                     jsonObject, context, activity, MYFIXTURELEADERBORADTEAMTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

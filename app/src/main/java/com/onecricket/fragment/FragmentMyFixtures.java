@@ -34,6 +34,7 @@ import com.onecricket.APICallingPackage.Config;
 import com.onecricket.activity.ContestListActivity;
 import com.onecricket.activity.HomeActivity;
 import com.onecricket.R;
+import com.onecricket.utils.SessionManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -91,10 +92,10 @@ public class FragmentMyFixtures extends Fragment implements ResponseManager {
 
     private void callMyFixtures(boolean isShowLoader) {
         try {
-
-            apiRequestManager.callAPI(MYFIXTURES,
+            SessionManager sessionManager = new SessionManager();
+            apiRequestManager.callAPIWithAuthorization(MYFIXTURES,
                     createRequestJson(), context, activity, MYFIXTURESTYPE,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

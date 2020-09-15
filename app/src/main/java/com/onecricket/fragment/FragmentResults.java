@@ -31,6 +31,7 @@ import com.onecricket.APICallingPackage.Config;
 import com.onecricket.activity.HomeActivity;
 import com.onecricket.activity.MyJoinedResultContestListActivity;
 import com.onecricket.R;
+import com.onecricket.utils.SessionManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,22 +63,13 @@ public class FragmentResults extends Fragment implements ResponseManager {
         binding.RvHomeResult.setLayoutManager(mLayoutManager);
         binding.RvHomeResult.setItemAnimator(new DefaultItemAnimator());
 
-        binding.swipeRefreshLayout.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        binding.swipeRefreshLayout.setRefreshing(true);
-                                        callHomeResult(false);
-                                    }
-                                }
+        binding.swipeRefreshLayout.post(() -> {
+            binding.swipeRefreshLayout.setRefreshing(true);
+            callHomeResult(false);
+        }
         );
 
-        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-                callHomeResult(false);
-            }
-        });
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> callHomeResult(false));
 
 
         return binding.getRoot();
@@ -87,10 +79,10 @@ public class FragmentResults extends Fragment implements ResponseManager {
 
     private void callHomeResult(boolean isShowLoader) {
         try {
-
-            apiRequestManager.callAPI(HOMEFIXTURES,
+            SessionManager sessionManager = new SessionManager();
+            apiRequestManager.callAPIWithAuthorization(HOMEFIXTURES,
                     createRequestJson(), context, activity, RESULTHOMETYPE,
-                    isShowLoader,responseManager);
+                    isShowLoader,responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

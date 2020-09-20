@@ -3,7 +3,7 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bacl_splash"
+    android:background="#161C23"
     >
 
     <include
@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text=""
-                android:textColor="@android:color/holo_orange_light"
+                android:textColor="@android:color/holo_red_light"
                 android:textSize="16sp" />
 
             <TextView
@@ -63,8 +63,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/team_header"
+                android:background="#1D2532"
                 android:orientation="vertical"
+
                 android:padding="10dp">
 
                 <TextView
@@ -103,6 +104,8 @@
                                 android:layout_height="match_parent"
                                 android:gravity="center"
                                 android:orientation="horizontal"
+                                android:background="@color/create_team_unselected_color"
+
                                 android:weightSum="2">
 
                                 <RelativeLayout
@@ -157,6 +160,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:orientation="horizontal"
+                                android:background="@color/create_team_unselected_color"
+
                                 android:weightSum="2">
 
 
@@ -328,7 +333,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="@drawable/dark_rectangle_contest"
+                android:background="#28323E"
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:layout_gravity="center"
@@ -381,7 +386,7 @@
                         android:layout_weight="1"
                         android:text="View your global ranking."
                         android:gravity="start"
-                        android:textColor="@color/textColor"
+                        android:textColor="@color/white"
                         android:textSize="16sp" />
 
                     <TextView
@@ -402,7 +407,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="@drawable/dark_rectangle_contest"
+                android:background="#28323E"
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:layout_gravity="center"
@@ -455,7 +460,7 @@
                         android:layout_weight="1"
                         android:text="No Friend Invite yet."
                         android:gravity="start"
-                        android:textColor="@color/textColor"
+                        android:textColor="@color/payumoney_white"
                         android:textSize="16sp" />
 
                     <TextView
@@ -572,7 +577,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="#28323E">
 
                     <TextView
                         android:id="@+id/tv_ProfileAccount"
@@ -580,14 +586,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_marginTop="10dp"
-                        android:drawableTint="@color/colorPrimary"
-                        android:drawableEnd="@drawable/arrow_icon_mr"
+                        android:drawableTint="@color/white"
                         android:drawablePadding="5dp"
                         android:layout_marginEnd="10dp"
                         android:padding="5dp"
                         android:text="Wallet"
+
                         android:textAlignment="textStart"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/white"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -619,7 +625,8 @@
                                 android:layout_gravity="center"
                                 android:gravity="center"
                                 android:text="₹ "
-                                android:textColor="@color/colorPrimary"
+                                android:visibility="gone"
+                                android:textColor="@color/white"
                                 android:textSize="15sp" />
 
                             <TextView
@@ -627,8 +634,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/tv_ProfileDeposited"
                                 android:text="Deposited"
+                                android:visibility="gone"
                                 android:textAlignment="center"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
                                 android:textSize="12sp" />
 
                         </RelativeLayout>
@@ -646,7 +655,9 @@
                                 android:layout_gravity="center"
                                 android:gravity="center"
                                 android:text="₹ "
-                                android:textColor="@color/colorPrimary"
+                                android:textStyle="bold"
+
+                                android:textColor="@color/white"
                                 android:textSize="15sp" />
 
                             <TextView
@@ -654,8 +665,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/tv_ProfileWinning"
                                 android:text="Winnings"
+                                android:textStyle="bold"
+
                                 android:textAlignment="center"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
                         </RelativeLayout>
 
@@ -672,7 +685,9 @@
                                 android:layout_gravity="center"
                                 android:gravity="center"
                                 android:text="₹ "
-                                android:textColor="@color/colorPrimary"
+                                android:textStyle="bold"
+
+                                android:textColor="@color/white"
                                 android:textSize="15sp" />
 
                             <TextView
@@ -680,10 +695,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/tv_ProfileBonus"
                                 android:text="Bonus"
+                                android:textStyle="bold"
+
                                 android:textAlignment="center"
-                                android:textColor="@color/sixtwo"
+                                android:textColor="@color/white"
                                 android:textSize="12sp" />
                         </RelativeLayout>
+
+                        
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -705,6 +724,7 @@
                                 android:paddingTop="5dp"
                                 android:paddingRight="10dp"
                                 android:paddingBottom="5dp"
+                                android:visibility="gone"
                                 android:text="Add Balance"
                                 android:textColor="@color/btn_txt_color"
                                 android:textSize="10sp" />
@@ -722,7 +742,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/dark_rectangle_contest"
+                android:background="#28323E"
                 android:visibility="visible">
 
                 <TextView
@@ -733,7 +753,7 @@
                     android:layout_marginTop="10dp"
                     android:padding="5dp"
                     android:text="Personal Details"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/white"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -777,7 +797,7 @@
                         android:layout_height="wrap_content"
                         android:padding="10dp"
                         android:text="yourmail@gmail.com"
-                        android:textColor="@color/textColor"
+                        android:textColor="@color/white"
                         android:textSize="15sp" />
 
                     <TextView
@@ -785,7 +805,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/roundbutton_my_team"
+                        android:background="@color/create_team_unselected_color"
                         android:drawableLeft="@drawable/change_pass_icon"
                         android:drawableTint="@color/colorPrimary"
                         android:drawablePadding="10dp"
@@ -806,7 +826,7 @@
                         android:drawablePadding="10dp"
                         android:padding="10dp"
                         android:text="Logout"
-
+                        android:visibility="gone"
                         android:textColor="@color/btn_txt_color"
                         android:textSize="13sp" />
 

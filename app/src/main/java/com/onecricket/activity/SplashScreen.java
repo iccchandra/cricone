@@ -51,6 +51,7 @@ public class SplashScreen extends AppCompatActivity {
                     HomeScreen();
                 } else {
                     LoginScreen();
+                    finish();
                 }
             }
         }, SPLASH_TIME_OUT);
@@ -58,7 +59,7 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     public void LoginScreen() {
-        Intent i = new Intent(SplashScreen.this, MainActivity.class);
+        Intent i = new Intent(SplashScreen.this, LoginActivity.class);
         startActivity(i);
     }
 

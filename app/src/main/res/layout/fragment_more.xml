@@ -1,9 +1,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bacl_splash"
+        android:background="#161C23"
         >
 
         <TextView
@@ -42,7 +43,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/im_InviteFriends"
                         android:layout_centerVertical="true"
-                        android:tint="@color/white"
+                        app:tint="@color/white"
                         android:src="@drawable/invite_friends" />
 
                     <TextView
@@ -64,7 +65,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="20dp"
                         android:id="@+id/im_arrow1"
-                        android:tint="@color/white"
+                        app:tint="@color/white"
                         android:src="@drawable/arrow_moreopt"
                         />
 
@@ -109,64 +110,14 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="20dp"
                         android:id="@+id/im_arrow2"
-                        android:tint="@color/white"
+                        app:tint="@color/white"
                         android:src="@drawable/arrow_moreopt" />
 
 
 
                 </RelativeLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:visibility="gone"
-                    android:layout_marginTop="10dp"
-                    android:background="#b3b3b3"
-                    />
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/RL_FantasyPointSystem"
-                    android:layout_marginTop="20dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/im_FPS"
-                        android:tint="@color/white"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/fantasy_point" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_FPS"
-                        android:layout_marginLeft="20dp"
-                        android:padding="10dp"
-                        android:layout_centerVertical="true"
-                        android:text="Fantasy Point System"
-                        android:layout_toRightOf="@+id/im_FPS"
-                        android:layout_toLeftOf="@+id/im_arrow3"
-                        android:textColor="@color/white"  />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="20dp"
-                        android:id="@+id/im_arrow3"
-                        android:tint="@color/white"
-                        android:src="@drawable/arrow_moreopt" />
 
 
-
-                </RelativeLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="#b3b3b3"
-                    />
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_marginTop="20dp"
@@ -177,7 +128,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/im_HowToPlay"
-                        android:tint="@color/white"
+                        app:tint="@color/white"
                         android:layout_centerVertical="true"
                         android:src="@drawable/how_to_play" />
 
@@ -200,7 +151,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="20dp"
                         android:id="@+id/im_arrow4"
-                        android:tint="@color/white"
+                        app:tint="@color/white"
                         android:src="@drawable/arrow_moreopt" />
 
 
@@ -247,7 +198,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="20dp"
                         android:id="@+id/im_PS"
-                        android:tint="@color/white"
+                        app:tint="@color/white"
                         android:src="@drawable/arrow_moreopt" />
 
 
@@ -272,7 +223,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/im_HelpDesk"
-                        android:tint="@color/white"
+                        app:tint="@color/white"
                         android:layout_centerVertical="true"
                         android:src="@drawable/helpdesk" />
 
@@ -286,6 +237,7 @@
                         android:text="Helpdesk"
                         android:layout_toRightOf="@+id/im_HelpDesk"
                         android:layout_toLeftOf="@+id/im_arrow5"
+                        android:clickable="true"
                         android:textColor="@color/white"  />
 
                     <ImageView
@@ -295,7 +247,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="20dp"
                         android:id="@+id/im_arrow5"
-                        android:tint="@color/white"
+                        app:tint="@color/white"
                         android:src="@drawable/arrow_moreopt" />
 
 
@@ -316,7 +268,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:tint="@color/white"
+                        app:tint="@color/white"
                         android:id="@+id/im_Legality"
                         android:layout_centerVertical="true"
                         android:src="@drawable/how_to_play" />
@@ -339,91 +291,11 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="20dp"
                         android:id="@+id/im_arrow8"
-                        android:tint="@color/white"
+                        app:tint="@color/white"
                         android:src="@drawable/arrow_moreopt" />
                 </RelativeLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="#b3b3b3"
-                    />
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/RL_MoreRefundPolicy"
-                    android:layout_marginTop="20dp">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:tint="@color/white"
-                        android:id="@+id/im_Refund"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/how_to_play" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:padding="10dp"
-                        android:layout_centerVertical="true"
-                        android:text="Refund Policy"
-                        android:layout_toRightOf="@+id/im_Refund"
-                        android:layout_toLeftOf="@+id/im_arrow9"
-                        android:textColor="@color/white"  />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="20dp"
-                        android:id="@+id/im_arrow9"
-                        android:tint="@color/white"
-                        android:src="@drawable/arrow_moreopt" />
-                </RelativeLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="#b3b3b3"
-                    />
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/RL_MoreWithdrawPolicy"
-                    android:layout_marginTop="20dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:tint="@color/white"
-                        android:id="@+id/im_withdraw"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/how_to_play" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:padding="10dp"
-                        android:layout_centerVertical="true"
-                        android:text="Withdraw Cash Policy"
-                        android:layout_toRightOf="@+id/im_withdraw"
-                        android:layout_toLeftOf="@+id/im_arrow10"
-                        android:textColor="@color/white"  />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="20dp"
-                        android:id="@+id/im_arrow10"
-                        android:tint="@color/white"
-                        android:src="@drawable/arrow_moreopt" />
-                </RelativeLayout>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -488,7 +360,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/im_AboutUs"
-                        android:tint="@color/white"
+                        app:tint="@color/white"
                         android:layout_centerVertical="true"
                         android:src="@drawable/about_us" />
 
@@ -511,7 +383,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="20dp"
                         android:id="@+id/im_arrow7"
-                        android:tint="@color/white"
+                        app:tint="@color/white"
                         android:src="@drawable/arrow_icon_mr" />
                 </RelativeLayout>
                 <View
@@ -520,6 +392,44 @@
                     android:layout_marginTop="10dp"
                     android:background="#b3b3b3"
                     />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/RL_Logout"
+                    android:layout_marginTop="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/im_logout"
+                        app:tint="@color/white"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_logout_new_24" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_logout"
+                        android:layout_marginStart="20dp"
+                        android:padding="10dp"
+                        android:layout_centerVertical="true"
+                        android:text="@string/logout"
+                        android:layout_toEndOf="@+id/im_logout"
+                        android:layout_toStartOf="@+id/im_arrow12"
+                        android:textColor="@color/white"  />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="20dp"
+                        android:id="@+id/im_arrow12"
+                        app:tint="@color/white"
+                        android:src="@drawable/arrow_icon_mr" />
+                </RelativeLayout>
+
             </LinearLayout>
         </ScrollView>
 

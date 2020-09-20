@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.DatePicker;
@@ -34,6 +35,7 @@ import static com.onecricket.APICallingPackage.Constants.VIEWPROFILETYPE;
 
 public class EditProfileActivity extends AppCompatActivity implements ResponseManager {
 
+    private static final String TAG = "EditProfileActivity";
     ResponseManager responseManager;
     APIRequestManager apiRequestManager;
 
@@ -56,6 +58,7 @@ public class EditProfileActivity extends AppCompatActivity implements ResponseMa
         context = activity = this;
         initViews();
         sessionManager = new SessionManager();
+        Log.d(TAG, sessionManager.getUser(context).getToken());
         responseManager = this;
         apiRequestManager = new APIRequestManager(activity);
         loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
@@ -194,6 +197,7 @@ public class EditProfileActivity extends AppCompatActivity implements ResponseMa
             userDetails.setCity(binding.etEditCity.getText().toString());
             userDetails.setPincode(binding.etEditPincode.getText().toString());
             userDetails.setState(binding.etEditState.getText().toString());
+            userDetails.setToken(sessionManager.getUser(context).getToken());
             userDetails.setVerify("1");
             sessionManager.setUser(context, userDetails);
             onBackPressed();
@@ -261,7 +265,7 @@ public class EditProfileActivity extends AppCompatActivity implements ResponseMa
 
     @Override
     public void onError(Context mContext, String type, String message) {
-
+        Log.d(TAG, message);
     }
 
 

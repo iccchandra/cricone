@@ -29,5 +29,9 @@
         <item name="colorAccent">@color/white</item>
     </style>
 
+    <style name="LoginInputLayout" parent="AppTheme">
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+    </style>
+
 
 </resources>

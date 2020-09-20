@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 import static com.onecricket.APICallingPackage.Config.MYTRANSACTIONLIST;
+import static com.onecricket.APICallingPackage.Config.TRANSACTION_HISTORY;
 import static com.onecricket.APICallingPackage.Constants.MYTRANSACTIONTYPE;
 
 public class MyTransactionActivity extends AppCompatActivity implements ResponseManager {
@@ -95,7 +98,7 @@ public class MyTransactionActivity extends AppCompatActivity implements Response
 
     private void callTransactionList(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPIWithAuthorization(MYTRANSACTIONLIST,
+            apiRequestManager.callAPIWithAuthorization(TRANSACTION_HISTORY,
                     createRequestJson(), context, activity, MYTRANSACTIONTYPE,
                     isShowLoader,responseManager, sessionManager.getUser(context).getToken());
         } catch (JSONException e) {
@@ -107,6 +110,7 @@ public class MyTransactionActivity extends AppCompatActivity implements Response
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("user_id", sessionManager.getUser(context).getUser_id());
+            Log.d("Token", sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();

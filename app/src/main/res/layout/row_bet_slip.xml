@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <ImageButton
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:padding="5dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_close_24" />
+
+    <TextView
+        android:id="@+id/qr_code"
+        android:layout_width="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:textSize="12sp"
+        android:layout_toEndOf="@+id/close"
+        android:layout_toStartOf="@+id/betting_layout"
+        android:textColor="@color/black" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:id="@+id/betting_layout"
+        android:layout_marginStart="10dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true">
+
+        <TextView
+            android:id="@+id/points"
+            android:layout_width="80dp"
+            android:textSize="12sp"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/stake"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/points"
+            android:gravity="center"
+            android:maxLength="6"
+            android:textSize="12sp"
+            android:hint="Stake"
+            android:inputType="numberDecimal" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/betting_layout"
+        android:layout_marginTop="10dp"
+        android:textSize="12sp"
+        android:gravity="end"
+        android:layout_marginEnd="5dp"
+        android:textColor="@color/black" />
+</RelativeLayout>

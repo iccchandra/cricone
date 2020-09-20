@@ -2,17 +2,26 @@ package com.onecricket.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.onecricket.APICallingPackage.Config;
 import com.onecricket.activity.HomeActivity;
 import com.onecricket.activity.InviteFriendsActivity;
+import com.onecricket.activity.LoginActivity;
+import com.onecricket.activity.MainActivity;
 import com.onecricket.activity.WebviewAcitivity;
 import com.onecricket.databinding.FragmentMoreBinding;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class MoreFragment extends Fragment {
@@ -37,7 +46,7 @@ public class MoreFragment extends Fragment {
             }
         });
 
-        binding.RLFantasyPointSystem.setOnClickListener(new View.OnClickListener() {
+       /* binding.RLFantasyPointSystem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(activity, WebviewAcitivity.class);
@@ -45,7 +54,7 @@ public class MoreFragment extends Fragment {
                 i.putExtra("URL", Config.FANTASYPOINTSYSTEMURL);
                 startActivity(i);
             }
-        });
+        });*/
         binding.RLMoreHowToPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,7 +100,7 @@ public class MoreFragment extends Fragment {
                 startActivity(i);
             }
         });
-        binding.RLMoreRefundPolicy.setOnClickListener(new View.OnClickListener() {
+      /*  binding.RLMoreRefundPolicy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(activity, WebviewAcitivity.class);
@@ -109,11 +118,24 @@ public class MoreFragment extends Fragment {
                 startActivity(i);
             }
         });
+*/
+        binding.RLLogout.setOnClickListener(view -> {
+            logoutUser();
+        });
         return binding.getRoot();
     }
 
+    private void logoutUser() {
+        SharedPreferences loginPreferences = getActivity().getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor loginPrefsEditor = loginPreferences.edit();
 
+        LoginManager.getInstance().logOut();
+        loginPrefsEditor.clear();
+        loginPrefsEditor.apply();
+        Auth.GoogleSignInApi.revokeAccess(HomeActivity.mGoogleApiClient).setResultCallback(status -> { });
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
 
-
-
+    }
 }

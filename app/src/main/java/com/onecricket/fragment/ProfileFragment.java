@@ -70,6 +70,7 @@ import static com.onecricket.APICallingPackage.Constants.UpdateProfileImage;
 public class ProfileFragment extends Fragment implements ResponseManager {
 
 
+    private static final String TAG = "ProfileFragment";
     SessionManager sessionManager;
     private SharedPreferences loginPreferences;
     private Boolean saveLogin;
@@ -108,6 +109,7 @@ public class ProfileFragment extends Fragment implements ResponseManager {
         loginPrefsEditor = loginPreferences.edit();
         saveLogin = loginPreferences.getBoolean("saveLogin", false);
 
+        sessionManager = new SessionManager();
         responseManager = this;
         apiRequestManager = new APIRequestManager(getActivity());
 
@@ -140,11 +142,9 @@ public class ProfileFragment extends Fragment implements ResponseManager {
             binding.tvProfileUserName.setText(UserEmail);
         }
 
-
         binding.tvProfileAccount.setOnClickListener(view -> {
-
-            Intent i = new Intent(getActivity(), MyAccountActivity.class);
-            startActivity(i);
+            /*Intent i = new Intent(getActivity(), MyAccountActivity.class);
+            startActivity(i);*/
         });
 
         binding.tvProfileAddBalance.setOnClickListener(view -> {
@@ -339,9 +339,9 @@ public class ProfileFragment extends Fragment implements ResponseManager {
 
     private void callUploadDoc(boolean isShowLoader) {
         try {
-            apiRequestManager.callAPI(UpdateUserProfileImage,
+            apiRequestManager.callAPIWithAuthorization(UpdateUserProfileImage,
                     createRequestJson(), context, activity, UpdateProfileImage,
-                    isShowLoader, responseManager);
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -364,7 +364,9 @@ public class ProfileFragment extends Fragment implements ResponseManager {
     @Override
     public void getResult(Context mContext, String type, String message, JSONObject result) {
 
+
         if (type.equals(MYPLAYINGHISTORYTYPE)) {
+            Log.d("ProfileFragment: MYP", result.toString());
             try {
                 String wins = result.getString("wins");
                 String series = result.getString("series");
@@ -401,13 +403,14 @@ public class ProfileFragment extends Fragment implements ResponseManager {
                 e.printStackTrace();
             }
         } else {
+            Log.d("ProfileFragment", result.toString());
             try {
                 Deposited = result.getString("credit_amount");
                 Winnings = result.getString("winning_amount");
                 Bonus = result.getString("bonous_amount");
-                binding.tvProfileDeposited.setText("₹ " + Deposited);
-                binding.tvProfileWinning.setText("₹ " + Winnings);
-                binding.tvProfileBonus.setText("₹ " + Bonus);
+                binding.tvProfileDeposited.setText(Deposited);
+                binding.tvProfileWinning.setText(Winnings);
+                binding.tvProfileBonus.setText(Bonus);
 
 
             } catch (JSONException e) {
@@ -420,7 +423,7 @@ public class ProfileFragment extends Fragment implements ResponseManager {
 
     @Override
     public void onError(Context mContext, String type, String message) {
-
+        Log.d(TAG, message);
     }
 
     public void Logout() {
@@ -439,24 +442,5 @@ public class ProfileFragment extends Fragment implements ResponseManager {
         Intent i = new Intent(getActivity(), MainActivity.class);
         startActivity(i);
 
-    }
-
-    private void showCoinsConversionAlert(Context context) {
-        final AlertDialog dialogBuilder = new AlertDialog.Builder(context).create();
-        LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_coins, null);
-
-        final EditText editText = (EditText) dialogView.findViewById(R.id.edt_comment);
-        Button submit = (Button) dialogView.findViewById(R.id.buttonSubmit);
-        Button cancel = (Button) dialogView.findViewById(R.id.buttonCancel);
-
-        cancel.setOnClickListener(view -> dialogBuilder.dismiss());
-        submit.setOnClickListener(view -> {
-            // DO SOMETHINGS
-            dialogBuilder.dismiss();
-        });
-
-        dialogBuilder.setView(dialogView);
-        dialogBuilder.show();
     }
 }

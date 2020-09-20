@@ -3,10 +3,16 @@ package com.onecricket.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.onecricket.APICallingPackage.Class.APIRequestManager;
 import com.onecricket.APICallingPackage.Interface.ResponseManager;
@@ -40,25 +46,20 @@ public class MyAccountActivity extends AppCompatActivity implements ResponseMana
         context = activity = this;
         initViews();
         sessionManager = new SessionManager();
+
         responseManager = this;
         apiRequestManager = new APIRequestManager(activity);
 
 
-        binding.tvAddBalance.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(activity, AddCashActivity.class);
-                startActivity(i);
-            }
+        binding.tvAddBalance.setOnClickListener(view -> {
+            Intent i = new Intent(activity, AddCashActivity.class);
+            startActivity(i);
         });
         callMyAccount(true);
 
-        binding.RLMyRecentTransactions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(activity,MyTransactionActivity.class);
-                startActivity(i);
-            }
+        binding.RLMyRecentTransactions.setOnClickListener(view -> {
+            Intent i = new Intent(activity,MyTransactionActivity.class);
+            startActivity(i);
         });
 
         binding.tvWithdraw.setOnClickListener(new View.OnClickListener() {
@@ -207,6 +208,25 @@ public class MyAccountActivity extends AppCompatActivity implements ResponseMana
     @Override
     public void onError(Context mContext, String type, String message) {
 
+    }
+
+    private void showCoinsConversionAlert(Context context) {
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(context).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_coins, null);
+
+        final EditText editText = (EditText) dialogView.findViewById(R.id.edt_comment);
+        Button submit = (Button) dialogView.findViewById(R.id.buttonSubmit);
+        Button cancel = (Button) dialogView.findViewById(R.id.buttonCancel);
+
+        cancel.setOnClickListener(view -> dialogBuilder.dismiss());
+        submit.setOnClickListener(view -> {
+            // DO SOMETHINGS
+            dialogBuilder.dismiss();
+        });
+
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
     }
 
 }

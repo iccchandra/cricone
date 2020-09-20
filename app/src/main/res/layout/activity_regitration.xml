@@ -56,8 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/sign_up"
-                    android:textColor="@color/white"
-
+                    android:textColor="@color/cb_otpColor"
                     android:textSize="18sp" />
 
                 <TextView
@@ -107,21 +106,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:theme="@style/MyTextInputLayout"
-                android:textColorHint="@color/white">
+                android:theme="@style/LoginInputLayout"
+                android:textColorHint="@color/color_disable_button">
 
                 <EditText
                     android:id="@+id/et_MobileNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:backgroundTint="@color/white"
+                    android:backgroundTint="@color/colorPrimaryDark"
                     android:hint="Mobile no."
                     android:inputType="number"
                     android:padding="12dp"
                     android:singleLine="true"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textColorHint="@color/colorPrimaryDark"
                     android:textSize="14sp" />
 
                 <TextView
@@ -140,20 +139,20 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_RegMobNo"
                 android:layout_marginTop="10dp"
-                android:theme="@style/MyTextInputLayout"
-                android:textColorHint="@color/white">
+                android:theme="@style/LoginInputLayout"
+                android:textColorHint="@color/color_disable_button">
 
                 <EditText
                     android:id="@+id/et_Email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:backgroundTint="@color/white"
+                    android:backgroundTint="@color/colorPrimaryDark"
                     android:hint="Email"
                     android:padding="12dp"
                     android:singleLine="true"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textColorHint="@color/colorPrimaryDark"
                     android:textSize="14sp" />
 
                 <TextView
@@ -172,9 +171,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_RegEmail"
                 android:layout_marginTop="10dp"
-                android:theme="@style/MyTextInputLayout"
-                android:textColorHint="@color/white"
-                app:passwordToggleTint="@color/white"
+                android:theme="@style/LoginInputLayout"
+                android:textColorHint="@color/color_disable_button"
+                app:passwordToggleTint="@color/colorPrimaryDark"
                 app:passwordToggleEnabled="true">
 
                 <EditText
@@ -182,13 +181,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:backgroundTint="@color/white"
+                    android:backgroundTint="@color/colorPrimaryDark"
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:padding="12dp"
                     android:singleLine="true"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textColorHint="@color/colorPrimaryDark"
                     android:textSize="14sp" />
 
                 <TextView
@@ -212,7 +211,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/by_registering_i_agree_to_my11team_s"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="12sp" />
 
                 <TextView
@@ -263,7 +262,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/enter_a_code"
-                    android:textColor="@color/white"
+                    android:textColor="@color/color_disable_button"
                     android:textStyle="bold" />
             </LinearLayout>
 

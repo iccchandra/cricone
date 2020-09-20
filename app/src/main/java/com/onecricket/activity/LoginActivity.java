@@ -200,14 +200,11 @@ public class LoginActivity extends AppCompatActivity implements ResponseManager,
             }
         });
 
-        binding.tvSignUpText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(activity,RegistrationActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                i.putExtra("Reffered","No");
-                startActivity(i);
-            }
+        binding.tvSignUpText.setOnClickListener(view -> {
+            Intent i = new Intent(activity,RegistrationActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.putExtra("Reffered","No");
+            startActivity(i);
         });
         binding.RLFBLogin.setOnClickListener(new View.OnClickListener() {
             @Override

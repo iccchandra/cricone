@@ -95,6 +95,8 @@ public class Config {
 
     //MyTransactionList
     public static String MYTRANSACTIONLIST = BASEURL + "my_account_transaction";
+
+    public static String TRANSACTION_HISTORY = BASEURL + "coin_transaction_list";
     //Notification List
     public static String NOTIFICATIONLIST = BASEURL + "notification";
 

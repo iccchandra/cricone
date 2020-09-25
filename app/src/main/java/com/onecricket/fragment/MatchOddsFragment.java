@@ -122,7 +122,6 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         String token = new SessionManager().getUser(context).getToken();
 
         if (matchesInfo != null && matchesInfo.getId() != null && matchesInfo.getId().trim().length() > 0) {
-//            callMatchInfoAPI(matchesInfo.getId());
             if (matchesInfo.isMatchInProgress()) {
                 matchType = "inplay";
                 callMatchOddsAPI(matchesInfo.getId(), matchType);

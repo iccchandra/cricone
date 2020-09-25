@@ -49,7 +49,7 @@ public class GlobalRankActivity extends AppCompatActivity implements ResponseMan
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=DataBindingUtil.setContentView(this, R.layout.activity_global_rank);
+        binding=DataBindingUtil.setContentView(this, R.layout.create_team_kabaddi);
 
         context = activity = this;
         initViews();

@@ -594,8 +594,8 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
     @Override
     public void onBackPressed() {
 
-        int seletedTabPositoin = binding.tabs.getSelectedTabPosition();
-        if (seletedTabPositoin == 1 || seletedTabPositoin == 2) {
+        int selectedTabPosition = binding.tabs.getSelectedTabPosition();
+        if (selectedTabPosition == 1 || selectedTabPosition == 2) {
             binding.tabs.selectTab(binding.tabs.getTabAt(0), true);
         }
         else {
@@ -604,10 +604,8 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                 finishAffinity();
                 finish();
             });
-            ab.setNeutralButton("Logout", (dialog, id) -> Logout());
-            ab.setNegativeButton("Cancel", (dialog, id) -> dialog.cancel());
             AlertDialog alert = ab.create();
-            alert.setMessage("Do you want to Logout/Exit?");
+            alert.setMessage("Are you sure, you want to exit?");
             alert.show();
         }
 

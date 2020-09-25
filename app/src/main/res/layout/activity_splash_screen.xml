@@ -8,16 +8,20 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/mainimg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:background="@color/cardview_light_background"/>
+        android:background="@drawable/cricket"/>
     <ImageView
+        android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="fitXY"
         android:visibility="visible"
+        android:layout_above="@id/mainimg"
+        android:padding="@dimen/dimen_20dp"
         android:src="@drawable/logo_splash"
         android:layout_centerInParent="true" />
 </RelativeLayout>

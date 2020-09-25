@@ -30,6 +30,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.bumptech.glide.Glide;
+import com.onecricket.R;
+import com.onecricket.activity.createactivity;
 import com.onecricket.databinding.FragmentProfileBinding;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
@@ -163,12 +165,9 @@ public class ProfileFragment extends Fragment implements ResponseManager {
             Intent i = new Intent(getActivity(), InvitedFriendListActivity.class);
             startActivity(i);
         });
-        binding.LLGlobalRanking.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), GlobalRankActivity.class);
-                startActivity(i);
-            }
+        binding.LLGlobalRanking.setOnClickListener(view -> {
+            Intent i = new Intent(getActivity(), createactivity.class);
+            startActivity(i);
         });
         binding.imProfilepic.setOnClickListener(view -> {
             if (Build.VERSION.SDK_INT >= 23) {

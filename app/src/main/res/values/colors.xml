@@ -84,5 +84,32 @@
     <color name="create_team_unselected_color">@color/hint</color>
 
 
+    <color name="_bg___09__create_team_kabaddi_color">#e9eef5</color>
+    <color name="rectangle_61_color">#182152</color>
+    <color name="__06h___13m___35s_color">#ffffff</color>
+    <color name="bounds_color">#000000</color>
+    <color name="border_color">#ffffff</color>
+    <color name="rectangle_397_color">#303a6d</color>
+    <color name="rectangle_398_color">#8993a8</color>
+    <color name="ellipse_346_color">#008afd</color>
+    <color name="rectangle_1994_color">#ff9a14</color>
+    <color name="rectangle_407_color">#242a55</color>
+    <color name="players_color">#7689b4</color>
+    <color name="rectangle_220_color">#b9b9b9</color>
+    <color name="rr_wk_color">#cedbef</color>
+    <color name="rectangle_221_color">#434e85</color>
+    <color name="ellipse_14_color">#00cd00</color>
+    <color name="ellipse_14_ek3_color">#ff4893</color>
+
+    <color name="colorOddsTitle">#eaeaea</color>
+
+    <color name="color_text">#495459</color>
+    <color name="team_a_banner">#BB33B5E5</color>
+    <color name="colorBlack">#000000</color>
+
+    <color name="odds_unselected">#FFFFFF</color>
+    <color name="odds_selected">#ffcccc</color>
+
+
 </resources>
     <!--#021C1E-->

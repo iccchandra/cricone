@@ -8,36 +8,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:123480781590:android:d63955ee8bff08cba11637",
-        "android_client_info": {
-          "package_name": "com.androidadvance.cricketchat"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "123480781590-ts5odk5oc68btpc10nun0nk7udjifgd6.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAYJ-JWu8Z7UpaPSpsl7PxkAy3mqskjTwY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "123480781590-ts5odk5oc68btpc10nun0nk7udjifgd6.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:123480781590:android:c8a09526dbe54c30a11637",
+        "mobilesdk_app_id": "1:123480781590:android:d219cce5d55922dba11637",
         "android_client_info": {
           "package_name": "com.onecricket"
         }

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="#161C23"
+
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="6dp"
+        app:cardBackgroundColor="@color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Upcoming"
+                android:id="@+id/play_status"
+                android:textSize="14sp"
+                android:textColor="#006400"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/teams_name"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="5dp"
+                android:text="PAK Vs ENG"
+                android:textColor="@color/black" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/divider"
+                android:background="@color/black"
+                android:layout_below="@+id/teams_name"/>
+
+            <TextView
+                android:id="@+id/linesout"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:text="Line ups out"
+                android:textColor="#32CD32" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_below="@+id/divider"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/team_a"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="5dp"
+                    android:text="Typhoons Women "/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:id="@+id/team_b"
+                    android:textColor="@color/black"
+                    android:text="Line ups "/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_below="@+id/team_a"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="25dp"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/team_logo_a_start"
+                        android:background="@color/team_a_banner"/>
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="-10dp"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/team_a_logo"
+                        android:layout_toEndOf="@+id/team_logo_a_start"
+                        android:src="@drawable/bonus"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Typ"
+                        android:textAllCaps="true"
+                        android:id="@+id/team_a_short_name"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_toEndOf="@+id/team_a_logo"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_below="@+id/team_b"
+                    android:layout_alignParentEnd="true"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:id="@+id/team_b_logo"
+                        android:layout_marginEnd="28dp"
+                        android:src="@drawable/team_b_logo"
+                        />
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="25dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:id="@+id/team_logo_b_start"
+                        android:background="@color/team_a_banner"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/team_b_short_name"
+                        android:layout_centerVertical="true"
+                        android:text="Typ"
+                        android:textAllCaps="true"
+                        android:layout_marginEnd="10dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_toStartOf="@+id/team_b_logo"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

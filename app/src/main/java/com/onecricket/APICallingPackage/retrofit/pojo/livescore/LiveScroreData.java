@@ -8,7 +8,7 @@ public class LiveScroreData {
 
     @SerializedName("firstinnings")
     private Firstinnings mFirstinnings;
-    @SerializedName("Sirstinnings")
+    @SerializedName("secondinnnings")
     private Secondinnings mSecondInnings;
     @SerializedName("overended")
     private String mOverended;

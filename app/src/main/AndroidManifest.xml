@@ -13,23 +13,27 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES "/>
-
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES " />
 
     <application
-        android:name="com.onecricket.application.BaseApplication"
+        android:name=".application.BaseApplication"
         android:allowBackup="false"
+        android:debuggable="true"
         android:icon="@drawable/round_logo"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@drawable/round_logo"
         android:supportsRtl="true"
-        android:largeHeap="true"
-        android:debuggable="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:replace="android:allowBackup,android:icon,android:roundIcon"
-        tools:ignore="HardcodedDebugMode">
-        <uses-library android:name="org.apache.http.legacy" android:required="false" />
+        tools:ignore="HardcodedDebugMode"
+        tools:replace="android:allowBackup,android:icon,android:roundIcon">
+        <activity android:name=".activity.createactivity"></activity>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.onecricket.provider"
@@ -41,7 +45,7 @@
         </provider>
 
         <activity
-            android:name="com.onecricket.activity.SplashScreen"
+            android:name=".activity.SplashScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,105 +54,117 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.onecricket.activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.onecricket.activity.RegistrationActivity"
+            android:name=".activity.RegistrationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.onecricket.activity.HomeActivity"
+            android:name=".activity.HomeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.onecricket.activity.LoginActivity"
+            android:name=".activity.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.onecricket.activity.VerifyOTPActivity"
+            android:name=".activity.VerifyOTPActivity"
             android:screenOrientation="portrait" />
 
-        <receiver android:name="com.onecricket.utils.IncomingSms">
+        <receiver android:name=".utils.IncomingSms">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
 
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.onecricket.activity.ForgotVerifyOTPActivity"
+            android:name=".activity.ForgotVerifyOTPActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.onecricket.activity.NewPasswordActivity"
+            android:name=".activity.NewPasswordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.onecricket.activity.ContestListActivity"
+            android:name=".activity.ContestListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.onecricket.activity.CreateTeamActivity"
+            android:name=".activity.CreateTeamActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.onecricket.activity.ChooseCandVCActivity"
+            android:name=".activity.ChooseCandVCActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.onecricket.activity.MyTeamListActivity"
+            android:name=".activity.MyTeamListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.onecricket.activity.JoinContestActivity"
+            android:name=".activity.JoinContestActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.onecricket.activity.MyJoinedFixtureContestListActivity"
+            android:name=".activity.MyJoinedFixtureContestListActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="com.onecricket.activity.MyFixtureContestDetailsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.onecricket.activity.MyJoinedLiveContestListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.onecricket.activity.MyJoinedResultContestListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.onecricket.activity.MyResultContestDetailsActivity" />
-        <activity android:name="com.onecricket.activity.MyLiveContestDetailsActivity" />
-        <activity android:name="com.onecricket.activity.PaymentOptionActivity" />
-        <activity android:name="com.onecricket.activity.MyAccountActivity" />
-        <activity android:name="com.onecricket.activity.PaytmActivity" />
+        <activity
+            android:name=".activity.MyFixtureContestDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MyJoinedLiveContestListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MyJoinedResultContestListActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.MyResultContestDetailsActivity" />
+        <activity android:name=".activity.MyLiveContestDetailsActivity" />
+        <activity android:name=".activity.PaymentOptionActivity" />
+        <activity android:name=".activity.MyAccountActivity" />
+        <activity android:name=".activity.PaytmActivity" />
         <activity
             android:name="com.paytm.pgsdk.PaytmPGActivity"
             android:configChanges="keyboardHidden|orientation|keyboard"
             android:screenOrientation="portrait" />
-        <activity android:name="com.onecricket.activity.EditProfileActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.onecricket.activity.AddCashActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.onecricket.activity.MyTransactionActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.onecricket.activity.NotificationActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.onecricket.activity.InviteFriendsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.onecricket.activity.InvitedFriendListActivity" />
-        <activity android:name="com.onecricket.activity.PaymentConfirmationActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.onecricket.activity.WebviewAcitivity" />
-        <activity android:name="com.onecricket.activity.WithdrawAmountActivity" />
-        <activity android:name="com.onecricket.activity.PayUMoneyPaymentActivity" />
-        <activity android:name="com.onecricket.activity.GlobalRankActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.EditProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AddCashActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MyTransactionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.NotificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.InviteFriendsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.InvitedFriendListActivity" />
+        <activity
+            android:name=".activity.PaymentConfirmationActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.WebviewAcitivity" />
+        <activity android:name=".activity.WithdrawAmountActivity" />
+        <activity android:name=".activity.PayUMoneyPaymentActivity" />
+        <activity
+            android:name=".activity.GlobalRankActivity"
+            android:screenOrientation="portrait" />
 
         <service
-            android:name="com.onecricket.FirebaseMessagingService"
+            android:name=".FirebaseMessagingService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -156,7 +172,7 @@
             </intent-filter>
         </service>
         <service
-            android:name="com.onecricket.FirebaseInstanceIDService"
+            android:name=".FirebaseInstanceIDService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -164,20 +180,36 @@
             </intent-filter>
         </service>
 
-        <activity android:name="com.onecricket.activity.UploadKYCActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.onecricket.activity.CreateContestActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.onecricket.activity.SelectPrizeCreateActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.onecricket.activity.EnterInviteCodeContestActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.onecricket.activity.InviteInContestActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.onecricket.activity.TrakNPayActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.onecricket.activity.CashfreeActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.UploadKYCActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CreateContestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SelectPrizeCreateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.EnterInviteCodeContestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.InviteInContestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TrakNPayActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CashfreeActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.MatchOddsActivity" />
+        <activity android:name=".chatroom.ChatRoomActivity" />
+        <activity
+            android:name=".activity.MatchOddsTabsActivity"
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="ch01"/>
     </application>
 
 </manifest>

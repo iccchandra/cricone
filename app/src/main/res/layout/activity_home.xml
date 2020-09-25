@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.HomeActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/white"
+
+        android:id="@+id/head">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:theme="@style/MyDarkToolbarStyle"/>
+        <ImageView
+            android:id="@+id/im_AppIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:src="@drawable/logo_splash"
+            android:padding="10dp"
+            android:visibility="visible"
+            android:layout_centerVertical="true"
+            />
+        <ImageView
+            android:id="@+id/im_homewallet"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_marginEnd="5dp"
+            android:layout_toLeftOf="@+id/im_Notification"
+            android:src="@drawable/wallet_icon"
+            android:padding="10dp"
+            android:visibility="gone"
+            android:layout_centerVertical="true"
+            />
+        <ImageView
+            android:id="@+id/im_Notification"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:src="@drawable/notification_icon_active"
+            android:padding="10dp"
+            android:visibility="visible"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/RLHomeBanner"
+        android:layout_below="@+id/head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/VPBanner"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:id="@+id/SliderDots1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/VPBanner"
+            android:layout_marginBottom="8dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal" />
+
+
+    </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/bonus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bonusdaily"
+        android:contentDescription="Daily"
+        android:scaleType="center"
+        android:layout_alignRight="@id/fragment_container"
+        android:layout_alignBottom="@id/fragment_container"
+
+        app:maxImageSize = "56dp"
+
+        android:layout_margin="12dp" />
+
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/RLHomeBanner"
+        android:background="?attr/colorPrimary"
+        android:elevation="6dp"
+        app:tabTextColor="@color/white"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:elevation="30dp"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/tabtextselected"
+        app:tabMode="fixed"
+        app:tabPaddingEnd="-2dp"
+        app:tabPaddingStart="-2dp"
+        app:tabSelectedTextColor="@color/tabtextselected"
+        app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
+        app:tabTextColor="@color/tabtextunselected">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/home_icon_active"
+            android:text="HOME" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/contest_icon"
+            android:text="MY Predict" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/profile_icon"
+            android:text="PROFILE" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/more_icon"
+            android:text="MORE" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <LinearLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_above="@+id/tabs"
+        android:background="#161C23"
+
+        android:layout_below="@+id/tablayout"/>
+
+
+
+
+
+</RelativeLayout>
+
+
+</layout>

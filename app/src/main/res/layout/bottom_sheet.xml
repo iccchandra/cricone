@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/top_border_bg"
+    android:orientation="vertical"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="80dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/header_layout"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="84dp"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:visibility="gone"
+            android:src="@drawable/dandelion_chocolate" />
+
+        <TextView
+            android:id="@+id/bets_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/circle_bg"
+            android:gravity="center"
+            android:text="0"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bet Slip"
+            android:textColor="@color/white"
+            android:layout_marginStart="25dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/bets_recycler_view"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_layout"
+        android:layout_below="@+id/header_layout" />
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/bottom_layout"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/button_place_bet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:background="@color/colorAccent"
+        android:text="Place Bet"
+        android:textColor="#fff" />
+    </RelativeLayout>
+
+</RelativeLayout>

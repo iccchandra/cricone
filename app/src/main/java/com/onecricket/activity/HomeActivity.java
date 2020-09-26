@@ -1,17 +1,21 @@
 package com.onecricket.activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -26,20 +30,24 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.crowdfire.cfalertdialog.CFAlertDialog;
+import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.onecricket.Bean.BeanBanner;
 import com.onecricket.BuildConfig;
 import com.onecricket.R;
 import com.onecricket.adapter.AdapterHomeBanner;
-import com.onecricket.fragment.FragmentFixtures;
 import com.onecricket.fragment.InProgressMatchesFragment;
 import com.onecricket.fragment.UpcomingMatchesFragment;
+import com.onecricket.location.AppConstants;
+import com.onecricket.location.model.LocationServiceManager;
+import com.onecricket.location.model.LocationServiceManagerImpl;
 import com.onecricket.utils.CommonProgressDialog;
 import com.onecricket.utils.SessionManager;
 import com.onecricket.databinding.ActivityHomeBinding;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -80,14 +88,15 @@ import org.json.JSONObject;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.onecricket.APICallingPackage.Class.Validations.ShowToast;
 import static com.onecricket.APICallingPackage.Config.APKNAME;
 import static com.onecricket.APICallingPackage.Config.APKURL;
@@ -96,7 +105,10 @@ import static com.onecricket.APICallingPackage.Config.UPDATEAPP;
 import static com.onecricket.APICallingPackage.Constants.HOMEBANNERTYPE;
 import static com.onecricket.APICallingPackage.Constants.UPDATEAPPTYPE;
 
-public class HomeActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, ResponseManager {
+public class HomeActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
+                                                               ResponseManager,
+                                                               LocationServiceManager.Listener
+{
     private int[] tabIcons = {
             R.drawable.home_icon,
             R.drawable.contest_icon,
@@ -131,6 +143,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
     private ImageView[] dots1;
     private int dotscount1;
     private androidx.appcompat.app.AlertDialog progressAlertDialog;
+    private LocationServiceManager locationServiceManager;
 
     public static HomeActivity getInstance() {
         return homeActivity;
@@ -147,6 +160,10 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         if (sessionManager.getUser(context).getToken() != null) {
             Log.d("HomeActivity-Token", sessionManager.getUser(context).getToken());
         }
+
+        locationServiceManager = new LocationServiceManagerImpl(this);
+        locationServiceManager.setListener(this);
+        locationServiceManager.startLocationService();
 
         responseManager = this;
         apiRequestManager = new APIRequestManager(activity);
@@ -655,13 +672,18 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         if (requestCode == 100) {
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
             } else {
 
             }
-            return;
+        }
+        else if (requestCode == AppConstants.LOCATION_REQUEST) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                locationServiceManager.getLastKnownLocation();
+            } else {
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -725,6 +747,70 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     public interface DataBindingComponent {
+    }
+
+    @Override
+    public void onGpsDisabled() {
+
+    }
+
+    @Override
+    public void onGpsEnabled() {
+        requestLocationPermissions();
+    }
+
+    @Override
+    public void askGpsLocationPermission(Exception e) {
+        try {
+            ResolvableApiException rae = (ResolvableApiException) e;
+            rae.startResolutionForResult((Activity) context, AppConstants.GPS_REQUEST);
+        } catch (IntentSender.SendIntentException sie) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == AppConstants.GPS_REQUEST) {
+                requestLocationPermissions();
+            }
+        }
+    }
+
+    private void requestLocationPermissions() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(this,
+                                              new String[]{ Manifest.permission.ACCESS_FINE_LOCATION,
+                                                            Manifest.permission.ACCESS_COARSE_LOCATION }, AppConstants.LOCATION_REQUEST);
+        }
+        else {
+            locationServiceManager.getLastKnownLocation();
+        }
+    }
+
+
+    @Override
+    public void onLocationSuccess(double latitude, double longitude) {
+        Geocoder geoCoder = new Geocoder(this, Locale.getDefault()); //it is Geocoder
+        StringBuilder builder = new StringBuilder();
+        try {
+            List<Address> address = geoCoder.getFromLocation(latitude, longitude, 1);
+            String locality = address.get(0).getLocality();
+            int maxLines = address.get(0).getMaxAddressLineIndex();
+            for (int i = 0; i < maxLines; i++) {
+                String addressStr = address.get(0).getAddressLine(i);
+                builder.append(addressStr);
+                builder.append(" ");
+            }
+
+            Toast.makeText(context, locality, Toast.LENGTH_SHORT).show();
+        } catch (IOException | NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 }
 

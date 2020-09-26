@@ -37,4 +37,12 @@ public class Firstinnings {
         mWickets = wickets;
     }
 
+    @Override
+    public String toString() {
+        return "Firstinnings{" +
+                "mScore='" + mScore + '\'' +
+                ", mTeam='" + mTeam + '\'' +
+                ", mWickets='" + mWickets + '\'' +
+                '}';
+    }
 }

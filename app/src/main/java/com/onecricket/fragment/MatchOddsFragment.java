@@ -689,7 +689,6 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
     }
 
 
-    //private List<MatchOdds> selectedOddsList = new ArrayList<>();
     @Override
     public void onChildClicked(MatchOdds matchOdds) {
         if (previousValue.equalsIgnoreCase("true")) {
@@ -697,12 +696,6 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         }
         matchOdds.setSelected(!matchOdds.isSelected());
         Log.d(TAG, "onChildClicked: " + matchOdds.toString());
-/*        if (matchOdds.isSelected()) {
-            selectedOddsList.add(matchOdds);
-        }
-        else {
-            selectedOddsList.remove(matchOdds);
-        }*/
 
         bottomsheetRecyclerViewAdapter.updateList(matchOdds);
         betsCountView.setText(String.valueOf(bottomsheetRecyclerViewAdapter.getItemCount()));

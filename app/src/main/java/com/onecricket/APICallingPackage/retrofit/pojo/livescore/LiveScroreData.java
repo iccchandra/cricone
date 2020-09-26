@@ -47,5 +47,13 @@ public class LiveScroreData {
         mSecondInnings = secondinnings;
     }
 
-
+    @Override
+    public String toString() {
+        return "LiveScroreData{" +
+                "mFirstinnings=" + mFirstinnings +
+                ", mSecondInnings=" + mSecondInnings +
+                ", mOverended='" + mOverended + '\'' +
+                ", mPost='" + mPost + '\'' +
+                '}';
+    }
 }

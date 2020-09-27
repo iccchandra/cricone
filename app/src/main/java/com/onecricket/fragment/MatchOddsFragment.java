@@ -32,7 +32,6 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.crowdfire.cfalertdialog.CFAlertDialog;
 import com.example.flatdialoglibrary.dialog.FlatDialog;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.gson.Gson;
@@ -50,6 +49,7 @@ import com.onecricket.pojo.MatchesInfo;
 import com.onecricket.pojo.OddsCategory;
 import com.onecricket.utils.CommonProgressDialog;
 import com.onecricket.utils.SessionManager;
+import com.shashank.sony.fancygifdialoglib.FancyGifDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -107,8 +107,10 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
     private ResponseManager responseManager;
     private APIRequestManager apiRequestManager;
     private SessionManager sessionManager;
-    private long pointsRemaining;
-    private TextView pointsRemainingTextView;
+    private float coinsRemaining;
+    private float coinsRemainingOnBetAmountChanged;
+    private TextView coinsRemainingTextView;
+    private TextView coinsRemainingLabelTextView;
 
 
     @Nullable
@@ -185,7 +187,8 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         setRecyclerViewMargin(topLayout, 0);
         placeBet.setOnClickListener(view1 -> onPlaceBetClicked());
         sheetBehavior.addBottomSheetCallback(new BetSlipSheetCallBack());
-        pointsRemainingTextView = view.findViewById(R.id.points_remaining);
+        coinsRemainingTextView = view.findViewById(R.id.points_remaining);
+        coinsRemainingLabelTextView = view.findViewById(R.id.points_remaining_label);
     }
 
     @Override
@@ -194,8 +197,16 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
             Log.d("getResult " + MYACCOUNTTYPE, result.toString());
             try {
                 String bonus = result.getString("bonous_amount");
-                pointsRemaining = Long.parseLong(bonus);
-                pointsRemainingTextView.setText(bonus);
+                coinsRemaining = Float.parseFloat(bonus);
+                if (coinsRemaining > 0) {
+                    coinsRemainingTextView.setText(bonus);
+                    coinsRemainingLabelTextView.setVisibility(View.VISIBLE);
+                }
+                else {
+                    coinsRemainingTextView.setText("No coins left to place bet");
+                    coinsRemainingLabelTextView.setVisibility(View.GONE);
+                }
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -249,7 +260,17 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
                 }
             }
             if (addedBetAmount) {
-                callPlaceBetAPI();
+                if (coinsRemaining > 0) {
+                    if (coinsRemainingOnBetAmountChanged > 0) {
+                        callPlaceBetAPI();
+                    }
+                    else {
+                        showFailureAlert("You do not have sufficient coins to place this bet. Please remove few.");
+                    }
+                }
+                else {
+                    showFailureAlert("There are no coins for you to place bet.");
+                }
             }
             else {
                 Toast.makeText(context, "Please enter stakes", Toast.LENGTH_SHORT).show();
@@ -765,6 +786,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
     private List<MatchOdds> matchOddsList = new ArrayList<>();
     @Override
     public void onBetAmountChanged(MatchOdds matchOdds) {
+        coinsRemainingOnBetAmountChanged = coinsRemaining;
         float betAmount = 0.0f;
         float returnAmount = 0.0f;
 
@@ -799,6 +821,10 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         placeBet.setText(String.format("Place Bet Coins. %s\n\nTotal To Return Coins. %s",
                          totalBetAmount,
                          totalReturnAmount));
+        if (betAmount > 0) {
+            coinsRemainingOnBetAmountChanged = -totalReturnAmount;
+            coinsRemainingTextView.setText(String.valueOf(coinsRemainingOnBetAmountChanged));
+        }
     }
 
     private void callPlaceBetAPI() {
@@ -808,6 +834,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         final String URL = "http://cricket.atreatit.com/myrest/user/match_bet_details";
         JsonArrayRequest request_json = new JsonArrayRequest(Request.Method.POST, URL, getInputJSON(matchType),
                 response -> {
+                    Log.d(TAG, "PlaceBet Response "+response.toString());
                     dismissProgressDialog(progressAlertDialog);
                     if (response.length() > 0) {
                         onPlaceBetResponse(response);
@@ -815,7 +842,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
 
                 }, volleyError -> {
                     dismissProgressDialog(progressAlertDialog);
-                    showBetFailureAlert();
+                    showFailureAlert("Something went wrong !");
                 }) {
             @Override
             public Map<String, String> getHeaders() {
@@ -855,7 +882,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
                     showBetSuccessAlert();
                 }
                 else {
-                    showBetFailureAlert();
+                    showFailureAlert("Something went wrong !");
                 }
             }
         } catch (JSONException e) {
@@ -882,7 +909,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
     }
 
     private void showBetSuccessAlert() {
-        CFAlertDialog.Builder builder = new CFAlertDialog.Builder(context)
+        /*CFAlertDialog.Builder builder = new CFAlertDialog.Builder(context)
                 .setDialogStyle(CFAlertDialog.CFAlertStyle.ALERT)
                 .setTitle("Success")
                 .setMessage("Your bet has been placed successfully.")
@@ -897,15 +924,25 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
                     clearBetSlip();
                 });
 
-        builder.show();
+        builder.show();*/
+
+        new FancyGifDialog.Builder((Activity) context)
+                .setTitle("Success")
+                .setMessage("Your bet has been placed successfully.")
+                .setPositiveBtnBackground("#FF4081")
+                .setPositiveBtnText("OK")
+                .setGifResource(R.drawable.common_gif)
+                .isCancellable(true)
+                .OnPositiveClicked(() -> clearBetSlip())
+                .build();
     }
 
-    private void showBetFailureAlert() {
+    private void showFailureAlert(String message) {
         final FlatDialog flatDialog = new FlatDialog(context);
         flatDialog.setIcon(R.drawable.crying)
-                .setTitle("Somthing went wrong !")
+                .setTitle("Error")
                 .setTitleColor(Color.parseColor("#000000"))
-                .setSubtitle("Please try again later")
+                .setSubtitle(message)
                 .setSubtitleColor(Color.parseColor("#000000"))
                 .setBackgroundColor(Color.parseColor("#a26ea1"))
                 .setFirstButtonColor(Color.parseColor("#f18a9b"))
@@ -949,6 +986,9 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
                         jsonParam.put("match_time", "212112");
                         jsonParam.put("team_name", matchesInfo.getHomeTeam() + "-" + matchesInfo.getVisitorsTeam());
                         jsonParam.put("status", matchType);
+                        jsonParam.put("visitor_team", matchesInfo.getVisitorsTeam());
+                        jsonParam.put("home_team", matchesInfo.getHomeTeam());
+
 
                     }
 
@@ -958,7 +998,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
                     jsonParam.put("odd_value", matchOdds.getOdds());
                     jsonParam.put("bet_value", String.valueOf(matchOdds.getBetAmount()));
                     jsonParam.put("bet_amount", String.valueOf(matchOdds.getReturnAmount()));
-                    jsonParam.put("batting_team", String.valueOf(matchOdds.getReturnAmount()));
+                    jsonParam.put("batting_team", "NA");
                     jsonArray.put(jsonParam);
 
                 } catch (JSONException e) {

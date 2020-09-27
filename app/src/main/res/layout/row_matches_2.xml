@@ -90,7 +90,21 @@
                             android:id="@+id/team_a_logo"
                             android:layout_toEndOf="@+id/team_logo_a_start"
                             android:src="@drawable/team_a_logo"
+                            android:visibility="visible"
                             />
+
+                        <com.onecricket.ui.CircularTextView
+                            android:id="@+id/circularTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="-10dp"
+                            android:layout_toEndOf="@+id/team_logo_a_start"
+                            android:padding="6dp"
+                            android:gravity="center"
+                            android:visibility="gone"
+                            android:text="K"
+                            android:textSize="28sp" />
 
                         <TextView
                             android:layout_width="wrap_content"

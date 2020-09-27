@@ -147,6 +147,7 @@
     <string name="label_cancel">Cancel</string>
     <string name="logout">Logout</string>
     <string name="share">Share</string>
+    <string name="points_remaining">Points Remaining</string>
 
 
 </resources>

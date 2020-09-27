@@ -80,6 +80,8 @@ import com.onecricket.APICallingPackage.Interface.ResponseManager;
 import com.onecricket.fragment.MoreFragment;
 import com.onecricket.fragment.MyContestFragment;
 import com.onecricket.fragment.ProfileFragment;
+import com.shashank.sony.fancygifdialoglib.FancyGifDialog;
+import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -309,20 +311,18 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
 
     private void showBonusCreditedAlert() {
-        CFAlertDialog.Builder builder = new CFAlertDialog.Builder(this)
-                .setDialogStyle(CFAlertDialog.CFAlertStyle.ALERT)
-                .setTitle("Your Daily Bonus Credited")
-                .setMessage("Looks like you can earn more.");
-
-        builder.addButton("Invite Friends", Color.parseColor("#FFFFFF"), Color.parseColor("#429ef4"),CFAlertDialog.CFAlertActionStyle.POSITIVE, CFAlertDialog.CFAlertActionAlignment.CENTER, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                Intent i = new Intent(HomeActivity.this, InviteFriendsActivity.class);
-                startActivity(i);
-            }
-        });
-        builder.show();
+        new FancyGifDialog.Builder(this)
+                .setTitle("Your Daily Bonus Credited.")
+                .setMessage("Looks like you can earn more.")
+                .setPositiveBtnText("Invite Friends")
+                .setPositiveBtnBackground("#FF4081")
+                .setGifResource(R.drawable.common_gif)   //Pass your Gif here
+                .isCancellable(true)
+                .OnPositiveClicked(() -> {
+                    Intent i = new Intent(HomeActivity.this, InviteFriendsActivity.class);
+                    startActivity(i);
+                })
+                .build();
     }
 
 
@@ -616,16 +616,33 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
             binding.tabs.selectTab(binding.tabs.getTabAt(0), true);
         }
         else {
-            AlertDialog.Builder ab = new AlertDialog.Builder(activity);
+            /*AlertDialog.Builder ab = new AlertDialog.Builder(activity);
             ab.setPositiveButton("Exit", (dialog, id) -> {
                 finishAffinity();
                 finish();
             });
             AlertDialog alert = ab.create();
             alert.setMessage("Are you sure, you want to exit?");
-            alert.show();
+            alert.show();*/
+            showLogoutAlert();
+
         }
 
+    }
+
+    private void showLogoutAlert() {
+        new FancyGifDialog.Builder(this)
+                .setTitle("Are you sure, you want to exit?")
+                //.setMessage("This is a granny eating chocolate dialog box. This library is used to help you easily create fancy gify dialog.")
+                .setPositiveBtnText("Exit")
+                .setPositiveBtnBackground("#FF4081")
+                .setGifResource(R.drawable.common_gif)   //Pass your Gif here
+                .isCancellable(true)
+                .OnPositiveClicked(() -> {
+                    finishAffinity();
+                    finish();
+                })
+                .build();
     }
 
     public void Logout() {

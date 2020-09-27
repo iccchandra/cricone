@@ -205,13 +205,10 @@ public class InProgressMatchesFragment extends Fragment implements MatchesAdapte
 
 
                 },
-             new Response.ErrorListener() {
-                 @Override
-                 public void onErrorResponse(VolleyError error) {
-                     dismissProgressDialog(progressAlertDialog);
-                     Log.e(TAG, "Error: " + error.getMessage());
-                 }
-             })
+                error -> {
+                    dismissProgressDialog(progressAlertDialog);
+                    Log.e(TAG, "Error: " + error.getMessage());
+                })
         {
 
             @Override

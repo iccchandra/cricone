@@ -1,5 +1,6 @@
 package com.onecricket.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -27,15 +28,17 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.crowdfire.cfalertdialog.CFAlertDialog;
+import com.example.flatdialoglibrary.dialog.FlatDialog;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.onecricket.APICallingPackage.Class.APIRequestManager;
+import com.onecricket.APICallingPackage.Interface.ResponseManager;
 import com.onecricket.APICallingPackage.retrofit.APIService;
 import com.onecricket.APICallingPackage.retrofit.pojo.livescore.LiveScroreData;
 import com.onecricket.R;
@@ -69,8 +72,12 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.onecricket.APICallingPackage.Config.MYACCOUNT;
+import static com.onecricket.APICallingPackage.Constants.MYACCOUNTTYPE;
+
 public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.ChildClickListener,
-                                                           BottomsheetRecyclerViewAdapter.ItemChangeListener
+                                                           BottomsheetRecyclerViewAdapter.ItemChangeListener,
+                                                           ResponseManager
 {
 
     private static final String TAG = "MatchOddsFragment";
@@ -97,6 +104,12 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
     private RelativeLayout matchStatusLayout;
     private TextView firstInningsTextView;
     private TextView secondInningsTextView;
+    private ResponseManager responseManager;
+    private APIRequestManager apiRequestManager;
+    private SessionManager sessionManager;
+    private long pointsRemaining;
+    private TextView pointsRemainingTextView;
+
 
     @Nullable
     @Override
@@ -113,6 +126,10 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
             }
         }
 
+        sessionManager = new SessionManager();
+        responseManager = this;
+        apiRequestManager = new APIRequestManager(getActivity());
+
 
         if (matchesInfo != null && matchesInfo.getId() != null && matchesInfo.getId().trim().length() > 0) {
             if (matchesInfo.isMatchInProgress()) {
@@ -124,6 +141,8 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
                 callUpcomingMatchOddsAPI(matchesInfo.getId());
             }
         }
+
+        callMyAccountDetails(false);
 
         return view;
     }
@@ -166,6 +185,26 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         setRecyclerViewMargin(topLayout, 0);
         placeBet.setOnClickListener(view1 -> onPlaceBetClicked());
         sheetBehavior.addBottomSheetCallback(new BetSlipSheetCallBack());
+        pointsRemainingTextView = view.findViewById(R.id.points_remaining);
+    }
+
+    @Override
+    public void getResult(Context mContext, String type, String message, JSONObject result) {
+        if (type.equals(MYACCOUNTTYPE)) {
+            Log.d("getResult " + MYACCOUNTTYPE, result.toString());
+            try {
+                String bonus = result.getString("bonous_amount");
+                pointsRemaining = Long.parseLong(bonus);
+                pointsRemainingTextView.setText(bonus);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onError(Context mContext, String type, String message) {
+
     }
 
     private class BetSlipSheetCallBack extends BottomSheetBehavior.BottomSheetCallback {
@@ -862,18 +901,18 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
     }
 
     private void showBetFailureAlert() {
-        CFAlertDialog.Builder builder = new CFAlertDialog.Builder(context)
-                .setDialogStyle(CFAlertDialog.CFAlertStyle.ALERT)
-                .setTitle("Error")
-                .setMessage("Please try after sometime")
-                .setCancelable(false);
-
-        builder.addButton("OK", Color.parseColor("#FFFFFF"),
-                Color.parseColor("#429ef4"),
-                CFAlertDialog.CFAlertActionStyle.POSITIVE,
-                CFAlertDialog.CFAlertActionAlignment.CENTER, (dialog, which) -> dialog.dismiss());
-
-        builder.show();
+        final FlatDialog flatDialog = new FlatDialog(context);
+        flatDialog.setIcon(R.drawable.crying)
+                .setTitle("Somthing went wrong !")
+                .setTitleColor(Color.parseColor("#000000"))
+                .setSubtitle("Please try again later")
+                .setSubtitleColor(Color.parseColor("#000000"))
+                .setBackgroundColor(Color.parseColor("#a26ea1"))
+                .setFirstButtonColor(Color.parseColor("#f18a9b"))
+                .setFirstButtonTextColor(Color.parseColor("#000000"))
+                .setFirstButtonText("OK")
+                .withFirstButtonListner(view -> flatDialog.dismiss())
+                .show();
     }
 
     private JSONArray getInputJSON(String matchType) {
@@ -882,6 +921,25 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
             MatchOdds matchOdds = matchOddsList.get(i);
             if (matchOdds.isSelected()) {
                 JSONObject jsonParam = new JSONObject();
+
+                /*{
+                    "betid": "1004874033",
+                        "fi_id": "93023807",
+                        "matchname": "T20 Blast",
+                        "home_team": "Kolkatta night riders",
+                        "visitor_team": "delhi capitals",
+                        "match_date": "212112",
+                        "match_time": "212112",
+                        "batting_team": "delhi capitals",
+                        "team_name": "Kent-Sussex",
+                        "status": "upcoming",
+                        "bet_date": "212112",
+                        "bet_time": "212112",
+                        "odd_name": "Kent",
+                        "odd_value": "1.90",
+                        "bet_value": 3.799999952316284,
+                        "bet_amount" : 500
+                }*/
                 try {
                     jsonParam.put("betid", matchOdds.getId());
                     if (matchesInfo != null) {
@@ -900,6 +958,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
                     jsonParam.put("odd_value", matchOdds.getOdds());
                     jsonParam.put("bet_value", String.valueOf(matchOdds.getBetAmount()));
                     jsonParam.put("bet_amount", String.valueOf(matchOdds.getReturnAmount()));
+                    jsonParam.put("batting_team", String.valueOf(matchOdds.getReturnAmount()));
                     jsonArray.put(jsonParam);
 
                 } catch (JSONException e) {
@@ -948,7 +1007,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         observable.subscribeOn(Schedulers.newThread()).
                 observeOn(AndroidSchedulers.mainThread())
                 .map(result -> result)
-                .subscribe(this::handleResults, this::handleError);
+                .subscribe(this::handleLiveScroreAPIResults, this::handleCallLiveScoreAPIError);
     }
 
     @Override
@@ -968,7 +1027,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
     private String previousValue = "false";
     private String firstInningsTeam;
     private String secondInningsTeam;
-    private void handleResults(LiveScroreData liveScoreData) {
+    private void handleLiveScroreAPIResults(LiveScroreData liveScoreData) {
         matchStatusText.setText("");
         Log.d(TAG, matchesInfo.toString());
         Log.d(TAG, "Overended: "+liveScoreData.getOverended());
@@ -1003,19 +1062,23 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         if (!previousValue.equalsIgnoreCase(overEnded)) {
             previousValue = overEnded;
             if (overEnded.equalsIgnoreCase("true")) {
-                for (int i = 0; i < oddsCategoryListFinal.size(); i++) {
-                    List<MatchOdds> matchOddsList = oddsCategoryListFinal.get(i).getChildItemList();
-                    for (int j = 0; j < matchOddsList.size(); j++) {
-                        matchOddsList.get(j).setOdds("Suspended");
-                    }
-                }
-                oddsCategoryAdapter.notifyDataSetChanged();
-                bottom_sheet.setVisibility(View.GONE);
+                suspendBet();
             }
             else {
                 callInPlayMatchOddsAPI(matchesInfo.getId(), matchType);
             }
         }
+    }
+
+    private void suspendBet() {
+        for (int i = 0; i < oddsCategoryListFinal.size(); i++) {
+            List<MatchOdds> matchOddsList = oddsCategoryListFinal.get(i).getChildItemList();
+            for (int j = 0; j < matchOddsList.size(); j++) {
+                matchOddsList.get(j).setOdds("Suspended");
+            }
+        }
+        oddsCategoryAdapter.notifyDataSetChanged();
+        bottom_sheet.setVisibility(View.GONE);
     }
 
     private void onError(Throwable throwable) {
@@ -1033,11 +1096,35 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         }
     }
 
-    private void handleError(Throwable t) {
+    private void handleCallLiveScoreAPIError(Throwable t) {
         if (t.getMessage() != null) {
             Log.d(TAG, t.getMessage());
         }
+        suspendBet();
     }
+
+    private void callMyAccountDetails(boolean isShowLoader) {
+        try {
+            apiRequestManager.callAPIWithAuthorization(MYACCOUNT,
+                    createRequestJsonWin(), context, (Activity) context, MYACCOUNTTYPE,
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private JSONObject createRequestJsonWin() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("user_id", sessionManager.getUser(context).getUser_id());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
+    }
+
 
     public void setListener(Listener listener) {
         this.listener = listener;

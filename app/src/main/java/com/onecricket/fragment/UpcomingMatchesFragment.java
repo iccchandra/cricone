@@ -27,6 +27,7 @@ import com.onecricket.activity.MatchOddsTabsActivity;
 import com.onecricket.adapter.MatchesAdapter;
 import com.onecricket.pojo.MatchesInfo;
 import com.onecricket.utils.CommonProgressDialog;
+import com.onecricket.utils.SessionManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +43,7 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
     private Context context;
     private AlertDialog progressAlertDialog;
     private List<MatchesInfo> matchesInfoList;
+    private SessionManager sessionManager;
 
     @Nullable
     @Override
@@ -52,7 +54,8 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
         View view = inflater.inflate(R.layout.fragment_matches, container, false);
         recyclerView = view.findViewById(R.id.matches);
         progressAlertDialog = CommonProgressDialog.getProgressDialog(context);
-        callMatchesAPI();
+        sessionManager = new SessionManager();
+        callMatchesAPI(sessionManager.getUser(context).getToken());
         return view;
     }
 
@@ -92,7 +95,7 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
 
     }
 
-    private void callMatchesAPI() {
+    private void callMatchesAPI(String token) {
         dismissProgressDialog(progressAlertDialog);
         progressAlertDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(context);

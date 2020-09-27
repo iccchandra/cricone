@@ -10,18 +10,10 @@
     app:behavior_peekHeight="80dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:id="@+id/header_layout"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="84dp"
-            android:layout_height="match_parent"
-            android:padding="8dp"
-            android:visibility="gone"
-            android:src="@drawable/dandelion_chocolate" />
+        android:id="@+id/header_layout">
 
         <TextView
             android:id="@+id/bets_count"
@@ -30,6 +22,7 @@
             android:layout_gravity="center"
             android:background="@drawable/circle_bg"
             android:gravity="center"
+            android:layout_centerVertical="true"
             android:text="0"
             android:layout_marginStart="15dp"
             android:textColor="@color/black"
@@ -38,13 +31,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bet Slip"
+            android:layout_toEndOf="@+id/bets_count"
+            android:layout_centerVertical="true"
             android:textColor="@color/white"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="10dp"
             android:gravity="center"
             android:layout_gravity="center"
             android:textSize="16sp" />
 
-    </LinearLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:id="@+id/points_remaining_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/points_remaining"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/points_remaining"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/points_remaining_label"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bets_recycler_view"

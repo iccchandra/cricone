@@ -1,38 +1,60 @@
 package com.onecricket.fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.onecricket.databinding.FragmentMyContestBinding;
-
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
+import com.onecricket.APICallingPackage.Class.APIRequestManager;
+import com.onecricket.APICallingPackage.Interface.ResponseManager;
+import com.onecricket.APICallingPackage.retrofit.ApiClient;
+import com.onecricket.APICallingPackage.retrofit.ApiInterface;
+import com.onecricket.APICallingPackage.retrofit.betlist.SubmittedBets;
 import com.onecricket.R;
+import com.onecricket.databinding.FragmentMyContestBinding;
+import com.onecricket.utils.SessionManager;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyContestFragment extends Fragment {
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
+public class MyContestFragment extends Fragment implements ResponseManager{
 
 
-
+    private static final String TAG = "MyContestFragment";
+    private static final String API_TYPE_MY_BET_LIST = "my_bet_list";
     FragmentMyContestBinding binding;
+    private ResponseManager responseManager;
+    private APIRequestManager apiRequestManager;
+    private SessionManager sessionManager;
+    private Context context;
+    private FragmentMyFixtures myFixturesFragment;
+    private FragmentMyLive myLiveFragment;
+    private FragmentMyResults myResultsFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMyContestBinding.inflate(inflater, container, false);
 
 
-
+        initialiseAPI();
+        callBetListAPI();
         setupViewPager(binding.myviewpager);
 
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -40,15 +62,50 @@ public class MyContestFragment extends Fragment {
         transaction.replace(R.id.myviewpager, new FragmentMyFixtures());
         transaction.commit();
 
-
         return binding.getRoot();
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
+    private void callBetListAPI() {
+        ApiInterface apiInterface = ApiClient.getClientWithAuthorisation(sessionManager.getUser(context).getToken()).create(ApiInterface.class);
+
+        Observable<SubmittedBets> observable = apiInterface.getSubmittedBets();
+        observable.subscribeOn(Schedulers.newThread()).
+                observeOn(AndroidSchedulers.mainThread())
+                .map(result -> result)
+                .subscribe(this::handleSubmittedBetsAPI, this::handleSubmittedBetsError);
+    }
+
+    private void handleSubmittedBetsError(Throwable throwable) {
+        if (throwable.getMessage() != null) {
+            Log.d(TAG, throwable.getMessage());
+        }
+    }
+
+    private void handleSubmittedBetsAPI(SubmittedBets submittedBets) {
+        myFixturesFragment.setUpcomingBetsData(submittedBets.getData().getUpcoming());
+        Log.d(TAG, submittedBets.toString());
+    }
+
+    private void initialiseAPI() {
+        sessionManager = new SessionManager();
+        responseManager = this;
+        apiRequestManager = new APIRequestManager(getActivity());
     }
 
     private void setupViewPager(ViewPager viewPager) {
         MyViewPagerAdapter adapter = new MyViewPagerAdapter(getActivity().getSupportFragmentManager());
-        adapter.addFragment(new FragmentMyFixtures(), "FIXTURES");
-        adapter.addFragment(new FragmentMyLive(), "LIVE");
-        adapter.addFragment(new FragmentMyResults(), "RESULTS");
+        myFixturesFragment = new FragmentMyFixtures();
+        myLiveFragment = new FragmentMyLive();
+        myResultsFragment = new FragmentMyResults();
+        adapter.addFragment(myFixturesFragment, "FIXTURES");
+        adapter.addFragment(myLiveFragment, "LIVE");
+        adapter.addFragment(myResultsFragment, "RESULTS");
         viewPager.setAdapter(adapter);
 
         binding.FragmentMyTab.setupWithViewPager(binding.myviewpager);
@@ -59,6 +116,19 @@ public class MyContestFragment extends Fragment {
         }
         binding.myviewpager.setOffscreenPageLimit(2);
 
+    }
+
+    @Override
+    public void getResult(Context mContext, String type, String message, JSONObject result) {
+        Log.d(TAG, result.toString());
+        if (type.equals(API_TYPE_MY_BET_LIST)) {
+
+        }
+    }
+
+    @Override
+    public void onError(Context mContext, String type, String message) {
+        Log.d(TAG, message);
     }
 
 

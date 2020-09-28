@@ -131,6 +131,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         sessionManager = new SessionManager();
         responseManager = this;
         apiRequestManager = new APIRequestManager(getActivity());
+        callMyAccountDetails(false);
 
 
         if (matchesInfo != null && matchesInfo.getId() != null && matchesInfo.getId().trim().length() > 0) {
@@ -143,8 +144,6 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
                 callUpcomingMatchOddsAPI(matchesInfo.getId());
             }
         }
-
-        callMyAccountDetails(false);
 
         return view;
     }
@@ -215,7 +214,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
 
     @Override
     public void onError(Context mContext, String type, String message) {
-
+        Log.d(TAG, "getResult "+message);
     }
 
     private class BetSlipSheetCallBack extends BottomSheetBehavior.BottomSheetCallback {
@@ -822,7 +821,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
                          totalBetAmount,
                          totalReturnAmount));
         if (betAmount > 0) {
-            coinsRemainingOnBetAmountChanged = -totalReturnAmount;
+            coinsRemainingOnBetAmountChanged  = coinsRemainingOnBetAmountChanged - totalReturnAmount;
             coinsRemainingTextView.setText(String.valueOf(coinsRemainingOnBetAmountChanged));
         }
     }
@@ -1146,7 +1145,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
     private void callMyAccountDetails(boolean isShowLoader) {
         try {
             apiRequestManager.callAPIWithAuthorization(MYACCOUNT,
-                    createRequestJsonWin(), context, (Activity) context, MYACCOUNTTYPE,
+                    null, context, (Activity) context, MYACCOUNTTYPE,
                     isShowLoader, responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {

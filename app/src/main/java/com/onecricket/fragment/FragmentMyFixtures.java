@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
+import com.onecricket.APICallingPackage.retrofit.betlist.Upcoming;
 import com.onecricket.activity.MyJoinedFixtureContestListActivity;
 import com.onecricket.databinding.FragmentMyFixturesBinding;
 import com.google.gson.Gson;
@@ -48,6 +50,7 @@ import static com.onecricket.APICallingPackage.Constants.MYFIXTURESTYPE;
 
 
 public class FragmentMyFixtures extends Fragment implements ResponseManager {
+    private static final String TAG = "FragmentMyFixtures";
     HomeActivity activity;
     Context context;
     AdapterFixturesList adapterFixturesList;
@@ -298,6 +301,10 @@ public class FragmentMyFixtures extends Fragment implements ResponseManager {
             }
 
         }
+    }
+
+    public void setUpcomingBetsData(List<Upcoming> upcoming) {
+        Log.d(TAG, "test");
     }
 
 }

@@ -6,6 +6,9 @@ import android.content.Context;
 import com.onecricket.APICallingPackage.Interface.ResponseManager;
 import com.onecricket.APICallingPackage.Interface.ServerResponseListner;
 import com.onecricket.APICallingPackage.Interface.VolleyRestClient;
+import com.onecricket.R;
+import com.onecricket.utils.NetworkState;
+import com.onecricket.utils.crypto.AlertDialogHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,20 +21,29 @@ public class APIRequestManager implements ServerResponseListner {
     Context mContext;
     ResponseManager responseManager;
     private VolleyRestClient volleyRestClient;
-
+    private AlertDialogHelper alertDialogHelper;
     public APIRequestManager(Context mContext) {
         this.mContext = mContext;
-
+        alertDialogHelper = AlertDialogHelper.getInstance();
     }
 
 
     public void callAPI(String url, JSONObject jsonObject, Context mContext, Activity activity,
                         String type, boolean isShowProgress,
                         ResponseManager responseManager) throws JSONException {
-        this.responseManager = responseManager;
-        volleyRestClient = new VolleyApiCalling();
-        volleyRestClient.callRestApi(url, jsonObject, mContext, activity, type,
-                this, isShowProgress, "");
+        if (NetworkState.isNetworkAvailable(mContext)) {
+            this.responseManager = responseManager;
+            volleyRestClient = new VolleyApiCalling();
+            volleyRestClient.callRestApi(url, jsonObject, mContext, activity, type,
+                    this, isShowProgress, "");
+        }
+        else {
+            if (!alertDialogHelper.isShowing()) {
+                alertDialogHelper.showAlertDialog(mContext,
+                        mContext.getString(R.string.internet_error_title),
+                        mContext.getString(R.string.no_internet_message));
+            }
+        }
 
     }
 
@@ -43,10 +55,19 @@ public class APIRequestManager implements ServerResponseListner {
                                          boolean isShowProgress,
                                          ResponseManager responseManager,
                                          String authorization) throws JSONException {
-        this.responseManager = responseManager;
-        volleyRestClient = new VolleyApiCalling();
-        volleyRestClient.callRestApi(url, jsonObject, mContext, activity, type, this, isShowProgress, authorization);
 
+        if (NetworkState.isNetworkAvailable(mContext)) {
+            this.responseManager = responseManager;
+            volleyRestClient = new VolleyApiCalling();
+            volleyRestClient.callRestApi(url, jsonObject, mContext, activity, type, this, isShowProgress, authorization);
+        }
+        else {
+            if (!alertDialogHelper.isShowing()) {
+                alertDialogHelper.showAlertDialog(mContext,
+                        mContext.getString(R.string.internet_error_title),
+                        mContext.getString(R.string.no_internet_message));
+            }
+        }
     }
 
 

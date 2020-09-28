@@ -22,6 +22,7 @@ import com.onecricket.APICallingPackage.Class.Validations;
 import com.onecricket.APICallingPackage.Interface.ResponseManager;
 import com.onecricket.Bean.UserDetails;
 import com.onecricket.R;
+import com.onecricket.utils.NetworkState;
 import com.onecricket.utils.SessionManager;
 import com.onecricket.databinding.ActivityLoginBinding;
 import com.facebook.AccessToken;
@@ -43,6 +44,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.onecricket.utils.crypto.AlertDialogHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -87,6 +89,7 @@ public class LoginActivity extends AppCompatActivity implements ResponseManager,
     String Back = "0";
     SessionManager sessionManager;
     ActivityLoginBinding binding;
+    private AlertDialogHelper alertDialogHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +101,7 @@ public class LoginActivity extends AppCompatActivity implements ResponseManager,
         responseManager = this;
         apiRequestManager = new APIRequestManager(activity);
         sessionManager = new SessionManager();
+        alertDialogHelper = AlertDialogHelper.getInstance();
 
         loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
@@ -209,17 +213,35 @@ public class LoginActivity extends AppCompatActivity implements ResponseManager,
         binding.RLFBLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SLoginType = "Email";
-                initFbObject(context);
+                if (NetworkState.isNetworkAvailable(context)) {
+                    SLoginType = "Email";
+                    initFbObject(context);
+                }
+                else {
+                    if (!alertDialogHelper.isShowing()) {
+                        alertDialogHelper.showAlertDialog(context,
+                                getString(R.string.internet_error_title),
+                                getString(R.string.no_internet_message));
+                    }
+                }
             }
         });
 
         binding.RLGmailLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SLoginType = "Email";
-                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-                startActivityForResult(signInIntent, RC_SIGN_IN);
+                if (NetworkState.isNetworkAvailable(context)) {
+                    SLoginType = "Email";
+                    Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+                    startActivityForResult(signInIntent, RC_SIGN_IN);
+                }
+                else {
+                    if (!alertDialogHelper.isShowing()) {
+                        alertDialogHelper.showAlertDialog(context,
+                                getString(R.string.internet_error_title),
+                                getString(R.string.no_internet_message));
+                    }
+                }
             }
         });
 

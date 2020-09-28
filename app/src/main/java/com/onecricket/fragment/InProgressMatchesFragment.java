@@ -27,6 +27,8 @@ import com.onecricket.activity.MatchOddsTabsActivity;
 import com.onecricket.adapter.MatchesAdapter;
 import com.onecricket.pojo.MatchesInfo;
 import com.onecricket.utils.CommonProgressDialog;
+import com.onecricket.utils.NetworkState;
+import com.onecricket.utils.crypto.AlertDialogHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +44,7 @@ public class InProgressMatchesFragment extends Fragment implements MatchesAdapte
     private Context context;
     private AlertDialog progressAlertDialog;
     private List<MatchesInfo> matchesInfoList;
+    private AlertDialogHelper alertDialogHelper;
 
     @Nullable
     @Override
@@ -52,10 +55,19 @@ public class InProgressMatchesFragment extends Fragment implements MatchesAdapte
         View view = inflater.inflate(R.layout.fragment_matches, container, false);
 
         recyclerView = view.findViewById(R.id.matches);
+        alertDialogHelper = AlertDialogHelper.getInstance();
 
         progressAlertDialog = CommonProgressDialog.getProgressDialog(context);
-
-        callMatchesAPI();
+        if (NetworkState.isNetworkAvailable(context)) {
+            callMatchesAPI();
+        }
+        else {
+            if (!alertDialogHelper.isShowing()) {
+                alertDialogHelper.showAlertDialog(context,
+                        getString(R.string.internet_error_title),
+                        getString(R.string.no_internet_message));
+            }
+        }
         return view;
     }
 

@@ -22,6 +22,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.onecricket.R;
 import com.onecricket.utils.CommonProgressDialog;
+import com.onecricket.utils.NetworkState;
+import com.onecricket.utils.crypto.AlertDialogHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,6 +53,7 @@ public class LeaderboardFragment extends Fragment {
     private RelativeLayout firstPositionLayout;
     private RelativeLayout secondPositionLayout;
     private RelativeLayout thirdPositionLayout;
+    private AlertDialogHelper alertDialogHelper;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -69,8 +72,18 @@ public class LeaderboardFragment extends Fragment {
         progressAlertDialog = CommonProgressDialog.getProgressDialog(context);
 
         findViewsById(view);
+        alertDialogHelper = AlertDialogHelper.getInstance();
 
-        callLeaderBoardAPI();
+        if (NetworkState.isNetworkAvailable(context)) {
+            callLeaderBoardAPI();
+        }
+        else {
+            if (!alertDialogHelper.isShowing()) {
+                alertDialogHelper.showAlertDialog(context,
+                        getString(R.string.internet_error_title),
+                        getString(R.string.no_internet_message));
+            }
+        }
 
 
 /*

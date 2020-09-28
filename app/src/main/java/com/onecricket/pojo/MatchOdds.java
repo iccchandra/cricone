@@ -5,6 +5,7 @@ public class MatchOdds {
     private String id;
     private String odds;
     private String name;
+    private String categoryName;
     private boolean isSelected;
     private int betAmount;
     private int previousBetAmount;
@@ -76,5 +77,13 @@ public class MatchOdds {
 
     public void setPreviousBetAmount(int previousBetAmount) {
         this.previousBetAmount = previousBetAmount;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

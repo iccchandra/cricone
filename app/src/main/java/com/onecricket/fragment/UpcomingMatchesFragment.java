@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,8 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.onecricket.R;
@@ -27,7 +24,9 @@ import com.onecricket.activity.MatchOddsTabsActivity;
 import com.onecricket.adapter.MatchesAdapter;
 import com.onecricket.pojo.MatchesInfo;
 import com.onecricket.utils.CommonProgressDialog;
+import com.onecricket.utils.NetworkState;
 import com.onecricket.utils.SessionManager;
+import com.onecricket.utils.crypto.AlertDialogHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,6 +43,7 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
     private AlertDialog progressAlertDialog;
     private List<MatchesInfo> matchesInfoList;
     private SessionManager sessionManager;
+    private AlertDialogHelper alertDialogHelper;
 
     @Nullable
     @Override
@@ -55,7 +55,17 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
         recyclerView = view.findViewById(R.id.matches);
         progressAlertDialog = CommonProgressDialog.getProgressDialog(context);
         sessionManager = new SessionManager();
-        callMatchesAPI(sessionManager.getUser(context).getToken());
+        alertDialogHelper = AlertDialogHelper.getInstance();
+        if (NetworkState.isNetworkAvailable(context)) {
+            callMatchesAPI(sessionManager.getUser(context).getToken());
+        }
+        else {
+            if (!alertDialogHelper.isShowing()) {
+                alertDialogHelper.showAlertDialog(context,
+                        getString(R.string.internet_error_title),
+                        getString(R.string.no_internet_message));
+            }
+        }
         return view;
     }
 

@@ -32,7 +32,9 @@ import com.onecricket.chatroom.adapters.ChatRoomAdapter;
 import com.onecricket.chatroom.models.Message;
 import com.onecricket.chatroom.utils.ProfanityFilter;
 import com.onecricket.chatroom.utils.SCUtils;
+import com.onecricket.utils.NetworkState;
 import com.onecricket.utils.SessionManager;
+import com.onecricket.utils.crypto.AlertDialogHelper;
 
 import java.util.ArrayList;
 
@@ -54,19 +56,36 @@ public class ChatRoomFragment extends Fragment {
     private ProgressBar progressBar;
     private long last_message_timestamp = 0;
     private Context context;
+    private AlertDialogHelper alertDialogHelper;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat_room, container, false);
 
-
+        alertDialogHelper = AlertDialogHelper.getInstance();
         username = new SessionManager().getUser(context).getName();
         mContext = context;
         main_recycler_view = view.findViewById(R.id.main_recycler_view);
         imageButton_send = view.findViewById(R.id.imageButton_send);
         editText_message = view.findViewById(R.id.editText_message);
         progressBar = view.findViewById(R.id.progressBar);
+        if (NetworkState.isNetworkAvailable(context)) {
+            initialiseFirebase();
+        }
+        else {
+            if (!alertDialogHelper.isShowing()) {
+                alertDialogHelper.showAlertDialog(context,
+                        getString(R.string.internet_error_title),
+                        getString(R.string.no_internet_message));
+            }
+        }
+
+
+        return view;
+    }
+
+    private void initialiseFirebase() {
         database = FirebaseDatabase.getInstance();
         databaseRef = database.getReference();
 
@@ -125,9 +144,6 @@ public class ChatRoomFragment extends Fragment {
         });
 
         logic_for_username();
-
-
-        return view;
     }
 
     @Override

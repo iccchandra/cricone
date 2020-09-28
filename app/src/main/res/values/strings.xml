@@ -148,6 +148,8 @@
     <string name="logout">Logout</string>
     <string name="share">Share</string>
     <string name="points_remaining">Points Remaining</string>
+    <string name="internet_error_title">No internet Connection</string>
+    <string name="no_internet_message">Please turn on internet connection to continue</string>
 
 
 </resources>

@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.location.Address;
@@ -42,6 +41,7 @@ import com.onecricket.location.AppConstants;
 import com.onecricket.location.model.LocationServiceManager;
 import com.onecricket.location.model.LocationServiceManagerImpl;
 import com.onecricket.utils.CommonProgressDialog;
+import com.onecricket.utils.NetworkState;
 import com.onecricket.utils.SessionManager;
 import com.onecricket.databinding.ActivityHomeBinding;
 import com.google.android.material.tabs.TabLayout;
@@ -79,8 +79,8 @@ import com.onecricket.APICallingPackage.Interface.ResponseManager;
 import com.onecricket.fragment.MoreFragment;
 import com.onecricket.fragment.MyContestFragment;
 import com.onecricket.fragment.ProfileFragment;
+import com.onecricket.utils.crypto.AlertDialogHelper;
 import com.shashank.sony.fancygifdialoglib.FancyGifDialog;
-import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -145,6 +145,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
     private int dotscount1;
     private androidx.appcompat.app.AlertDialog progressAlertDialog;
     private LocationServiceManager locationServiceManager;
+    private AlertDialogHelper alertDialogHelper;
 
     public static HomeActivity getInstance() {
         return homeActivity;
@@ -173,12 +174,19 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 
-
+        alertDialogHelper = AlertDialogHelper.getInstance();
         Animation shake = AnimationUtils.loadAnimation(activity, R.anim.shake);
         binding.imNotification.startAnimation(shake);
         binding.VPBanner.setNestedScrollingEnabled(false);
         binding.bonus.setOnClickListener(view -> {
-            callBonusAPI(false);
+            if (NetworkState.isNetworkAvailable(context)) {
+                callBonusAPI(false);
+            }
+            else {
+                if (!alertDialogHelper.isShowing()) {
+                    alertDialogHelper.showAlertDialog(context, getString(R.string.internet_error_title), getString(R.string.no_internet_message));
+                }
+            }
         });
 
 

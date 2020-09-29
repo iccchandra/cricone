@@ -1045,7 +1045,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://3.236.20.78:4000")
+                .baseUrl("http://3.236.20.78:7000")
                 .client(client)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))

@@ -65,6 +65,7 @@ import static com.onecricket.APICallingPackage.Constants.SIGNUPTYPE;
 
 public class RegistrationActivity extends AppCompatActivity implements ResponseManager, GoogleApiClient.OnConnectionFailedListener  {
 
+    private static final String REFERRAL_CODE_STATUS = "Yes";
     ResponseManager responseManager;
     APIRequestManager apiRequestManager;
 
@@ -120,7 +121,7 @@ public class RegistrationActivity extends AppCompatActivity implements ResponseM
         Reffered = getIntent().getStringExtra("Reffered");
 
 
-        if (Reffered.equals("Yes")){
+        if (Reffered.equals(REFERRAL_CODE_STATUS)){
             binding.inputRegRefCode.setVisibility(View.VISIBLE);
             binding.LLFaceGoogle.setVisibility(View.GONE);
         }
@@ -136,7 +137,7 @@ public class RegistrationActivity extends AppCompatActivity implements ResponseM
                 MobileNumber = binding.etMobileNo.getText().toString();
                 EmailId = binding.etEmail.getText().toString();
                 Password = binding.etPassword.getText().toString();
-                if (Reffered.equals("Yes")){
+                if (Reffered.equals(REFERRAL_CODE_STATUS)){
                     ReferralCode = binding.etReferralCode.getText().toString();
                 }
                 else {
@@ -199,14 +200,14 @@ public class RegistrationActivity extends AppCompatActivity implements ResponseM
                 startActivityForResult(signInIntent, RC_SIGN_IN);
             }
         });
-        binding.LLEnterCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(activity,RegistrationActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                i.putExtra("Reffered","Yes");
-                startActivity(i);
-            }
+        binding.LLEnterCode.setOnClickListener(view -> {
+            /*Intent i = new Intent(activity,RegistrationActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.putExtra("Reffered","Yes");
+            startActivity(i);*/
+            Reffered = REFERRAL_CODE_STATUS;
+            binding.inputRegRefCode.setVisibility(View.VISIBLE);
+            binding.LLFaceGoogle.setVisibility(View.GONE);
         });
 
         binding.tvSignInText.setOnClickListener(new View.OnClickListener() {
@@ -381,6 +382,10 @@ public class RegistrationActivity extends AppCompatActivity implements ResponseM
                 userDetails.setType(result.getString("type"));
                 userDetails.setVerify(result.getString("verify"));
                 userDetails.setReferral_code(result.getString("referral_code"));
+                if (result.has("token")) {
+                    String token = result.getString("token");
+                    userDetails.setToken(token);
+                }
                 sessionManager.setUser(context, userDetails);
                 Intent i = new Intent(activity, HomeActivity.class);
                 startActivity(i);

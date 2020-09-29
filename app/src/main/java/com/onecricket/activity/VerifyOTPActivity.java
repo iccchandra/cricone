@@ -396,6 +396,10 @@ public class VerifyOTPActivity extends AppCompatActivity implements ResponseMana
                 userDetails.setVerify(result.getString("verify"));
                 userDetails.setReferral_code(result.getString("referral_code"));
                 userDetails.setImage(result.getString("image"));
+                if (result.has("token")) {
+                    String token = result.getString("token");
+                    userDetails.setToken(token);
+                }
 
                 sessionManager.setUser(context,userDetails);
             }

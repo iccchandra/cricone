@@ -82,8 +82,9 @@
                 android:id="@+id/input_RegRefCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="@color/white"
                 android:layout_marginTop="20dp"
+                android:textColorHint="@color/color_disable_button"
+                android:theme="@style/LoginInputLayout"
                 android:visibility="gone">
 
                 <EditText
@@ -91,12 +92,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:backgroundTint="@color/white"
+                    android:backgroundTint="@color/colorPrimaryDark"
                     android:hint="Enter invite code"
                     android:padding="12dp"
                     android:singleLine="true"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textColorHint="@color/colorPrimaryDark"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 

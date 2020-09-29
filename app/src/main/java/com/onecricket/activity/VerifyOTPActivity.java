@@ -218,17 +218,14 @@ public class VerifyOTPActivity extends AppCompatActivity implements ResponseMana
     public void initView(){
 
 
-        binding.head.imBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    countDownTimer.cancel();
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-                onBackPressed();
+        binding.head.imBack.setOnClickListener(view -> {
+            try {
+                countDownTimer.cancel();
             }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+            finish();
         });
         binding.head.tvHeaderName.setText("VERIFY OTP");
 
@@ -430,12 +427,5 @@ public class VerifyOTPActivity extends AppCompatActivity implements ResponseMana
             ShowToast(context,message);
         }
 
-    }
-
-    @Override
-    public void onBackPressed() {
-        Intent i = new Intent(activity, MainActivity.class);
-        startActivity(i);
-        finish();
     }
 }

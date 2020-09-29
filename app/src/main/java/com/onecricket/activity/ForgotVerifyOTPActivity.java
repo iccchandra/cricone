@@ -165,7 +165,7 @@ public class ForgotVerifyOTPActivity extends AppCompatActivity implements Respon
                 catch (Exception e){
                     e.printStackTrace();
                 }
-                onBackPressed();
+                finish();
             }
         });
         binding.head.tvHeaderName.setText(getResources().getString(R.string.verify_otp));
@@ -356,11 +356,6 @@ public class ForgotVerifyOTPActivity extends AppCompatActivity implements Respon
 
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent i = new Intent(activity,LoginActivity.class);
-        startActivity(i);
-    }
     public interface DataBindingComponent {
     }
 }

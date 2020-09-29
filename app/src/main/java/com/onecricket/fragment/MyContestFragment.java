@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -22,7 +23,9 @@ import com.onecricket.APICallingPackage.retrofit.ApiClient;
 import com.onecricket.APICallingPackage.retrofit.ApiInterface;
 import com.onecricket.APICallingPackage.retrofit.betlist.SubmittedBets;
 import com.onecricket.R;
+import com.onecricket.adapter.Predictions;
 import com.onecricket.databinding.FragmentMyContestBinding;
+import com.onecricket.utils.CommonProgressDialog;
 import com.onecricket.utils.SessionManager;
 
 import org.json.JSONObject;
@@ -47,12 +50,13 @@ public class MyContestFragment extends Fragment implements ResponseManager{
     private FragmentMyFixtures myFixturesFragment;
     private FragmentMyLive myLiveFragment;
     private FragmentMyResults myResultsFragment;
+    private AlertDialog progressAlertDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMyContestBinding.inflate(inflater, container, false);
 
-
+        progressAlertDialog = CommonProgressDialog.getProgressDialog(context);
         initialiseAPI();
         callBetListAPI();
         setupViewPager(binding.myviewpager);
@@ -65,6 +69,13 @@ public class MyContestFragment extends Fragment implements ResponseManager{
         return binding.getRoot();
     }
 
+    private void dismissProgressDialog(AlertDialog progressAlertDialog) {
+        if (progressAlertDialog != null && progressAlertDialog.isShowing()) {
+            progressAlertDialog.dismiss();
+        }
+    }
+
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -72,6 +83,9 @@ public class MyContestFragment extends Fragment implements ResponseManager{
     }
 
     private void callBetListAPI() {
+
+        dismissProgressDialog(progressAlertDialog);
+        progressAlertDialog.show();
         ApiInterface apiInterface = ApiClient.getClientWithAuthorisation(sessionManager.getUser(context).getToken()).create(ApiInterface.class);
 
         Observable<SubmittedBets> observable = apiInterface.getSubmittedBets();
@@ -82,13 +96,20 @@ public class MyContestFragment extends Fragment implements ResponseManager{
     }
 
     private void handleSubmittedBetsError(Throwable throwable) {
+        dismissProgressDialog(progressAlertDialog);
         if (throwable.getMessage() != null) {
             Log.d(TAG, throwable.getMessage());
         }
     }
 
     private void handleSubmittedBetsAPI(SubmittedBets submittedBets) {
-        myFixturesFragment.setUpcomingBetsData(submittedBets.getData().getUpcoming());
+        dismissProgressDialog(progressAlertDialog);
+        myFixturesFragment.setUpcomingBetsData(submittedBets.getData());
+        myLiveFragment.setLiveBetsData(submittedBets.getData());
+        myResultsFragment.setFinishedBetsData(submittedBets.getData());
+        /*private FragmentMyLive myLiveFragment;
+        private FragmentMyResults myResultsFragment;*/
+
         Log.d(TAG, submittedBets.toString());
     }
 
@@ -103,9 +124,9 @@ public class MyContestFragment extends Fragment implements ResponseManager{
         myFixturesFragment = new FragmentMyFixtures();
         myLiveFragment = new FragmentMyLive();
         myResultsFragment = new FragmentMyResults();
-        adapter.addFragment(myFixturesFragment, "FIXTURES");
-        adapter.addFragment(myLiveFragment, "LIVE");
-        adapter.addFragment(myResultsFragment, "RESULTS");
+        adapter.addFragment(myFixturesFragment, "UPCOMING");
+        adapter.addFragment(myLiveFragment, "IN-PLAY");
+        adapter.addFragment(myResultsFragment, "FINISHED");
         viewPager.setAdapter(adapter);
 
         binding.FragmentMyTab.setupWithViewPager(binding.myviewpager);

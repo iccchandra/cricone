@@ -9,25 +9,25 @@ import java.util.List;
 public class Data {
 
     @Expose
-    private List<Object> finished;
+    private List<Finished> finished;
     @Expose
-    private List<Object> inprogress;
+    private List<InProgress> inprogress;
     @Expose
     private List<Upcoming> upcoming;
 
-    public List<Object> getFinished() {
+    public List<Finished> getFinished() {
         return finished;
     }
 
-    public void setFinished(List<Object> finished) {
+    public void setFinished(List<Finished> finished) {
         this.finished = finished;
     }
 
-    public List<Object> getInprogress() {
+    public List<InProgress> getInprogress() {
         return inprogress;
     }
 
-    public void setInprogress(List<Object> inprogress) {
+    public void setInprogress(List<InProgress> inprogress) {
         this.inprogress = inprogress;
     }
 

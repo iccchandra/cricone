@@ -22,7 +22,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
+import com.onecricket.APICallingPackage.retrofit.betlist.Data;
+import com.onecricket.APICallingPackage.retrofit.betlist.Finished;
 import com.onecricket.activity.MyJoinedResultContestListActivity;
+import com.onecricket.adapter.MyPredictionsAdapter;
+import com.onecricket.adapter.Predictions;
+import com.onecricket.adapter.SimpleDividerItemDecoration;
 import com.onecricket.databinding.FragmentMyResultsBinding;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -70,9 +75,10 @@ public class FragmentMyResults extends Fragment implements ResponseManager {
 
         binding.RvMyResult.setHasFixedSize(true);
         binding.RvMyResult.setNestedScrollingEnabled(false);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         binding.RvMyResult.setLayoutManager(mLayoutManager);
         binding.RvMyResult.setItemAnimator(new DefaultItemAnimator());
+        binding.RvMyResult.addItemDecoration(new SimpleDividerItemDecoration(context));
 
 
         binding.swipeRefreshLayout.post(() -> {
@@ -138,6 +144,13 @@ public class FragmentMyResults extends Fragment implements ResponseManager {
         binding.swipeRefreshLayout.setRefreshing(false);
         binding.tvNoDataAvailable.setVisibility(View.VISIBLE);
         binding.RvMyResult.setVisibility(View.GONE);
+    }
+
+    public void setFinishedBetsData(Data finished) {
+        if (finished != null && finished.getFinished() != null && finished.getFinished().size() > 0) {
+            MyPredictionsAdapter myPredictionsAdapter = new MyPredictionsAdapter(context, finished, Predictions.FINISHED);
+            binding.RvMyResult.setAdapter(myPredictionsAdapter);
+        }
     }
 
     public class AdapterMyResultList extends RecyclerView.Adapter<AdapterMyResultList.MyViewHolder> {

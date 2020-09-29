@@ -134,8 +134,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         sessionManager = new SessionManager();
         responseManager = this;
         apiRequestManager = new APIRequestManager(getActivity());
-        callMyAccountDetails(false);
-
+        callMyAccountDetails(true);
 
         if (matchesInfo != null && matchesInfo.getId() != null && matchesInfo.getId().trim().length() > 0) {
             if (matchesInfo.isMatchInProgress()) {
@@ -207,9 +206,9 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
     @Override
     public void getResult(Context mContext, String type, String message, JSONObject result) {
         if (type.equals(MYACCOUNTTYPE)) {
-            Log.d("getResult " + MYACCOUNTTYPE, result.toString());
+            Log.d(TAG + MYACCOUNTTYPE, result.toString());
             try {
-                String bonus = result.getString("bonous_amount");
+                String bonus = result.getString("amount_in_hand");
                 coinsRemaining = Float.parseFloat(bonus);
                 if (coinsRemaining > 0) {
                     coinsRemainingTextView.setText(bonus);
@@ -833,15 +832,21 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         }
         Log.d(TAG, "onBetAmountAdded " + betAmount);
 
-        float totalBetAmount = betAmount;
-        float totalReturnAmount = returnAmount;
+        float totalBetAmount = Math.round(betAmount);
+        float totalReturnAmount = Math.round(returnAmount);
         placeBet.setText(String.format("Place Bet Coins. %s\n\nTotal To Return Coins. %s",
                          totalBetAmount,
                          totalReturnAmount));
+
         if (betAmount > 0) {
-            coinsRemainingOnBetAmountChanged  = coinsRemainingOnBetAmountChanged - totalReturnAmount;
+            coinsRemainingOnBetAmountChanged  = Math.round(coinsRemainingOnBetAmountChanged - totalBetAmount);
             coinsRemainingTextView.setText(String.valueOf(coinsRemainingOnBetAmountChanged));
         }
+        else {
+            coinsRemainingOnBetAmountChanged  = coinsRemaining;
+            coinsRemainingTextView.setText(String.valueOf(coinsRemainingOnBetAmountChanged));
+        }
+
     }
 
     private void callPlaceBetAPI() {

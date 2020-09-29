@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,8 +25,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
+import com.onecricket.APICallingPackage.retrofit.betlist.Data;
 import com.onecricket.APICallingPackage.retrofit.betlist.Upcoming;
 import com.onecricket.activity.MyJoinedFixtureContestListActivity;
+import com.onecricket.adapter.MyPredictionsAdapter;
+import com.onecricket.adapter.Predictions;
+import com.onecricket.adapter.SimpleDividerItemDecoration;
 import com.onecricket.databinding.FragmentMyFixturesBinding;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -67,28 +72,18 @@ public class FragmentMyFixtures extends Fragment implements ResponseManager {
 
         binding.RvMyFixtures.setHasFixedSize(true);
         binding.RvMyFixtures.setNestedScrollingEnabled(false);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         binding.RvMyFixtures.setLayoutManager(mLayoutManager);
         binding.RvMyFixtures.setItemAnimator(new DefaultItemAnimator());
+        binding.RvMyFixtures.addItemDecoration(new SimpleDividerItemDecoration(context));
 
-        binding.swipeRefreshLayout.post(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                binding.swipeRefreshLayout.setRefreshing(true);
-                                                callMyFixtures(false);
-                                            }
-                                        }
+        binding.swipeRefreshLayout.post(() -> {
+                    binding.swipeRefreshLayout.setRefreshing(false);
+//                    callMyFixtures(false);
+                }
         );
 
-        binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-                callMyFixtures(false);
-            }
-        });
-
-
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> binding.swipeRefreshLayout.setRefreshing(false));
         return binding.getRoot();
     }
 
@@ -296,15 +291,16 @@ public class FragmentMyFixtures extends Fragment implements ResponseManager {
                         startActivity(k);
                     }
                 });
-
-
             }
-
         }
     }
 
-    public void setUpcomingBetsData(List<Upcoming> upcoming) {
+    public void setUpcomingBetsData(Data upcoming) {
         Log.d(TAG, "test");
+        if (upcoming != null && upcoming.getUpcoming() != null && upcoming.getUpcoming().size() > 0) {
+            MyPredictionsAdapter myPredictionsAdapter = new MyPredictionsAdapter(context, upcoming, Predictions.UPCOMING);
+            binding.RvMyFixtures.setAdapter(myPredictionsAdapter);
+        }
     }
 
 }

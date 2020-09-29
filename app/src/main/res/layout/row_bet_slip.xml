@@ -3,42 +3,67 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
     <ImageButton
         android:id="@+id/close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:padding="5dp"
         android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="5dp"
         android:src="@drawable/ic_close_24" />
-
-    <TextView
-        android:id="@+id/qr_code"
-        android:layout_width="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:textSize="12sp"
-        android:layout_toEndOf="@+id/close"
-        android:layout_toStartOf="@+id/betting_layout"
-        android:textColor="@color/black" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:id="@+id/betting_layout"
-        android:layout_marginStart="10dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true">
+        android:layout_marginStart="20dp"
+        android:layout_toStartOf="@+id/betting_layout"
+        android:layout_toEndOf="@+id/close">
+
+        <TextView
+            android:id="@+id/odd_name_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/odd_name"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/odd_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/odd_name_header"
+            android:layout_marginTop="3dp"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/betting_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp">
+
+        <TextView
+            android:id="@+id/bet_name_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bet name"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/points"
             android:layout_width="80dp"
-            android:textSize="12sp"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="3dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/black" />
+            android:layout_below="@+id/bet_name_header"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
 
         <EditText
             android:id="@+id/stake"
@@ -47,22 +72,21 @@
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/points"
             android:gravity="center"
-            android:maxLength="6"
-            android:textSize="12sp"
             android:hint="Stake"
-            android:inputType="numberDecimal" />
-
+            android:inputType="numberDecimal"
+            android:maxLength="6"
+            android:textSize="12sp" />
     </RelativeLayout>
 
     <TextView
         android:id="@+id/result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_below="@+id/betting_layout"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
-        android:textSize="12sp"
-        android:gravity="end"
         android:layout_marginEnd="5dp"
-        android:textColor="@color/black" />
+        android:gravity="end"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
 </RelativeLayout>

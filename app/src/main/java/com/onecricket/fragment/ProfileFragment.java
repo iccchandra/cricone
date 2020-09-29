@@ -405,8 +405,8 @@ public class ProfileFragment extends Fragment implements ResponseManager {
             Log.d("ProfileFragment", result.toString());
             try {
                 Deposited = result.getString("credit_amount");
-                Winnings = result.getString("winning_amount");
-                Bonus = result.getString("bonous_amount");
+                Winnings = result.getString("amount_in_hand");
+                Bonus = result.getString("amount_in_play");
                 binding.tvProfileDeposited.setText(Deposited);
                 binding.tvProfileWinning.setText(Winnings);
                 binding.tvProfileBonus.setText(Bonus);

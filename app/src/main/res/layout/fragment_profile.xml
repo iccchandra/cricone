@@ -654,9 +654,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
-                                android:text="₹ "
                                 android:textStyle="bold"
-
                                 android:textColor="@color/white"
                                 android:textSize="15sp" />
 
@@ -664,7 +662,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/tv_ProfileWinning"
-                                android:text="Winnings"
+                                android:text="Coins in hand"
                                 android:textStyle="bold"
 
                                 android:textAlignment="center"
@@ -684,7 +682,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
-                                android:text="₹ "
                                 android:textStyle="bold"
 
                                 android:textColor="@color/white"
@@ -694,7 +691,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/tv_ProfileBonus"
-                                android:text="Bonus"
+                                android:text="Coins in play"
                                 android:textStyle="bold"
 
                                 android:textAlignment="center"

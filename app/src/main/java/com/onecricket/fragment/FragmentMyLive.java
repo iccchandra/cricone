@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
+import com.onecricket.APICallingPackage.retrofit.betlist.Data;
+import com.onecricket.APICallingPackage.retrofit.betlist.InProgress;
 import com.onecricket.activity.MyJoinedLiveContestListActivity;
+import com.onecricket.adapter.MyPredictionsAdapter;
+import com.onecricket.adapter.Predictions;
+import com.onecricket.adapter.SimpleDividerItemDecoration;
 import com.onecricket.databinding.FragmentMyLiveBinding;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -69,9 +75,10 @@ public class FragmentMyLive extends Fragment implements ResponseManager {
 
         binding.RvMyLive.setHasFixedSize(true);
         binding.RvMyLive.setNestedScrollingEnabled(false);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         binding.RvMyLive.setLayoutManager(mLayoutManager);
         binding.RvMyLive.setItemAnimator(new DefaultItemAnimator());
+        binding.RvMyLive.addItemDecoration(new SimpleDividerItemDecoration(context));
 
 
         binding.swipeRefreshLayout.post(new Runnable() {
@@ -155,6 +162,14 @@ public class FragmentMyLive extends Fragment implements ResponseManager {
         binding.RvMyLive.setVisibility(View.GONE);
         binding.tvScoreRefresh.setVisibility(View.GONE);
     }
+
+    public void setLiveBetsData(Data data) {
+        if (data != null && data.getInprogress() != null && data.getInprogress().size() > 0) {
+            MyPredictionsAdapter myPredictionsAdapter = new MyPredictionsAdapter(context, data, Predictions.INPROGRESS);
+            binding.RvMyLive.setAdapter(myPredictionsAdapter);
+        }
+    }
+
 
     public class AdapterMyLiveList extends RecyclerView.Adapter<AdapterMyLiveList.MyViewHolder> {
         private List<BeanMyLive> mListenerList;

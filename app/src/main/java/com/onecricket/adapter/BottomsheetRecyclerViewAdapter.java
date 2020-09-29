@@ -65,6 +65,8 @@ public class BottomsheetRecyclerViewAdapter extends RecyclerView.Adapter<Bottoms
         else {
             holder.totalBetAmountText.setText("");
         }
+
+        holder.oddNameHeader.setText(matchOdds.getCategoryName());
         holder.close.setOnClickListener(view -> {
             if (itemChangeListener != null) {
                 matchOdds.setBetAmount(0);
@@ -145,15 +147,17 @@ public class BottomsheetRecyclerViewAdapter extends RecyclerView.Adapter<Bottoms
         private ImageButton close;
         private EditText stakeInput;
         private TextView totalBetAmountText;
+        private TextView oddNameHeader;
         private RecyclerViewEditTextListener recyclerViewEditTextListener;
 
         public BottomsheetViewHolder(View itemView, RecyclerViewEditTextListener recyclerViewEditTextListener) {
             super(itemView);
-            this.name = itemView.findViewById(R.id.qr_code);
+            this.name = itemView.findViewById(R.id.odd_name);
             this.points = itemView.findViewById(R.id.points);
             this.close    = itemView.findViewById(R.id.close);
             this.stakeInput = itemView.findViewById(R.id.stake);
             this.totalBetAmountText = itemView.findViewById(R.id.result);
+            this.oddNameHeader = itemView.findViewById(R.id.odd_name_header);
             this.recyclerViewEditTextListener = recyclerViewEditTextListener;
             this.stakeInput.addTextChangedListener(recyclerViewEditTextListener);
         }
@@ -194,7 +198,7 @@ public class BottomsheetRecyclerViewAdapter extends RecyclerView.Adapter<Bottoms
                 isOnTextChanged = false;
                 if (editable.toString().length() > 0) {
                     int betAmount      = Integer.parseInt(editable.toString());
-                    float returnAmount = betAmount * Float.parseFloat(matchOddsList.get(position).getOdds());
+                    float returnAmount = Math.round(betAmount * Float.parseFloat(matchOddsList.get(position).getOdds()));
                     matchOddsList.get(position).setBetAmount(betAmount);
                     holder.totalBetAmountText.setText(String.format("To Return Coins. %s", returnAmount));
                     matchOddsList.get(position).setReturnAmount(returnAmount);

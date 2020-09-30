@@ -83,6 +83,8 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
 {
 
     private static final String TAG = "MatchOddsFragment";
+    private static final String IN_PLAY = "inplay";
+    private static final String UPCOMING = "upcoming";
     private MatchesInfo matchesInfo;
     private AlertDialog progressAlertDialog;
     private OddsCategoryAdapter oddsCategoryAdapter;
@@ -138,11 +140,11 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
 
         if (matchesInfo != null && matchesInfo.getId() != null && matchesInfo.getId().trim().length() > 0) {
             if (matchesInfo.isMatchInProgress()) {
-                matchType = "inplay";
+                matchType = IN_PLAY;
                 callInPlayMatchOddsAPI(matchesInfo.getId(), matchType);
             }
             else {
-                matchType = "upcoming";
+                matchType = UPCOMING;
                 callUpcomingMatchOddsAPI(matchesInfo.getId());
             }
         }
@@ -372,6 +374,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
 
                         Log.d(TAG, oddsObject.getString("NA"));
                         if (oddsObject.has("OD")) {
+                            matchOdds.setCategoryName(mgName);
                             String odds = oddsObject.getString("OD");
                             String[] oddsArray = odds.split("/");
                             float oddFloat = 1 + Float.parseFloat(oddsArray[0])/Float.parseFloat(oddsArray[1]);
@@ -447,10 +450,10 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
 
 
         if (matchesInfo.isMatchInProgress()) {
-            matchType = "inplay";
+            matchType = IN_PLAY;
         }
         else {
-            matchType = "upcoming";
+            matchType = UPCOMING;
         }
         String url = "http://3.236.20.78:4000/" + matchType + "/preodds?FI=" + id;
 //        String url = "http://3.236.20.78:7000/inplay/overodds?FI=" + id;
@@ -1018,7 +1021,12 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
                     jsonParam.put("odd_value", matchOdds.getOdds());
                     jsonParam.put("bet_value", String.valueOf(matchOdds.getName()));
                     jsonParam.put("bet_amount", String.valueOf(matchOdds.getReturnAmount()));
-                    jsonParam.put("batting_team", "NA");
+                    if (matchType.equals(IN_PLAY)) {
+                        jsonParam.put("batting_team", battingTeam);
+                    }
+                    else {
+                        jsonParam.put("batting_team", "NA");
+                    }
                     jsonArray.put(jsonParam);
 
                 } catch (JSONException e) {
@@ -1087,6 +1095,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
     private String previousValue = "false";
     private String firstInningsTeam;
     private String secondInningsTeam;
+    private String battingTeam;
     private void handleLiveScroreAPIResults(LiveScroreData liveScoreData) {
         matchStatusText.setText("");
         Log.d(TAG, matchesInfo.toString());
@@ -1099,6 +1108,9 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
             if (firstInningsScore != null) {
                 firstInningsTextView.setText(String.format("First Innings: %s", firstInningsScore));
             }
+        }
+        if (liveScoreData.getBattingTeam() != null) {
+            battingTeam = liveScoreData.getBattingTeam();
         }
 
         if (liveScoreData.getSecondinnings() != null && liveScoreData.getSecondinnings().getScore() != null) {

@@ -14,6 +14,8 @@ public class LiveScroreData {
     private String mOverended;
     @SerializedName("post")
     private String mPost;
+    @SerializedName("batting_team")
+    private String battingTeam;
 
     public Firstinnings getFirstinnings() {
         return mFirstinnings;
@@ -47,13 +49,22 @@ public class LiveScroreData {
         mSecondInnings = secondinnings;
     }
 
+    public void setBattingTeam(String battingTeam) {
+        this.battingTeam = battingTeam;
+    }
+
+    public String getBattingTeam() {
+        return battingTeam;
+    }
+
     @Override
     public String toString() {
-        return "LiveScroreData{" +
+        return "LiveScroreData {" +
                 "mFirstinnings=" + mFirstinnings +
                 ", mSecondInnings=" + mSecondInnings +
                 ", mOverended='" + mOverended + '\'' +
                 ", mPost='" + mPost + '\'' +
+                ", battingTeam='" + battingTeam + '\'' +
                 '}';
     }
 }

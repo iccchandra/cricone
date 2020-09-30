@@ -85,15 +85,12 @@
         android:id="@+id/bonus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/bonusdaily"
-        android:contentDescription="Daily"
-        android:scaleType="center"
-        android:layout_alignRight="@id/fragment_container"
+        android:layout_alignEnd="@id/fragment_container"
         android:layout_alignBottom="@id/fragment_container"
-
-        app:maxImageSize = "56dp"
-
-        android:layout_margin="12dp" />
+        android:layout_margin="12dp"
+        android:scaleType="center"
+        android:src="@drawable/bonus"
+        app:maxImageSize="56dp" />
 
 
 

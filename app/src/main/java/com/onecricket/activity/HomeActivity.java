@@ -21,42 +21,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
-
-import androidx.annotation.NonNull;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.android.gms.common.api.ResolvableApiException;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.onecricket.Bean.BeanBanner;
-import com.onecricket.BuildConfig;
-import com.onecricket.R;
-import com.onecricket.adapter.AdapterHomeBanner;
-import com.onecricket.fragment.InProgressMatchesFragment;
-import com.onecricket.fragment.UpcomingMatchesFragment;
-import com.onecricket.location.AppConstants;
-import com.onecricket.location.model.LocationServiceManager;
-import com.onecricket.location.model.LocationServiceManagerImpl;
-import com.onecricket.utils.CommonProgressDialog;
-import com.onecricket.utils.NetworkState;
-import com.onecricket.utils.SessionManager;
-import com.onecricket.databinding.ActivityHomeBinding;
-import com.google.android.material.tabs.TabLayout;
-
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -67,18 +31,51 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.onecricket.APICallingPackage.Class.APIRequestManager;
 import com.onecricket.APICallingPackage.Interface.ResponseManager;
+import com.onecricket.Bean.BeanBanner;
+import com.onecricket.BuildConfig;
+import com.onecricket.R;
+import com.onecricket.adapter.AdapterHomeBanner;
+import com.onecricket.databinding.ActivityHomeBinding;
+import com.onecricket.fragment.InProgressMatchesFragment;
 import com.onecricket.fragment.MoreFragment;
 import com.onecricket.fragment.MyContestFragment;
 import com.onecricket.fragment.ProfileFragment;
+import com.onecricket.fragment.UpcomingMatchesFragment;
+import com.onecricket.location.AppConstants;
+import com.onecricket.location.model.LocationServiceManager;
+import com.onecricket.location.model.LocationServiceManagerImpl;
+import com.onecricket.utils.CommonProgressDialog;
+import com.onecricket.utils.NetworkState;
+import com.onecricket.utils.SessionManager;
 import com.onecricket.utils.crypto.AlertDialogHelper;
 import com.shashank.sony.fancygifdialoglib.FancyGifDialog;
 
@@ -95,6 +92,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -110,6 +108,8 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                                                                ResponseManager,
                                                                LocationServiceManager.Listener
 {
+
+    private static final String PREFS_KEY_CURRENT_DATE = "key_current_date";
     private int[] tabIcons = {
             R.drawable.home_icon,
             R.drawable.contest_icon,
@@ -306,6 +306,22 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
         //Uncomment Below Line for In-App-Update
         callCheckUpdateVersion(false);
+        if (getCurrentDate() > getSavedDate(loginPreferences)) {
+            enableBonusButton();
+        }
+        else {
+            disableBonusButton();
+        }
+    }
+
+    private void disableBonusButton() {
+        binding.bonus.setClickable(false);
+        binding.bonus.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.bonus_disabled));
+    }
+
+    private void enableBonusButton() {
+        binding.bonus.setClickable(true);
+        binding.bonus.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.bonus));
     }
 
     private static final String TYPE_BONUS = "Bonus";
@@ -344,12 +360,31 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null, response -> {
             dismissProgressDialog(progressAlertDialog);
+            saveCurrentDateInPrefs(loginPreferences);
+            disableBonusButton();
             showBonusCreditedAlert();
         }, error -> {
             dismissProgressDialog(progressAlertDialog);
         });
 
         requestQueue.add(jsonObjectRequest);
+    }
+
+    private void saveCurrentDateInPrefs(SharedPreferences loginPreferences) {
+        SharedPreferences.Editor editor = loginPreferences.edit();
+        editor.putInt(PREFS_KEY_CURRENT_DATE, getCurrentDate());
+        editor.apply();
+    }
+
+    private int getCurrentDate() {
+        return Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+    }
+
+    private int getSavedDate(SharedPreferences loginPreferences) {
+        if (loginPreferences.contains(PREFS_KEY_CURRENT_DATE)) {
+            return loginPreferences.getInt(PREFS_KEY_CURRENT_DATE, 0);
+        }
+        return 0;
     }
 
     private void callHomeBanner(boolean isShowLoader) {

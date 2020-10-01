@@ -1013,7 +1013,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
                         jsonParam.put("matchname", matchesInfo.getLeagueName());
                         Date currentTime = Calendar.getInstance().getTime();
                         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+                        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss a", Locale.getDefault());
                         String currentDate = format.format(currentTime);
                         String currentHour = timeFormat.format(currentTime);
                         if (matchType.equals(IN_PLAY)) {

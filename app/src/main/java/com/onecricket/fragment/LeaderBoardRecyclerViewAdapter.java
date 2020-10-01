@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.onecricket.R;
+import com.onecricket.ui.CircularTextView;
 
 import java.util.List;
 
@@ -33,8 +34,14 @@ public class LeaderBoardRecyclerViewAdapter extends RecyclerView.Adapter<LeaderB
         UserData userData = userDataList.get(position);
         holder.position.setText(userData.getPosition());
         holder.points.setText(userData.getPoints());
-        holder.name.setText(userData.getName());
+
         holder.location.setText(userData.getLocation());
+        if (userData.getName() != null && userData.getName().trim().length() > 0) {
+            String leaderName = userData.getName();
+            holder.leaderName.setText(String.format("%s", leaderName.toUpperCase().charAt(0)));
+            holder.name.setText(leaderName);
+        }
+
     }
 
     @Override
@@ -47,6 +54,7 @@ public class LeaderBoardRecyclerViewAdapter extends RecyclerView.Adapter<LeaderB
         public TextView name;
         public TextView location;
         public TextView points;
+        public CircularTextView leaderName;
 
         public LeaderBoardViewHolder(View itemView) {
             super(itemView);
@@ -54,6 +62,7 @@ public class LeaderBoardRecyclerViewAdapter extends RecyclerView.Adapter<LeaderB
             this.name = itemView.findViewById(R.id.name);
             this.location = itemView.findViewById(R.id.location);
             this.points = itemView.findViewById(R.id.points);
+            this.leaderName = itemView.findViewById(R.id.circular_leader);
         }
     }
 }

@@ -139,6 +139,11 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
                             String name = homeJSON.getString("name");
                             matchesInfo.setHomeTeam(name);
 
+                            if (results.has("time")) {
+                                String time = results.getString("time");
+                                matchesInfo.setTime(time);
+                            }
+
                             JSONObject awayJSON = results.getJSONObject("away");
                             String away = awayJSON.getString("name");
                             matchesInfo.setVisitorsTeam(away);

@@ -21,6 +21,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.onecricket.R;
+import com.onecricket.ui.CircularTextView;
 import com.onecricket.utils.CommonProgressDialog;
 import com.onecricket.utils.NetworkState;
 import com.onecricket.utils.crypto.AlertDialogHelper;
@@ -54,6 +55,9 @@ public class LeaderboardFragment extends Fragment {
     private RelativeLayout secondPositionLayout;
     private RelativeLayout thirdPositionLayout;
     private AlertDialogHelper alertDialogHelper;
+    private CircularTextView circularTextView1;
+    private CircularTextView circularTextView2;
+    private CircularTextView circularTextView3;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -127,6 +131,9 @@ public class LeaderboardFragment extends Fragment {
         name3 = view.findViewById(R.id.name3);
         location3 = view.findViewById(R.id.location3);
         points3 = view.findViewById(R.id.points3);
+        circularTextView1 = view.findViewById(R.id.circular_leader_one);
+        circularTextView2 = view.findViewById(R.id.circular_leader_two);
+        circularTextView3 = view.findViewById(R.id.circular_leader_three);
     }
 
     private void dismissProgressDialog(AlertDialog progressAlertDialog) {
@@ -196,6 +203,7 @@ public class LeaderboardFragment extends Fragment {
         points2.setText("XX");
         location2.setText("Place");
         position2.setText("2");
+        circularTextView2.setText("P");
     }
 
     private void showTempThirdRank() {
@@ -203,6 +211,7 @@ public class LeaderboardFragment extends Fragment {
         points3.setText("XX");
         location3.setText("Place");
         position3.setText("3");
+        circularTextView3.setText("P");
     }
 
     private void showTempData() {
@@ -269,7 +278,11 @@ public class LeaderboardFragment extends Fragment {
     private void showThreeRank(JSONObject response) {
         try {
             if (response.has("name")) {
-                name3.setText(response.getString("name"));
+                String leaderName = response.getString("name");
+                if (leaderName.trim().length() > 0) {
+                    name3.setText(leaderName);
+                    circularTextView3.setText(String.format("%s", leaderName.toUpperCase().charAt(0)));
+                }
             }
 
             if (response.has("roi")) {
@@ -292,7 +305,11 @@ public class LeaderboardFragment extends Fragment {
     private void showTwoRank(JSONObject response) {
         try {
             if (response.has("name")) {
-                name2.setText(response.getString("name"));
+                String leaderName = response.getString("name");
+                if (leaderName.trim().length() > 0) {
+                    name2.setText(leaderName);
+                    circularTextView2.setText(String.format("%s", leaderName.toUpperCase().charAt(0)));
+                }
             }
 
             if (response.has("roi")) {
@@ -315,7 +332,11 @@ public class LeaderboardFragment extends Fragment {
     private void showRankOne(JSONObject response) {
         try {
             if (response.has("name")) {
-                name1.setText(response.getString("name"));
+                String leaderName = response.getString("name");
+                if (leaderName.trim().length() > 0) {
+                    name1.setText(leaderName);
+                    circularTextView1.setText(String.format("%s", leaderName.toUpperCase().charAt(0)));
+                }
             }
 
             if (response.has("roi")) {
@@ -329,6 +350,7 @@ public class LeaderboardFragment extends Fragment {
             if (response.has("rank")) {
                 position1.setText(response.getString("rank"));
             }
+
 
         } catch (JSONException e) {
             e.printStackTrace();

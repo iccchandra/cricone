@@ -58,9 +58,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -1007,16 +1011,30 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
                     if (matchesInfo != null) {
                         jsonParam.put("fi_id", matchesInfo.getId());
                         jsonParam.put("matchname", matchesInfo.getLeagueName());
-                        jsonParam.put("match_date", "212112");
-                        jsonParam.put("match_time", "212112");
+                        Date currentTime = Calendar.getInstance().getTime();
+                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+                        String currentDate = format.format(currentTime);
+                        String currentHour = timeFormat.format(currentTime);
+                        if (matchType.equals(IN_PLAY)) {
+                            jsonParam.put("match_date", currentDate);
+                            jsonParam.put("match_time", currentDate);
+
+                        }
+                        else {
+                            jsonParam.put("match_date", matchesInfo.getTime());
+                            jsonParam.put("match_time", matchesInfo.getTime());
+
+                        }
+                        jsonParam.put("bet_date", currentDate);
+                        jsonParam.put("bet_time", currentHour);
+
                         jsonParam.put("team_name", matchesInfo.getHomeTeam() + "-" + matchesInfo.getVisitorsTeam());
                         jsonParam.put("status", matchType);
                         jsonParam.put("visitor_team", matchesInfo.getVisitorsTeam());
                         jsonParam.put("home_team", matchesInfo.getHomeTeam());
                     }
 
-                    jsonParam.put("bet_date", "212112");
-                    jsonParam.put("bet_time", "212112");
                     jsonParam.put("odd_name", matchOdds.getCategoryName());
                     jsonParam.put("odd_value", matchOdds.getOdds());
                     jsonParam.put("bet_value", String.valueOf(matchOdds.getName()));

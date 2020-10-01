@@ -339,7 +339,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                 .setMessage("Looks like you can earn more.")
                 .setPositiveBtnText("Invite Friends")
                 .setPositiveBtnBackground("#FF4081")
-                .setGifResource(R.drawable.common_gif)   //Pass your Gif here
+                .setGifResource(R.drawable.bonus_credited)   //Pass your Gif here
                 .isCancellable(true)
                 .OnPositiveClicked(() -> {
                     Intent i = new Intent(HomeActivity.this, InviteFriendsActivity.class);

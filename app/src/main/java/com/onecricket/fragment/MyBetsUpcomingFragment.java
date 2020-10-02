@@ -54,7 +54,7 @@ import static com.onecricket.APICallingPackage.Config.MYFIXTURES;
 import static com.onecricket.APICallingPackage.Constants.MYFIXTURESTYPE;
 
 
-public class FragmentMyFixtures extends Fragment implements ResponseManager {
+public class MyBetsUpcomingFragment extends Fragment implements ResponseManager {
     private static final String TAG = "FragmentMyFixtures";
     HomeActivity activity;
     Context context;
@@ -75,13 +75,13 @@ public class FragmentMyFixtures extends Fragment implements ResponseManager {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         binding.RvMyFixtures.setLayoutManager(mLayoutManager);
         binding.RvMyFixtures.setItemAnimator(new DefaultItemAnimator());
-        binding.RvMyFixtures.addItemDecoration(new SimpleDividerItemDecoration(context));
+//        binding.RvMyFixtures.addItemDecoration(new SimpleDividerItemDecoration(context));
 
-        binding.swipeRefreshLayout.post(() -> {
+        /*binding.swipeRefreshLayout.post(() -> {
                     binding.swipeRefreshLayout.setRefreshing(false);
-//                    callMyFixtures(false);
+                    callMyFixtures(false);
                 }
-        );
+        );*/
 
         binding.swipeRefreshLayout.setOnRefreshListener(() -> binding.swipeRefreshLayout.setRefreshing(false));
         return binding.getRoot();
@@ -295,10 +295,10 @@ public class FragmentMyFixtures extends Fragment implements ResponseManager {
         }
     }
 
-    public void setUpcomingBetsData(Data upcoming) {
+    public void setUpcomingBetsData(List<Upcoming> upcoming) {
         Log.d(TAG, "test");
-        if (upcoming != null && upcoming.getUpcoming() != null && upcoming.getUpcoming().size() > 0) {
-            MyPredictionsAdapter myPredictionsAdapter = new MyPredictionsAdapter(context, upcoming, Predictions.UPCOMING);
+        if (upcoming != null && upcoming.size() > 0) {
+            MyPredictionsAdapter myPredictionsAdapter = new MyPredictionsAdapter(context, upcoming);
             binding.RvMyFixtures.setAdapter(myPredictionsAdapter);
         }
     }

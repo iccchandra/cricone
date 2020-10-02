@@ -180,7 +180,12 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         binding.VPBanner.setNestedScrollingEnabled(false);
         binding.bonus.setOnClickListener(view -> {
             if (NetworkState.isNetworkAvailable(context)) {
-                callBonusAPI(false);
+                if (isBonusAvailable()) {
+                    callBonusAPI(false);
+                }
+                else {
+                    showBonusAlreadyCreditedAlert();
+                }
             }
             else {
                 if (!alertDialogHelper.isShowing()) {
@@ -314,13 +319,14 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         }
     }
 
+    private boolean isBonusAvailable = false;
     private void disableBonusButton() {
-        binding.bonus.setClickable(false);
+        setBonusAvailable(false);
         binding.bonus.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.bonus_disabled));
     }
 
     private void enableBonusButton() {
-        binding.bonus.setClickable(true);
+        setBonusAvailable(true);
         binding.bonus.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.bonus));
     }
 
@@ -340,6 +346,21 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                 .setPositiveBtnText("Invite Friends")
                 .setPositiveBtnBackground("#FF4081")
                 .setGifResource(R.drawable.bonus_credited)   //Pass your Gif here
+                .isCancellable(true)
+                .OnPositiveClicked(() -> {
+                    Intent i = new Intent(HomeActivity.this, InviteFriendsActivity.class);
+                    startActivity(i);
+                })
+                .build();
+    }
+
+    private void showBonusAlreadyCreditedAlert() {
+        new FancyGifDialog.Builder(this)
+                .setTitle("Your Daily Bonus Already Credited.")
+                .setMessage("Looks like you can earn more.")
+                .setPositiveBtnText("Invite Friends")
+                .setPositiveBtnBackground("#FF4081")
+                .setGifResource(R.drawable.common_gif)   //Pass your Gif here
                 .isCancellable(true)
                 .OnPositiveClicked(() -> {
                     Intent i = new Intent(HomeActivity.this, InviteFriendsActivity.class);
@@ -744,6 +765,14 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                 Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    public boolean isBonusAvailable() {
+        return isBonusAvailable;
+    }
+
+    public void setBonusAvailable(boolean bonusAvailable) {
+        isBonusAvailable = bonusAvailable;
     }
 
     class DownloadFileFromURL extends AsyncTask<String, String, String> {

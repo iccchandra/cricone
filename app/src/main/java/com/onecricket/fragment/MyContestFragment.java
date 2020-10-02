@@ -23,7 +23,6 @@ import com.onecricket.APICallingPackage.retrofit.ApiClient;
 import com.onecricket.APICallingPackage.retrofit.ApiInterface;
 import com.onecricket.APICallingPackage.retrofit.betlist.SubmittedBets;
 import com.onecricket.R;
-import com.onecricket.adapter.Predictions;
 import com.onecricket.databinding.FragmentMyContestBinding;
 import com.onecricket.utils.CommonProgressDialog;
 import com.onecricket.utils.SessionManager;
@@ -47,7 +46,7 @@ public class MyContestFragment extends Fragment implements ResponseManager{
     private APIRequestManager apiRequestManager;
     private SessionManager sessionManager;
     private Context context;
-    private FragmentMyFixtures myFixturesFragment;
+    private MyBetsUpcomingFragment myFixturesFragment;
     private FragmentMyLive myLiveFragment;
     private FragmentMyResults myResultsFragment;
     private AlertDialog progressAlertDialog;
@@ -63,7 +62,7 @@ public class MyContestFragment extends Fragment implements ResponseManager{
 
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.myviewpager, new FragmentMyFixtures());
+        transaction.replace(R.id.myviewpager, new MyBetsUpcomingFragment());
         transaction.commit();
 
         return binding.getRoot();
@@ -104,12 +103,9 @@ public class MyContestFragment extends Fragment implements ResponseManager{
 
     private void handleSubmittedBetsAPI(SubmittedBets submittedBets) {
         dismissProgressDialog(progressAlertDialog);
-        myFixturesFragment.setUpcomingBetsData(submittedBets.getData());
-        myLiveFragment.setLiveBetsData(submittedBets.getData());
-        myResultsFragment.setFinishedBetsData(submittedBets.getData());
-        /*private FragmentMyLive myLiveFragment;
-        private FragmentMyResults myResultsFragment;*/
-
+        myFixturesFragment.setUpcomingBetsData(submittedBets.getData().getUpcoming());
+        myLiveFragment.setLiveBetsData(submittedBets.getData().getInprogress());
+        myResultsFragment.setFinishedBetsData(submittedBets.getData().getFinished());
         Log.d(TAG, submittedBets.toString());
     }
 
@@ -121,7 +117,7 @@ public class MyContestFragment extends Fragment implements ResponseManager{
 
     private void setupViewPager(ViewPager viewPager) {
         MyViewPagerAdapter adapter = new MyViewPagerAdapter(getActivity().getSupportFragmentManager());
-        myFixturesFragment = new FragmentMyFixtures();
+        myFixturesFragment = new MyBetsUpcomingFragment();
         myLiveFragment = new FragmentMyLive();
         myResultsFragment = new FragmentMyResults();
         adapter.addFragment(myFixturesFragment, "UPCOMING");

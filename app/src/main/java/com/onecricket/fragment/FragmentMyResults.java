@@ -26,6 +26,7 @@ import com.onecricket.APICallingPackage.retrofit.betlist.Data;
 import com.onecricket.APICallingPackage.retrofit.betlist.Finished;
 import com.onecricket.activity.MyJoinedResultContestListActivity;
 import com.onecricket.adapter.MyPredictionsAdapter;
+import com.onecricket.adapter.MyPredictionsFinishedAdapter;
 import com.onecricket.adapter.Predictions;
 import com.onecricket.adapter.SimpleDividerItemDecoration;
 import com.onecricket.databinding.FragmentMyResultsBinding;
@@ -81,13 +82,15 @@ public class FragmentMyResults extends Fragment implements ResponseManager {
         binding.RvMyResult.addItemDecoration(new SimpleDividerItemDecoration(context));
 
 
-        binding.swipeRefreshLayout.post(() -> {
+        /*binding.swipeRefreshLayout.post(() -> {
             binding.swipeRefreshLayout.setRefreshing(true);
-            callMyResult(false);
+            //callMyResult(false);
         }
-        );
+        );*/
 
-        binding.swipeRefreshLayout.setOnRefreshListener(() -> callMyResult(false));
+        /*binding.swipeRefreshLayout.setOnRefreshListener(() -> callMyResult(false));*/
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> binding.swipeRefreshLayout.setRefreshing(false));
+
 
 
         return binding.getRoot();
@@ -142,14 +145,17 @@ public class FragmentMyResults extends Fragment implements ResponseManager {
     @Override
     public void onError(Context mContext, String type, String message) {
         binding.swipeRefreshLayout.setRefreshing(false);
-        binding.tvNoDataAvailable.setVisibility(View.VISIBLE);
-        binding.RvMyResult.setVisibility(View.GONE);
+//        binding.tvNoDataAvailable.setVisibility(View.VISIBLE);
+//        binding.RvMyResult.setVisibility(View.GONE);
     }
 
-    public void setFinishedBetsData(Data finished) {
-        if (finished != null && finished.getFinished() != null && finished.getFinished().size() > 0) {
-            MyPredictionsAdapter myPredictionsAdapter = new MyPredictionsAdapter(context, finished, Predictions.FINISHED);
+    public void setFinishedBetsData(List<Finished> finished) {
+        if (finished != null  && finished.size() > 0) {
+            MyPredictionsFinishedAdapter myPredictionsAdapter = new MyPredictionsFinishedAdapter(context, finished);
             binding.RvMyResult.setAdapter(myPredictionsAdapter);
+        } else {
+            binding.tvNoDataAvailable.setVisibility(View.VISIBLE);
+            binding.RvMyResult.setVisibility(View.GONE);
         }
     }
 

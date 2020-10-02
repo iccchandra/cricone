@@ -10,20 +10,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.onecricket.APICallingPackage.retrofit.betlist.Upcoming;
+import com.onecricket.APICallingPackage.retrofit.betlist.Finished;
+import com.onecricket.APICallingPackage.retrofit.betlist.InProgress;
 import com.onecricket.R;
 
 import java.util.List;
 
-public class MyPredictionsAdapter extends RecyclerView.Adapter<MyPredictionsAdapter.MyPredectionsViewHolder>{
+public class MyPredictionsFinishedAdapter extends RecyclerView.Adapter<MyPredictionsFinishedAdapter.MyPredectionsViewHolder>{
 
 
-    private Context context;
-    private List<Upcoming> upcomingList;
+    private List<Finished> finishedList;
 
-    public MyPredictionsAdapter(Context context, List<Upcoming> data) {
-        this.context = context;
-        upcomingList = data;
+    public MyPredictionsFinishedAdapter(Context context, List<Finished> data) {
+        this.finishedList = data;
     }
 
     @NonNull
@@ -31,7 +30,7 @@ public class MyPredictionsAdapter extends RecyclerView.Adapter<MyPredictionsAdap
     public MyPredectionsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View listItem = layoutInflater.inflate(R.layout.item_my_predictions, parent, false);
-        return new MyPredictionsAdapter.MyPredectionsViewHolder(listItem);
+        return new MyPredictionsFinishedAdapter.MyPredectionsViewHolder(listItem);
     }
 
     @Override
@@ -43,16 +42,15 @@ public class MyPredictionsAdapter extends RecyclerView.Adapter<MyPredictionsAdap
         String oddValue = "";
         String teams = "";
         String date = "";
-        // TODO This logic needs to be changed. This code will degrade the performance
-        if (upcomingList != null) {
-            Upcoming upcoming = upcomingList.get(position);
-            matchName = upcoming.getMatchname();
-            betValue = upcoming.getBetValue();
-            betAmount = upcoming.getBetAmount();
-            oddName = upcoming.getOddname();
-            oddValue = upcoming.getOddvalue();
-            teams = upcoming.getHomeTeam() + " Vs " + upcoming.getVisitorTeam();
-            date = upcoming.getMatchDate() + " " + upcoming.getMatchTime();
+         if (finishedList != null) {
+            Finished inProgress = finishedList.get(position);
+            matchName = inProgress.getMatchname();
+            betValue = inProgress.getBetValue();
+            betAmount = inProgress.getBetAmount();
+            oddName = inProgress.getOddname();
+            oddValue = inProgress.getOddvalue();
+            teams = inProgress.getHomeTeam() + " Vs " + inProgress.getVisitorTeam();
+            date = inProgress.getMatchDate() + " " + inProgress.getMatchTime();
         }
 
         holder.matchNameTextView.setText(String.format("Match Name: %s", matchName));
@@ -60,19 +58,13 @@ public class MyPredictionsAdapter extends RecyclerView.Adapter<MyPredictionsAdap
         holder.betAmountTextView.setText(String.format("Bet Amount: %s", betAmount));
         holder.oddNameTextView.setText(String.format("Odd Name: %s", oddName));
         holder.oddValueTextView.setText(String.format("Odd Value: %s", oddValue));
-        holder.delete.setOnClickListener(view -> {
-            if (deleteItemListener != null) {
-                deleteItemListener.onDeleteClicked(position);
-            }
-        });
-
         holder.matchDate.setText(String.format("Date: %s", date));
         holder.teamsTextView.setText(teams);
     }
 
     @Override
     public int getItemCount() {
-        return upcomingList.size();
+        return finishedList.size();
     }
 
 

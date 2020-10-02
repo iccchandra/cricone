@@ -26,6 +26,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.onecricket.APICallingPackage.retrofit.betlist.Data;
 import com.onecricket.APICallingPackage.retrofit.betlist.InProgress;
 import com.onecricket.activity.MyJoinedLiveContestListActivity;
+import com.onecricket.adapter.MyInPlayPredictionsAdapter;
 import com.onecricket.adapter.MyPredictionsAdapter;
 import com.onecricket.adapter.Predictions;
 import com.onecricket.adapter.SimpleDividerItemDecoration;
@@ -78,33 +79,38 @@ public class FragmentMyLive extends Fragment implements ResponseManager {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         binding.RvMyLive.setLayoutManager(mLayoutManager);
         binding.RvMyLive.setItemAnimator(new DefaultItemAnimator());
-        binding.RvMyLive.addItemDecoration(new SimpleDividerItemDecoration(context));
+//        binding.RvMyLive.addItemDecoration(new SimpleDividerItemDecoration(context));
 
 
+/*
         binding.swipeRefreshLayout.post(new Runnable() {
                                             @Override
                                             public void run() {
                                                 binding.swipeRefreshLayout.setRefreshing(true);
-                                                callMyLive(false);
+                                                //callMyLive(false);
                                             }
                                         }
         );
+
 
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
 
-                callMyLive(false);
+                //callMyLive(false);
             }
         });
         binding.tvScoreRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                callMyLive(false);
+                //callMyLive(false);
 
             }
         });
+        */
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> binding.swipeRefreshLayout.setRefreshing(false));
+
         return binding.getRoot();
     }
 
@@ -158,15 +164,18 @@ public class FragmentMyLive extends Fragment implements ResponseManager {
     @Override
     public void onError(Context mContext, String type, String message) {
         binding.swipeRefreshLayout.setRefreshing(false);
-        binding.tvNoDataAvailable.setVisibility(View.VISIBLE);
-        binding.RvMyLive.setVisibility(View.GONE);
+//        binding.tvNoDataAvailable.setVisibility(View.VISIBLE);
+//        binding.RvMyLive.setVisibility(View.GONE);
         binding.tvScoreRefresh.setVisibility(View.GONE);
     }
 
-    public void setLiveBetsData(Data data) {
-        if (data != null && data.getInprogress() != null && data.getInprogress().size() > 0) {
-            MyPredictionsAdapter myPredictionsAdapter = new MyPredictionsAdapter(context, data, Predictions.INPROGRESS);
+    public void setLiveBetsData(List<InProgress> data) {
+        if (data != null && data.size() > 0) {
+            MyInPlayPredictionsAdapter myPredictionsAdapter = new MyInPlayPredictionsAdapter(context, data);
             binding.RvMyLive.setAdapter(myPredictionsAdapter);
+        } else {
+            binding.tvNoDataAvailable.setVisibility(View.VISIBLE);
+            binding.RvMyLive.setVisibility(View.GONE);
         }
     }
 

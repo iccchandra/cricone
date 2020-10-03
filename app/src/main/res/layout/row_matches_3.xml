@@ -65,6 +65,7 @@
                         android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:lines="1"
                         android:layout_marginStart="5dp"
                         android:text="Team A " />
 
@@ -131,6 +132,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="5dp"
                         android:gravity="end"
+                        android:lines="1"
                         android:textColor="@color/black"
                         android:text="Team B" />
 

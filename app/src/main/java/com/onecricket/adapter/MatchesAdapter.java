@@ -56,18 +56,8 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         if (teamB.length() > 0) {
             holder.circularTextTeamB.setText(String.format("%s", teamB.charAt(0)));
         }
-        if (teamA.length() > 3) {
-            holder.teamAShortName.setText(teamA.substring(0, 3));
-        }
-        else {
-            holder.teamAShortName.setText(teamA);
-        }
-        if (teamB.length() > 3) {
-            holder.teamBShortName.setText(teamB.substring(0, 3));
-        }
-        else {
-            holder.teamBShortName.setText(teamB);
-        }
+        holder.teamAShortName.setText(capitailizeWord(teamA));
+        holder.teamBShortName.setText(capitailizeWord(teamB));
 
         holder.itemView.setOnClickListener(view -> {
             if (clickListener != null) {
@@ -76,6 +66,27 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         });
 
 
+    }
+
+    private  String capitailizeWord(String str) {
+        StringBuilder stringBuilder = new StringBuilder();
+        final String EMPTY_SPACE = " ";
+        if (str.contains(EMPTY_SPACE)) {
+            String[] myName = str.split(EMPTY_SPACE);
+            for (String input : myName) {
+                stringBuilder.append(input.charAt(0));
+            }
+        }
+        else {
+            if (str.length() > 3) {
+                return str.substring(0,3);
+            }
+            else {
+                return str;
+            }
+
+        }
+        return stringBuilder.toString();
     }
 
     @Override

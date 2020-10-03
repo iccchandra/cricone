@@ -79,8 +79,6 @@ public class FragmentMyResults extends Fragment implements ResponseManager {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         binding.RvMyResult.setLayoutManager(mLayoutManager);
         binding.RvMyResult.setItemAnimator(new DefaultItemAnimator());
-        binding.RvMyResult.addItemDecoration(new SimpleDividerItemDecoration(context));
-
 
         /*binding.swipeRefreshLayout.post(() -> {
             binding.swipeRefreshLayout.setRefreshing(true);

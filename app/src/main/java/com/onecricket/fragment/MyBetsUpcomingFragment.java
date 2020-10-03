@@ -301,6 +301,10 @@ public class MyBetsUpcomingFragment extends Fragment implements ResponseManager 
             MyPredictionsAdapter myPredictionsAdapter = new MyPredictionsAdapter(context, upcoming);
             binding.RvMyFixtures.setAdapter(myPredictionsAdapter);
         }
+        else {
+            binding.tvNoDataAvailable.setVisibility(View.VISIBLE);
+            binding.RvMyFixtures.setVisibility(View.GONE);
+        }
     }
 
 }

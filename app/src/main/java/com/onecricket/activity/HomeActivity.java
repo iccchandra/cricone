@@ -116,8 +116,8 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
             R.drawable.profile_icon,
             R.drawable.more_icon
     };
-    Context context;
-    HomeActivity activity;
+    private Context context;
+    private HomeActivity activity;
     public static HomeActivity homeActivity;
     ResponseManager responseManager;
     APIRequestManager apiRequestManager;
@@ -211,7 +211,6 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         });
 
         Ravenscroft = Typeface.createFromAsset(this.getAssets(), "Ravenscroft.ttf");
-        String Name = sessionManager.getUser(context).getName();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -231,6 +230,15 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         setupTabIcons1();
 
 //        replaceFragment(new FragmentFixtures());
+        if (isTokenAvailable(context, sessionManager)) {
+            onTokenAvailable();
+        }
+        else {
+            showInvalidTokenAlert();
+        }
+    }
+
+    private void onTokenAvailable() {
         callHomeBanner(false);
         replaceFragment(new UpcomingMatchesFragment());
 
@@ -262,59 +270,58 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         });
         binding.tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
-                    @Override
-                    public void onTabSelected(TabLayout.Tab tab) {
-                        int tabIconColor = ContextCompat.getColor(activity, R.color.tabtextselected);
-                        tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+                                                  @Override
+                                                  public void onTabSelected(TabLayout.Tab tab) {
+                                                      int tabIconColor = ContextCompat.getColor(activity, R.color.tabtextselected);
+                                                      tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
 
-                        if (tab.getPosition() == 0) {
+                                                      if (tab.getPosition() == 0) {
 //                            replaceFragment(new FragmentFixtures());
-                            binding.tablayout.setVisibility(View.VISIBLE);
-                            replaceFragment(new UpcomingMatchesFragment());
-                            binding.head.setVisibility(View.VISIBLE);
-                            binding.bonus.setVisibility(View.VISIBLE);
-                            binding.RLHomeBanner.setVisibility(View.VISIBLE);
-                        } else if (tab.getPosition() == 1) {
-                            binding.tablayout.setVisibility(View.GONE);
-                            binding.RLHomeBanner.setVisibility(View.GONE);
-                            binding.bonus.setVisibility(View.GONE);
-                            replaceFragment(new MyContestFragment());
-                            binding.head.setVisibility(View.VISIBLE);
-                        } else if (tab.getPosition() == 2) {
-                            binding.tablayout.setVisibility(View.GONE);
-                            binding.RLHomeBanner.setVisibility(View.GONE);
-                            binding.bonus.setVisibility(View.GONE);
-                            replaceFragment(new ProfileFragment());
-                            binding.head.setVisibility(View.GONE);
-                        } else {
-                            binding.tablayout.setVisibility(View.GONE);
-                            binding.RLHomeBanner.setVisibility(View.GONE);
-                            binding.bonus.setVisibility(View.GONE);
-                            replaceFragment(new MoreFragment());
-                            binding.head.setVisibility(View.VISIBLE);
-                        }
-                    }
+                                                          binding.tablayout.setVisibility(View.VISIBLE);
+                                                          replaceFragment(new UpcomingMatchesFragment());
+                                                          binding.head.setVisibility(View.VISIBLE);
+                                                          binding.bonus.setVisibility(View.VISIBLE);
+                                                          binding.RLHomeBanner.setVisibility(View.VISIBLE);
+                                                      } else if (tab.getPosition() == 1) {
+                                                          binding.tablayout.setVisibility(View.GONE);
+                                                          binding.RLHomeBanner.setVisibility(View.GONE);
+                                                          binding.bonus.setVisibility(View.GONE);
+                                                          replaceFragment(new MyContestFragment());
+                                                          binding.head.setVisibility(View.VISIBLE);
+                                                      } else if (tab.getPosition() == 2) {
+                                                          binding.tablayout.setVisibility(View.GONE);
+                                                          binding.RLHomeBanner.setVisibility(View.GONE);
+                                                          binding.bonus.setVisibility(View.GONE);
+                                                          replaceFragment(new ProfileFragment());
+                                                          binding.head.setVisibility(View.GONE);
+                                                      } else {
+                                                          binding.tablayout.setVisibility(View.GONE);
+                                                          binding.RLHomeBanner.setVisibility(View.GONE);
+                                                          binding.bonus.setVisibility(View.GONE);
+                                                          replaceFragment(new MoreFragment());
+                                                          binding.head.setVisibility(View.VISIBLE);
+                                                      }
+                                                  }
 
-                    @Override
-                    public void onTabUnselected(TabLayout.Tab tab) {
+                                                  @Override
+                                                  public void onTabUnselected(TabLayout.Tab tab) {
 
-                        int tabIconColor = ContextCompat.getColor(activity, R.color.tabtextunselected);
-                        tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
-                    }
+                                                      int tabIconColor = ContextCompat.getColor(activity, R.color.tabtextunselected);
+                                                      tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+                                                  }
 
-                    @Override
-                    public void onTabReselected(TabLayout.Tab tab) {
+                                                  @Override
+                                                  public void onTabReselected(TabLayout.Tab tab) {
 
-                    }
-                }
+                                                  }
+                                              }
         );
 
         //Uncomment Below Line for In-App-Update
         callCheckUpdateVersion(false);
         if (getCurrentDate() > getSavedDate(loginPreferences)) {
             enableBonusButton();
-        }
-        else {
+        } else {
             disableBonusButton();
         }
     }
@@ -712,21 +719,30 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                 .build();
     }
 
-    public void Logout() {
+    private void showInvalidTokenAlert() {
+        new FancyGifDialog.Builder(this)
+                .setTitle("Something went wrong. Please login to continue.")
+                .setPositiveBtnText("Logout")
+                .setPositiveBtnBackground("#FF4081")
+                .setGifResource(R.drawable.common_gif)   //Pass your Gif here
+                .isCancellable(true)
+                .OnPositiveClicked(this::logout)
+                .build();
+    }
+
+    private void logout() {
 
         LoginManager.getInstance().logOut();
         loginPrefsEditor.clear();
         loginPrefsEditor.commit();
         Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
-                new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(Status status) {
+                status -> {
 
-                    }
                 });
 
-        Intent i = new Intent(activity, MainActivity.class);
-        startActivity(i);
+        Intent intent = new Intent(activity, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
 
     }
 
@@ -903,6 +919,13 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean isTokenAvailable(Context context, SessionManager sessionManager) {
+        return sessionManager != null &&
+               sessionManager.getUser(context) != null &&
+               sessionManager.getUser(context).getToken() != null &&
+               sessionManager.getUser(context).getToken().trim().length() > 0;
     }
 }
 

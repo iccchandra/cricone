@@ -57,7 +57,13 @@ public class MyContestFragment extends Fragment implements ResponseManager{
 
         progressAlertDialog = CommonProgressDialog.getProgressDialog(context);
         initialiseAPI();
-        callBetListAPI();
+        if (sessionManager != null &&
+            sessionManager.getUser(context) != null &&
+            sessionManager.getUser(context).getToken() != null &&
+            sessionManager.getUser(context).getToken().trim().length() > 0) {
+            callBetListAPI();
+        }
+
         setupViewPager(binding.myviewpager);
 
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

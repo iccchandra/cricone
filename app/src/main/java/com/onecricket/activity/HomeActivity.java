@@ -345,6 +345,8 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                 .setMessage("Looks like you can earn more.")
                 .setPositiveBtnText("Invite Friends")
                 .setPositiveBtnBackground("#FF4081")
+                .setNegativeBtnText("Close")
+                .setNegativeBtnBackground("#FF4081")
                 .setGifResource(R.drawable.bonus_credited)   //Pass your Gif here
                 .isCancellable(true)
                 .OnPositiveClicked(() -> {
@@ -360,6 +362,8 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                 .setMessage("Looks like you can earn more.")
                 .setPositiveBtnText("Invite Friends")
                 .setPositiveBtnBackground("#FF4081")
+                .setNegativeBtnText("Close")
+                .setNegativeBtnBackground("#FF4081")
                 .setGifResource(R.drawable.common_gif)   //Pass your Gif here
                 .isCancellable(true)
                 .OnPositiveClicked(() -> {

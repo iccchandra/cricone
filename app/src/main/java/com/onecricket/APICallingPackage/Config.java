@@ -3,7 +3,8 @@ package com.onecricket.APICallingPackage;
 
 public class Config {
 
-    public static String SERVERURL = "http://cricket.atreatit.com/";
+//    public static String SERVERURL = "http://cricket.atreatit.com/";
+    public static String SERVERURL = "http://13.232.85.74/";
 
     public static String BASEURL = SERVERURL+"myrest/user/";
 
@@ -142,6 +143,8 @@ public class Config {
 
     //Home Match Api
     public static String MYMATCHRECORD = BASEURL + "my_match_record";
+
+    public static String STATE_STATUS = BASEURL + "state_status";
 
 
 

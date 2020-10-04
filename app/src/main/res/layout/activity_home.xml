@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,43 +12,47 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:background="@color/white"
-
         android:id="@+id/head">
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:theme="@style/MyDarkToolbarStyle"/>
+
         <ImageView
             android:id="@+id/im_AppIcon"
             android:layout_width="wrap_content"
             android:layout_height="75dp"
-            android:src="@drawable/logo_splash"
-            android:padding="10dp"
-            android:visibility="visible"
             android:layout_centerVertical="true"
-            />
+            android:padding="10dp"
+            android:src="@drawable/logo_splash"
+            android:visibility="visible" />
+
         <ImageView
             android:id="@+id/im_homewallet"
             android:layout_width="wrap_content"
             android:layout_height="55dp"
+            android:layout_centerVertical="true"
             android:layout_marginEnd="5dp"
             android:layout_toLeftOf="@+id/im_Notification"
-            android:src="@drawable/wallet_icon"
             android:padding="10dp"
-            android:visibility="gone"
-            android:layout_centerVertical="true"
-            />
+            android:src="@drawable/wallet_icon"
+            android:visibility="gone" />
+
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="55dp"
+            android:background="@drawable/demo_home_2"/>
+
         <ImageView
             android:id="@+id/im_Notification"
             android:layout_width="wrap_content"
             android:layout_height="55dp"
-            android:src="@drawable/notification_icon_active"
-            android:padding="10dp"
-            android:visibility="visible"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            />
+            android:padding="10dp"
+            android:src="@drawable/notification_icon_active"
+            android:visibility="visible" />
 
     </RelativeLayout>
 

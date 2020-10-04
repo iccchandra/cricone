@@ -39,6 +39,7 @@ import com.google.gson.GsonBuilder;
 import com.onecricket.APICallingPackage.Class.APIRequestManager;
 import com.onecricket.APICallingPackage.Interface.ResponseManager;
 import com.onecricket.APICallingPackage.retrofit.APIService;
+import com.onecricket.APICallingPackage.retrofit.livescore.LiveScoreResponse;
 import com.onecricket.APICallingPackage.retrofit.pojo.livescore.LiveScroreData;
 import com.onecricket.R;
 import com.onecricket.adapter.BottomsheetRecyclerViewAdapter;
@@ -778,7 +779,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
 
     @Override
     public void onChildClicked(MatchOdds matchOdds) {
-        if (previousValue.equalsIgnoreCase("true")) {
+        if (previousValue) {
             return;
         }
         matchOdds.setSelected(!matchOdds.isSelected());
@@ -1042,7 +1043,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
                     jsonParam.put("odd_name", matchOdds.getCategoryName());
                     jsonParam.put("odd_value", matchOdds.getOdds());
                     jsonParam.put("bet_value", String.valueOf(matchOdds.getName()));
-                    jsonParam.put("bet_amount", String.valueOf(matchOdds.getReturnAmount()));
+                    jsonParam.put("bet_amount", String.valueOf(matchOdds.getBetAmount()));
                     if (matchType.equals(IN_PLAY)) {
                         jsonParam.put("batting_team", battingTeam);
                     }
@@ -1075,7 +1076,8 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://3.236.20.78:7000")
+//                .baseUrl("http://3.236.20.78:7000")
+                .baseUrl("http://13.232.85.74:4040")
                 .client(client)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
@@ -1092,7 +1094,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
 
     private void callLiveScoreAPI(Long aLong) {
         //http://3.236.20.78:4000/goalserve/live?hometeam=Gloucestershire&vistorteam=Birmingham%20Bears
-        Observable<LiveScroreData> observable = apiService.getLiveScore(matchesInfo.getHomeTeam(),matchesInfo.getVisitorsTeam());
+        Observable<LiveScoreResponse> observable = apiService.getLiveScore(matchesInfo.getHomeTeam(),matchesInfo.getVisitorsTeam());
 //        Observable<LiveScroreData> observable = apiService.getLiveScore("Gloucestershire","Birmingham Bears");
         observable.subscribeOn(Schedulers.newThread()).
                 observeOn(AndroidSchedulers.mainThread())
@@ -1114,19 +1116,21 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         }
     }
 
-    private String previousValue = "false";
+    private boolean previousValue = false;
     private String firstInningsTeam;
     private String secondInningsTeam;
     private String battingTeam;
-    private void handleLiveScroreAPIResults(LiveScroreData liveScoreData) {
+    private void handleLiveScroreAPIResults(LiveScoreResponse liveScoreData) {
         matchStatusText.setText("");
         Log.d(TAG, matchesInfo.toString());
-        Log.d(TAG, "Overended: "+liveScoreData.getOverended());
         Log.d(TAG, "Overended: "+liveScoreData.toString());
-        if (liveScoreData.getFirstinnings() != null && liveScoreData.getFirstinnings().getScore() != null) {
-            Log.d(TAG, "First Innings: " + liveScoreData.getFirstinnings().toString());
-            String firstInningsScore = liveScoreData.getFirstinnings().getScore();
-            firstInningsTeam = liveScoreData.getFirstinnings().getTeam();
+        Log.d(TAG, "Overended: "+liveScoreData.getMoreStats().getCurrentOverStats().getOverEnded());
+
+
+        if (liveScoreData.getMoreStats().getFirstinnings() != null && liveScoreData.getMoreStats().getFirstinnings().getScore() != null) {
+            Log.d(TAG, "First Innings: " + liveScoreData.getMoreStats().getFirstinnings().toString());
+            String firstInningsScore = liveScoreData.getMoreStats().getFirstinnings().getScore();
+            firstInningsTeam = liveScoreData.getMoreStats().getFirstinnings().getTeam();
             if (firstInningsScore != null) {
                 firstInningsTextView.setText(String.format("First Innings: %s", firstInningsScore));
             }
@@ -1135,27 +1139,29 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
             battingTeam = liveScoreData.getBattingTeam();
         }
 
-        if (liveScoreData.getSecondinnings() != null && liveScoreData.getSecondinnings().getScore() != null) {
-            Log.d(TAG, "Second Innings: " + liveScoreData.getSecondinnings().toString());
-            String secondInningsScore = liveScoreData.getSecondinnings().getScore();
-            secondInningsTeam = liveScoreData.getSecondinnings().getTeam();
+        if (liveScoreData.getMoreStats().getSecondinnnings() != null && liveScoreData.getMoreStats().getSecondinnnings().getScore() != null) {
+            Log.d(TAG, "Second Innings: " + liveScoreData.getMoreStats().getSecondinnnings().toString());
+            String secondInningsScore = liveScoreData.getMoreStats().getSecondinnnings().getScore();
+            secondInningsTeam = liveScoreData.getMoreStats().getSecondinnnings().getTeam();
             if (secondInningsScore != null) {
                 secondInningsTextView.setText(String.format("Second Innings: %s", secondInningsScore));
             }
         }
 
-        if (liveScoreData.getPost() != null) {
-            String post = liveScoreData.getPost();
+        if (liveScoreData.getMoreStats().getPost() != null) {
+            String post = liveScoreData.getMoreStats().getPost();
             Log.d(TAG, "Post: " + post);
             matchStatusText.setText(post);
         }
 
         matchStatusLayout.setVisibility(View.VISIBLE);
-        String overEnded = liveScoreData.getOverended();
+//        String overEnded = liveScoreData.getOverended();
+        boolean overEnded = liveScoreData.getMoreStats().getCurrentOverStats().getOverEnded();
 
-        if (!previousValue.equalsIgnoreCase(overEnded)) {
+        if (previousValue != overEnded) {
+//        if (!previousValue.equalsIgnoreCase(overEnded)) {
             previousValue = overEnded;
-            if (overEnded.equalsIgnoreCase("true")) {
+            if (overEnded) {
                 suspendBet();
             }
             else {

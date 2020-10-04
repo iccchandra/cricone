@@ -43,17 +43,14 @@ public class MyPredictionsAdapter extends RecyclerView.Adapter<MyPredictionsAdap
         String oddValue = "";
         String teams = "";
         String date = "";
-        // TODO This logic needs to be changed. This code will degrade the performance
-        if (upcomingList != null) {
-            Upcoming upcoming = upcomingList.get(position);
-            matchName = upcoming.getMatchname();
-            betValue = upcoming.getBetValue();
-            betAmount = upcoming.getBetAmount();
-            oddName = upcoming.getOddname();
-            oddValue = upcoming.getOddvalue();
-            teams = upcoming.getHomeTeam() + " Vs " + upcoming.getVisitorTeam();
-            date = upcoming.getMatchDate() + " " + upcoming.getMatchTime();
-        }
+        Upcoming upcoming = upcomingList.get(position);
+        matchName = upcoming.getMatchname();
+        betValue = upcoming.getBetValue();
+        betAmount = upcoming.getBetAmount();
+        oddName = upcoming.getOddname();
+        oddValue = upcoming.getOddvalue();
+        teams = upcoming.getHomeTeam() + " Vs " + upcoming.getVisitorTeam();
+        date = upcoming.getMatchDate() + " " + upcoming.getMatchTime();
 
         holder.matchNameTextView.setText(String.format("Match Name: %s", matchName));
         holder.betValueTextView.setText(String.format("Bet Value: %s", betValue));

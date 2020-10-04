@@ -100,6 +100,7 @@ import static com.onecricket.APICallingPackage.Class.Validations.ShowToast;
 import static com.onecricket.APICallingPackage.Config.APKNAME;
 import static com.onecricket.APICallingPackage.Config.APKURL;
 import static com.onecricket.APICallingPackage.Config.HOMEBANNER;
+import static com.onecricket.APICallingPackage.Config.STATE_STATUS;
 import static com.onecricket.APICallingPackage.Config.UPDATEAPP;
 import static com.onecricket.APICallingPackage.Constants.HOMEBANNERTYPE;
 import static com.onecricket.APICallingPackage.Constants.UPDATEAPPTYPE;
@@ -234,12 +235,13 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
             onTokenAvailable();
         }
         else {
-            showInvalidTokenAlert();
+            logout();
         }
     }
 
     private void onTokenAvailable() {
         callHomeBanner(false);
+        callBlockedStates(false);
         replaceFragment(new UpcomingMatchesFragment());
 
         binding.tablayout.addTab(binding.tablayout.newTab().setText("Upcoming"));
@@ -428,6 +430,25 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                     this,
                     this,
                     HOMEBANNERTYPE,
+                    isShowLoader,
+                    responseManager,
+                    sessionManager.getUser(context).getToken());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static final String TYPE_STATES = "states";
+    private void callBlockedStates(boolean isShowLoader) {
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("status", "blocked");
+            apiRequestManager.callAPIWithAuthorization(STATE_STATUS,
+                    jsonObject,
+                    this,
+                    this,
+                    TYPE_STATES,
                     isShowLoader,
                     responseManager,
                     sessionManager.getUser(context).getToken());
@@ -731,7 +752,6 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     private void logout() {
-
         LoginManager.getInstance().logOut();
         loginPrefsEditor.clear();
         loginPrefsEditor.commit();
@@ -739,7 +759,6 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                 status -> {
 
                 });
-
         Intent intent = new Intent(activity, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

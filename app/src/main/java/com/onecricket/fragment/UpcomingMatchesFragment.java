@@ -25,6 +25,7 @@ import com.onecricket.activity.MatchOddsTabsActivity;
 import com.onecricket.adapter.MatchesAdapter;
 import com.onecricket.pojo.MatchesInfo;
 import com.onecricket.utils.CommonProgressDialog;
+import com.onecricket.utils.DateFormat;
 import com.onecricket.utils.NetworkState;
 import com.onecricket.utils.SessionManager;
 import com.onecricket.utils.crypto.AlertDialogHelper;
@@ -33,8 +34,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.ClickListener {
 
@@ -142,7 +148,7 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
 
                             if (results.has("time")) {
                                 String time = results.getString("time");
-                                matchesInfo.setTime(time);
+                                matchesInfo.setTime(DateFormat.getReadableDateFormat(time));
                             }
 
                             JSONObject awayJSON = results.getJSONObject("away");

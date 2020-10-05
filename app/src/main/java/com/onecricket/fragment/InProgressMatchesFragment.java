@@ -28,6 +28,7 @@ import com.onecricket.activity.MatchOddsTabsActivity;
 import com.onecricket.adapter.MatchesAdapter;
 import com.onecricket.pojo.MatchesInfo;
 import com.onecricket.utils.CommonProgressDialog;
+import com.onecricket.utils.DateFormat;
 import com.onecricket.utils.NetworkState;
 import com.onecricket.utils.crypto.AlertDialogHelper;
 
@@ -189,6 +190,11 @@ public class InProgressMatchesFragment extends Fragment implements MatchesAdapte
                             }
                             else {
                                 matchesInfo.setLeagueName("");
+                            }
+
+                            if (results.has("time")) {
+                                String time = results.getString("time");
+                                matchesInfo.setTime(DateFormat.getReadableDateFormat(time));
                             }
 
                             matchesInfo.setMatchInProgress(true);

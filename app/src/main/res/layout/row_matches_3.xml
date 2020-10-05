@@ -38,13 +38,12 @@
                     android:background="@color/black" />
 
                 <TextView
-                    android:id="@+id/linesout"
+                    android:id="@+id/match_time"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="20dp"
                     android:gravity="center"
-                    android:text="Line ups out"
                     android:textColor="#32CD32" />
 
             </RelativeLayout>

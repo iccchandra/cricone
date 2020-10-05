@@ -136,25 +136,23 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
             matchesInfo = (MatchesInfo) getArguments().getSerializable("MatchInfo");
             if (matchesInfo != null) {
                 Log.d(TAG, String.valueOf(matchesInfo.getId()));
+                sessionManager = new SessionManager();
+                responseManager = this;
+                apiRequestManager = new APIRequestManager(getActivity());
+                callMyAccountDetails(true);
+
+                if (matchesInfo != null && matchesInfo.getId() != null && matchesInfo.getId().trim().length() > 0) {
+                    if (matchesInfo.isMatchInProgress()) {
+                        matchType = IN_PLAY;
+                        callInPlayMatchOddsAPI(matchesInfo.getId(), matchType);
+                    }
+                    else {
+                        matchType = UPCOMING;
+                        callUpcomingMatchOddsAPI(matchesInfo.getId());
+                    }
+                }
             }
         }
-
-        sessionManager = new SessionManager();
-        responseManager = this;
-        apiRequestManager = new APIRequestManager(getActivity());
-        callMyAccountDetails(true);
-
-        if (matchesInfo != null && matchesInfo.getId() != null && matchesInfo.getId().trim().length() > 0) {
-            if (matchesInfo.isMatchInProgress()) {
-                matchType = IN_PLAY;
-                callInPlayMatchOddsAPI(matchesInfo.getId(), matchType);
-            }
-            else {
-                matchType = UPCOMING;
-                callUpcomingMatchOddsAPI(matchesInfo.getId());
-            }
-        }
-
         return view;
     }
 
@@ -1138,6 +1136,15 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         Log.d(TAG, "Overended: "+liveScoreData.toString());
         Log.d(TAG, "Overended: "+liveScoreData.getMoreStats().getCurrentOverStats().getOverEnded());
 
+        if (liveScoreData.getHomeTeam() != null && liveScoreData.getHomeTeam().trim().length() > 0) {
+            String homeTeam = liveScoreData.getHomeTeam();
+            matchesInfo.setHomeTeam(homeTeam);
+        }
+
+        if (liveScoreData.getVisitorTeam() != null && liveScoreData.getVisitorTeam().trim().length() > 0) {
+            String visitorTeam = liveScoreData.getVisitorTeam();
+            matchesInfo.setVisitorsTeam(visitorTeam);
+        }
 
         if (liveScoreData.getMoreStats().getFirstinnings() != null && liveScoreData.getMoreStats().getFirstinnings().getScore() != null) {
             Log.d(TAG, "First Innings: " + liveScoreData.getMoreStats().getFirstinnings().toString());

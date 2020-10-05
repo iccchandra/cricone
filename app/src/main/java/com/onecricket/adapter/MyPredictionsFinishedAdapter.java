@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.onecricket.APICallingPackage.retrofit.betlist.Finished;
-import com.onecricket.APICallingPackage.retrofit.betlist.InProgress;
 import com.onecricket.R;
 
 import java.util.List;
@@ -43,14 +42,20 @@ public class MyPredictionsFinishedAdapter extends RecyclerView.Adapter<MyPredict
         String teams = "";
         String date = "";
          if (finishedList != null) {
-            Finished inProgress = finishedList.get(position);
-            matchName = inProgress.getMatchname();
-            betValue = inProgress.getBetValue();
-            betAmount = inProgress.getBetAmount();
-            oddName = inProgress.getOddname();
-            oddValue = inProgress.getOddvalue();
-            teams = inProgress.getHomeTeam() + " Vs " + inProgress.getVisitorTeam();
-            date = inProgress.getMatchDate() + " " + inProgress.getMatchTime();
+            Finished finished = finishedList.get(position);
+            matchName = finished.getMatchname();
+            betValue = finished.getBetValue();
+            betAmount = finished.getBetAmount();
+            oddName = finished.getOddname();
+            oddValue = finished.getOddvalue();
+            teams = finished.getHomeTeam() + " Vs " + finished.getVisitorTeam();
+            date = finished.getMatchDate() + " " + finished.getMatchTime();
+            if (finished.getStatus().equals("lost")) {
+                holder.betStatus.setImageResource(R.drawable.lost);
+            }
+            else {
+                holder.betStatus.setImageResource(R.drawable.winner);
+            }
         }
 
         holder.matchNameTextView.setText(String.format("Match Name: %s", matchName));
@@ -77,6 +82,7 @@ public class MyPredictionsFinishedAdapter extends RecyclerView.Adapter<MyPredict
         private TextView teamsTextView;
         private ImageView delete;
         private TextView matchDate;
+        private ImageView betStatus;
 
         public MyPredectionsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,6 +94,7 @@ public class MyPredictionsFinishedAdapter extends RecyclerView.Adapter<MyPredict
             this.teamsTextView = itemView.findViewById(R.id.teams);
             this.matchDate = itemView.findViewById(R.id.matchdate);
             this.delete = itemView.findViewById(R.id.delete);
+            this.betStatus = itemView.findViewById(R.id.bet_status);
         }
     }
 

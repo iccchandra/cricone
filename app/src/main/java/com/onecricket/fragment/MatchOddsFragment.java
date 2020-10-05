@@ -1037,7 +1037,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
 
                             java.util.Date currenTimeZone=new java.util.Date((long)(Long.parseLong(matchesInfo.getTime()))*1000);
                            // Toast.makeText(context, sdf.format(currenTimeZone), Toast.LENGTH_SHORT).show();
-                            //java.util.Date Time=new java.util.Date((long)(Long.parseLong(matchesInfo.getTime()))*1000);
+                          //  java.util.Date Time=new java.util.Date((long)(Long.parseLong(matchesInfo.getTime()))*1000);
 
                             jsonParam.put("match_date", sdf.format(currenTimeZone));
                             jsonParam.put("match_time", time.format(currenTimeZone));

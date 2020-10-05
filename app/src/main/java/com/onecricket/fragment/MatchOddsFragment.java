@@ -39,6 +39,7 @@ import com.google.gson.GsonBuilder;
 import com.onecricket.APICallingPackage.Class.APIRequestManager;
 import com.onecricket.APICallingPackage.Interface.ResponseManager;
 import com.onecricket.APICallingPackage.retrofit.APIService;
+import com.onecricket.APICallingPackage.retrofit.ApiClient;
 import com.onecricket.APICallingPackage.retrofit.livescore.LiveScoreResponse;
 import com.onecricket.APICallingPackage.retrofit.pojo.livescore.LiveScroreData;
 import com.onecricket.R;
@@ -865,7 +866,8 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         dismissProgressDialog(progressAlertDialog);
         progressAlertDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        final String URL = "http://cricket.atreatit.com/myrest/user/match_bet_details";
+//        final String URL = "http://cricket.atreatit.com/myrest/user/match_bet_details";
+        final String URL = ApiClient.BASE_URL +  "/myrest/user/match_bet_details";
         JsonArrayRequest request_json = new JsonArrayRequest(Request.Method.POST, URL, getInputJSON(matchType),
                 response -> {
                     Log.d(TAG, "PlaceBet Response "+response.toString());

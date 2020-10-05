@@ -20,6 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
 
     private static Retrofit retrofitWithAuthorization    = null;
+    public static final String BASE_URL = "http://13.232.85.74";
 
 
     public static Retrofit getClientWithAuthorisation(String token) {
@@ -50,7 +51,7 @@ public class ApiClient {
                     .build();
 
             retrofitWithAuthorization = new Retrofit.Builder()
-                    .baseUrl("http://cricket.atreatit.com")
+                    .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(defaultHttpClient)

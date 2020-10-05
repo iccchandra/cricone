@@ -42,6 +42,7 @@ import com.onecricket.APICallingPackage.retrofit.APIService;
 import com.onecricket.APICallingPackage.retrofit.livescore.LiveScoreResponse;
 import com.onecricket.APICallingPackage.retrofit.pojo.livescore.LiveScroreData;
 import com.onecricket.R;
+import com.onecricket.activity.HomeActivity;
 import com.onecricket.adapter.BottomsheetRecyclerViewAdapter;
 import com.onecricket.adapter.expandablerecyclerview.ExpandableRecyclerAdapter;
 import com.onecricket.adapter.expandablerecyclerview.OddsCategoryAdapter;
@@ -67,6 +68,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -1027,8 +1029,18 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
 
                         }
                         else {
-                            jsonParam.put("match_date", matchesInfo.getTime());
-                            jsonParam.put("match_time", matchesInfo.getTime());
+                            Calendar calendar = Calendar.getInstance();
+                            TimeZone tz = TimeZone.getDefault();
+                            calendar.add(Calendar.MILLISECOND, tz.getOffset(calendar.getTimeInMillis()));
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                            SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+
+                            java.util.Date currenTimeZone=new java.util.Date((long)(Long.parseLong(matchesInfo.getTime()))*1000);
+                           // Toast.makeText(context, sdf.format(currenTimeZone), Toast.LENGTH_SHORT).show();
+                            //java.util.Date Time=new java.util.Date((long)(Long.parseLong(matchesInfo.getTime()))*1000);
+
+                            jsonParam.put("match_date", sdf.format(currenTimeZone));
+                            jsonParam.put("match_time", time.format(currenTimeZone));
 
                         }
                         jsonParam.put("bet_date", currentDate);

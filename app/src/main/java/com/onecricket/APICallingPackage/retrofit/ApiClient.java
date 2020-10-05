@@ -50,7 +50,7 @@ public class ApiClient {
                     .build();
 
             retrofitWithAuthorization = new Retrofit.Builder()
-                    .baseUrl("http://cricket.atreatit.com")
+                    .baseUrl("http://13.232.85.74")
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(defaultHttpClient)

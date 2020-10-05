@@ -147,7 +147,7 @@ public class LeaderboardFragment extends Fragment {
         dismissProgressDialog(progressAlertDialog);
         progressAlertDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String url = "http://3.236.20.78:7000/global/leader";
+        String url = "http://13.232.85.74:4040/global/leader";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
             dismissProgressDialog(progressAlertDialog);

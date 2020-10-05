@@ -315,7 +315,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
 //        String url = "http://3.236.20.78:4000/" + matchType + "/preodds?FI=" + id;
 //        String url = "http://3.236.20.78:4000/" + matchType + "/preodds?FI=" + id;
 //        String url = "http://3.236.20.78:7000/inplay/overodds?FI=" + id;
-        String url = "http://3.236.20.78:7000/" + matchType + "/overodds?FI=" + id;
+        String url = "http://13.232.85.74:4040/" + matchType + "/overodds?FI=" + id;
 //        String url = "http://3.236.20.78:7000/inplay/overodds?FI=93429263";
         Log.d(TAG, url);
 
@@ -460,7 +460,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         else {
             matchType = UPCOMING;
         }
-        String url = "http://3.236.20.78:4000/" + matchType + "/preodds?FI=" + id;
+        String url = "http://13.232.85.74:4040/" + matchType + "/preodds?FI=" + id;
 //        String url = "http://3.236.20.78:7000/inplay/overodds?FI=" + id;
 //        String url = "http://3.236.20.78:7000/inplay/overodds?FI=93429263";
         Log.d(TAG, url);
@@ -865,7 +865,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         dismissProgressDialog(progressAlertDialog);
         progressAlertDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        final String URL = "http://cricket.atreatit.com/myrest/user/match_bet_details";
+        final String URL = "http://13.232.85.74/myrest/user/match_bet_details";
         JsonArrayRequest request_json = new JsonArrayRequest(Request.Method.POST, URL, getInputJSON(matchType),
                 response -> {
                     Log.d(TAG, "PlaceBet Response "+response.toString());

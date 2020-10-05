@@ -111,7 +111,7 @@ public class InProgressMatchesFragment extends Fragment implements MatchesAdapte
         dismissProgressDialog(progressAlertDialog);
         progressAlertDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String URL = "http://3.236.20.78:4000/inplay/matches";
+        String URL = "http://13.232.85.74:4040/inplay/matches";
 //        String URL = "https://api.b365api.com/v1/betfair/sb/inplay?sport_id=4&token=61925-2bBIpJrOkeLtND";
 
         Log.d(TAG, URL);

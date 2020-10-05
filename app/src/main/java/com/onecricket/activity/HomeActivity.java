@@ -387,7 +387,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         dismissProgressDialog(progressAlertDialog);
         progressAlertDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String URL = "http://3.236.20.78:7000/daily/update?userid=" +
+        String URL = "http://13.232.85.74:4040/daily/update?userid=" +
                 sessionManager.getUser(context).getUser_id() +
                 "&token=" +
                 sessionManager.getUser(context).getToken();

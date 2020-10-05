@@ -112,7 +112,7 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
 //        String URL = "https://api.b365api.com/v1/betfair/sb/upcoming?sport_id=4&token=61256-D7NpN8AgdxZCv5";
 //        String URL = "https://api.b365api.com/v1/betfair/sb/upcoming?sport_id=4&token=61256-gf4iT7mN2rL324";
 //        String URL = "https://api.b365api.com/v1/bet365/upcoming?sport_id=3&token=61925-2bBIpJrOkeLtND";
-        String URL = "http://3.236.20.78:7000/upcoming/matches";
+        String URL = "http://13.232.85.74:4040/upcoming/matches";
         Log.d(TAG, URL);
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,

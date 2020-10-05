@@ -19,6 +19,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.onecricket.APICallingPackage.retrofit.ApiClient;
 import com.onecricket.R;
 import com.onecricket.activity.MatchOddsTabsActivity;
 import com.onecricket.adapter.MatchesAdapter;
@@ -112,7 +113,7 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
 //        String URL = "https://api.b365api.com/v1/betfair/sb/upcoming?sport_id=4&token=61256-D7NpN8AgdxZCv5";
 //        String URL = "https://api.b365api.com/v1/betfair/sb/upcoming?sport_id=4&token=61256-gf4iT7mN2rL324";
 //        String URL = "https://api.b365api.com/v1/bet365/upcoming?sport_id=3&token=61925-2bBIpJrOkeLtND";
-        String URL = "http://13.232.85.74:4040/upcoming/matches";
+        String URL = ApiClient.BASE_URL +  ":4040/upcoming/matches";
         Log.d(TAG, URL);
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,

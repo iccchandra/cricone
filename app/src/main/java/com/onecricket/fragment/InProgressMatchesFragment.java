@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.onecricket.APICallingPackage.retrofit.ApiClient;
 import com.onecricket.R;
 import com.onecricket.activity.MatchOddsTabsActivity;
 import com.onecricket.adapter.MatchesAdapter;
@@ -111,7 +112,7 @@ public class InProgressMatchesFragment extends Fragment implements MatchesAdapte
         dismissProgressDialog(progressAlertDialog);
         progressAlertDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String URL = "http://13.232.85.74:4040/inplay/matches";
+        String URL = ApiClient.BASE_URL +  ":4040/inplay/matches";
 //        String URL = "https://api.b365api.com/v1/betfair/sb/inplay?sport_id=4&token=61925-2bBIpJrOkeLtND";
 
         Log.d(TAG, URL);

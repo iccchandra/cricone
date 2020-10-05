@@ -58,6 +58,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.onecricket.APICallingPackage.Class.APIRequestManager;
 import com.onecricket.APICallingPackage.Interface.ResponseManager;
+import com.onecricket.APICallingPackage.retrofit.ApiClient;
 import com.onecricket.Bean.BeanBanner;
 import com.onecricket.BuildConfig;
 import com.onecricket.R;
@@ -385,7 +386,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         dismissProgressDialog(progressAlertDialog);
         progressAlertDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String URL = "http://13.232.85.74:4040/daily/update?userid=" +
+        String URL = ApiClient.BASE_URL +  ":4040/daily/update?userid=" +
                 sessionManager.getUser(context).getUser_id() +
                 "&token=" +
                 sessionManager.getUser(context).getToken();

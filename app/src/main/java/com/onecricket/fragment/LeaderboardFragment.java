@@ -20,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.onecricket.APICallingPackage.retrofit.ApiClient;
 import com.onecricket.R;
 import com.onecricket.ui.CircularTextView;
 import com.onecricket.utils.CommonProgressDialog;
@@ -147,7 +148,7 @@ public class LeaderboardFragment extends Fragment {
         dismissProgressDialog(progressAlertDialog);
         progressAlertDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String url = "http://13.232.85.74:4040/global/leader";
+        String url = ApiClient.BASE_URL +  ":4040/global/leader";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
             dismissProgressDialog(progressAlertDialog);

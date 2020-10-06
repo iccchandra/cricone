@@ -5,7 +5,7 @@ public class Constants {
 
     public static int SPLASH_TIME_OUT = 4000;
 
-    public static String LOGINTYPE = "Login";
+    public static String LOGINTYPE = "Normal";
     public static String SIGNUPTYPE = "SignUp";
     public static String VERIFYOTPTYPE = "VerifyOtp";
     public static String RESENDOTPTYPE = "ResendOtp";

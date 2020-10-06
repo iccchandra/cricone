@@ -73,11 +73,7 @@ public class VerifyOTPActivity extends AppCompatActivity implements ResponseMana
         IntentPassword = o.getStringExtra("Password");
         IntentActivity= o.getStringExtra("Activity");
 
-        callResendOTPApi(true);
 
-        if (IntentActivity.equals("Login")){
-            callResendOTPApi(true);
-        }
 
 
 
@@ -87,7 +83,7 @@ public class VerifyOTPActivity extends AppCompatActivity implements ResponseMana
         countDownTimer =  new CountDownTimer(60000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                //tv_Timer.setText("Resend OTP in: " + millisUntilFinished / 1000);
+              //  tvOtpTimer.setText("Resend OTP in: " + millisUntilFinished / 1000);
                 binding.tvOtpTimer.setText("Didn't receive the OTP? Request for a new one in "+ String.format("%d:%d sec",
                         TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
                         TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
@@ -286,7 +282,7 @@ public class VerifyOTPActivity extends AppCompatActivity implements ResponseMana
         try {
 
             apiRequestManager.callAPI(VERIFYOTP,
-                    createRequestJson(), context, activity, VERIFYOTPTYPE,
+                    createRequestJson(), context, activity, LOGINTYPE,
                     isShowLoader,responseManager);
 
         } catch (JSONException e) {
@@ -379,6 +375,8 @@ public class VerifyOTPActivity extends AppCompatActivity implements ResponseMana
     public void getResult(Context mContext, String type, String message, JSONObject result) {
 
         ShowToast(context,message);
+       // ShowToast(context,"type:"+type);
+
         if (type.equals(VERIFYOTPTYPE)) {
             callLoginApi(true);
         }
@@ -398,6 +396,7 @@ public class VerifyOTPActivity extends AppCompatActivity implements ResponseMana
                 userDetails.setImage(result.getString("image"));
                 if (result.has("token")) {
                     String token = result.getString("token");
+                    System.out.println(token);
                     userDetails.setToken(token);
                 }
 

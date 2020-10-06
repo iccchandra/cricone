@@ -134,72 +134,9 @@
                     android:textSize="11sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_RegEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/input_RegMobNo"
-                android:layout_marginTop="10dp"
-                android:theme="@style/LoginInputLayout"
-                android:textColorHint="@color/color_disable_button">
 
-                <EditText
-                    android:id="@+id/et_Email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:backgroundTint="@color/colorPrimaryDark"
-                    android:hint="Email"
-                    android:padding="12dp"
-                    android:singleLine="true"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textColorHint="@color/colorPrimaryDark"
-                    android:textSize="14sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="2dp"
-                    android:text="No spam. We promise!"
-                    android:textColor="@color/login_sign_up"
-                    android:textSize="11sp" />
-            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_RegPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/input_RegEmail"
-                android:layout_marginTop="10dp"
-                android:theme="@style/LoginInputLayout"
-                android:textColorHint="@color/color_disable_button"
-                app:passwordToggleTint="@color/colorPrimaryDark"
-                app:passwordToggleEnabled="true">
-
-                <EditText
-                    android:id="@+id/et_Password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:backgroundTint="@color/colorPrimaryDark"
-                    android:hint="Password"
-                    android:inputType="textPassword"
-                    android:padding="12dp"
-                    android:singleLine="true"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textColorHint="@color/colorPrimaryDark"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="2dp"
-                    android:text="Minimum 8 characters with 1 number/symbol"
-                    android:textColor="@color/login_sign_up"
-                    android:textSize="11sp" />
-            </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"

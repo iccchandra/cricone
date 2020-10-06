@@ -135,8 +135,7 @@ public class RegistrationActivity extends AppCompatActivity implements ResponseM
             public void onClick(View view) {
 
                 MobileNumber = binding.etMobileNo.getText().toString();
-                EmailId = binding.etEmail.getText().toString();
-                Password = binding.etPassword.getText().toString();
+
                 if (Reffered.equals(REFERRAL_CODE_STATUS)){
                     ReferralCode = binding.etReferralCode.getText().toString();
                 }
@@ -152,22 +151,7 @@ public class RegistrationActivity extends AppCompatActivity implements ResponseM
                     binding.etMobileNo.requestFocus();
                     ShowToast(context,"Enter Valid Mobile Number");
                 }
-                else if (EmailId.equals("")){
-                    binding.etEmail.requestFocus();
-                    ShowToast(context,"Enter Email Id");
 
-                } else if(!Validations.isValidEmail(EmailId)){
-                    binding.etEmail.requestFocus();
-                    ShowToast(context,"Enter Valid Email Id");
-                }
-                else if (Password.equals("")){
-                    binding.etPassword.requestFocus();
-                    ShowToast(context,"Enter Password");
-                }
-                else if (Password.length()<8&& !Validations.isValidPassword(Password)){
-
-                    ShowToast(context,"Password Pattern Not Macthed");
-                }
                 else {
                     LoginType = "Normal";
 
@@ -355,9 +339,9 @@ public class RegistrationActivity extends AppCompatActivity implements ResponseM
                     Validations.hideProgress();
                     Intent i = new Intent(activity, VerifyOTPActivity.class);
                     i.putExtra("Number", mobile);
-                    i.putExtra("Activity", "Registration");
+                    i.putExtra("Activity", "Normal");
                     i.putExtra("UserId", UserId);
-                    i.putExtra("Password", Password);
+                   // i.putExtra("Password", Password);
                     startActivity(i);
                 } else {
                     Validations.hideProgress();

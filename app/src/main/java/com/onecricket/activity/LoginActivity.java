@@ -106,7 +106,7 @@ public class LoginActivity extends AppCompatActivity implements ResponseManager,
         loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
         saveLogin = loginPreferences.getBoolean("saveLogin", false);
-        binding.tvForgotPassword.setOnClickListener(new View.OnClickListener() {
+      /*  binding.tvForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -137,24 +137,16 @@ public class LoginActivity extends AppCompatActivity implements ResponseManager,
                     ShowToast(context, "Enter Valid Mobile Number or Email");
                 }
             }
-        });
+        });*/
 
 
         binding.tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EmailorMobile = binding.etEmailMobile.getText().toString();
-                Password = binding.etPassword.getText().toString();
+             //   Password = binding.etPassword.getText().toString();
                 if (EmailorMobile.equals("")){
-                    ShowToast(context,"Enter Email or Mobile");
-                }
-                else
-                if (Password.equals("")){
-
-                    ShowToast(context,"Enter Password");
-                } else if (Password.length() < 8 && !Validations.isValidPassword(Password)) {
-
-                    ShowToast(context,"Password Pattern Not Macthed");
+                    ShowToast(context,"Enter Mobile Number");
                 }
                 else {
                     SLoginType = "Normal";
@@ -164,7 +156,7 @@ public class LoginActivity extends AppCompatActivity implements ResponseManager,
             }
         });
 
-        binding.tvForgotPassword.setOnClickListener(new View.OnClickListener() {
+      /*  binding.tvForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EmailorMobile = binding.etEmailMobile.getText().toString();
@@ -202,7 +194,7 @@ public class LoginActivity extends AppCompatActivity implements ResponseManager,
 
 
             }
-        });
+        });*/
 
         binding.tvSignUpText.setOnClickListener(view -> {
             Intent i = new Intent(activity,RegistrationActivity.class);
@@ -340,15 +332,14 @@ public class LoginActivity extends AppCompatActivity implements ResponseManager,
                 MobNumber = result.getString("mobile");
                 UserId = result.getString("user_id");
 
-                if (Verify.equals("0")){
+                if (Verify.equals("1")){
                     Validations.hideProgress();
                     binding.etEmailMobile.setText("");
-                    binding.etPassword.setText("");
+                   // binding.etPassword.setText("");
                     Intent i = new Intent(activity, VerifyOTPActivity.class);
                     i.putExtra("Number", MobNumber);
-                    i.putExtra("Activity", "Login");
+                    i.putExtra("Activity", "Normal");
                     i.putExtra("UserId", UserId);
-                    i.putExtra("Password", Password);
                     startActivity(i);
 
                 } else {
@@ -371,7 +362,7 @@ public class LoginActivity extends AppCompatActivity implements ResponseManager,
                     userDetails.setVerify(Verify);
                     sessionManager.setUser(context, userDetails);
                     binding.etEmailMobile.setText("");
-                    binding.etPassword.setText("");
+                  //  binding.etPassword.setText("");
                     Intent i = new Intent(activity, HomeActivity.class);
                     startActivity(i);
                 }

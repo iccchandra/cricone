@@ -142,7 +142,6 @@
             android:layout_below="@+id/tv_VerifyOTP"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:background="@drawable/roundbutton"
             android:padding="12dp"
             android:text="Resend OTP"
             android:textAlignment="center"

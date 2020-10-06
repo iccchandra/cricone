@@ -40,9 +40,9 @@ public class Config {
     public static String WITHDRAWPOLICY = SERVERURL+"withdraw-cash";
 
 
-    public static String SIGNUP = BASEURL + "user_registration";
-    public static String LOGIN = BASEURL + "login";
-    public static String VERIFYOTP = BASEURL + "user_number_verify";
+    public static String SIGNUP = BASEURL + "user_registration_with_otp";
+    public static String LOGIN = BASEURL + "login_with_otp ";
+    public static String VERIFYOTP = BASEURL + "verify_login_otp";
     public static String RESENDOTP = BASEURL + "resend_otp";
 
     public static String FORGOTPASSWORD = BASEURL + "forget_password";

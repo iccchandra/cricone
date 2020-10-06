@@ -48,6 +48,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         holder.teamATextView.setText(teamA);
         holder.teamBTextView.setText(teamB);
         holder.matchStatus.setText(matchType);
+        holder.matchTimeTextView.setText(matchesInfo.getTime());
 
         if (teamA.length() > 0) {
             holder.circularTextTeamA.setText(String.format("%s", teamA.charAt(0)));
@@ -104,6 +105,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         private TextView linesout;
         private TextView circularTextTeamA;
         private TextView circularTextTeamB;
+        private TextView matchTimeTextView;
 
         public MatchesViewHolder(View itemView) {
             super(itemView);
@@ -116,6 +118,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
             this.linesout    = itemView.findViewById(R.id.linesout);
             this.circularTextTeamA = itemView.findViewById(R.id.circular_team_a);
             this.circularTextTeamB = itemView.findViewById(R.id.circular_team_b);
+            this.matchTimeTextView = itemView.findViewById(R.id.match_time);
 
         }
     }

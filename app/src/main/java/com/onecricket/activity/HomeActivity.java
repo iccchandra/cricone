@@ -53,13 +53,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResolvableApiException;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.onecricket.APICallingPackage.Class.APIRequestManager;
 import com.onecricket.APICallingPackage.Interface.ResponseManager;
+import com.onecricket.APICallingPackage.retrofit.ApiClient;
 import com.onecricket.Bean.BeanBanner;
 import com.onecricket.BuildConfig;
 import com.onecricket.R;
@@ -91,12 +90,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
 import static com.onecricket.APICallingPackage.Class.Validations.ShowToast;
 import static com.onecricket.APICallingPackage.Config.APKNAME;
@@ -389,7 +386,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         dismissProgressDialog(progressAlertDialog);
         progressAlertDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String URL = "http://13.232.85.74:4040/daily/update?userid=" +
+        String URL = ApiClient.BASE_URL +  ":4040/daily/update?userid=" +
                 sessionManager.getUser(context).getUser_id() +
                 "&token=" +
                 sessionManager.getUser(context).getToken();

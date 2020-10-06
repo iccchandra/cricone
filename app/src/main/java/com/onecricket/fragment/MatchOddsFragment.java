@@ -39,10 +39,9 @@ import com.google.gson.GsonBuilder;
 import com.onecricket.APICallingPackage.Class.APIRequestManager;
 import com.onecricket.APICallingPackage.Interface.ResponseManager;
 import com.onecricket.APICallingPackage.retrofit.APIService;
+import com.onecricket.APICallingPackage.retrofit.ApiClient;
 import com.onecricket.APICallingPackage.retrofit.livescore.LiveScoreResponse;
-import com.onecricket.APICallingPackage.retrofit.pojo.livescore.LiveScroreData;
 import com.onecricket.R;
-import com.onecricket.activity.HomeActivity;
 import com.onecricket.adapter.BottomsheetRecyclerViewAdapter;
 import com.onecricket.adapter.expandablerecyclerview.ExpandableRecyclerAdapter;
 import com.onecricket.adapter.expandablerecyclerview.OddsCategoryAdapter;
@@ -137,25 +136,23 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
             matchesInfo = (MatchesInfo) getArguments().getSerializable("MatchInfo");
             if (matchesInfo != null) {
                 Log.d(TAG, String.valueOf(matchesInfo.getId()));
+                sessionManager = new SessionManager();
+                responseManager = this;
+                apiRequestManager = new APIRequestManager(getActivity());
+                callMyAccountDetails(true);
+
+                if (matchesInfo != null && matchesInfo.getId() != null && matchesInfo.getId().trim().length() > 0) {
+                    if (matchesInfo.isMatchInProgress()) {
+                        matchType = IN_PLAY;
+                        callInPlayMatchOddsAPI(matchesInfo.getId(), matchType);
+                    }
+                    else {
+                        matchType = UPCOMING;
+                        callUpcomingMatchOddsAPI(matchesInfo.getId());
+                    }
+                }
             }
         }
-
-        sessionManager = new SessionManager();
-        responseManager = this;
-        apiRequestManager = new APIRequestManager(getActivity());
-        callMyAccountDetails(true);
-
-        if (matchesInfo != null && matchesInfo.getId() != null && matchesInfo.getId().trim().length() > 0) {
-            if (matchesInfo.isMatchInProgress()) {
-                matchType = IN_PLAY;
-                callInPlayMatchOddsAPI(matchesInfo.getId(), matchType);
-            }
-            else {
-                matchType = UPCOMING;
-                callUpcomingMatchOddsAPI(matchesInfo.getId());
-            }
-        }
-
         return view;
     }
 
@@ -317,7 +314,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
 //        String url = "http://3.236.20.78:4000/" + matchType + "/preodds?FI=" + id;
 //        String url = "http://3.236.20.78:4000/" + matchType + "/preodds?FI=" + id;
 //        String url = "http://3.236.20.78:7000/inplay/overodds?FI=" + id;
-        String url = "http://13.232.85.74:4040/" + matchType + "/overodds?FI=" + id;
+        String url = ApiClient.BASE_URL + ":4040/" + matchType + "/overodds?FI=" + id;
 //        String url = "http://3.236.20.78:7000/inplay/overodds?FI=93429263";
         Log.d(TAG, url);
 
@@ -462,7 +459,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         else {
             matchType = UPCOMING;
         }
-        String url = "http://13.232.85.74:4040/" + matchType + "/preodds?FI=" + id;
+        String url = ApiClient.BASE_URL + ":4040/" + matchType + "/preodds?FI=" + id;
 //        String url = "http://3.236.20.78:7000/inplay/overodds?FI=" + id;
 //        String url = "http://3.236.20.78:7000/inplay/overodds?FI=93429263";
         Log.d(TAG, url);
@@ -867,7 +864,8 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         dismissProgressDialog(progressAlertDialog);
         progressAlertDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        final String URL = "http://13.232.85.74/myrest/user/match_bet_details";
+//        final String URL = "http://cricket.atreatit.com/myrest/user/match_bet_details";
+        final String URL = ApiClient.BASE_URL +  "/myrest/user/match_bet_details";
         JsonArrayRequest request_json = new JsonArrayRequest(Request.Method.POST, URL, getInputJSON(matchType),
                 response -> {
                     Log.d(TAG, "PlaceBet Response "+response.toString());
@@ -1089,7 +1087,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
 
         Retrofit retrofit = new Retrofit.Builder()
 //                .baseUrl("http://3.236.20.78:7000")
-                .baseUrl("http://13.232.85.74:4040")
+                .baseUrl(ApiClient.BASE_URL + ":4040")
                 .client(client)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
@@ -1138,6 +1136,15 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         Log.d(TAG, "Overended: "+liveScoreData.toString());
         Log.d(TAG, "Overended: "+liveScoreData.getMoreStats().getCurrentOverStats().getOverEnded());
 
+        if (liveScoreData.getHomeTeam() != null && liveScoreData.getHomeTeam().trim().length() > 0) {
+            String homeTeam = liveScoreData.getHomeTeam();
+            matchesInfo.setHomeTeam(homeTeam);
+        }
+
+        if (liveScoreData.getVisitorTeam() != null && liveScoreData.getVisitorTeam().trim().length() > 0) {
+            String visitorTeam = liveScoreData.getVisitorTeam();
+            matchesInfo.setVisitorsTeam(visitorTeam);
+        }
 
         if (liveScoreData.getMoreStats().getFirstinnings() != null && liveScoreData.getMoreStats().getFirstinnings().getScore() != null) {
             Log.d(TAG, "First Innings: " + liveScoreData.getMoreStats().getFirstinnings().toString());

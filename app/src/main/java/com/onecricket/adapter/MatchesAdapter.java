@@ -48,7 +48,12 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         holder.teamATextView.setText(teamA);
         holder.teamBTextView.setText(teamB);
         holder.matchStatus.setText(matchType);
-        holder.matchTimeTextView.setText(matchesInfo.getTime());
+        if (matchType.equalsIgnoreCase("upcoming")) {
+            holder.matchTimeTextView.setText(String.format("%s\n%s", matchesInfo.getDate(), matchesInfo.getTime()));
+        }
+        else {
+            holder.matchTimeTextView.setText(matchesInfo.getDate());
+        }
 
         if (teamA.length() > 0) {
             holder.circularTextTeamA.setText(String.format("%s", teamA.charAt(0)));

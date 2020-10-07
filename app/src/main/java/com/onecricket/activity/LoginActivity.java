@@ -106,95 +106,62 @@ public class LoginActivity extends AppCompatActivity implements ResponseManager,
         loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
         saveLogin = loginPreferences.getBoolean("saveLogin", false);
-      /*  binding.tvForgotPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        binding.tvForgotPassword.setOnClickListener(view -> {
 
-                EmailorMobile = binding.etEmailMobile.getText().toString().trim();
+            EmailorMobile = binding.etEmailMobile.getText().toString().trim();
 
-                if (EmailorMobile.equals("")){
-                    ShowToast(context,"Enter Email or Mobile");
-                }else if (EmailorMobile.contains("@")) {
-                    if (!Validations.isValidEmail(EmailorMobile)) {
-                        binding.etEmailMobile.requestFocus();
-                        ShowToast(context, "Enter Valid Email Id");
-                    } else {
-                        Back = "1";
+            if (EmailorMobile.equals("")){
+                ShowToast(context,"Enter Mobile Number");
+            }else if (EmailorMobile.contains("@")) {
+                if (!Validations.isValidEmail(EmailorMobile)) {
+                    binding.etEmailMobile.requestFocus();
+                    ShowToast(context, "Enter Valid Email Id");
+                } else {
+                    Back = "1";
 
-                    }
-                } else if (TextUtils.isDigitsOnly(EmailorMobile)) {
-                    if (!EmailorMobile.matches(Validations.MobilePattern)) {
-                        binding.etEmailMobile.requestFocus();
-                        ShowToast(context, "Enter Valid Mobile Number");
-                    }
-                    else {
-                        Back = "1";
-
-                    }
+                }
+            } else if (TextUtils.isDigitsOnly(EmailorMobile)) {
+                if (!EmailorMobile.matches(Validations.MobilePattern)) {
+                    binding.etEmailMobile.requestFocus();
+                    ShowToast(context, "Enter Valid Mobile Number");
                 }
                 else {
-                    binding.etEmailMobile.requestFocus();
-                    ShowToast(context, "Enter Valid Mobile Number or Email");
+                    Back = "1";
+
                 }
             }
-        });*/
-
-
-        binding.tvLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EmailorMobile = binding.etEmailMobile.getText().toString();
-             //   Password = binding.etPassword.getText().toString();
-                if (EmailorMobile.equals("")){
-                    ShowToast(context,"Enter Mobile Number");
-                }
-                else {
-                    SLoginType = "Normal";
-                    callLoginApi(true);
-
-                }
+            else {
+                binding.etEmailMobile.requestFocus();
+                ShowToast(context, "Enter Valid Mobile Number");
             }
         });
 
-      /*  binding.tvForgotPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EmailorMobile = binding.etEmailMobile.getText().toString();
 
-                if (EmailorMobile.equals("")){
-                    ShowToast(context,"Enter Email or Mobile");
-                }else if (EmailorMobile.contains("@")) {
-                    if (!Validations.isValidEmail(EmailorMobile)) {
-                        binding.etEmailMobile.requestFocus();
-                        ShowToast(context, "Enter Valid Email Id");
-                    } else {
-                        Intent i = new Intent(activity, ForgotVerifyOTPActivity.class);
-                        i.putExtra("type","Email");
-                        i.putExtra("EmailorMobile",EmailorMobile);
-                        startActivity(i);
-
-                    }
-                } else if (TextUtils.isDigitsOnly(EmailorMobile)) {
-                    if (!EmailorMobile.matches(Validations.MobilePattern)) {
-                        binding.etEmailMobile.requestFocus();
-                        ShowToast(context, "Enter Valid Mobile Number");
-                    }
-                    else {
-                        Intent i = new Intent(activity, ForgotVerifyOTPActivity.class);
-                        i.putExtra("type","Number");
-                        i.putExtra("EmailorMobile",EmailorMobile);
-                        startActivity(i);
-
-                    }
-                }
-                else {
-                    binding.etEmailMobile.requestFocus();
-                    ShowToast(context, "Enter Valid Mobile Number or Email");
-                }
-
-
+        binding.tvLogin.setOnClickListener(view -> {
+            onForgotPasswordClicked();
+/*            EmailorMobile = binding.etEmailMobile.getText().toString();
+            Password = binding.etPassword.getText().toString();
+            if (EmailorMobile.equals("")){
+                ShowToast(context,"Enter Email or Mobile");
             }
-        });*/
+            else
+            if (Password.equals("")){
+
+                ShowToast(context,"Enter Password");
+            } else if (Password.length() < 8 && !Validations.isValidPassword(Password)) {
+
+                ShowToast(context,"Password Pattern Not Macthed");
+            }
+            else {
+                SLoginType = "Normal";
+                callLoginApi(true);
+
+            }*/
+        });
+
+        binding.tvForgotPassword.setOnClickListener(view -> {
+            onForgotPasswordClicked();
+        });
 
         binding.tvSignUpText.setOnClickListener(view -> {
             Intent i = new Intent(activity,RegistrationActivity.class);
@@ -267,6 +234,40 @@ public class LoginActivity extends AppCompatActivity implements ResponseManager,
 
     }
 
+    private void onForgotPasswordClicked() {
+        EmailorMobile = binding.etEmailMobile.getText().toString();
+
+        if (EmailorMobile.equals("")){
+            ShowToast(context,"Enter Mobile Number");
+        }else if (EmailorMobile.contains("@")) {
+            if (!Validations.isValidEmail(EmailorMobile)) {
+                binding.etEmailMobile.requestFocus();
+                ShowToast(context, "Enter Valid Email Id");
+            } else {
+                Intent i = new Intent(activity, ForgotVerifyOTPActivity.class);
+                i.putExtra("type","Email");
+                i.putExtra("EmailorMobile",EmailorMobile);
+                startActivity(i);
+
+            }
+        } else if (TextUtils.isDigitsOnly(EmailorMobile)) {
+            if (!EmailorMobile.matches(Validations.MobilePattern)) {
+                binding.etEmailMobile.requestFocus();
+                ShowToast(context, "Enter Valid Mobile Number");
+            }
+            else {
+                Intent i = new Intent(activity, ForgotVerifyOTPActivity.class);
+                i.putExtra("type","Number");
+                i.putExtra("EmailorMobile",EmailorMobile);
+                startActivity(i);
+            }
+        }
+        else {
+            binding.etEmailMobile.requestFocus();
+            ShowToast(context, "Enter Valid Mobile Number");
+        }
+    }
+
     private void callLoginApi(boolean isShowLoader) {
         try {
 
@@ -332,14 +333,15 @@ public class LoginActivity extends AppCompatActivity implements ResponseManager,
                 MobNumber = result.getString("mobile");
                 UserId = result.getString("user_id");
 
-                if (Verify.equals("1")){
+                if (Verify.equals("0")){
                     Validations.hideProgress();
                     binding.etEmailMobile.setText("");
-                   // binding.etPassword.setText("");
+                    binding.etPassword.setText("");
                     Intent i = new Intent(activity, VerifyOTPActivity.class);
                     i.putExtra("Number", MobNumber);
-                    i.putExtra("Activity", "Normal");
+                    i.putExtra("Activity", "Login");
                     i.putExtra("UserId", UserId);
+                    i.putExtra("Password", Password);
                     startActivity(i);
 
                 } else {
@@ -362,7 +364,7 @@ public class LoginActivity extends AppCompatActivity implements ResponseManager,
                     userDetails.setVerify(Verify);
                     sessionManager.setUser(context, userDetails);
                     binding.etEmailMobile.setText("");
-                  //  binding.etPassword.setText("");
+                    binding.etPassword.setText("");
                     Intent i = new Intent(activity, HomeActivity.class);
                     startActivity(i);
                 }

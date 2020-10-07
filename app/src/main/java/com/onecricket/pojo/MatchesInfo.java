@@ -11,6 +11,7 @@ public class MatchesInfo implements Serializable {
     private String leagueName;
     private String homeTeam;
     private String visitorsTeam;
+    private String date;
     private boolean isMatchInProgress;
 
 
@@ -80,5 +81,13 @@ public class MatchesInfo implements Serializable {
 
     public void setMatchInProgress(boolean matchInProgress) {
         isMatchInProgress = matchInProgress;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

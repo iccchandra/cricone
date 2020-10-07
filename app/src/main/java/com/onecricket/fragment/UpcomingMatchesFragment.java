@@ -148,7 +148,8 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
 
                             if (results.has("time")) {
                                 String time = results.getString("time");
-                                matchesInfo.setTime(DateFormat.getReadableDateFormat(time));
+                                matchesInfo.setDate(DateFormat.getReadableDateFormat(time));
+                                matchesInfo.setTime(DateFormat.getReadableTimeFormat(time));
                             }
 
                             JSONObject awayJSON = results.getJSONObject("away");

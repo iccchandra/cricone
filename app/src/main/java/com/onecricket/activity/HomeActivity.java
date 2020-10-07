@@ -194,13 +194,14 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
             }
         });
 
+        binding.share.setOnClickListener(view -> {
+            onShareClicked();
+        });
 
-        binding.imNotification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(activity, NotificationActivity.class);
-                startActivity(i);
-            }
+
+        binding.imNotification.setOnClickListener(view -> {
+            Intent i = new Intent(activity, NotificationActivity.class);
+            startActivity(i);
         });
         binding.imHomewallet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -235,6 +236,15 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         }
         else {
             logout();
+        }
+    }
+
+    private void onShareClicked() {
+        Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, "I made predictions on 1Cricket App. Join me if you are interested.");
+        intent.setType("text/plain");
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(Intent.createChooser(intent, getString(R.string.app_name)));
         }
     }
 
@@ -283,7 +293,9 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                                                           binding.head.setVisibility(View.VISIBLE);
                                                           binding.bonus.setVisibility(View.VISIBLE);
                                                           binding.RLHomeBanner.setVisibility(View.VISIBLE);
+                                                          binding.share.setVisibility(View.GONE);
                                                       } else if (tab.getPosition() == 1) {
+                                                          binding.share.setVisibility(View.VISIBLE);
                                                           binding.tablayout.setVisibility(View.GONE);
                                                           binding.RLHomeBanner.setVisibility(View.GONE);
                                                           binding.bonus.setVisibility(View.GONE);
@@ -295,12 +307,14 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                                                           binding.bonus.setVisibility(View.GONE);
                                                           replaceFragment(new ProfileFragment());
                                                           binding.head.setVisibility(View.GONE);
+                                                          binding.share.setVisibility(View.GONE);
                                                       } else {
                                                           binding.tablayout.setVisibility(View.GONE);
                                                           binding.RLHomeBanner.setVisibility(View.GONE);
                                                           binding.bonus.setVisibility(View.GONE);
                                                           replaceFragment(new MoreFragment());
                                                           binding.head.setVisibility(View.VISIBLE);
+                                                          binding.share.setVisibility(View.GONE);
                                                       }
                                                   }
 
@@ -390,6 +404,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                 sessionManager.getUser(context).getUser_id() +
                 "&token=" +
                 sessionManager.getUser(context).getToken();
+        Log.d("callBonusAPI", URL);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null, response -> {
             dismissProgressDialog(progressAlertDialog);

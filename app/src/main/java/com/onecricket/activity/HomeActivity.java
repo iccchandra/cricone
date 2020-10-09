@@ -235,13 +235,6 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
 
         setupTabIcons1();
-
-        if (isTokenAvailable(context, sessionManager)) {
-            onTokenAvailable();
-        }
-        else {
-            logout();
-        }
     }
 
     private void onShareClicked() {

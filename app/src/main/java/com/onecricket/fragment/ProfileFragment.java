@@ -348,6 +348,9 @@ public class ProfileFragment extends Fragment implements ResponseManager {
             jsonObject.put("user_id", sessionManager.getUser(context).getUser_id());
 
             jsonObject.put("profile_image", getStringImage(bitmap));
+            jsonObject.put("token", sessionManager.getUser(context).getToken());
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

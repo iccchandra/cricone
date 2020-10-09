@@ -627,13 +627,13 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         final TextView tv_DClose = dialog.findViewById(R.id.tv_DClose);
         final TextView tv_UpdateNote = dialog.findViewById(R.id.tv_UpdateNote);
         final TextView tv_UpdateApp = dialog.findViewById(R.id.tv_UpdateApp);
-        final TextView tv_WhatsNewHead = dialog.findViewById(R.id.tv_WhatsNewHead);
+//        final TextView tv_WhatsNewHead = dialog.findViewById(R.id.tv_WhatsNewHead);
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
 
         tv_UpdateNote.setText(UpdateNote);
         tv_UpdateApp.setText(UpdateorInstall);
-        tv_WhatsNewHead.setText(WhatsnewHead);
+     //   tv_WhatsNewHead.setText(WhatsnewHead);
 
         tv_DClose.setOnClickListener(new View.OnClickListener() {
             @Override

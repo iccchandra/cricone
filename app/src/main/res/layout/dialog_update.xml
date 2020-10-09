@@ -56,22 +56,17 @@
                     android:orientation="horizontal"
                     android:layout_gravity="center"
                     >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="What's new"
-                        android:id="@+id/tv_WhatsNewHead"
-                        android:textStyle="bold"
-                        android:layout_gravity="center"
-                        android:textSize="20sp"
-                        android:textColor="@color/black"
-                        />
+                    <ImageView
+                        android:id="@+id/simpleImageView"
+                        android:layout_width="@dimen/dimen_45dp"
+                        android:layout_height="@dimen/dimen_45dp"
+                        android:src="@drawable/round_logo" />
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_horizontal"
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="match_parent"
@@ -80,6 +75,8 @@
                         android:id="@+id/tv_UpdateNote"
                         android:textStyle="bold"
                         android:textSize="16sp"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
                         android:textColor="@color/black"
                         />
                 </LinearLayout>

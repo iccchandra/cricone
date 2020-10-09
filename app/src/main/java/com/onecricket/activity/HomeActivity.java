@@ -943,7 +943,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
             }
 
             if (locality != null && locality.trim().length() > 0) {
-                //callStateStatusApi(locality);
+                callStateStatusApi(locality);
             }
 
 //            Toast.makeText(context, locality, Toast.LENGTH_SHORT).show();
@@ -968,7 +968,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
         JSONObject inputJSON = new JSONObject();
         try {
-            inputJSON.put("status", "place");
+            inputJSON.put("status", "blocked");
             inputJSON.put("state", locality);
         } catch (JSONException e) {
             e.printStackTrace();

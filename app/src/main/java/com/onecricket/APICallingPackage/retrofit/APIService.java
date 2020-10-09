@@ -1,7 +1,7 @@
 package com.onecricket.APICallingPackage.retrofit;
 
 import com.onecricket.APICallingPackage.retrofit.betlist.SubmittedBets;
-import com.onecricket.APICallingPackage.retrofit.livescore.LiveScoreResponse;
+import com.onecricket.APICallingPackage.retrofit.livescorenew.LiveScoreResponse;
 import com.onecricket.APICallingPackage.retrofit.pojo.livescore.LiveScroreData;
 
 import io.reactivex.Observable;

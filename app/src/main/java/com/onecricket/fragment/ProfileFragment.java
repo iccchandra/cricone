@@ -13,12 +13,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AlertDialog;
-
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -26,29 +20,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.onecricket.R;
-import com.onecricket.activity.createactivity;
-import com.onecricket.databinding.FragmentProfileBinding;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.onecricket.APICallingPackage.Class.APIRequestManager;
-import com.onecricket.APICallingPackage.Interface.ResponseManager;
-import com.onecricket.activity.AddCashActivity;
-import com.onecricket.Bean.UserDetails;
 import com.onecricket.APICallingPackage.Config;
+import com.onecricket.APICallingPackage.Interface.ResponseManager;
+import com.onecricket.Bean.UserDetails;
+import com.onecricket.activity.AddCashActivity;
 import com.onecricket.activity.EditProfileActivity;
-import com.onecricket.activity.GlobalRankActivity;
+import com.onecricket.activity.GlobalLeaderActivity;
 import com.onecricket.activity.HomeActivity;
 import com.onecricket.activity.InviteFriendsActivity;
 import com.onecricket.activity.InvitedFriendListActivity;
 import com.onecricket.activity.MainActivity;
-import com.onecricket.activity.MyAccountActivity;
+import com.onecricket.activity.createactivity;
+import com.onecricket.databinding.FragmentProfileBinding;
 import com.onecricket.utils.SessionManager;
 
 import org.json.JSONException;
@@ -166,7 +161,7 @@ public class ProfileFragment extends Fragment implements ResponseManager {
             startActivity(i);
         });
         binding.LLGlobalRanking.setOnClickListener(view -> {
-            Intent i = new Intent(getActivity(), createactivity.class);
+            Intent i = new Intent(getActivity(), GlobalLeaderActivity.class);
             startActivity(i);
         });
         binding.imProfilepic.setOnClickListener(view -> {

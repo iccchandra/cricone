@@ -29,6 +29,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="HardcodedDebugMode"
+        android:requestLegacyExternalStorage="true"
         tools:replace="android:allowBackup,android:icon,android:roundIcon">
         <activity android:name=".activity.createactivity"></activity>
 
@@ -207,6 +208,10 @@
         <activity android:name=".chatroom.ChatRoomActivity" />
         <activity
             android:name=".activity.MatchOddsTabsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.GlobalLeaderActivity"
             android:screenOrientation="portrait" />
 
         <meta-data

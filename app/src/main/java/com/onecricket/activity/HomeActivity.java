@@ -194,11 +194,6 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
             }
         });
 
-        binding.share.setOnClickListener(view -> {
-            onShareClicked();
-        });
-
-
         binding.imNotification.setOnClickListener(view -> {
             Intent i = new Intent(activity, NotificationActivity.class);
             startActivity(i);
@@ -293,9 +288,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                                                           binding.head.setVisibility(View.VISIBLE);
                                                           binding.bonus.setVisibility(View.VISIBLE);
                                                           binding.RLHomeBanner.setVisibility(View.VISIBLE);
-                                                          binding.share.setVisibility(View.GONE);
                                                       } else if (tab.getPosition() == 1) {
-                                                          binding.share.setVisibility(View.VISIBLE);
                                                           binding.tablayout.setVisibility(View.GONE);
                                                           binding.RLHomeBanner.setVisibility(View.GONE);
                                                           binding.bonus.setVisibility(View.GONE);
@@ -307,14 +300,12 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                                                           binding.bonus.setVisibility(View.GONE);
                                                           replaceFragment(new ProfileFragment());
                                                           binding.head.setVisibility(View.GONE);
-                                                          binding.share.setVisibility(View.GONE);
                                                       } else {
                                                           binding.tablayout.setVisibility(View.GONE);
                                                           binding.RLHomeBanner.setVisibility(View.GONE);
                                                           binding.bonus.setVisibility(View.GONE);
                                                           replaceFragment(new MoreFragment());
                                                           binding.head.setVisibility(View.VISIBLE);
-                                                          binding.share.setVisibility(View.GONE);
                                                       }
                                                   }
 

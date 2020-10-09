@@ -107,7 +107,6 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         private TextView teamAShortName;
         private TextView teamBShortName;
         private TextView matchStatus;
-        private TextView linesout;
         private TextView circularTextTeamA;
         private TextView circularTextTeamB;
         private TextView matchTimeTextView;
@@ -120,7 +119,6 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
             this.teamAShortName = itemView.findViewById(R.id.team_a_short_name);
             this.teamBShortName = itemView.findViewById(R.id.team_b_short_name);
             this.matchStatus    = itemView.findViewById(R.id.play_status);
-           // this.linesout    = itemView.findViewById(R.id.linesout);
             this.circularTextTeamA = itemView.findViewById(R.id.circular_team_a);
             this.circularTextTeamB = itemView.findViewById(R.id.circular_team_b);
             this.matchTimeTextView = itemView.findViewById(R.id.match_time);

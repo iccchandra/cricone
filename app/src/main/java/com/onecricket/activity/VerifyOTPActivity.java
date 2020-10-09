@@ -83,7 +83,7 @@ public class VerifyOTPActivity extends AppCompatActivity implements ResponseMana
         countDownTimer =  new CountDownTimer(60000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-              //  tvOtpTimer.setText("Resend OTP in: " + millisUntilFinished / 1000);
+                //  tvOtpTimer.setText("Resend OTP in: " + millisUntilFinished / 1000);
                 binding.tvOtpTimer.setText("Didn't receive the OTP? Request for a new one in "+ String.format("%d:%d sec",
                         TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
                         TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
@@ -154,8 +154,8 @@ public class VerifyOTPActivity extends AppCompatActivity implements ResponseMana
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (binding.etOtp4.getText().toString().length() == 1)     //size as per your requirement
                 {
-                   OTP = GetOTP();
-                   callVerifyOTPApi(true);
+                    OTP = GetOTP();
+                    callVerifyOTPApi(true);
 
                 }
             }
@@ -375,7 +375,7 @@ public class VerifyOTPActivity extends AppCompatActivity implements ResponseMana
     public void getResult(Context mContext, String type, String message, JSONObject result) {
 
         ShowToast(context,message);
-       // ShowToast(context,"type:"+type);
+        // ShowToast(context,"type:"+type);
 
         if (type.equals(VERIFYOTPTYPE)) {
             callLoginApi(true);

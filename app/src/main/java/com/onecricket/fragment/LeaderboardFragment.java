@@ -25,6 +25,7 @@ import com.onecricket.R;
 import com.onecricket.ui.CircularTextView;
 import com.onecricket.utils.CommonProgressDialog;
 import com.onecricket.utils.NetworkState;
+import com.onecricket.utils.SessionManager;
 import com.onecricket.utils.crypto.AlertDialogHelper;
 
 import org.json.JSONArray;
@@ -59,6 +60,9 @@ public class LeaderboardFragment extends Fragment {
     private CircularTextView circularTextView1;
     private CircularTextView circularTextView2;
     private CircularTextView circularTextView3;
+    private SessionManager sessionManager;
+    private boolean isGlobalLeader;
+    private String fId;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -68,7 +72,8 @@ public class LeaderboardFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_leader_board, container, false);
@@ -76,11 +81,16 @@ public class LeaderboardFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view);
         progressAlertDialog = CommonProgressDialog.getProgressDialog(context);
 
+        sessionManager = new SessionManager();
         findViewsById(view);
         alertDialogHelper = AlertDialogHelper.getInstance();
 
         if (NetworkState.isNetworkAvailable(context)) {
-            callLeaderBoardAPI();
+            if (getArguments() != null) {
+                boolean isGlobalLeaderBoard = getArguments().getBoolean("IS_GLOBAL_LEADERBOARD");
+                fId = getArguments().getString("F_ID");
+                callLeaderBoardAPI(isGlobalLeaderBoard);
+            }
         }
         else {
             if (!alertDialogHelper.isShowing()) {
@@ -143,12 +153,18 @@ public class LeaderboardFragment extends Fragment {
         }
     }
 
-
-    private void callLeaderBoardAPI() {
+    private void callLeaderBoardAPI(boolean isGlobalLeaderBoard) {
         dismissProgressDialog(progressAlertDialog);
         progressAlertDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String url = ApiClient.BASE_URL +  ":4040/global/leader";
+        String url = "";
+        if (isGlobalLeaderBoard) {
+            url = ApiClient.BASE_URL +  ":4040/global/leader?userid=" + sessionManager.getUser(context).getUser_id();
+        }
+        else {
+            url = ApiClient.BASE_URL +  ":4040/game/leader?fi=" + fId;
+        }
+
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
             dismissProgressDialog(progressAlertDialog);

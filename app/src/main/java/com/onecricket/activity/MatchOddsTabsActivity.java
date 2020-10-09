@@ -111,9 +111,10 @@ public class MatchOddsTabsActivity extends AppCompatActivity implements MatchOdd
         }
         @Override
         public Fragment getItem(int position) {
+            Bundle bundle = new Bundle();
             switch (position) {
                 case 0:
-                    Bundle bundle = new Bundle();
+
                     bundle.putSerializable("MatchInfo", matchesInfo);
                     MatchOddsFragment matchOddsFragment = new MatchOddsFragment();
                     matchOddsFragment.setListener(MatchOddsTabsActivity.this);
@@ -125,7 +126,11 @@ public class MatchOddsTabsActivity extends AppCompatActivity implements MatchOdd
                     }
                     return chatRoomFragment;
                 case 2:
-                    return new LeaderboardFragment();
+                    LeaderboardFragment leaderboardFragment = new LeaderboardFragment();
+                    bundle.putBoolean("IS_GLOBAL_LEADERBOARD", false);
+                    bundle.putString("F_ID", matchesInfo.getId());
+                    leaderboardFragment.setArguments(bundle);
+                    return leaderboardFragment;
                 default:
                     return null;
             }

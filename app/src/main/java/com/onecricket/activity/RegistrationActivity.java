@@ -341,7 +341,7 @@ public class RegistrationActivity extends AppCompatActivity implements ResponseM
                     i.putExtra("Number", mobile);
                     i.putExtra("Activity", "Normal");
                     i.putExtra("UserId", UserId);
-                   // i.putExtra("Password", Password);
+                    // i.putExtra("Password", Password);
                     startActivity(i);
                 } else {
                     Validations.hideProgress();

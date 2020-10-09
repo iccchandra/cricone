@@ -4,8 +4,8 @@ package com.onecricket.APICallingPackage;
 public class Config {
 
 //    public static String SERVERURL = "http://cricket.atreatit.com/";
-    public static String SERVERURL = "http://13.232.85.74/";
-
+//    public static String SERVERURL = "http://13.232.85.74/";
+    public static String SERVERURL = "http://api.1cricket.in/";
     public static String BASEURL = SERVERURL+"myrest/user/";
 
     public static String Authentication = "";

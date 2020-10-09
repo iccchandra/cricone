@@ -1,6 +1,7 @@
 package com.onecricket.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,8 +54,8 @@ public class MyPredictionsAdapter extends RecyclerView.Adapter<MyPredictionsAdap
         date = upcoming.getMatchDate() + " " + upcoming.getMatchTime();
 
         holder.matchNameTextView.setText(String.format("Match Name: %s", matchName));
-        holder.betValueTextView.setText(String.format("Bet Value: %s", betValue));
-        holder.betAmountTextView.setText(String.format("Bet Amount: %s", betAmount));
+        holder.betValueTextView.setText(String.format("Game Value: %s", betValue));
+        holder.betAmountTextView.setText(String.format("Game Amount: %s", betAmount));
         holder.oddNameTextView.setText(String.format("Odd Name: %s", oddName));
         holder.oddValueTextView.setText(String.format("Odd Value: %s", oddValue));
         holder.delete.setOnClickListener(view -> {
@@ -63,9 +64,20 @@ public class MyPredictionsAdapter extends RecyclerView.Adapter<MyPredictionsAdap
             }
         });
 
+        holder.share.setOnClickListener(view -> onShareClicked());
         holder.matchDate.setText(String.format("Date: %s", date));
         holder.teamsTextView.setText(teams);
     }
+
+    private void onShareClicked() {
+        Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, "I made predictions on 1Cricket App. Join me if you are interested.");
+        intent.setType("text/plain");
+        if (intent.resolveActivity(context.getPackageManager()) != null) {
+            context.startActivity(Intent.createChooser(intent, context.getString(R.string.app_name)));
+        }
+    }
+
 
     @Override
     public int getItemCount() {
@@ -82,6 +94,7 @@ public class MyPredictionsAdapter extends RecyclerView.Adapter<MyPredictionsAdap
         private TextView teamsTextView;
         private ImageView delete;
         private TextView matchDate;
+        private ImageView share;
 
         public MyPredectionsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -93,6 +106,7 @@ public class MyPredictionsAdapter extends RecyclerView.Adapter<MyPredictionsAdap
             this.teamsTextView = itemView.findViewById(R.id.teams);
             this.matchDate = itemView.findViewById(R.id.matchdate);
             this.delete = itemView.findViewById(R.id.delete);
+            this.share = itemView.findViewById(R.id.share);
         }
     }
 

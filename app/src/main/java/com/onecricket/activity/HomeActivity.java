@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.location.Address;
@@ -21,6 +22,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -47,6 +49,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.flatdialoglibrary.dialog.FlatDialog;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -59,6 +62,9 @@ import com.google.gson.reflect.TypeToken;
 import com.onecricket.APICallingPackage.Class.APIRequestManager;
 import com.onecricket.APICallingPackage.Interface.ResponseManager;
 import com.onecricket.APICallingPackage.retrofit.ApiClient;
+import com.onecricket.APICallingPackage.retrofit.ApiInterface;
+import com.onecricket.APICallingPackage.retrofit.globalleader.GlobalLeaderResponse;
+import com.onecricket.APICallingPackage.retrofit.state.StateResponse;
 import com.onecricket.Bean.BeanBanner;
 import com.onecricket.BuildConfig;
 import com.onecricket.R;
@@ -94,6 +100,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
 
 import static com.onecricket.APICallingPackage.Class.Validations.ShowToast;
 import static com.onecricket.APICallingPackage.Config.APKNAME;
@@ -225,7 +236,6 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
         setupTabIcons1();
 
-//        replaceFragment(new FragmentFixtures());
         if (isTokenAvailable(context, sessionManager)) {
             onTokenAvailable();
         }
@@ -764,7 +774,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                 status -> {
 
                 });
-        Intent intent = new Intent(activity, MainActivity.class);
+        Intent intent = new Intent(activity, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
 
@@ -931,7 +941,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         StringBuilder builder = new StringBuilder();
         try {
             List<Address> address = geoCoder.getFromLocation(latitude, longitude, 1);
-            String locality = address.get(0).getLocality();
+            String locality = address.get(0).getAdminArea();
             int maxLines = address.get(0).getMaxAddressLineIndex();
             for (int i = 0; i < maxLines; i++) {
                 String addressStr = address.get(0).getAddressLine(i);
@@ -939,7 +949,12 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                 builder.append(" ");
             }
 
-            Toast.makeText(context, locality, Toast.LENGTH_SHORT).show();
+            if (locality != null && locality.trim().length() > 0) {
+                //callStateStatusApi(locality);
+            }
+
+//            Toast.makeText(context, locality, Toast.LENGTH_SHORT).show();
+
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }
@@ -950,6 +965,71 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                sessionManager.getUser(context) != null &&
                sessionManager.getUser(context).getToken() != null &&
                sessionManager.getUser(context).getToken().trim().length() > 0;
+    }
+
+    private void callStateStatusApi(String locality) {
+        dismissProgressDialog(progressAlertDialog);
+        progressAlertDialog.show();
+
+        ApiInterface apiInterface = ApiClient.getClientWithAuthorisation(sessionManager.getUser(context).getToken()).create(ApiInterface.class);
+
+        JSONObject inputJSON = new JSONObject();
+        try {
+            inputJSON.put("status", "place");
+            inputJSON.put("state", locality);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        Observable<StateResponse> observable = apiInterface.sendStateInfo(ApiClient.getRequestBody(inputJSON));
+        observable.subscribeOn(Schedulers.newThread()).
+                observeOn(AndroidSchedulers.mainThread())
+                .map(result -> result)
+                .subscribe(this::onSuccessResponse, this::onErrorResponse);
+    }
+
+    private void onErrorResponse(Throwable throwable) {
+        dismissProgressDialog(progressAlertDialog);
+    }
+
+    private void onSuccessResponse(StateResponse stateResponse) {
+        dismissProgressDialog(progressAlertDialog);
+        if (stateResponse.getMessage() == null) {
+             showAlertDialog(context, "Error", "Something went wrong. Please try again later.");
+        }
+        else if (stateResponse.getMessage().equalsIgnoreCase("No State Allowed") ) {
+            showAlertDialog(context, "Sorry!", "This app is not allowed in your state.");
+        }
+        else {
+            if (isTokenAvailable(context, sessionManager)) {
+                onTokenAvailable();
+            }
+            else {
+                logout();
+            }
+        }
+    }
+
+    public void showAlertDialog(Context context, String title, String message) {
+        FlatDialog flatDialog = new FlatDialog(context);
+        flatDialog.setCancelable(false);
+        flatDialog.setCanceledOnTouchOutside(false);
+        flatDialog.setIcon(R.drawable.crying)
+                .setTitle(title)
+                .setTitleColor(Color.parseColor("#000000"))
+                .setSubtitle(message)
+                .setSubtitleColor(Color.parseColor("#000000"))
+                .setBackgroundColor(Color.parseColor("#a26ea1"))
+                .setFirstButtonColor(Color.parseColor("#f18a9b"))
+                .setFirstButtonTextColor(Color.parseColor("#000000"))
+                .setFirstButtonText("OK")
+                .withFirstButtonListner(view -> {
+                    flatDialog.dismiss();
+                    logout();
+                })
+                .show();
+
     }
 }
 

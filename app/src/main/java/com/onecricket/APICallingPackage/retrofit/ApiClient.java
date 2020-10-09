@@ -4,12 +4,15 @@ package com.onecricket.APICallingPackage.retrofit;
 import com.onecricket.APICallingPackage.Config;
 import com.onecricket.BuildConfig;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -59,5 +62,9 @@ public class ApiClient {
                     .build();
         }
         return retrofitWithAuthorization;
+    }
+
+    public static RequestBody getRequestBody(JSONObject objt) {
+        return RequestBody.create(objt.toString(), okhttp3.MediaType.parse("application/json; charset=utf-8") );
     }
 }

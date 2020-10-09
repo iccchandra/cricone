@@ -8,30 +8,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.onecricket.APICallingPackage.retrofit.globalleader.Last30Day;
 import com.onecricket.APICallingPackage.retrofit.globalleader.Last7Day;
 import com.onecricket.APICallingPackage.retrofit.globalleader.Today;
 import com.onecricket.R;
-import com.onecricket.pojo.Data;
 import com.onecricket.ui.CircularTextView;
 
 import java.util.List;
 
-public class LeaderBoardRecyclerViewAdapter extends RecyclerView.Adapter<LeaderBoardRecyclerViewAdapter.LeaderBoardViewHolder> {
+public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.LeaderBoardViewHolder> {
 
 
-    private List<Data> dataList;
+    private List<Today> last7DayList;
 
-    /*public LeaderBoardRecyclerViewAdapter(List<UserData> userDataList) {
-        this.userDataList = userDataList;
-    }*/
-
-    public LeaderBoardRecyclerViewAdapter(List<Data> dataList) {
-        this.dataList = dataList;
+    public TodayAdapter(List<Today> last7DayList) {
+        this.last7DayList = last7DayList;
     }
-
-
-
 
     @NonNull
     @Override
@@ -43,22 +34,34 @@ public class LeaderBoardRecyclerViewAdapter extends RecyclerView.Adapter<LeaderB
 
     @Override
     public void onBindViewHolder(@NonNull LeaderBoardViewHolder holder, int position) {
-        Data userData = dataList.get(position);
-        holder.position.setText(String.valueOf(position + 1));
-        holder.points.setText(userData.getRoi());
-
-        holder.location.setText(String.format("%s %s", userData.getName(), userData.getState()));
-        if (userData.getName() != null && userData.getName().trim().length() > 0) {
-            String leaderName = userData.getName();
-            holder.leaderName.setText(String.format("%s", leaderName.toUpperCase().charAt(0)));
-            holder.name.setText(leaderName);
+        Today userData = last7DayList.get(position);
+        holder.position.setText(String.format("%d", position + 1));
+        String roi = userData.getRoi();
+        if (roi != null) {
+            float roiFloat = Float.parseFloat(roi);
+            holder.points.setText(String.format("%.2f", roiFloat));
         }
 
+        String totalWinning = userData.getTotalWinning();
+        if (totalWinning != null) {
+            float totalWinningFloat = Float.parseFloat(totalWinning);
+            holder.location.setText(String.format("%.2f", totalWinningFloat));
+        }
+
+        if (userData.getName() != null && userData.getName().trim().length() > 0) {
+            String leaderName = userData.getName();
+            holder.circularTextView.setText(String.format("%s", leaderName.toUpperCase().charAt(0)));
+            holder.name.setText(leaderName);
+        }
+        else {
+            holder.circularTextView.setText("L");
+            holder.name.setText("Leader");
+        }
     }
 
     @Override
     public int getItemCount() {
-        return dataList.size();
+        return last7DayList.size();
     }
 
     public static class LeaderBoardViewHolder extends RecyclerView.ViewHolder {
@@ -66,7 +69,7 @@ public class LeaderBoardRecyclerViewAdapter extends RecyclerView.Adapter<LeaderB
         public TextView name;
         public TextView location;
         public TextView points;
-        public CircularTextView leaderName;
+        public CircularTextView circularTextView;
 
         public LeaderBoardViewHolder(View itemView) {
             super(itemView);
@@ -74,7 +77,7 @@ public class LeaderBoardRecyclerViewAdapter extends RecyclerView.Adapter<LeaderB
             this.name = itemView.findViewById(R.id.name);
             this.location = itemView.findViewById(R.id.location);
             this.points = itemView.findViewById(R.id.points);
-            this.leaderName = itemView.findViewById(R.id.circular_leader);
+            this.circularTextView = itemView.findViewById(R.id.circular_leader);
         }
     }
 }

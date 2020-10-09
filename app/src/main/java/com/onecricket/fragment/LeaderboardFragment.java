@@ -22,6 +22,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.onecricket.APICallingPackage.retrofit.ApiClient;
 import com.onecricket.R;
+import com.onecricket.pojo.Data;
+import com.onecricket.pojo.MatchesInfo;
 import com.onecricket.ui.CircularTextView;
 import com.onecricket.utils.CommonProgressDialog;
 import com.onecricket.utils.NetworkState;
@@ -33,7 +35,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LeaderboardFragment extends Fragment {
 
@@ -63,6 +67,7 @@ public class LeaderboardFragment extends Fragment {
     private SessionManager sessionManager;
     private boolean isGlobalLeader;
     private String fId;
+    private MatchesInfo matchesInfo;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -89,6 +94,7 @@ public class LeaderboardFragment extends Fragment {
             if (getArguments() != null) {
                 boolean isGlobalLeaderBoard = getArguments().getBoolean("IS_GLOBAL_LEADERBOARD");
                 fId = getArguments().getString("F_ID");
+                matchesInfo = (MatchesInfo) getArguments().getSerializable("matchesInfo");
                 callLeaderBoardAPI(isGlobalLeaderBoard);
             }
         }
@@ -157,27 +163,118 @@ public class LeaderboardFragment extends Fragment {
         dismissProgressDialog(progressAlertDialog);
         progressAlertDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String url = "";
-        if (isGlobalLeaderBoard) {
-            url = ApiClient.BASE_URL +  ":4040/global/leader?userid=" + sessionManager.getUser(context).getUser_id();
+        String url = ApiClient.BASE_URL +  "/myrest/user/game_leaderboard";
+
+        /*if (isGlobalLeaderBoard) {
+//            url = ApiClient.BASE_URL +  ":4040/global/leader?userid=" + sessionManager.getUser(context).getUser_id();
+            url = ApiClient.BASE_URL + "/myrest/user/leaderboard";
         }
         else {
-            url = ApiClient.BASE_URL +  ":4040/game/leader?fi=" + fId;
+//            url = ApiClient.BASE_URL +  ":4040/game/leader?fi=" + fId;
+            url = ApiClient.BASE_URL +  "/myrest/user/user_roi";
+        }*/
+
+        /*{
+            "home_team" : "Sunrisers Hyderabad",
+                "visitor_team" : "Kings XI Punjab",
+                "match_date" : "2020-10-08"
+        }*/
+
+        JSONObject inputJSON = new JSONObject();
+        try {
+            inputJSON.put("home_team", matchesInfo.getHomeTeam());
+            inputJSON.put("visitor_team", matchesInfo.getVisitorsTeam());
+            inputJSON.put("match_date", matchesInfo.getDate());
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, inputJSON, response -> {
             dismissProgressDialog(progressAlertDialog);
             Log.d(TAG, response.toString());
-            showResponseData(response);
+//            showResponseData(response);
+            displayResponseData(response);
         }, error -> {
             dismissProgressDialog(progressAlertDialog);
             if (error.getMessage() != null) {
                 Log.d(TAG, error.getMessage());
             }
-        });
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                SessionManager sessionManager = new SessionManager();
+                headers.put("Authorization", sessionManager.getUser(context).getToken());
+                Log.d(TAG, sessionManager.getUser(context).getToken());
+                return headers;
+            }
+        };
 
         requestQueue.add(jsonObjectRequest);
+    }
+
+    private void displayResponseData(JSONObject response) {
+        if (response != null) {
+            try {
+                if (response.has("status")) {
+                    String status = response.getString("status");
+                    if (status.equalsIgnoreCase("success")) {
+                        if (response.has("data")) {
+                            JSONArray dataArray = response.getJSONArray("data");
+                            List<Data> leaderBoardList = new ArrayList<>(dataArray.length());
+                            for (int i = 0; i< dataArray.length();i++) {
+                                Data data = new Data();
+                                JSONObject dataObject = dataArray.getJSONObject(i);
+                                if (dataObject.has("name")) {
+                                    data.setName(dataObject.getString("name"));
+                                }
+                                if (dataObject.has("state")) {
+                                    data.setState(dataObject.getString("state"));
+                                }
+                                if (dataObject.has("total_bet")) {
+                                    data.setTotalBet(dataObject.getString("total_bet"));
+                                }
+                                if (dataObject.has("bet_amount")) {
+                                    data.setBetAmount(dataObject.getString("bet_amount"));
+                                }
+                                if (dataObject.has("total_winning")) {
+                                    data.setTotalWinning(dataObject.getString("total_winning"));
+                                }
+                                if (dataObject.has("roi")) {
+                                    data.setRoi(dataObject.getString("roi"));
+                                }
+
+                                if (i == 0) {
+                                    showRankOne(data);
+                                    continue;
+                                }
+                                else if (i == 1) {
+                                    showRankTwo(data);
+                                    continue;
+                                }
+                                else if (i == 2) {
+                                    showRankThree(data);
+                                    continue;
+                                }
+                                leaderBoardList.add(data);
+                            }
+                            LeaderBoardRecyclerViewAdapter adapter = new LeaderBoardRecyclerViewAdapter(leaderBoardList);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            recyclerView.setHasFixedSize(true);
+                            recyclerView.setAdapter(adapter);
+
+
+
+                        }
+
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void showResponseData(JSONObject response) {
@@ -247,10 +344,10 @@ public class LeaderboardFragment extends Fragment {
         userDataList.add(new UserData("15", "Player", "Place", "XX"));
         userDataList.add(new UserData("16", "Player", "Place", "XX"));
         userDataList.add(new UserData("17", "Player", "Place", "XX"));
-        LeaderBoardRecyclerViewAdapter adapter = new LeaderBoardRecyclerViewAdapter(userDataList);
+        /*LeaderBoardRecyclerViewAdapter adapter = new LeaderBoardRecyclerViewAdapter(userDataList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);*/
     }
 
     private void showDataInRecyclerView(JSONArray result) {
@@ -285,10 +382,10 @@ public class LeaderboardFragment extends Fragment {
                 }
             }
 
-            LeaderBoardRecyclerViewAdapter adapter = new LeaderBoardRecyclerViewAdapter(userDataList);
+/*            LeaderBoardRecyclerViewAdapter adapter = new LeaderBoardRecyclerViewAdapter(userDataList);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             recyclerView.setHasFixedSize(true);
-            recyclerView.setAdapter(adapter);
+            recyclerView.setAdapter(adapter);*/
         }
     }
 
@@ -372,5 +469,35 @@ public class LeaderboardFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void showRankOne(Data data) {
+        if (data.getName().trim().length() > 0) {
+            name1.setText(String.format("%s %s", data.getName(), data.getState()));
+            circularTextView1.setText(String.format("%s", data.getName().toUpperCase().charAt(0)));
+        }
+        points1.setText(data.getRoi());
+        location1.setText(data.getState());
+        position1.setText("1");
+    }
+
+    private void showRankTwo(Data data) {
+        if (data.getName().trim().length() > 0) {
+            name2.setText(String.format("%s %s", data.getName(), data.getState()));
+            circularTextView2.setText(String.format("%s", data.getName().toUpperCase().charAt(0)));
+        }
+        points2.setText(data.getRoi());
+        location2.setText(data.getState());
+        position2.setText("1");
+    }
+
+    private void showRankThree(Data data) {
+        if (data.getName().trim().length() > 0) {
+            name3.setText(String.format("%s %s", data.getName(), data.getState()));
+            circularTextView3.setText(String.format("%s", data.getName().toUpperCase().charAt(0)));
+        }
+        points3.setText(data.getRoi());
+        location3.setText(data.getState());
+        position3.setText("1");
     }
 }

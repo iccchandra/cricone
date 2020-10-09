@@ -37,8 +37,6 @@ public class MatchOddsTabsActivity extends AppCompatActivity implements MatchOdd
 
         toolbar = findViewById(R.id.toolbar);
 
-
-
         if (getIntent().getExtras() != null) {
             Bundle extras = getIntent().getExtras();
             matchesInfo = (MatchesInfo) extras.getSerializable("MatchInfo");
@@ -129,6 +127,7 @@ public class MatchOddsTabsActivity extends AppCompatActivity implements MatchOdd
                     LeaderboardFragment leaderboardFragment = new LeaderboardFragment();
                     bundle.putBoolean("IS_GLOBAL_LEADERBOARD", false);
                     bundle.putString("F_ID", matchesInfo.getId());
+                    bundle.putSerializable("matchesInfo", matchesInfo);
                     leaderboardFragment.setArguments(bundle);
                     return leaderboardFragment;
                 default:

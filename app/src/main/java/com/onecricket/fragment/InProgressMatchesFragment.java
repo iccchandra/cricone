@@ -1,5 +1,6 @@
 package com.onecricket.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,6 +25,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.onecricket.APICallingPackage.retrofit.ApiClient;
+import com.onecricket.APICallingPackage.retrofit.ApiInterface;
+import com.onecricket.APICallingPackage.retrofit.group.CreateGroupResponse;
 import com.onecricket.R;
 import com.onecricket.activity.MatchOddsTabsActivity;
 import com.onecricket.adapter.MatchesAdapter;
@@ -30,7 +34,9 @@ import com.onecricket.pojo.MatchesInfo;
 import com.onecricket.utils.CommonProgressDialog;
 import com.onecricket.utils.DateFormat;
 import com.onecricket.utils.NetworkState;
+import com.onecricket.utils.SessionManager;
 import com.onecricket.utils.crypto.AlertDialogHelper;
+import com.shashank.sony.fancygifdialoglib.FancyGifDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,6 +44,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class InProgressMatchesFragment extends Fragment implements MatchesAdapter.ClickListener {
 
@@ -248,8 +258,96 @@ public class InProgressMatchesFragment extends Fragment implements MatchesAdapte
         startActivity(intent);
     }
 
+    private int selectedPosition;
     @Override
     public void onCreateGroupClicked(int position) {
+        selectedPosition = position;
+        showCreateGroupNameAlert(position);
+    }
+
+    private void showCreateGroupNameAlert(int position) {
+        LayoutInflater li = LayoutInflater.from(context);
+        View promptsView = li.inflate(R.layout.dialog_input, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView.findViewById(R.id.group_name);
+
+        // set dialog message
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK", (dialog, id) -> {
+                    String userInputString = userInput.getText().toString();
+                    createGroup(userInputString, position);
+                })
+                .setNegativeButton("Cancel",
+                        (dialog, id) -> dialog.cancel());
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+    }
+
+    private void createGroup(String groupName, int position) {
+        dismissProgressDialog(progressAlertDialog);
+        progressAlertDialog.show();
+        SessionManager sessionManager = new SessionManager();;
+        ApiInterface apiInterface = ApiClient.getClientWithAuthorisation(sessionManager.getUser(context).getToken()).create(ApiInterface.class);
+
+        MatchesInfo matchesInfo = matchesInfoList.get(position);
+
+        JSONObject inputJSON = new JSONObject();
+        try {
+            inputJSON.put("contest_name", groupName);
+            inputJSON.put("home_team", matchesInfo.getHomeTeam());
+            inputJSON.put("visitor_team", matchesInfo.getVisitorsTeam());
+            inputJSON.put("match_date", matchesInfo.getDate());
+            inputJSON.put("fi_id", matchesInfo.getId());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Observable<CreateGroupResponse> observable = apiInterface.createGame(ApiClient.getRequestBody(inputJSON));
+        observable.subscribeOn(Schedulers.newThread()).
+                observeOn(AndroidSchedulers.mainThread())
+                .map(result -> result)
+                .subscribe(this::onSuccessResponse, this::onErrorResponse);
+    }
+
+    private void onErrorResponse(Throwable throwable) {
+        dismissProgressDialog(progressAlertDialog);
+        Log.d(TAG, throwable.getMessage());
+    }
+
+    private void onSuccessResponse(CreateGroupResponse responseBody) {
+        dismissProgressDialog(progressAlertDialog);
+
+        MatchesInfo matchesInfo = matchesInfoList.get(selectedPosition);
+        matchesInfo.setContest("private");
+        matchesInfo.setPrivateId(responseBody.getData());
+
+        new FancyGifDialog.Builder((Activity) context)
+                .setTitle(responseBody.getStatus())
+                .setMessage(responseBody.getMessage())
+                .setPositiveBtnBackground("#FF4081")
+                .setPositiveBtnText("OK")
+                .setGifResource(R.drawable.common_gif)
+                .isCancellable(true)
+                .OnPositiveClicked(() ->  {
+                    gotoMatchOdds(selectedPosition);
+                })
+                .build();
 
     }
+
+    private void gotoMatchOdds(int position) {
+        Intent intent = new Intent(getActivity(), MatchOddsTabsActivity.class);
+        intent.putExtra("MatchInfo", matchesInfoList.get(position));
+        startActivity(intent);
+    }
+
 }

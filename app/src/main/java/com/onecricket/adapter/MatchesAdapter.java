@@ -49,7 +49,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         holder.teamsTextView.setText(league);
         holder.teamATextView.setText(teamA);
         holder.teamBTextView.setText(teamB);
-        holder.matchStatus.setText(matchType);
+//        holder.matchStatus.setText(matchType);
         if (matchType.equalsIgnoreCase("upcoming")) {
             holder.matchTimeTextView.setText(String.format("%s\n%s", matchesInfo.getDate(), matchesInfo.getTime()));
         }
@@ -62,7 +62,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         }
 
         if (teamB.length() > 0) {
-            holder.circularTextTeamB.setText(String.format("%s", teamB.charAt(0)));
+          //  holder.circularTextTeamB.setText(String.format("%s", teamB.charAt(0)));
         }
         holder.teamAShortName.setText(capitailizeWord(teamA));
         holder.teamBShortName.setText(capitailizeWord(teamB));
@@ -129,7 +129,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
             this.teamBShortName = itemView.findViewById(R.id.team_b_short_name);
             this.matchStatus    = itemView.findViewById(R.id.play_status);
             this.circularTextTeamA = itemView.findViewById(R.id.circular_team_a);
-            this.circularTextTeamB = itemView.findViewById(R.id.circular_team_b);
+           // this.circularTextTeamB = itemView.findViewById(R.id.circular_team_b);
             this.matchTimeTextView = itemView.findViewById(R.id.match_time);
             this.createGroup       = itemView.findViewById(R.id.create_group);
 

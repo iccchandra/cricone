@@ -133,13 +133,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/contest_icon"
-            android:text="MY Predict" />
+            android:text="MY PREDICT" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/profile_icon"
             android:text="PROFILE" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/profile_icon"
+            android:text="GROUPS" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"

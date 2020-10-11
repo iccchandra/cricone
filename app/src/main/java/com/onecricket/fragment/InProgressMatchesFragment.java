@@ -247,4 +247,9 @@ public class InProgressMatchesFragment extends Fragment implements MatchesAdapte
         intent.putExtra("MatchInfo", matchesInfoList.get(position));
         startActivity(intent);
     }
+
+    @Override
+    public void onCreateGroupClicked(int position) {
+
+    }
 }

@@ -3,6 +3,8 @@ package com.onecricket.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -71,6 +73,12 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
             }
         });
 
+        holder.createGroup.setOnClickListener(view -> {
+            if (clickListener != null) {
+                clickListener.onCreateGroupClicked(position);
+            }
+        });
+
 
     }
 
@@ -110,6 +118,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         private TextView circularTextTeamA;
         private TextView circularTextTeamB;
         private TextView matchTimeTextView;
+        private TextView createGroup;
 
         public MatchesViewHolder(View itemView) {
             super(itemView);
@@ -122,12 +131,14 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
             this.circularTextTeamA = itemView.findViewById(R.id.circular_team_a);
             this.circularTextTeamB = itemView.findViewById(R.id.circular_team_b);
             this.matchTimeTextView = itemView.findViewById(R.id.match_time);
+            this.createGroup       = itemView.findViewById(R.id.create_group);
 
         }
     }
 
     public interface ClickListener {
         void onItemClickListener(int position);
+        void onCreateGroupClicked(int position);
     }
 
 }

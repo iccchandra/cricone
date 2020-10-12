@@ -1,10 +1,20 @@
 package com.onecricket.fragment;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -39,11 +49,16 @@ import com.onecricket.utils.NetworkState;
 import com.onecricket.utils.SessionManager;
 import com.onecricket.utils.crypto.AlertDialogHelper;
 import com.shashank.sony.fancygifdialoglib.FancyGifDialog;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -56,6 +71,8 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
+
+import static android.content.Context.CLIPBOARD_SERVICE;
 
 public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.ClickListener {
 
@@ -302,29 +319,87 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
             MatchesInfo matchesInfo = matchesInfoList.get(selectedPosition);
             matchesInfo.setContest("private");
             matchesInfo.setPrivateId(responseBody.getData());
+            String boldText=responseBody.getData();
+            String normalText="you have created an private game, friends can join with code:";
+            SpannableString str = new SpannableString(normalText +"\n\n\n"+ boldText);
+            str.setSpan(new StyleSpan(Typeface.BOLD), 0, boldText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
 
             new FancyGifDialog.Builder((Activity) context)
                     .setTitle("Hooray!")
-                    .setMessage("you have created an private game, ask your friends with code:" + responseBody.getData())
+
+                    .setMessage(String.valueOf(str))
                     .setPositiveBtnBackground("#FF4081")
                     .setPositiveBtnText("Share Code")
                     .setGifResource(R.drawable.common_gif)
                     .isCancellable(true)
+                    .setNegativeBtnText("Copy code")
                     .OnPositiveClicked(() -> {
-                        onShareClicked();
+                        onShareClicked(responseBody.getData());
+                    })
+                    .OnNegativeClicked(() -> {
+                        copyCodeInClipBoard(this.getContext(),responseBody.getData(),"Copied");
                     })
 
                     .build();
 
         }
 
-        private void onShareClicked () {
-            Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+    public static void copyCodeInClipBoard(Context context, String text, String label) {
+        if (context != null) {
+            ClipboardManager clipboard = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText(label, text);
+            if (clipboard == null || clip == null)
+                return;
+            clipboard.setPrimaryClip(clip);
+            CharSequence text1 ="code Copied"+ "\n"+text;
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text1, duration);
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+
+            toast.show();
+
+        }
+    }
+
+        private void onShareClicked (String code) {
+          /*  Intent intent = new Intent(android.content.Intent.ACTION_SEND);
             intent.putExtra(Intent.EXTRA_TEXT, "I made predictions on 1Cricket App. Join me if you are interested.");
             intent.setType("text/plain");
             if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
                 startActivity(Intent.createChooser(intent, getString(R.string.app_name)));
             }
+
+*/
+
+            Picasso.get().load("http://1cricket.in/assets/img/hexa.png").into(new Target() {
+
+                @Override
+
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    Intent i = new Intent(Intent.ACTION_SEND);
+                    i.putExtra(Intent.EXTRA_TEXT, "I invite you to join with Code and fun with Cricket Prediction." +
+                            "\n"+ code+"\n"+"www.1cricket.in");
+                    i.setType("image/*");
+                    i.putExtra(Intent.EXTRA_STREAM, getLocalBitmapUri(bitmap));
+                    context.startActivity(Intent.createChooser(i, "Share using"));
+                }
+
+                @Override
+                public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+                }
+
+
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+                }
+            });
+
+
+
         }
 
         private void gotoMatchOdds ( int position){
@@ -332,5 +407,19 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
             intent.putExtra("MatchInfo", matchesInfoList.get(position));
             startActivity(intent);
         }
+
+    private Uri getLocalBitmapUri(Bitmap bmp) {
+        Uri bmpUri = null;
+        try {
+            File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_" + System.currentTimeMillis() + ".png");
+            FileOutputStream out = new FileOutputStream(file);
+            bmp.compress(Bitmap.CompressFormat.PNG, 50, out);
+            out.close();
+            bmpUri = Uri.fromFile(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bmpUri;
+    }
 
 }

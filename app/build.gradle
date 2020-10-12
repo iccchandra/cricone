@@ -71,6 +71,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:17.1.0'
     implementation 'com.github.mejdi14:Flat-Dialog-Android:1.0.5'
     implementation 'com.github.Shashank02051997:FancyGifDialog-Android:1.2'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
 
 }
 apply plugin: 'com.google.gms.google-services'

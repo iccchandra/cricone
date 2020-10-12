@@ -73,6 +73,7 @@ import com.onecricket.databinding.ActivityHomeBinding;
 import com.onecricket.fragment.InProgressMatchesFragment;
 import com.onecricket.fragment.MoreFragment;
 import com.onecricket.fragment.MyContestFragment;
+import com.onecricket.fragment.PrivateMatchesFragment;
 import com.onecricket.fragment.ProfileFragment;
 import com.onecricket.fragment.UpcomingMatchesFragment;
 import com.onecricket.location.AppConstants;
@@ -297,7 +298,15 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                                                           binding.bonus.setVisibility(View.GONE);
                                                           replaceFragment(new MyContestFragment());
                                                           binding.head.setVisibility(View.VISIBLE);
-                                                      } else if (tab.getPosition() == 2) {
+                                                      }else if (tab.getPosition() == 2) {
+                                                          binding.tablayout.setVisibility(View.GONE);
+                                                          binding.RLHomeBanner.setVisibility(View.GONE);
+                                                          binding.bonus.setVisibility(View.GONE);
+                                                          replaceFragment(new PrivateMatchesFragment());
+                                                          binding.head.setVisibility(View.VISIBLE);
+                                                      }
+
+                                                      else if (tab.getPosition() == 3) {
                                                           binding.tablayout.setVisibility(View.GONE);
                                                           binding.RLHomeBanner.setVisibility(View.GONE);
                                                           binding.bonus.setVisibility(View.GONE);
@@ -700,6 +709,8 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         binding.tabs.getTabAt(1).getIcon().setColorFilter(getResources().getColor(R.color.tabtextunselected), PorterDuff.Mode.SRC_IN);
         binding.tabs.getTabAt(2).getIcon().setColorFilter(getResources().getColor(R.color.tabtextunselected), PorterDuff.Mode.SRC_IN);
         binding.tabs.getTabAt(3).getIcon().setColorFilter(getResources().getColor(R.color.tabtextunselected), PorterDuff.Mode.SRC_IN);
+        binding.tabs.getTabAt(4).getIcon().setColorFilter(getResources().getColor(R.color.tabtextunselected), PorterDuff.Mode.SRC_IN);
+
     }
 
 

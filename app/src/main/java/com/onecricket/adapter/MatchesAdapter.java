@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.onecricket.R;
+import com.onecricket.fragment.UpcomingMatchesFragment;
 import com.onecricket.pojo.MatchesInfo;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
 
 
     private List<MatchesInfo> matchesInfoList;
-    private String matchType;
+    public String matchType;
     private ClickListener clickListener;
 
     public MatchesAdapter(List<MatchesInfo> matchesInfoList, String matchType) {
@@ -51,10 +52,20 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         holder.teamBTextView.setText(teamB);
 //        holder.matchStatus.setText(matchType);
         if (matchType.equalsIgnoreCase("upcoming")) {
-            holder.matchTimeTextView.setText(String.format("%s\n%s", matchesInfo.getDate(), matchesInfo.getTime()));
-        }
+
+            if( UpcomingMatchesFragment.contest==true){
+                holder.matchTimeTextView.setText(String.format("%s\n%s", matchesInfo.getDate(), matchesInfo.getTime()));
+                holder.createGroup.setText("Playing");
+            }
+            else{
+
+                holder.matchTimeTextView.setText(String.format("%s\n%s", matchesInfo.getDate(), matchesInfo.getTime()));
+            }}
+
+
         else {
             holder.matchTimeTextView.setText(matchesInfo.getDate());
+
         }
 
         if (teamA.length() > 0) {

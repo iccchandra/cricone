@@ -2,7 +2,6 @@ package com.onecricket.fragment;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,22 +12,13 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.onecricket.APICallingPackage.retrofit.ApiClient;
 import com.onecricket.APICallingPackage.retrofit.ApiInterface;
-import com.onecricket.APICallingPackage.retrofit.globalleader.GlobalLeaderResponse;
 import com.onecricket.APICallingPackage.retrofit.group.CreateGroupResponse;
-import com.onecricket.APICallingPackage.retrofit.state.StateResponse;
 import com.onecricket.R;
 import com.onecricket.activity.MatchOddsTabsActivity;
 import com.onecricket.adapter.MatchesAdapter;
@@ -44,20 +34,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.ResponseBody;
 
-public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.ClickListener {
+public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.ClickListener {
 
     private static final String TAG = "UpcomingMatchesFragment";
     private RecyclerView recyclerView;
@@ -66,19 +56,19 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
     private List<MatchesInfo> matchesInfoList;
     private SessionManager sessionManager;
     private AlertDialogHelper alertDialogHelper;
-    public static boolean  contest=false;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        UpcomingMatchesFragment.contest=true;
         View view = inflater.inflate(R.layout.fragment_matches, container, false);
         recyclerView = view.findViewById(R.id.matches);
         progressAlertDialog = CommonProgressDialog.getProgressDialog(context);
         sessionManager = new SessionManager();
-        contest=false;
-       alertDialogHelper = AlertDialogHelper.getInstance();
+        alertDialogHelper = AlertDialogHelper.getInstance();
         if (NetworkState.isNetworkAvailable(context)) {
             callMatchesAPI(sessionManager.getUser(context).getToken());
         } else {
@@ -173,10 +163,10 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
                             matchesInfoList.add(matchesInfo);
                         }
 
-                        MatchesAdapter adapter = new MatchesAdapter(matchesInfoList, "Upcoming");
+                        MatchesAdapter adapter = new MatchesAdapter(matchesInfoList,"upcoming");
                         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                         recyclerView.setHasFixedSize(true);
-                        adapter.setRecyclerViewItemClickListener(UpcomingMatchesFragment.this);
+                        adapter.setRecyclerViewItemClickListener(PrivateMatchesFragment.this);
                         recyclerView.setAdapter(adapter);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -319,7 +309,7 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
         }
 
         private void onShareClicked () {
-            Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+            Intent intent = new Intent(Intent.ACTION_SEND);
             intent.putExtra(Intent.EXTRA_TEXT, "I made predictions on 1Cricket App. Join me if you are interested.");
             intent.setType("text/plain");
             if (intent.resolveActivity(getActivity().getPackageManager()) != null) {

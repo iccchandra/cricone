@@ -331,17 +331,27 @@ public class InProgressMatchesFragment extends Fragment implements MatchesAdapte
         matchesInfo.setPrivateId(responseBody.getData());
 
         new FancyGifDialog.Builder((Activity) context)
-                .setTitle(responseBody.getStatus())
-                .setMessage(responseBody.getMessage())
+                .setTitle("Hooray!")
+                .setMessage("you have created an private game, ask your friends with code:"+responseBody.getData())
                 .setPositiveBtnBackground("#FF4081")
-                .setPositiveBtnText("OK")
+                .setPositiveBtnText("Share Code")
                 .setGifResource(R.drawable.common_gif)
                 .isCancellable(true)
                 .OnPositiveClicked(() ->  {
-                    gotoMatchOdds(selectedPosition);
+                    onShareClicked();
                 })
+
                 .build();
 
+    }
+
+    private void onShareClicked() {
+        Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, "I made predictions on 1Cricket App. Join me if you are interested.");
+        intent.setType("text/plain");
+        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivity(Intent.createChooser(intent, getString(R.string.app_name)));
+        }
     }
 
     private void gotoMatchOdds(int position) {

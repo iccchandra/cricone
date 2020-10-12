@@ -6,10 +6,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -69,8 +71,7 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState)
-    {
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_matches, container, false);
         recyclerView = view.findViewById(R.id.matches);
         progressAlertDialog = CommonProgressDialog.getProgressDialog(context);
@@ -78,8 +79,7 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
         alertDialogHelper = AlertDialogHelper.getInstance();
         if (NetworkState.isNetworkAvailable(context)) {
             callMatchesAPI(sessionManager.getUser(context).getToken());
-        }
-        else {
+        } else {
             if (!alertDialogHelper.isShowing()) {
                 alertDialogHelper.showAlertDialog(context,
                         getString(R.string.internet_error_title),
@@ -132,12 +132,12 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
 //        String URL = "https://api.b365api.com/v1/betfair/sb/upcoming?sport_id=4&token=61256-D7NpN8AgdxZCv5";
 //        String URL = "https://api.b365api.com/v1/betfair/sb/upcoming?sport_id=4&token=61256-gf4iT7mN2rL324";
 //        String URL = "https://api.b365api.com/v1/bet365/upcoming?sport_id=3&token=61925-2bBIpJrOkeLtND";
-        String URL = ApiClient.BASE_URL +  ":4040/upcoming/matches";
+        String URL = ApiClient.BASE_URL + ":4040/upcoming/matches";
         Log.d(TAG, URL);
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                                                             URL ,
-                                                             null,
+                URL,
+                null,
                 response -> {
                     dismissProgressDialog(progressAlertDialog);
                     Log.d(TAG, "callMatchesAPI response: " + response.toString());
@@ -185,8 +185,7 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
                 error -> {
                     dismissProgressDialog(progressAlertDialog);
                     Log.e(TAG, "Error: " + error.getMessage());
-                })
-        {
+                }) {
 
             @Override
             public String getBodyContentType() {
@@ -206,6 +205,7 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
     }
 
     private int selectedPosition;
+
     @Override
     public void onCreateGroupClicked(int position) {
         selectedPosition = position;
@@ -230,13 +230,16 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
 
         // set dialog message
         alertDialogBuilder
-                .setCancelable(false)
+                .setCancelable(true)
                 .setPositiveButton("OK", (dialog, id) -> {
                     String userInputString = userInput.getText().toString();
-                    createGroup(userInputString, position);
+                   createGroup(userInputString, position);
                 })
                 .setNegativeButton("Cancel",
-                        (dialog, id) -> dialog.cancel());
+                        (dialog, id) -> dialog.cancel()
+
+                );
+
 
         // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
@@ -246,8 +249,22 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
     }
 
     private void createGroup(String groupName, int position) {
+
         dismissProgressDialog(progressAlertDialog);
         progressAlertDialog.show();
+        if (groupName.length() == 0) {
+            Context context = getContext();
+            CharSequence text = "please enter group name!";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+
+            toast.show();
+            dismissProgressDialog(progressAlertDialog);
+            showCreateGroupNameAlert(position);
+        }
+        else{
         ApiInterface apiInterface = ApiClient.getClientWithAuthorisation(sessionManager.getUser(context).getToken()).create(ApiInterface.class);
 
         MatchesInfo matchesInfo = matchesInfoList.get(position);
@@ -270,35 +287,48 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
                 .subscribe(this::onSuccessResponse, this::onErrorResponse);
     }
 
-    private void onErrorResponse(Throwable throwable) {
-        dismissProgressDialog(progressAlertDialog);
-        Log.d(TAG, throwable.getMessage());
-    }
+}
 
-    private void onSuccessResponse(CreateGroupResponse responseBody) {
-        dismissProgressDialog(progressAlertDialog);
+        private void onErrorResponse (Throwable throwable){
+            dismissProgressDialog(progressAlertDialog);
+            Log.d(TAG, throwable.getMessage());
+        }
 
-        MatchesInfo matchesInfo = matchesInfoList.get(selectedPosition);
-        matchesInfo.setContest("private");
-        matchesInfo.setPrivateId(responseBody.getData());
+        private void onSuccessResponse (CreateGroupResponse responseBody){
+            dismissProgressDialog(progressAlertDialog);
 
-        new FancyGifDialog.Builder((Activity) context)
-                .setTitle(responseBody.getStatus())
-                .setMessage(responseBody.getMessage())
-                .setPositiveBtnBackground("#FF4081")
-                .setPositiveBtnText("OK")
-                .setGifResource(R.drawable.common_gif)
-                .isCancellable(true)
-                .OnPositiveClicked(() ->  {
-                    gotoMatchOdds(selectedPosition);
-                })
-                .build();
+            MatchesInfo matchesInfo = matchesInfoList.get(selectedPosition);
+            matchesInfo.setContest("private");
+            matchesInfo.setPrivateId(responseBody.getData());
 
-    }
+            new FancyGifDialog.Builder((Activity) context)
+                    .setTitle("Hooray!")
+                    .setMessage("you have created an private game, ask your friends with code:" + responseBody.getData())
+                    .setPositiveBtnBackground("#FF4081")
+                    .setPositiveBtnText("Share Code")
+                    .setGifResource(R.drawable.common_gif)
+                    .isCancellable(true)
+                    .OnPositiveClicked(() -> {
+                        onShareClicked();
+                    })
 
-    private void gotoMatchOdds(int position) {
-        Intent intent = new Intent(getActivity(), MatchOddsTabsActivity.class);
-        intent.putExtra("MatchInfo", matchesInfoList.get(position));
-        startActivity(intent);
-    }
+                    .build();
+
+        }
+
+        private void onShareClicked () {
+            Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_TEXT, "I made predictions on 1Cricket App. Join me if you are interested.");
+            intent.setType("text/plain");
+            if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                startActivity(Intent.createChooser(intent, getString(R.string.app_name)));
+            }
+        }
+
+        private void gotoMatchOdds ( int position){
+            Intent intent = new Intent(getActivity(), MatchOddsTabsActivity.class);
+            intent.putExtra("MatchInfo", matchesInfoList.get(position));
+            startActivity(intent);
+        }
+
 }

@@ -6,7 +6,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:cardCornerRadius="6dp"
         app:cardBackgroundColor="@color/white">
@@ -95,20 +95,7 @@
                             android:visibility="gone"
                             android:textSize="28sp" />
 
-                        <TextView
-                            android:id="@+id/team_a_short_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="10dp"
-                            android:layout_toEndOf="@+id/circular_team_a"
-                            android:text="SOM"
-                            android:gravity="center"
-                            android:layout_centerInParent="true"
-                            android:background="@drawable/leftdraw"
-                            android:textAllCaps="true"
-                            android:textColor="@color/white"
-                            android:textStyle="bold"/>
+
 
                     </RelativeLayout>
 
@@ -165,18 +152,6 @@
 
 
 
-                        <TextView
-                            android:id="@+id/team_b_short_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:textStyle="bold"
-                            android:textColor="@color/white"
-                            android:layout_alignParentRight="true"
-                            android:textAllCaps="true"
-                            android:gravity="center"
-                            android:background="@drawable/rightdraw"
-                            android:text="SOM" />
 
                     </RelativeLayout>
 

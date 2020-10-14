@@ -141,8 +141,8 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         if (teamB.length() > 0) {
           //  holder.circularTextTeamB.setText(String.format("%s", teamB.charAt(0)));
         }
-        holder.teamAShortName.setText(capitailizeWord(teamA));
-        holder.teamBShortName.setText(capitailizeWord(teamB));
+       // holder.teamAShortName.setText(capitailizeWord(teamA));
+        //holder.teamBShortName.setText(capitailizeWord(teamB));
 
         holder.itemView.setOnClickListener(view -> {
             if (clickListener != null) {

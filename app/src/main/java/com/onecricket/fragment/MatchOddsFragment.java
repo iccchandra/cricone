@@ -143,6 +143,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
                 callMyAccountDetails(true);
 
                 if (matchesInfo != null && matchesInfo.getId() != null && matchesInfo.getId().trim().length() > 0) {
+
                     if (matchesInfo.isMatchInProgress()) {
                         matchType = IN_PLAY;
                         callInPlayMatchOddsAPI(matchesInfo.getId(), matchType);

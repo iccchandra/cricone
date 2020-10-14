@@ -165,7 +165,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_above="@+id/tabs"
-        android:background="#161C23"
+        android:background="@color/payumoney_grey"
 
         android:layout_below="@+id/tablayout"/>
 

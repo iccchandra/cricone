@@ -147,6 +147,7 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
                             Log.d(TAG, "callPrivateAPI response: " + id);
 
 
+
                             matchesInfo.setId(id);
 
                             //JSONObject leagueJSON = results.getJSONObject("league");
@@ -206,6 +207,8 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
 
     @Override
     public void onItemClickListener(int position) {
+       Boolean ss= matchesInfoList.get(position).playing();
+       System.out.println("ss"+ss);
         Intent intent = new Intent(getActivity(), MatchOddsTabsActivity.class);
         intent.putExtra("MatchInfo", matchesInfoList.get(position));
         startActivity(intent);

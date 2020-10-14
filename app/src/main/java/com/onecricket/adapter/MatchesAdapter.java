@@ -94,7 +94,6 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
                     public void onFinish() {
                         holder.matchTimeTextView.setText("Playing");
 
-
                     }
                 }.start();
 
@@ -164,6 +163,8 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
 
                 @Override
                 public void onFinish() {
+
+                    matchesInfoList.get(position).setplaying(true);
                     holder.matchTimeTextView.setText("Playing");
 
 

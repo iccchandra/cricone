@@ -15,6 +15,9 @@ public class MatchesInfo implements Serializable {
     private String contest;
     private String privateId;
     private boolean isMatchInProgress;
+    private boolean playing;
+
+
 
 
     public String getId() {
@@ -74,7 +77,7 @@ public class MatchesInfo implements Serializable {
                 ", leagueName='" + leagueName + '\'' +
                 ", homeTeam='" + homeTeam + '\'' +
                 ", visitorsTeam='" + visitorsTeam + '\'' +
-                '}';
+               '}';
     }
 
     public boolean isMatchInProgress() {
@@ -82,6 +85,14 @@ public class MatchesInfo implements Serializable {
     }
 
     public void setMatchInProgress(boolean matchInProgress) {
+        isMatchInProgress = matchInProgress;
+    }
+
+    public boolean playing() {
+        return isMatchInProgress;
+    }
+
+    public void setplaying(boolean matchInProgress) {
         isMatchInProgress = matchInProgress;
     }
 
@@ -106,6 +117,9 @@ public class MatchesInfo implements Serializable {
     public void setContest(String contest) {
         this.contest = contest;
     }
+
+
+
 
     public String getPrivateId() {
         return privateId;

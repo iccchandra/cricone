@@ -172,14 +172,15 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                                                         .setContentText(notification.getBody())
                                                         .setAutoCancel(true)
                                                         .setSound(soundUri)
+                                                         .setSmallIcon(R.mipmap.ic_leadership)
                                                         .setContentIntent(pendingIntent)
                                                         .setContentInfo(notification.getTitle())
                                                         .setLargeIcon(icon)
                                                         .setColor(Color.RED)
                                                         .setLights(Color.RED, 1000, 300)
                                                         .setDefaults(Notification.DEFAULT_VIBRATE)
-                                                        .setPriority(NotificationCompat.PRIORITY_HIGH)
-                                                        .setSmallIcon(R.drawable.round_logo);
+                                                        .setPriority(NotificationCompat.PRIORITY_HIGH);
+
 
 
         if (notificationManager != null) {

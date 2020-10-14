@@ -1,5 +1,6 @@
 package com.onecricket.adapter;
 
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,12 @@ import com.onecricket.R;
 import com.onecricket.fragment.UpcomingMatchesFragment;
 import com.onecricket.pojo.MatchesInfo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesViewHolder>{
 
@@ -53,18 +59,78 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
 //        holder.matchStatus.setText(matchType);
         if (matchType.equalsIgnoreCase("upcoming")) {
 
-            if( UpcomingMatchesFragment.contest==true){
-                holder.matchTimeTextView.setText(String.format("%s\n%s", matchesInfo.getDate(), matchesInfo.getTime()));
-                holder.createGroup.setText("Playing");
-            }
+            if( UpcomingMatchesFragment.contest==true) {
+
+               // holder.matchTimeTextView.setText(String.format(matchesInfo.getDateTime()));
+                holder.createGroup.setText("Joined");}
+
+
+               String timeleft=String.format(matchesInfo.getDateTime());
+                System.out.println(timeleft);
+                int hoursToGo = Integer.parseInt(timeleft.substring(0,timeleft.indexOf("h")));
+                int minutesToGo = Integer.parseInt(timeleft.substring(timeleft.indexOf("h")+1,timeleft.indexOf("m")));
+                int secondsToGo = Integer.parseInt(timeleft.substring(timeleft.indexOf("m")+1,timeleft.indexOf("s")));;
+
+                int millisToGo = secondsToGo*1000+minutesToGo*1000*60+hoursToGo*1000*60*60;
+
+                new CountDownTimer(millisToGo,1000) {
+
+                    @Override
+                    public void onTick(long millis) {
+                        int seconds = (int) (millis / 1000) % 60 ;
+                        int minutes = (int) ((millis / (1000*60)) % 60);
+                        int hours   = (int) ((millis / (1000*60*60)));
+                       // int days   = (int) ((millis / (1000*60*60*60)) % 24);
+                        String text = String.format("%s %s %s",hours+"h",minutes+"m",seconds+"s");
+                        holder.matchTimeTextView.setText(text);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        holder.matchTimeTextView.setText("Playing");
+                    }
+                }.start();
+
+
+           /* }
             else{
 
-                holder.matchTimeTextView.setText(String.format("%s\n%s", matchesInfo.getDate(), matchesInfo.getTime()));
-            }}
+                String timeleft=String.format(matchesInfo.getDateTime());
+                int hoursToGo = Integer.parseInt(timeleft.substring(0,timeleft.indexOf("h")));
+                int minutesToGo = Integer.parseInt(timeleft.substring(timeleft.indexOf("h")+1,timeleft.indexOf("m")));
+                int secondsToGo = Integer.parseInt(timeleft.substring(timeleft.indexOf("m")+1,timeleft.indexOf("s")));;
+
+                int millisToGo = secondsToGo*1000+minutesToGo*1000*60+hoursToGo*1000*60*60;
+
+                new CountDownTimer(millisToGo,1000) {
+
+                    @Override
+                    public void onTick(long millis) {
+                        int seconds = (int) (millis / 1000) % 60 ;
+                        int minutes = (int) ((millis / (1000*60)) % 60);
+                        int hours   = (int) ((millis / (1000*60*60)));
+                        // int days   = (int) ((millis / (1000*60*60*60)) % 24);
+                        String text = String.format("%s %s %s",hours+"h",minutes+"m",seconds+"s");
+                        holder.matchTimeTextView.setText(text);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        holder.matchTimeTextView.setText("Playing");
+                    }
+                }.start();
+
+            }*/}
+
+        else if (matchType.equalsIgnoreCase("private")) {
 
 
+                // holder.matchTimeTextView.setText(String.format(matchesInfo.getDateTime()));
+                holder.createGroup.setText("Joined");
+                holder.matchTimeTextView.setText("Playing");
+  }
         else {
-            holder.matchTimeTextView.setText(matchesInfo.getDate());
+            holder.matchTimeTextView.setText("inplay");
 
         }
 
@@ -151,5 +217,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         void onItemClickListener(int position);
         void onCreateGroupClicked(int position);
     }
+
+    // countdowntimer is an abstract class, so extend it and fill in methods
 
 }

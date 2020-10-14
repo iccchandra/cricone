@@ -88,7 +88,13 @@ public class MatchesInfo implements Serializable {
     public String getDate() {
         return date;
     }
+    public void setDateTime(String date) {
+        this.date = date;
+    }
 
+    public String getDateTime() {
+        return date;
+    }
     public void setDate(String date) {
         this.date = date;
     }

@@ -7,7 +7,8 @@
     <RelativeLayout
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/app_bg">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -24,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 android:text="2"
                 app:drawableBottomCompat="@drawable/ic_arrow_drop_up_24" />
@@ -56,7 +57,7 @@
                 android:layout_below="@+id/second_position"
                 android:layout_centerHorizontal="true"
                 android:text="Ashley Morah"
-                android:textColor="@color/colorBlack" />
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/location2"
@@ -64,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/name2"
                 android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
                 android:text="Mumbai" />
 
             <TextView
@@ -72,11 +74,11 @@
                 android:layout_below="@+id/location2"
                 android:layout_centerHorizontal="true"
                 android:drawablePadding="5dp"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 android:id="@+id/points2"
                 android:text="230"
-                app:drawableStartCompat="@drawable/dollar" />
+                app:drawableStartCompat="@drawable/percentage" />
 
         </RelativeLayout>
 
@@ -87,15 +89,15 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true">
 
-            <TextView
+            <ImageView
                 android:id="@+id/position1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/dimen_40dp"
+                android:layout_height="@dimen/dimen_40dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="1"
-                android:textColor="@color/colorBlack"
+              android:src="@drawable/crown_1"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 app:drawableBottomCompat="@drawable/ic_arrow_drop_up_24" />
 
@@ -126,7 +128,7 @@
                 android:layout_below="@+id/first_position"
                 android:layout_centerHorizontal="true"
                 android:text="Therese Butler"
-                android:textColor="@color/colorBlack" />
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/location1"
@@ -134,6 +136,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/name1"
                 android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
                 android:text="Hyderabad" />
 
             <TextView
@@ -142,10 +145,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/location1"
                 android:layout_centerHorizontal="true"
-                android:drawableStart="@drawable/dollar"
+                android:drawableStart="@drawable/percentage"
                 android:drawablePadding="5dp"
                 android:text="230"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
         </RelativeLayout>
@@ -166,7 +169,7 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:text="3"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 app:drawableBottomCompat="@drawable/ic_arrow_drop_up_24" />
 
@@ -197,7 +200,7 @@
                 android:layout_below="@+id/third_position"
                 android:layout_centerHorizontal="true"
                 android:text="John Loreth"
-                android:textColor="@color/colorBlack" />
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/location3"
@@ -205,17 +208,18 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/name3"
                 android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
                 android:text="Delhi" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/dollar"
+                android:drawableStart="@drawable/percentage"
                 android:layout_below="@+id/location3"
                 android:layout_centerHorizontal="true"
                 android:drawablePadding="5dp"
                 android:id="@+id/points3"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 android:text="220"/>
 

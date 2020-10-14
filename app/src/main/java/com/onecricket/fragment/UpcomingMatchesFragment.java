@@ -84,6 +84,7 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
     private SessionManager sessionManager;
     private AlertDialogHelper alertDialogHelper;
     public static boolean  contest=false;
+    public static String timediffhelp;
 
     @Nullable
     @Override
@@ -180,8 +181,10 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
 
                             if (results.has("time")) {
                                 String time = results.getString("time");
+                                timediffhelp=results.getString("time");
                                 matchesInfo.setDate(DateFormat.getReadableDateFormat(time));
                                 matchesInfo.setTime(DateFormat.getReadableTimeFormat(time));
+                                matchesInfo.setDateTime(DateFormat.getReadableDateTimeFormat(time));
                             }
 
                             JSONObject awayJSON = results.getJSONObject("away");
@@ -294,7 +297,9 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
             inputJSON.put("home_team", matchesInfo.getHomeTeam());
             inputJSON.put("visitor_team", matchesInfo.getVisitorsTeam());
             inputJSON.put("match_date", matchesInfo.getDate());
+            inputJSON.put("match_time", matchesInfo.getTime());
             inputJSON.put("fi_id", matchesInfo.getId());
+            inputJSON.put("status", "upcoming");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -320,29 +325,49 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
             matchesInfo.setContest("private");
             matchesInfo.setPrivateId(responseBody.getData());
             String boldText=responseBody.getData();
-            String normalText="you have created an private game, friends can join with code:";
-            SpannableString str = new SpannableString(normalText +"\n\n\n"+ boldText);
-            str.setSpan(new StyleSpan(Typeface.BOLD), 0, boldText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            String message;
+            int responsecode=Integer.parseInt(responseBody.getResponsecode());
+            if(responsecode==500){
+                message=responseBody.getMessage();
+
+                new FancyGifDialog.Builder((Activity) context)
+                        .setTitle("pls check groups!")
+
+                        .setMessage(String.valueOf(message))
+                        .setNegativeBtnBackground("#FF4081")
+                        .setNegativeBtnText("ok")
+                        .setGifResource(R.drawable.common_gif)
+                        .isCancellable(true)
+                        .OnNegativeClicked(() -> {
+
+                        })
+                       .build();
+
+            }
+            else {
+                String normalText = "you have created an private game, friends can join with code:";
+                SpannableString str = new SpannableString(normalText + "\n\n\n" + boldText);
+                str.setSpan(new StyleSpan(Typeface.BOLD), 0, boldText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 
-            new FancyGifDialog.Builder((Activity) context)
-                    .setTitle("Hooray!")
+                new FancyGifDialog.Builder((Activity) context)
+                        .setTitle("Hooray!")
 
-                    .setMessage(String.valueOf(str))
-                    .setPositiveBtnBackground("#FF4081")
-                    .setPositiveBtnText("Share Code")
-                    .setGifResource(R.drawable.common_gif)
-                    .isCancellable(true)
-                    .setNegativeBtnText("Copy code")
-                    .OnPositiveClicked(() -> {
-                        onShareClicked(responseBody.getData());
-                    })
-                    .OnNegativeClicked(() -> {
-                        copyCodeInClipBoard(this.getContext(),responseBody.getData(),"Copied");
-                    })
+                        .setMessage(String.valueOf(str))
+                        .setPositiveBtnBackground("#FF4081")
+                        .setPositiveBtnText("Share Code")
+                        .setGifResource(R.drawable.common_gif)
+                        .isCancellable(true)
+                        .setNegativeBtnText("Copy code")
+                        .OnPositiveClicked(() -> {
+                            onShareClicked(responseBody.getData());
+                        })
+                        .OnNegativeClicked(() -> {
+                            copyCodeInClipBoard(this.getContext(), responseBody.getData(), "Copied");
+                        })
 
-                    .build();
-
+                        .build();
+            }
         }
 
     public static void copyCodeInClipBoard(Context context, String text, String label) {

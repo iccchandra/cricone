@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -43,9 +44,9 @@ public class LeaderboardFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private AlertDialog progressAlertDialog;
+    private ImageView position1;
     private Context context;
     private static final String TAG = "LeaderboardFragment";
-    private TextView position1;
     private TextView position2;
     private TextView position3;
     private TextView name1;
@@ -283,7 +284,7 @@ public class LeaderboardFragment extends Fragment {
             int length = result.length();
             if (length > 0) {
                 switch (length) {
-                    case 1:
+                   /* case 1:
                         showRankOne(result.getJSONObject(0));
                         showTempSecondRank();
                         showTempThirdRank();
@@ -294,7 +295,7 @@ public class LeaderboardFragment extends Fragment {
                         showTwoRank(result.getJSONObject(1));
                         showTempThirdRank();
                         showTempData();
-                        break;
+                        break;*/
                     case 3:
                         showRankOne(result.getJSONObject(0));
                         showTwoRank(result.getJSONObject(1));
@@ -462,7 +463,7 @@ public class LeaderboardFragment extends Fragment {
             }
 
             if (response.has("rank")) {
-                position1.setText(response.getString("rank"));
+             //   position1.setText(response.getString("rank"));
             }
 
 
@@ -478,7 +479,7 @@ public class LeaderboardFragment extends Fragment {
         }
         points1.setText(data.getRoi());
         location1.setText(data.getState());
-        position1.setText("1");
+       // position1.setText("1");
     }
 
     private void showRankTwo(Data data) {

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -35,7 +36,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,7 +52,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.ClickListener {
 
-    private static final String TAG = "UpcomingMatchesFragment";
+    private static final String TAG = "PrivateMatchesFragment";
     private RecyclerView recyclerView;
     private Context context;
     private AlertDialog progressAlertDialog;
@@ -124,7 +127,7 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
 //        String URL = "https://api.b365api.com/v1/betfair/sb/upcoming?sport_id=4&token=61256-D7NpN8AgdxZCv5";
 //        String URL = "https://api.b365api.com/v1/betfair/sb/upcoming?sport_id=4&token=61256-gf4iT7mN2rL324";
 //        String URL = "https://api.b365api.com/v1/bet365/upcoming?sport_id=3&token=61925-2bBIpJrOkeLtND";
-        String URL = ApiClient.BASE_URL + ":4040/upcoming/matches";
+        String URL = ApiClient.BASE_URL + "/myrest/user/pivate_contest_list";
         Log.d(TAG, URL);
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
@@ -132,38 +135,42 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
                 null,
                 response -> {
                     dismissProgressDialog(progressAlertDialog);
-                    Log.d(TAG, "callMatchesAPI response: " + response.toString());
+                    Log.d(TAG, "callPrivateAPI response: " + response.toString());
                     matchesInfoList = new ArrayList<>();
                     try {
-                        JSONArray resultsArray = response.getJSONArray("results");
+                        JSONArray resultsArray = response.getJSONArray("data");
                         for (int i = 0; i < resultsArray.length(); i++) {
                             MatchesInfo matchesInfo = new MatchesInfo();
                             JSONObject results = resultsArray.getJSONObject(i);
 
-                            String id = results.getString("id");
+                            String id = results.getString("owner_id");
+                            Log.d(TAG, "callPrivateAPI response: " + id);
+
+
                             matchesInfo.setId(id);
 
-                            JSONObject leagueJSON = results.getJSONObject("league");
-                            String leagueName = leagueJSON.getString("name");
+                            //JSONObject leagueJSON = results.getJSONObject("league");
+                            String leagueName = results.getString("contest_name");
                             matchesInfo.setLeagueName(leagueName);
 
-                            JSONObject homeJSON = results.getJSONObject("home");
-                            String name = homeJSON.getString("name");
+                           // JSONObject homeJSON = results.getJSONObject("home");
+                            String name = results.getString("home_team");
                             matchesInfo.setHomeTeam(name);
 
-                            if (results.has("time")) {
-                                String time = results.getString("time");
-                                matchesInfo.setDate(DateFormat.getReadableDateFormat(time));
-                                matchesInfo.setTime(DateFormat.getReadableTimeFormat(time));
+                            if (results.has("match_time")) {
+                                String time = results.getString("match_time");
+                                //matchesInfo.setDate(DateFormat.getReadableDateFormat(time));
+                                //matchesInfo.setTime(DateFormat.getReadableTimeFormat(time));
+                              //  matchesInfo.setDateTime(DateFormat.getReadableDateTimeFormat(time));
                             }
 
-                            JSONObject awayJSON = results.getJSONObject("away");
-                            String away = awayJSON.getString("name");
+                           // JSONObject awayJSON = results.getJSONObject("away");
+                            String away = results.getString("visitor_team");
                             matchesInfo.setVisitorsTeam(away);
                             matchesInfoList.add(matchesInfo);
                         }
 
-                        MatchesAdapter adapter = new MatchesAdapter(matchesInfoList,"upcoming");
+                        MatchesAdapter adapter = new MatchesAdapter(matchesInfoList,"private");
                         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                         recyclerView.setHasFixedSize(true);
                         adapter.setRecyclerViewItemClickListener(PrivateMatchesFragment.this);
@@ -178,7 +185,12 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
                     dismissProgressDialog(progressAlertDialog);
                     Log.e(TAG, "Error: " + error.getMessage());
                 }) {
-
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", token);
+                return headers;
+            }
             @Override
             public String getBodyContentType() {
                 return "application/json";

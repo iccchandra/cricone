@@ -91,6 +91,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
     private static final String TAG = "MatchOddsFragment";
     private static final String IN_PLAY = "inplay";
     private static final String UPCOMING = "upcoming";
+
     private MatchesInfo matchesInfo;
     private AlertDialog progressAlertDialog;
     private OddsCategoryAdapter oddsCategoryAdapter;

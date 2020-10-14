@@ -21,6 +21,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesViewHolder>{
@@ -61,37 +63,42 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
 
             if( UpcomingMatchesFragment.contest==true) {
 
-               // holder.matchTimeTextView.setText(String.format(matchesInfo.getDateTime()));
+                holder.matchTimeTextView.setText(String.format(matchesInfo.getDateTime()));
                 holder.createGroup.setText("Joined");}
 
+            else {
 
-               String timeleft=String.format(matchesInfo.getDateTime());
+
+                String timeleft = String.format(matchesInfo.getDateTime());
                 System.out.println(timeleft);
-                int hoursToGo = Integer.parseInt(timeleft.substring(0,timeleft.indexOf("h")));
-                int minutesToGo = Integer.parseInt(timeleft.substring(timeleft.indexOf("h")+1,timeleft.indexOf("m")));
-                int secondsToGo = Integer.parseInt(timeleft.substring(timeleft.indexOf("m")+1,timeleft.indexOf("s")));;
+                int hoursToGo = Integer.parseInt(timeleft.substring(0, timeleft.indexOf("h")));
+                int minutesToGo = Integer.parseInt(timeleft.substring(timeleft.indexOf("h") + 1, timeleft.indexOf("m")));
+                int secondsToGo = Integer.parseInt(timeleft.substring(timeleft.indexOf("m") + 1, timeleft.indexOf("s")));
+                ;
 
-                int millisToGo = secondsToGo*1000+minutesToGo*1000*60+hoursToGo*1000*60*60;
+                int millisToGo = secondsToGo * 1000 + minutesToGo * 1000 * 60 + hoursToGo * 1000 * 60 * 60;
 
-                new CountDownTimer(millisToGo,1000) {
+                new CountDownTimer(millisToGo, 1000) {
 
                     @Override
                     public void onTick(long millis) {
-                        int seconds = (int) (millis / 1000) % 60 ;
-                        int minutes = (int) ((millis / (1000*60)) % 60);
-                        int hours   = (int) ((millis / (1000*60*60)));
-                       // int days   = (int) ((millis / (1000*60*60*60)) % 24);
-                        String text = String.format("%s %s %s",hours+"h",minutes+"m",seconds+"s");
+                        int seconds = (int) (millis / 1000) % 60;
+                        int minutes = (int) ((millis / (1000 * 60)) % 60);
+                        int hours = (int) ((millis / (1000 * 60 * 60)));
+                        // int days   = (int) ((millis / (1000*60*60*60)) % 24);
+                        String text = String.format("%s %s %s", hours + "h", minutes + "m", seconds + "s");
                         holder.matchTimeTextView.setText(text);
                     }
 
                     @Override
                     public void onFinish() {
                         holder.matchTimeTextView.setText("Playing");
+
+
                     }
                 }.start();
 
-
+            }
            /* }
             else{
 
@@ -127,8 +134,43 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
 
                 // holder.matchTimeTextView.setText(String.format(matchesInfo.getDateTime()));
                 holder.createGroup.setText("Joined");
-                holder.matchTimeTextView.setText("Playing");
-  }
+            holder.matchTimeTextView.setText(String.format(matchesInfo.getDateTime()));
+            Calendar calendar = Calendar.getInstance();
+            TimeZone tz = TimeZone.getDefault();
+            calendar.add(Calendar.MILLISECOND, tz.getOffset(calendar.getTimeInMillis()));
+            SimpleDateFormat timeSdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+            Date Datetime = null;
+            try {
+                Datetime = timeSdf.parse(matchesInfo.getDateTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            Date currentTime = Calendar.getInstance().getTime();
+            long diff=Datetime.getTime()-currentTime.getTime();
+
+
+
+            new CountDownTimer(diff, 1000) {
+
+                @Override
+                public void onTick(long millis) {
+                    int seconds = (int) (millis / 1000) % 60;
+                    int minutes = (int) ((millis / (1000 * 60)) % 60);
+                    int hours = (int) ((millis / (1000 * 60 * 60)));
+                    // int days   = (int) ((millis / (1000*60*60*60)) % 24);
+                    String text = String.format("%s %s %s", hours + "h", minutes + "m", seconds + "s");
+                    holder.matchTimeTextView.setText(text);
+                }
+
+                @Override
+                public void onFinish() {
+                    holder.matchTimeTextView.setText("Playing");
+
+
+                }
+            }.start();
+
+        }
         else {
             holder.matchTimeTextView.setText("inplay");
 

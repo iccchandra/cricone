@@ -143,7 +143,7 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
                             MatchesInfo matchesInfo = new MatchesInfo();
                             JSONObject results = resultsArray.getJSONObject(i);
 
-                            String id = results.getString("owner_id");
+                            String id = results.getString("fi_id");
                             Log.d(TAG, "callPrivateAPI response: " + id);
 
 
@@ -158,7 +158,10 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
                             matchesInfo.setHomeTeam(name);
 
                             if (results.has("match_time")) {
+                                String date = results.getString("match_date");
                                 String time = results.getString("match_time");
+                                matchesInfo.setDateTime(date+" "+time);
+
                                 //matchesInfo.setDate(DateFormat.getReadableDateFormat(time));
                                 //matchesInfo.setTime(DateFormat.getReadableTimeFormat(time));
                               //  matchesInfo.setDateTime(DateFormat.getReadableDateTimeFormat(time));
@@ -213,9 +216,7 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
     @Override
     public void onCreateGroupClicked(int position) {
         selectedPosition = position;
-        showCreateGroupNameAlert(position);
-
-
+       // showCreateGroupNameAlert(position);
 
 /*        Intent intent = new Intent(getActivity(), MatchOddsTabsActivity.class);
         intent.putExtra("MatchInfo", matchesInfoList.get(position));
@@ -270,9 +271,7 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
         }
         else{
         ApiInterface apiInterface = ApiClient.getClientWithAuthorisation(sessionManager.getUser(context).getToken()).create(ApiInterface.class);
-
         MatchesInfo matchesInfo = matchesInfoList.get(position);
-
         JSONObject inputJSON = new JSONObject();
         try {
             inputJSON.put("contest_name", groupName);
@@ -283,7 +282,6 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         Observable<CreateGroupResponse> observable = apiInterface.createGame(ApiClient.getRequestBody(inputJSON));
         observable.subscribeOn(Schedulers.newThread()).
                 observeOn(AndroidSchedulers.mainThread())

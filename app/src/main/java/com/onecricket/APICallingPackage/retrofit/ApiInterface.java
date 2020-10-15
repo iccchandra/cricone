@@ -3,6 +3,7 @@ package com.onecricket.APICallingPackage.retrofit;
 import com.onecricket.APICallingPackage.retrofit.betlist.SubmittedBets;
 import com.onecricket.APICallingPackage.retrofit.globalleader.GlobalLeaderResponse;
 import com.onecricket.APICallingPackage.retrofit.group.CreateGroupResponse;
+import com.onecricket.APICallingPackage.retrofit.joingroup.JoinGroupResponse;
 import com.onecricket.APICallingPackage.retrofit.state.StateResponse;
 
 import io.reactivex.Observable;
@@ -28,4 +29,7 @@ public interface ApiInterface {
 
     @POST("/myrest/user/create_pivate_contest")
     Observable<CreateGroupResponse> createGame(@Body RequestBody params);
+
+    @POST("/myrest/user/join_pivate_contest")
+    Observable<JoinGroupResponse> joinContest(@Body RequestBody params);
 }

@@ -14,8 +14,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -25,6 +31,7 @@ import com.android.volley.toolbox.Volley;
 import com.onecricket.APICallingPackage.retrofit.ApiClient;
 import com.onecricket.APICallingPackage.retrofit.ApiInterface;
 import com.onecricket.APICallingPackage.retrofit.group.CreateGroupResponse;
+import com.onecricket.APICallingPackage.retrofit.joingroup.JoinGroupResponse;
 import com.onecricket.R;
 import com.onecricket.activity.MatchOddsTabsActivity;
 import com.onecricket.adapter.MatchesAdapter;
@@ -44,12 +51,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -356,7 +357,14 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
 
         private void onErrorResponse (Throwable throwable){
             dismissProgressDialog(progressAlertDialog);
-            Log.d(TAG, throwable.getMessage());
+            if (throwable.getMessage() != null) {
+                Log.d(TAG, throwable.getMessage());
+            }
+            if (!alertDialogHelper.isShowing()) {
+                alertDialogHelper.showAlertDialog(context,
+                        "Error",
+                        getString(R.string.label_something_went_wrong));
+            }
         }
 
         private void onSuccessResponse (CreateGroupResponse responseBody){
@@ -400,10 +408,52 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.joincode) {
-
-            String code = entercode.getText().toString();
-
+            onJoinCodeClicked();
         }
-    };
+    }
 
+    private void onJoinCodeClicked() {
+        String code = entercode.getText().toString().trim();
+        if (code.length() > 0) {
+            joinFriends(code);
+        }
+        else {
+            Toast.makeText(context, "Please enter code", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    private void joinFriends(String id) {
+        dismissProgressDialog(progressAlertDialog);
+        progressAlertDialog.show();
+        ApiInterface apiInterface = ApiClient.getClientWithAuthorisation(sessionManager.getUser(context).getToken()).create(ApiInterface.class);
+
+
+        JSONObject inputJSON = new JSONObject();
+        try {
+            inputJSON.put("privateid", id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Observable<JoinGroupResponse> observable = apiInterface.joinContest(ApiClient.getRequestBody(inputJSON));
+        observable.subscribeOn(Schedulers.newThread()).
+                observeOn(AndroidSchedulers.mainThread())
+                .map(result -> result)
+                .subscribe(this::onSuccessResponse, this::onErrorResponse);
+
+    }
+
+    private void onSuccessResponse(JoinGroupResponse joinGroupResponse) {
+        dismissProgressDialog(progressAlertDialog);
+        entercode.setText("");
+        new FancyGifDialog.Builder((Activity) context)
+                .setTitle(joinGroupResponse.getStatus())
+                .setMessage(joinGroupResponse.getMessage())
+                .setPositiveBtnBackground("#FF4081")
+                .setPositiveBtnText("OK")
+                .setGifResource(R.drawable.common_gif)
+                .isCancellable(true)
+                .build();
+    }
 }

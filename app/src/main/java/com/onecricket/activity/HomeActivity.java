@@ -188,7 +188,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
         alertDialogHelper = AlertDialogHelper.getInstance();
         Animation shake = AnimationUtils.loadAnimation(activity, R.anim.shake);
-        binding.imNotification.startAnimation(shake);
+      //  binding.imNotification.startAnimation(shake);
         binding.VPBanner.setNestedScrollingEnabled(false);
         binding.bonus.setOnClickListener(view -> {
             if (NetworkState.isNetworkAvailable(context)) {
@@ -206,7 +206,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
             }
         });
 
-        binding.imNotification.setOnClickListener(view -> {
+      /*  binding.imNotification.setOnClickListener(view -> {
             Intent i = new Intent(activity, NotificationActivity.class);
             startActivity(i);
         });
@@ -217,7 +217,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                 startActivity(i);
             }
         });
-
+*/
         Ravenscroft = Typeface.createFromAsset(this.getAssets(), "Ravenscroft.ttf");
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

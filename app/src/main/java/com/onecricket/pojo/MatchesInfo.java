@@ -19,11 +19,11 @@ public class MatchesInfo implements Serializable {
     private boolean playing;
 
     public String getcode() {
-        return id;
+        return code;
     }
 
-    public void setcode(String id) {
-        this.id = id;
+    public void setcode(String code) {
+        this.code = code;
     }
 
 

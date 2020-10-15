@@ -67,29 +67,33 @@ public class EditProfileActivity extends AppCompatActivity implements ResponseMa
 
         callViewProfile(true);
 
-        binding.etEditDob.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
+        binding.etEditDob.setOnClickListener(view -> {
+            final Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(activity,
-                        android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
-                        new mdateListner(), year, month, day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-                dialog.show();
-            }
+
+
+
+            DOBListener dobListener = new DOBListener();
+            DatePickerDialog dialog = new DatePickerDialog(activity,
+                    android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
+                    dobListener, year, month, day);
+            Calendar minimumCalendar = Calendar.getInstance();
+            Calendar maximumCalendar = Calendar.getInstance();
+            minimumCalendar.set(Calendar.YEAR, minimumCalendar.get(Calendar.YEAR) - 18);
+            maximumCalendar.set(Calendar.YEAR, maximumCalendar.get(Calendar.YEAR) - 100);
+            dialog.getDatePicker().setMaxDate(minimumCalendar.getTimeInMillis());
+            dialog.getDatePicker().setMinDate(maximumCalendar.getTimeInMillis());
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+            dialog.show();
         });
 
-        binding.tvEditMale.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gender = "male";
-                binding.tvEditMale.setBackgroundResource(R.drawable.roundbutton);
-                binding.tvEditFeMale.setBackgroundResource(R.drawable.roundbutton_hover_back);
-            }
+        binding.tvEditMale.setOnClickListener(view -> {
+            gender = "male";
+            binding.tvEditMale.setBackgroundResource(R.drawable.roundbutton);
+            binding.tvEditFeMale.setBackgroundResource(R.drawable.roundbutton_hover_back);
         });
         binding.tvEditFeMale.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -270,13 +274,11 @@ public class EditProfileActivity extends AppCompatActivity implements ResponseMa
 
 
 
-    class mdateListner implements DatePickerDialog.OnDateSetListener {
+    class DOBListener implements DatePickerDialog.OnDateSetListener {
 
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             {
-                int actualMonth = month+1;
-                Date d = new Date(year, actualMonth,dayOfMonth);
                 Calendar cal = Calendar.getInstance();
                 cal.setTimeInMillis(0);
                 cal.set(year, month, dayOfMonth, 0, 0, 0);

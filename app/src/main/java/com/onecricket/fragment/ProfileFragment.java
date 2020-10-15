@@ -29,8 +29,6 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
 import com.onecricket.APICallingPackage.Class.APIRequestManager;
 import com.onecricket.APICallingPackage.Config;
 import com.onecricket.APICallingPackage.Interface.ResponseManager;
@@ -42,7 +40,6 @@ import com.onecricket.activity.HomeActivity;
 import com.onecricket.activity.InviteFriendsActivity;
 import com.onecricket.activity.InvitedFriendListActivity;
 import com.onecricket.activity.MainActivity;
-import com.onecricket.activity.createactivity;
 import com.onecricket.databinding.FragmentProfileBinding;
 import com.onecricket.utils.SessionManager;
 
@@ -408,13 +405,10 @@ public class ProfileFragment extends Fragment implements ResponseManager {
                 binding.tvProfileDeposited.setText(Deposited);
                 binding.tvProfileWinning.setText(Winnings);
                 binding.tvProfileBonus.setText(Bonus);
-
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-
     }
 
 
@@ -424,18 +418,10 @@ public class ProfileFragment extends Fragment implements ResponseManager {
     }
 
     public void Logout() {
-
         LoginManager.getInstance().logOut();
         loginPrefsEditor.clear();
         loginPrefsEditor.commit();
-        Auth.GoogleSignInApi.revokeAccess(HomeActivity.mGoogleApiClient).setResultCallback(
-                new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(Status status) {
-
-                    }
-                });
-
+        Auth.GoogleSignInApi.revokeAccess(HomeActivity.mGoogleApiClient).setResultCallback(status -> {});
         Intent i = new Intent(getActivity(), MainActivity.class);
         startActivity(i);
 

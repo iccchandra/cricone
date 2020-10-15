@@ -1,37 +1,37 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#161C23"
-    >
 
-    <include
-        android:id="@+id/head"
-        layout="@layout/activity_mainheader"
-        android:visibility="gone" />
-
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/head">
+        android:background="@drawable/login_bg">
 
-        <LinearLayout
+        <include
+            android:id="@+id/head"
+            layout="@layout/activity_mainheader"
+            android:visibility="gone" />
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_below="@+id/head">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/im_profilepic"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/bats_icon_hvr"
-                android:visibility="visible"
-                app:civ_border_color="#efefef"
-                app:civ_border_width="2dp"
-                app:civ_fill_color="@android:color/white" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/im_profilepic"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/bats_icon_hvr"
+                    android:visibility="visible"
+                    app:civ_border_color="#efefef"
+                    app:civ_border_width="2dp"
+                    app:civ_fill_color="@android:color/white" />
 
             <TextView
                 android:id="@+id/tv_ProfileUserName"
@@ -40,7 +40,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:text="Your Username"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="18sp" />
 
             <TextView
@@ -57,15 +57,13 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="2dp"
-                android:background="@color/white"
+                android:background="@color/black"
                 android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#1D2532"
                 android:orientation="vertical"
-
                 android:padding="10dp">
 
                 <TextView
@@ -74,7 +72,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="3dp"
                     android:text="Playing History"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <LinearLayout
@@ -95,17 +93,15 @@
                             android:id="@+id/RL_Contest"
                             android:layout_width="wrap_content"
                             android:layout_height="100dp"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/dark_rectangle_contest">
+                            android:layout_marginEnd="5dp"
+                            android:layout_weight="1">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center"
+                                android:background="@drawable/round_corner_bg"
                                 android:orientation="horizontal"
-                                android:background="@color/create_team_unselected_color"
-
                                 android:weightSum="2">
 
                                 <RelativeLayout
@@ -152,16 +148,14 @@
                             android:id="@+id/RL_Match"
                             android:layout_width="match_parent"
                             android:layout_height="100dp"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/dark_rectangle_contest">
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="1">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:orientation="horizontal"
-                                android:background="@color/create_team_unselected_color"
-
+                                android:background="@drawable/round_corner_bg"
                                 android:weightSum="2">
 
 
@@ -333,10 +327,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="#28323E"
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:layout_gravity="center"
+                android:background="@drawable/round_corner_bg"
                 android:padding="10dp"
                 android:weightSum="2">
 
@@ -386,7 +380,7 @@
                         android:layout_weight="1"
                         android:text="View your global ranking."
                         android:gravity="start"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="16sp" />
 
                     <TextView
@@ -407,9 +401,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="#28323E"
                 android:orientation="horizontal"
                 android:gravity="center"
+                android:background="@drawable/round_corner_bg"
                 android:layout_gravity="center"
                 android:padding="10dp"
                 android:weightSum="2">
@@ -460,7 +454,7 @@
                         android:layout_weight="1"
                         android:text="No Friend Invite yet."
                         android:gravity="start"
-                        android:textColor="@color/payumoney_white"
+                        android:textColor="@color/black"
                         android:textSize="16sp" />
 
                     <TextView
@@ -572,30 +566,29 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/dark_rectangle_contest">
+                android:background="@drawable/round_corner_bg">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="#28323E">
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_ProfileAccount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:layout_marginTop="10dp"
-                        android:drawableTint="@color/white"
                         android:drawablePadding="5dp"
                         android:layout_marginEnd="10dp"
                         android:padding="5dp"
                         android:text="Wallet"
 
                         android:textAlignment="textStart"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="15sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        app:drawableTint="@color/black" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -626,7 +619,7 @@
                                 android:gravity="center"
                                 android:text="₹ "
                                 android:visibility="gone"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="15sp" />
 
                             <TextView
@@ -636,7 +629,7 @@
                                 android:text="Deposited"
                                 android:visibility="gone"
                                 android:textAlignment="center"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textStyle="bold"
                                 android:textSize="12sp" />
 
@@ -655,7 +648,7 @@
                                 android:layout_gravity="center"
                                 android:gravity="center"
                                 android:textStyle="bold"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="15sp" />
 
                             <TextView
@@ -666,7 +659,7 @@
                                 android:textStyle="bold"
 
                                 android:textAlignment="center"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="12sp" />
                         </RelativeLayout>
 
@@ -684,7 +677,7 @@
                                 android:gravity="center"
                                 android:textStyle="bold"
 
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="15sp" />
 
                             <TextView
@@ -695,7 +688,7 @@
                                 android:textStyle="bold"
 
                                 android:textAlignment="center"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="12sp" />
                         </RelativeLayout>
 
@@ -730,27 +723,23 @@
                 </LinearLayout>
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/RL_ProfilePersonalDetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/RL_ProfileAccount"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="#28323E"
-                android:visibility="visible">
+                <RelativeLayout
+                    android:id="@+id/RL_ProfilePersonalDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:paddingBottom="10dp"
+                    android:background="@drawable/round_corner_bg"
+                    android:visibility="visible">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:padding="5dp"
                     android:text="Personal Details"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -758,17 +747,17 @@
                     android:id="@+id/tv_ProfileView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:drawableRight="@drawable/arrow_icon_mr"
-                    android:drawableTint="@color/colorPrimary"
+                    android:layout_marginEnd="10dp"
                     android:drawablePadding="10dp"
                     android:padding="5dp"
                     android:text=""
                     android:textColor="#01897d"
                     android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    app:drawableRightCompat="@drawable/arrow_icon_mr"
+                    app:drawableTint="@color/colorPrimary" />
 
                 <TextView
                     android:id="@+id/tv_line"
@@ -794,7 +783,7 @@
                         android:layout_height="wrap_content"
                         android:padding="10dp"
                         android:text="yourmail@gmail.com"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="15sp" />
 
                     <TextView
@@ -802,14 +791,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:background="@color/create_team_unselected_color"
-                        android:drawableLeft="@drawable/change_pass_icon"
-                        android:drawableTint="@color/colorPrimary"
+                        android:drawableStart="@drawable/change_pass_icon"
                         android:drawablePadding="10dp"
                         android:padding="10dp"
+                        android:background="@drawable/round_corner_bg"
                         android:text="Change Password"
                         android:textColor="@color/btn_txt_color"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        app:drawableTint="@color/colorPrimary" />
 
                     <TextView
                         android:id="@+id/tv_ProfileLogout"
@@ -818,14 +807,14 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="20dp"
                         android:background="@drawable/roundbutton_my_team"
-                        android:drawableLeft="@drawable/logout_icon"
-                        android:drawableTint="@color/btn_txt_color"
+                        android:drawableStart="@drawable/logout_icon"
                         android:drawablePadding="10dp"
                         android:padding="10dp"
                         android:text="Logout"
                         android:visibility="gone"
                         android:textColor="@color/btn_txt_color"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        app:drawableTint="@color/btn_txt_color" />
 
 
                 </LinearLayout>
@@ -835,5 +824,5 @@
         </LinearLayout>
 
     </ScrollView>
-</RelativeLayout>
+    </RelativeLayout>
 </layout>

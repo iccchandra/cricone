@@ -171,7 +171,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/teams_layout"
             android:layout_centerHorizontal="true"
-            android:text="Create Friendly Game"
+            android:text="Play with Friends"
             android:textStyle="bold"
             android:background="@color/wk_bat_ar_bows_create_team"
             android:gravity="center"

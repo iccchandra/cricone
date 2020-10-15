@@ -53,19 +53,19 @@ public class MyPredictionsAdapter extends RecyclerView.Adapter<MyPredictionsAdap
         teams = upcoming.getHomeTeam() + " Vs " + upcoming.getVisitorTeam();
         date = upcoming.getMatchDate() + " " + upcoming.getMatchTime();
 
-        holder.matchNameTextView.setText(String.format("Match Name: %s", matchName));
-        holder.betValueTextView.setText(String.format("Game Value: %s", betValue));
-        holder.betAmountTextView.setText(String.format("Game Amount: %s", betAmount));
-        holder.oddNameTextView.setText(String.format("Odd Name: %s", oddName));
-        holder.oddValueTextView.setText(String.format("Odd Value: %s", oddValue));
-        holder.delete.setOnClickListener(view -> {
+       // holder.matchNameTextView.setText(String.format("Match Name: %s", matchName));
+        holder.betValueTextView.setText(String.format(betValue));
+        holder.betAmountTextView.setText(String.format(betAmount));
+        holder.oddNameTextView.setText(String.format(oddName));
+        holder.oddValueTextView.setText(String.format(oddValue));
+       /* holder.delete.setOnClickListener(view -> {
             if (deleteItemListener != null) {
                 deleteItemListener.onDeleteClicked(position);
             }
-        });
+        });*/
 
-        holder.share.setOnClickListener(view -> onShareClicked());
-        holder.matchDate.setText(String.format("Date: %s", date));
+       // holder.share.setOnClickListener(view -> onShareClicked());
+        holder.matchDate.setText(String.format(date));
         holder.teamsTextView.setText(teams);
     }
 
@@ -98,15 +98,15 @@ public class MyPredictionsAdapter extends RecyclerView.Adapter<MyPredictionsAdap
 
         public MyPredectionsViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.matchNameTextView = itemView.findViewById(R.id.match_name);
+           // this.matchNameTextView = itemView.findViewById(R.id.match_name);
             this.betValueTextView = itemView.findViewById(R.id.bet_value);
             this.betAmountTextView = itemView.findViewById(R.id.bet_amount);
             this.oddNameTextView = itemView.findViewById(R.id.oddname);
             this.oddValueTextView = itemView.findViewById(R.id.oddvalue);
             this.teamsTextView = itemView.findViewById(R.id.teams);
             this.matchDate = itemView.findViewById(R.id.matchdate);
-            this.delete = itemView.findViewById(R.id.delete);
-            this.share = itemView.findViewById(R.id.share);
+          //  this.delete = itemView.findViewById(R.id.delete);
+          //  this.share = itemView.findViewById(R.id.share);
         }
     }
 

@@ -192,6 +192,13 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         secondInningsTextView = view.findViewById(R.id.second_innings);
         bottom_sheet = view.findViewById(R.id.bottom_sheet);
         bottom_sheet.setVisibility(View.GONE);
+        bottom_sheet.setOnClickListener(view12 -> {
+            if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+                sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            } else {
+                sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        });
         sheetBehavior = BottomSheetBehavior.from(bottom_sheet);
         setRecyclerViewMargin(topLayout, 0);
         placeBet.setOnClickListener(view1 ->  {
@@ -880,6 +887,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
                     dismissProgressDialog(progressAlertDialog);
                     showFailureAlert("Something went wrong !");
                 }) {
+
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();

@@ -1003,7 +1003,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
              showAlertDialog(context, "Error", "Something went wrong. Please try again later.");
         }
         else if (stateResponse.getMessage().equalsIgnoreCase("No State Allowed") ) {
-            showAlertDialog(context, "Sorry!", "This app is not allowed in your state.");
+            showAlertDialog(context, "Sorry!", "This app is not allowed in this state.");
         }
         else {
             if (isTokenAvailable(context, sessionManager)) {

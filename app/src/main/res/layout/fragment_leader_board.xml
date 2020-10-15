@@ -4,10 +4,23 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/no_data_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="@string/data_is_not_available"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:visibility="gone"
+        android:textStyle="bold" />
+
     <RelativeLayout
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:background="@color/app_bg">
 
         <RelativeLayout
@@ -231,6 +244,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_below="@+id/header_layout"
         android:layout_marginTop="20dp" />
 

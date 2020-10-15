@@ -69,6 +69,8 @@ public class LeaderboardFragment extends Fragment {
     private boolean isGlobalLeader;
     private String fId;
     private MatchesInfo matchesInfo;
+    private RelativeLayout headerLayout;
+    private TextView noDataView;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -131,6 +133,8 @@ public class LeaderboardFragment extends Fragment {
 
     private void findViewsById(View view) {
 
+        headerLayout        = view.findViewById(R.id.header_layout);
+        noDataView          = view.findViewById(R.id.no_data_view);
         firstPositionLayout = view.findViewById(R.id.first_position_layout);
         secondPositionLayout = view.findViewById(R.id.second_position_layout);
         thirdPositionLayout = view.findViewById(R.id.third_position_layout);
@@ -185,7 +189,7 @@ public class LeaderboardFragment extends Fragment {
         try {
             inputJSON.put("home_team", matchesInfo.getHomeTeam());
             inputJSON.put("visitor_team", matchesInfo.getVisitorsTeam());
-            inputJSON.put("match_date", matchesInfo.getDate());
+            inputJSON.put("match_date", matchesInfo.getMatchDate());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -194,7 +198,6 @@ public class LeaderboardFragment extends Fragment {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, inputJSON, response -> {
             dismissProgressDialog(progressAlertDialog);
             Log.d(TAG, response.toString());
-//            showResponseData(response);
             displayResponseData(response);
         }, error -> {
             dismissProgressDialog(progressAlertDialog);
@@ -261,10 +264,18 @@ public class LeaderboardFragment extends Fragment {
                                 }
                                 leaderBoardList.add(data);
                             }
-                            LeaderBoardRecyclerViewAdapter adapter = new LeaderBoardRecyclerViewAdapter(leaderBoardList);
-                            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                            recyclerView.setHasFixedSize(true);
-                            recyclerView.setAdapter(adapter);
+                            if (leaderBoardList.size() > 0) {
+                                headerLayout.setVisibility(View.VISIBLE);
+                                noDataView.setVisibility(View.GONE);
+                                LeaderBoardRecyclerViewAdapter adapter = new LeaderBoardRecyclerViewAdapter(leaderBoardList);
+                                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                recyclerView.setHasFixedSize(true);
+                                recyclerView.setAdapter(adapter);
+                            }
+                            else {
+                                headerLayout.setVisibility(View.GONE);
+                                noDataView.setVisibility(View.VISIBLE);
+                            }
 
 
 

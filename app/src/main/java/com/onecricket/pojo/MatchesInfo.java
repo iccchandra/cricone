@@ -17,6 +17,7 @@ public class MatchesInfo implements Serializable {
     private String privateId;
     private boolean isMatchInProgress;
     private boolean playing;
+    private String matchDate;
 
     public String getcode() {
         return code;
@@ -134,5 +135,13 @@ public class MatchesInfo implements Serializable {
 
     public void setPrivateId(String privateId) {
         this.privateId = privateId;
+    }
+
+    public String getMatchDate() {
+        return matchDate;
+    }
+
+    public void setMatchDate(String matchDate) {
+        this.matchDate = matchDate;
     }
 }

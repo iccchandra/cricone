@@ -13,11 +13,18 @@ public class MatchesInfo implements Serializable {
     private String visitorsTeam;
     private String date;
     private String contest;
+    private String code;
     private String privateId;
     private boolean isMatchInProgress;
     private boolean playing;
 
+    public String getcode() {
+        return id;
+    }
 
+    public void setcode(String id) {
+        this.id = id;
+    }
 
 
     public String getId() {

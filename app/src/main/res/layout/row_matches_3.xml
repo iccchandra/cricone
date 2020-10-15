@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+
+
+<RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+
+
+    >
+
+
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:cardCornerRadius="6dp"
+
         app:cardBackgroundColor="@color/white">
 
         <RelativeLayout
@@ -50,12 +62,14 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/relay"
                     android:layout_weight="2">
 
                     <TextView
                         android:id="@+id/team_a"
+
                         android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -160,10 +174,6 @@
             </LinearLayout>
 
 
-
-
-
-
         </RelativeLayout>
         <TextView
             android:id="@+id/create_group"
@@ -179,10 +189,31 @@
             android:paddingRight="@dimen/dimen_10dp"
             android:textColor="@color/white"
             android:drawablePadding="3dp"
-            app:drawableStartCompat="@drawable/ic_group_add_24" />
+            app:drawableStartCompat="@drawable/conflict" />
+
+
+        <TextView
+            android:id="@+id/code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Play with Friends"
+            android:gravity="center"
+            android:layout_below="@+id/relay"
+            android:padding="3dp"
+            android:textStyle="bold"
+            android:layout_marginHorizontal="@dimen/dimen_10dp"
+            android:background="@color/wk_bat_ar_bows_create_team"
+            android:textColor="@color/white"
+            android:layout_gravity="bottom"
+            android:visibility="gone"
+            app:drawableStartCompat="@drawable/ic_share_24"
+           />
+
 
 
 
     </androidx.cardview.widget.CardView>
-
 </RelativeLayout>
+
+
+</layout>

@@ -240,6 +240,11 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
         startActivity(intent);*/
     }
 
+    @Override
+    public void onCodeClicked(int position) {
+
+    }
+
     private void showCreateGroupNameAlert(int position) {
         LayoutInflater li = LayoutInflater.from(context);
         View promptsView = li.inflate(R.layout.dialog_input, null);

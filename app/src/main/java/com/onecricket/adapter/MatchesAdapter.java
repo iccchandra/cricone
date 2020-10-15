@@ -159,6 +159,8 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
                     // int days   = (int) ((millis / (1000*60*60*60)) % 24);
                     String text = String.format("%s %s %s", hours + "h", minutes + "m", seconds + "s");
                     holder.matchTimeTextView.setText(text);
+                    holder.code.setVisibility(View.VISIBLE);
+                    holder.code.setText(matchesInfo.getcode());
                 }
 
                 @Override
@@ -196,6 +198,12 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         holder.createGroup.setOnClickListener(view -> {
             if (clickListener != null) {
                 clickListener.onCreateGroupClicked(position);
+            }
+        });
+
+        holder.code.setOnClickListener(view -> {
+            if (clickListener != null) {
+                clickListener.onCodeClicked(position);
             }
         });
 
@@ -239,6 +247,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         private TextView circularTextTeamB;
         private TextView matchTimeTextView;
         private TextView createGroup;
+        private TextView code;
 
         public MatchesViewHolder(View itemView) {
             super(itemView);
@@ -252,6 +261,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
            // this.circularTextTeamB = itemView.findViewById(R.id.circular_team_b);
             this.matchTimeTextView = itemView.findViewById(R.id.match_time);
             this.createGroup       = itemView.findViewById(R.id.create_group);
+            this.code       = itemView.findViewById(R.id.code);
 
         }
     }
@@ -259,6 +269,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
     public interface ClickListener {
         void onItemClickListener(int position);
         void onCreateGroupClicked(int position);
+        void onCodeClicked(int position);
     }
 
     // countdowntimer is an abstract class, so extend it and fill in methods

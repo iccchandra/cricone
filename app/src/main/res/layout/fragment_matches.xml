@@ -2,12 +2,54 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0F0F0">
+    android:background="#F0F0F0"
+    android:padding="4dp">
+    <RelativeLayout
+        android:id="@+id/LL_CVCInfoHead"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:paddingTop="5dp"
+        android:visibility="gone"
+        android:background="@drawable/border_ek2_shape">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:id="@+id/entercode"
+            android:layout_toLeftOf="@+id/tv_ContestTimer"
+            android:maxLines="1"
+            android:gravity="center_vertical"
+            android:ellipsize="end"
+            android:text="Enter Code"
+            android:background="@null"
+            android:textColor="@color/textColor" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:id="@+id/joincode"
+            android:text="Join Frineds"
+            android:drawablePadding="2dp"
+            android:textStyle="bold"
+            android:textColor="@color/btn_txt_color"
+            android:clickable="true"
+            android:drawableLeft="@drawable/unlink"
+            android:layout_alignParentRight="true"
+            style="?android:attr/borderlessButtonStyle"/>
+
+
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/matches"
+        android:layout_below="@+id/LL_CVCInfoHead"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dimen_10dp"
          />
 
 </RelativeLayout>

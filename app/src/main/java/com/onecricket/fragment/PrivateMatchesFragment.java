@@ -1,6 +1,8 @@
 package com.onecricket.fragment;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +11,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -25,7 +30,6 @@ import com.onecricket.activity.MatchOddsTabsActivity;
 import com.onecricket.adapter.MatchesAdapter;
 import com.onecricket.pojo.MatchesInfo;
 import com.onecricket.utils.CommonProgressDialog;
-import com.onecricket.utils.DateFormat;
 import com.onecricket.utils.NetworkState;
 import com.onecricket.utils.SessionManager;
 import com.onecricket.utils.crypto.AlertDialogHelper;
@@ -50,7 +54,9 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.ClickListener {
+import static android.content.Context.CLIPBOARD_SERVICE;
+
+public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.ClickListener, View.OnClickListener {
 
     private static final String TAG = "PrivateMatchesFragment";
     private RecyclerView recyclerView;
@@ -59,6 +65,9 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
     private List<MatchesInfo> matchesInfoList;
     private SessionManager sessionManager;
     private AlertDialogHelper alertDialogHelper;
+    public EditText entercode;
+    public Button joincode;
+    public RelativeLayout LL_CVCInfoHead;
 
 
     @Nullable
@@ -68,10 +77,16 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
                              @Nullable Bundle savedInstanceState) {
         UpcomingMatchesFragment.contest=true;
         View view = inflater.inflate(R.layout.fragment_matches, container, false);
+        joincode = view.findViewById(R.id.joincode);
+        LL_CVCInfoHead = view.findViewById(R.id.LL_CVCInfoHead);
+        LL_CVCInfoHead.setVisibility(View.VISIBLE);
+        entercode = view.findViewById(R.id.entercode);
+        joincode.setOnClickListener(this);
         recyclerView = view.findViewById(R.id.matches);
         progressAlertDialog = CommonProgressDialog.getProgressDialog(context);
         sessionManager = new SessionManager();
         alertDialogHelper = AlertDialogHelper.getInstance();
+
         if (NetworkState.isNetworkAvailable(context)) {
             callMatchesAPI(sessionManager.getUser(context).getToken());
         } else {
@@ -89,6 +104,11 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
             progressAlertDialog.dismiss();
         }
     }
+
+
+
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -167,7 +187,8 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
                                 //matchesInfo.setTime(DateFormat.getReadableTimeFormat(time));
                               //  matchesInfo.setDateTime(DateFormat.getReadableDateTimeFormat(time));
                             }
-
+                            String code = results.getString("code");
+                            matchesInfo.setcode(code);
                            // JSONObject awayJSON = results.getJSONObject("away");
                             String away = results.getString("visitor_team");
                             matchesInfo.setVisitorsTeam(away);
@@ -208,8 +229,7 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
     @Override
     public void onItemClickListener(int position) {
        Boolean ss= matchesInfoList.get(position).playing();
-       System.out.println("ss"+ss);
-        Intent intent = new Intent(getActivity(), MatchOddsTabsActivity.class);
+       Intent intent = new Intent(getActivity(), MatchOddsTabsActivity.class);
         intent.putExtra("MatchInfo", matchesInfoList.get(position));
         startActivity(intent);
     }
@@ -226,6 +246,46 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
         startActivity(intent);*/
     }
 
+    @Override
+    public void onCodeClicked(int position) {
+        selectedPosition = position;
+
+        new FancyGifDialog.Builder((Activity) context)
+                .setTitle("Hooray!")
+
+                .setMessage("sample")
+                .setPositiveBtnBackground("#FF4081")
+                .setPositiveBtnText("Share Code")
+                .setGifResource(R.drawable.common_gif)
+                .isCancellable(true)
+                .setNegativeBtnText("Copy code")
+                .OnPositiveClicked(() -> {
+                    onShareClicked(matchesInfoList.get(position).getcode());
+                })
+                .OnNegativeClicked(() -> {
+                    copyCodeInClipBoard(this.getContext(), matchesInfoList.get(position).getcode(), "Copied");
+                })
+
+                .build();
+
+    }
+    public static void copyCodeInClipBoard(Context context, String text, String label) {
+        if (context != null) {
+            ClipboardManager clipboard = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText(label, text);
+            if (clipboard == null || clip == null)
+                return;
+            clipboard.setPrimaryClip(clip);
+            CharSequence text1 ="code Copied"+ "\n"+text;
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text1, duration);
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+
+            toast.show();
+
+        }
+    }
     private void showCreateGroupNameAlert(int position) {
         LayoutInflater li = LayoutInflater.from(context);
         View promptsView = li.inflate(R.layout.dialog_input, null);
@@ -314,16 +374,16 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
                     .setGifResource(R.drawable.common_gif)
                     .isCancellable(true)
                     .OnPositiveClicked(() -> {
-                        onShareClicked();
+                        onShareClicked(responseBody.getData());
                     })
 
                     .build();
 
         }
 
-        private void onShareClicked () {
+        private void onShareClicked (String code) {
             Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.putExtra(Intent.EXTRA_TEXT, "I made predictions on 1Cricket App. Join me if you are interested.");
+            intent.putExtra(Intent.EXTRA_TEXT, "I made predictions on 1Cricket App. Join me if you are interested.  "+code);
             intent.setType("text/plain");
             if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
                 startActivity(Intent.createChooser(intent, getString(R.string.app_name)));
@@ -335,5 +395,15 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
             intent.putExtra("MatchInfo", matchesInfoList.get(position));
             startActivity(intent);
         }
+
+
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == R.id.joincode) {
+
+            String code = entercode.getText().toString();
+
+        }
+    };
 
 }

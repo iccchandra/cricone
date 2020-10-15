@@ -32,11 +32,9 @@ public class LocationServiceManagerImpl implements LocationServiceManager, GpsUt
     private boolean isContinue = false;
     private boolean isGPS = false;
 
-
     public LocationServiceManagerImpl(Context context) {
         this.context = context;
     }
-
 
     @Override
     public void setListener(Listener listener) {

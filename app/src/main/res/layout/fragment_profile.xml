@@ -475,7 +475,7 @@
                         android:layout_gravity="start"
                         android:gravity="center"
                         android:layout_weight="1"
-                        android:background="@drawable/roundbutton"
+                        android:background="@drawable/round_corner_bg"
                         android:text="Invite Friends"
                         android:textColor="@color/btn_txt_color"
                         android:layout_marginTop="5dp"

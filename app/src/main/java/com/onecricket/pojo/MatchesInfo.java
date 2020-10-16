@@ -12,6 +12,7 @@ public class MatchesInfo implements Serializable {
     private String homeTeam;
     private String visitorsTeam;
     private String date;
+    private String datetime;
     private String contest;
     private String code;
     private String privateId;
@@ -109,16 +110,21 @@ public class MatchesInfo implements Serializable {
     public String getDate() {
         return date;
     }
-    public void setDateTime(String date) {
-        this.date = date;
-    }
 
-    public String getDateTime() {
-        return date;
-    }
+
     public void setDate(String date) {
         this.date = date;
     }
+
+
+    public void setDateTime(String datetime) {
+        this.datetime = datetime;
+    }
+
+    public String getDateTime() {
+        return datetime;
+    }
+
 
     public String getContest() {
         return contest;

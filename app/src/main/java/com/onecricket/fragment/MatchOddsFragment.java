@@ -1077,7 +1077,9 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
                         jsonParam.put("batting_team", "NA");
                     }
 
-                    if (matchesInfo.getContest() != null) {
+                    if (matchesInfo.getContest() != null &&
+                        matchesInfo.getContest().trim().length() > 0)
+                    {
                         jsonParam.put("contest", matchesInfo.getContest());
                         jsonParam.put("privateid", matchesInfo.getPrivateId());
                     }

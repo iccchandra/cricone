@@ -76,7 +76,7 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        UpcomingMatchesFragment.contest=true;
+        UpcomingMatchesFragment.contest = true;
         View view = inflater.inflate(R.layout.fragment_matches, container, false);
         joincode = view.findViewById(R.id.joincode);
         LL_CVCInfoHead = view.findViewById(R.id.LL_CVCInfoHead);
@@ -105,11 +105,6 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
             progressAlertDialog.dismiss();
         }
     }
-
-
-
-
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -145,9 +140,6 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
         dismissProgressDialog(progressAlertDialog);
         progressAlertDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-//        String URL = "https://api.b365api.com/v1/betfair/sb/upcoming?sport_id=4&token=61256-D7NpN8AgdxZCv5";
-//        String URL = "https://api.b365api.com/v1/betfair/sb/upcoming?sport_id=4&token=61256-gf4iT7mN2rL324";
-//        String URL = "https://api.b365api.com/v1/bet365/upcoming?sport_id=3&token=61925-2bBIpJrOkeLtND";
         String URL = ApiClient.BASE_URL + "/myrest/user/pivate_contest_list";
         Log.d(TAG, URL);
 
@@ -167,13 +159,12 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
                             String id = results.getString("fi_id");
                             Log.d(TAG, "callPrivateAPI response: " + id);
 
-
-
                             matchesInfo.setId(id);
 
                             //JSONObject leagueJSON = results.getJSONObject("league");
                             String leagueName = results.getString("contest_name");
                             matchesInfo.setLeagueName(leagueName);
+                            matchesInfo.setContestName(leagueName);
 
                            // JSONObject homeJSON = results.getJSONObject("home");
                             String name = results.getString("home_team");
@@ -182,14 +173,24 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
                             if (results.has("match_time")) {
                                 String date = results.getString("match_date");
                                 String time = results.getString("match_time");
-                                matchesInfo.setDateTime(date+" "+time);
+                                matchesInfo.setDateTime(date + " " + time);
 
                                 //matchesInfo.setDate(DateFormat.getReadableDateFormat(time));
                                 //matchesInfo.setTime(DateFormat.getReadableTimeFormat(time));
-                              //  matchesInfo.setDateTime(DateFormat.getReadableDateTimeFormat(time));
+                                //  matchesInfo.setDateTime(DateFormat.getReadableDateTimeFormat(time));
                             }
-                            String code = results.getString("code");
-                            matchesInfo.setcode(code);
+
+
+
+                            if (results.has("code")) {
+                                String code = results.getString("code");
+                                matchesInfo.setcode(code);
+                            }
+
+                            if (results.has("contest_id")) {
+                                String contestId = results.getString("contest_id");
+                                matchesInfo.setContestId(contestId);
+                            }
                            // JSONObject awayJSON = results.getJSONObject("away");
                             String away = results.getString("visitor_team");
                             matchesInfo.setVisitorsTeam(away);
@@ -229,8 +230,7 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
 
     @Override
     public void onItemClickListener(int position) {
-       Boolean ss= matchesInfoList.get(position).playing();
-       Intent intent = new Intent(getActivity(), MatchOddsTabsActivity.class);
+        Intent intent = new Intent(getActivity(), MatchOddsTabsActivity.class);
         intent.putExtra("MatchInfo", matchesInfoList.get(position));
         startActivity(intent);
     }

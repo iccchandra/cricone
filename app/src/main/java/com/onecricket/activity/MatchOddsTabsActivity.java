@@ -58,6 +58,10 @@ public class MatchOddsTabsActivity extends AppCompatActivity implements MatchOdd
                     visitorTeam = visitorTeam.substring(0,3).toUpperCase();
                 }
                 title = homeTeam + " Vs " + visitorTeam;
+                String contestName = matchesInfo.getContestName();
+                if (contestName != null && contestName.length() > 0) {
+                    title = title + "(" + contestName +")";
+                }
                 toolbar.setTitle(title);
             }
         }

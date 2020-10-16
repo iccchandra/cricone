@@ -18,6 +18,8 @@ public class MatchesInfo implements Serializable {
     private boolean isMatchInProgress;
     private boolean playing;
     private String matchDate;
+    private String contestName;
+    private String contestId;
 
     public String getcode() {
         return code;
@@ -143,5 +145,21 @@ public class MatchesInfo implements Serializable {
 
     public void setMatchDate(String matchDate) {
         this.matchDate = matchDate;
+    }
+
+    public String getContestName() {
+        return contestName;
+    }
+
+    public void setContestName(String contestName) {
+        this.contestName = contestName;
+    }
+
+    public String getContestId() {
+        return contestId;
+    }
+
+    public void setContestId(String contestId) {
+        this.contestId = contestId;
     }
 }

@@ -218,7 +218,7 @@ public class LeaderboardFragment extends Fragment {
         try {
             inputJSON.put("home_team", matchesInfo.getHomeTeam());
             inputJSON.put("visitor_team", matchesInfo.getVisitorsTeam());
-            inputJSON.put("match_date", matchesInfo.getMatchDate());
+            inputJSON.put("match_date", matchesInfo.getDate());
         } catch (JSONException e) {
             e.printStackTrace();
         }

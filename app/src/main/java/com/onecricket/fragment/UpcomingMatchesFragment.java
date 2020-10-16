@@ -183,7 +183,6 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
                                 String time = results.getString("time");
                                 timediffhelp = results.getString("time");
                                 matchesInfo.setDate(DateFormat.getReadableDateFormat(time));
-                                matchesInfo.setMatchDate(DateFormat.getReadableDateFormat(time));
                                 matchesInfo.setTime(DateFormat.getReadableTimeFormat(time));
                                 matchesInfo.setDateTime(DateFormat.getReadableDateTimeFormat(time));
                             }

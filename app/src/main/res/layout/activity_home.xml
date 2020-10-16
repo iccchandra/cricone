@@ -44,18 +44,16 @@
             android:layout_height="55dp"
             android:background="@drawable/demo_home_2"/>
 
-        <Button
+        <ImageView
+            android:id="@+id/im_Notification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:id="@+id/joincode"
-            android:text="Join Friends"
-            android:drawablePadding="2dp"
-            android:textStyle="bold"
-            android:textColor="@color/btn_txt_color"
-            android:clickable="true"
-            android:layout_alignParentRight="true"
-            style="?android:attr/borderlessButtonStyle"/>
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="11dp"
+            android:padding="10dp"
+            android:src="@drawable/notification_icon_active"
+            android:visibility="visible" />
 
     </RelativeLayout>
 
@@ -161,8 +159,6 @@
             android:text="MORE" />
 
     </com.google.android.material.tabs.TabLayout>
-
-
 
     <LinearLayout
         android:id="@+id/fragment_container"

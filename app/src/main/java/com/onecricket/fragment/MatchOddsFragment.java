@@ -1033,20 +1033,23 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
                         String currentHour = timeFormat.format(currentTime);
                         if (matchType.equals(IN_PLAY)) {
                             jsonParam.put("match_date", currentDate);
-                            jsonParam.put("match_time", currentDate);
+                            jsonParam.put("match_time", currentHour);
 
                         }
                         else {
                             try {
-                                Calendar calendar = Calendar.getInstance();
+                               /* Calendar calendar = Calendar.getInstance();
                                 TimeZone tz = TimeZone.getDefault();
                                 calendar.add(Calendar.MILLISECOND, tz.getOffset(calendar.getTimeInMillis()));
                                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                                 SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+                                Date dateTimeZone = new Date((long) (Long.parseLong(matchesInfo.getDate())) * 1000);
 
-                                Date currenTimeZone = new Date((long) (Long.parseLong(matchesInfo.getTime())) * 1000);
-                                jsonParam.put("match_date", sdf.format(currenTimeZone));
-                                jsonParam.put("match_time", time.format(currenTimeZone));
+                                Date currenTimeZone = new Date((long) (Long.parseLong(matchesInfo.getTime())) * 1000);*/
+                               String currenTimeZone =matchesInfo.getDate();
+                               System.out.println("currenTimeZone"+currenTimeZone);
+                                jsonParam.put("match_date", matchesInfo.getDate());
+                                jsonParam.put("match_time", matchesInfo.getTime());
                             }
                             catch (NumberFormatException e) {
                                 jsonParam.put("match_date", matchesInfo.getDate());

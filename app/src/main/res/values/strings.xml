@@ -154,6 +154,7 @@
     <string name="game_slip">Game Slip</string>
     <string name="mega_contest">Mega Contest</string>
     <string name="data_is_not_available">Data not available</string>
+    <string name="enter_code">Enter Code</string>
 
 
 </resources>

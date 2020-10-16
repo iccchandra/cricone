@@ -95,10 +95,16 @@ public class LeaderboardFragment extends Fragment {
 
         if (NetworkState.isNetworkAvailable(context)) {
             if (getArguments() != null) {
-                boolean isGlobalLeaderBoard = getArguments().getBoolean("IS_GLOBAL_LEADERBOARD");
+                boolean isContest = getArguments().getBoolean("IS_PRIVATE_CONTEST");
                 fId = getArguments().getString("F_ID");
                 matchesInfo = (MatchesInfo) getArguments().getSerializable("matchesInfo");
-                callLeaderBoardAPI(isGlobalLeaderBoard);
+                if (isContest) {
+                    callPrivateContestLeaderBoard();
+                }
+                else {
+                    callLeaderBoardAPI();
+                }
+
             }
         }
         else {
@@ -164,26 +170,49 @@ public class LeaderboardFragment extends Fragment {
         }
     }
 
-    private void callLeaderBoardAPI(boolean isGlobalLeaderBoard) {
+    private void callPrivateContestLeaderBoard() {
+        dismissProgressDialog(progressAlertDialog);
+        progressAlertDialog.show();
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        String url = ApiClient.BASE_URL +  "/myrest/user/private_contest_leaderboard";
+
+        JSONObject inputJSON = new JSONObject();
+        try {
+            inputJSON.put("contest_id", matchesInfo.getContestId());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, inputJSON, response -> {
+            dismissProgressDialog(progressAlertDialog);
+            Log.d(TAG, response.toString());
+            displayResponseData(response);
+        }, error -> {
+            dismissProgressDialog(progressAlertDialog);
+            if (error.getMessage() != null) {
+                Log.d(TAG, error.getMessage());
+            }
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                SessionManager sessionManager = new SessionManager();
+                headers.put("Authorization", sessionManager.getUser(context).getToken());
+                Log.d(TAG, sessionManager.getUser(context).getToken());
+                return headers;
+            }
+        };
+
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    private void callLeaderBoardAPI() {
         dismissProgressDialog(progressAlertDialog);
         progressAlertDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         String url = ApiClient.BASE_URL +  "/myrest/user/game_leaderboard";
-
-        /*if (isGlobalLeaderBoard) {
-//            url = ApiClient.BASE_URL +  ":4040/global/leader?userid=" + sessionManager.getUser(context).getUser_id();
-            url = ApiClient.BASE_URL + "/myrest/user/leaderboard";
-        }
-        else {
-//            url = ApiClient.BASE_URL +  ":4040/game/leader?fi=" + fId;
-            url = ApiClient.BASE_URL +  "/myrest/user/user_roi";
-        }*/
-
-        /*{
-            "home_team" : "Sunrisers Hyderabad",
-                "visitor_team" : "Kings XI Punjab",
-                "match_date" : "2020-10-08"
-        }*/
 
         JSONObject inputJSON = new JSONObject();
         try {
@@ -276,9 +305,6 @@ public class LeaderboardFragment extends Fragment {
                                 headerLayout.setVisibility(View.GONE);
                                 noDataView.setVisibility(View.VISIBLE);
                             }
-
-
-
                         }
 
                     }

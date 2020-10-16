@@ -195,14 +195,4 @@ public class GlobalLeaderActivity extends AppCompatActivity {
             return mNumOfTabs;
         }
     }
-
-    private void loadFragment() {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        Bundle bundle = new Bundle();
-        bundle.putBoolean("IS_GLOBAL_LEADERBOARD", true);
-        LeaderboardFragment leaderboardFragment = new LeaderboardFragment();
-        leaderboardFragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.frame_layout, leaderboardFragment);
-        fragmentTransaction.commit();
-    }
 }

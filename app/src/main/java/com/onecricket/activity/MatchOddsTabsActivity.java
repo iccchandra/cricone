@@ -129,7 +129,12 @@ public class MatchOddsTabsActivity extends AppCompatActivity implements MatchOdd
                     return chatRoomFragment;
                 case 2:
                     LeaderboardFragment leaderboardFragment = new LeaderboardFragment();
-                    bundle.putBoolean("IS_GLOBAL_LEADERBOARD", false);
+                    if (matchesInfo.getContestId() != null && matchesInfo.getContestId().trim().length() > 0) {
+                        bundle.putBoolean("IS_PRIVATE_CONTEST", true);
+                    }
+                    else {
+                        bundle.putBoolean("IS_PRIVATE_CONTEST", false);
+                    }
                     bundle.putString("F_ID", matchesInfo.getId());
                     bundle.putSerializable("matchesInfo", matchesInfo);
                     leaderboardFragment.setArguments(bundle);

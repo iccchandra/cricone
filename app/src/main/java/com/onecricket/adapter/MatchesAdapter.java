@@ -54,11 +54,16 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         MatchesInfo matchesInfo = matchesInfoList.get(position);
         String teamA = matchesInfo.getHomeTeam();
         String teamB = matchesInfo.getVisitorsTeam();
+
         String league = matchesInfo.getLeagueName();
+        if (league.contains(" ")) {
+            String[] leagueArray = league.split(" ");
+            league = leagueArray[leagueArray.length-1];
+        }
         holder.teamsTextView.setText(league);
-        holder.teamATextView.setText(teamA);
-        holder.teamBTextView.setText(teamB);
-//        holder.matchStatus.setText(matchType);
+
+        holder.teamATextView.setText(getFirstWord(teamA));
+        holder.teamBTextView.setText(getFirstWord(teamB));
         if (matchType.equalsIgnoreCase("upcoming")) {
 
             if( UpcomingMatchesFragment.contest==true) {
@@ -264,6 +269,17 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
             this.code       = itemView.findViewById(R.id.code);
 
         }
+    }
+
+    private String getFirstWord(String title) {
+        if (title.toLowerCase().contains("bangalore")) {
+            return "Bangalore";
+        }
+        else if (title.contains(" ")) {
+            String[] titleArray = title.split(" ");
+            return titleArray[0];
+        }
+        return title;
     }
 
     public interface ClickListener {

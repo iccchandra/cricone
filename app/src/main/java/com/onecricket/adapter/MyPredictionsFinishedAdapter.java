@@ -47,11 +47,11 @@ public class MyPredictionsFinishedAdapter extends RecyclerView.Adapter<MyPredict
          if (finishedList != null) {
             Finished finished = finishedList.get(position);
             matchName = finished.getMatchname();
-            betValue = finished.getBetValue();
+            betValue = getFirstWord(finished.getBetValue());
             betAmount = finished.getBetAmount();
             oddName = finished.getOddname();
             oddValue = finished.getOddvalue();
-            teams = finished.getHomeTeam() + " Vs " + finished.getVisitorTeam();
+            teams = getFirstWord(finished.getHomeTeam()) + " Vs " + getFirstWord(finished.getVisitorTeam());
             date = finished.getMatchDate() + " " + finished.getMatchTime();
             if (finished.getStatus().equals("lost")) {
                 holder.betStatus.setImageResource(R.drawable.lost);
@@ -75,6 +75,23 @@ public class MyPredictionsFinishedAdapter extends RecyclerView.Adapter<MyPredict
         holder.teamsTextView.setText(teams);
 
 //        holder.share.setOnClickListener(view -> onShareClicked());
+    }
+
+    private String getFirstWord(String title) {
+        if (title.toLowerCase().contains("bangalore")) {
+            return "Bangalore";
+        }
+        else if (title.toLowerCase().contains("chennai")) {
+            return "Chennai";
+        }
+        else if (title.toLowerCase().contains("sunrisers")) {
+            return "Hyderabad";
+        }
+        else if (title.contains(" ")) {
+            String[] titleArray = title.split(" ");
+            return titleArray[0];
+        }
+        return title;
     }
 
     @Override

@@ -50,11 +50,11 @@ public class MyInPlayPredictionsAdapter extends RecyclerView.Adapter<MyInPlayPre
          if (inProgressList != null) {
             InProgress inProgress = inProgressList.get(position);
             matchName = inProgress.getMatchname();
-            betValue = inProgress.getBetValue();
+            betValue = getFirstWord(inProgress.getBetValue());
             betAmount = inProgress.getBetAmount();
             oddName = inProgress.getOddname();
             oddValue = inProgress.getOddvalue();
-            teams = inProgress.getHomeTeam() + " Vs " + inProgress.getVisitorTeam();
+            teams = getFirstWord(inProgress.getHomeTeam()) + " Vs " + getFirstWord(inProgress.getVisitorTeam());
             date = inProgress.getMatchDate() + " " + inProgress.getMatchTime();
         }
 
@@ -117,5 +117,22 @@ public class MyInPlayPredictionsAdapter extends RecyclerView.Adapter<MyInPlayPre
 
     public interface DeleteItemListener {
         void onDeleteClicked(int position);
+    }
+
+    private String getFirstWord(String title) {
+        if (title.toLowerCase().contains("bangalore")) {
+            return "Bangalore";
+        }
+        else if (title.toLowerCase().contains("chennai")) {
+            return "Chennai";
+        }
+        else if (title.toLowerCase().contains("sunrisers")) {
+            return "Hyderabad";
+        }
+        else if (title.contains(" ")) {
+            String[] titleArray = title.split(" ");
+            return titleArray[0];
+        }
+        return title;
     }
 }

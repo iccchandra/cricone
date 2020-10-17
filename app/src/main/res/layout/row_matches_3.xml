@@ -9,13 +9,9 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+ >
 
-
-    >
-
-
-
-    <androidx.cardview.widget.CardView
+ <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -62,10 +58,10 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/relay"
-                    android:layout_weight="2">
+                    android:layout_weight="1">
 
                     <TextView
                         android:id="@+id/team_a"
@@ -73,15 +69,15 @@
                         android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:lines="2"
+                        android:lines="1"
                         android:layout_marginStart="5dp"
-                        android:text="Team A " />
+                        android:text="Team A" />
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="5dp"
                         android:layout_below="@+id/team_a">
 
 
@@ -118,34 +114,29 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="23dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1">
-
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/alarm" />
 
 
                     <TextView
                         android:id="@+id/match_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:layout_centerInParent="true"
+                        android:drawableLeft="@drawable/timer"
+                        android:text="Upcoming"
                         android:textAlignment="center"
-                        android:textColor="#006400"
-                        android:text="Upcoming" />
+                        android:drawablePadding="5dp"
+                        android:textColor="@color/btn_txt_color"
+                        />
 
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2">
+                    android:layout_weight="1">
 
                     <TextView
                         android:id="@+id/team_b"
@@ -153,15 +144,14 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="5dp"
-                        android:gravity="end"
-                        android:lines="2"
+                        android:lines="1"
                         android:textColor="@color/black"
                         android:text="Team B" />
 
                     <RelativeLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_marginTop="5dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
                         android:layout_below="@+id/team_b">
 
 
@@ -181,15 +171,15 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/teams_layout"
             android:layout_centerHorizontal="true"
-            android:text="Play with Friends"
+            android:text=""
             android:textStyle="bold"
-            android:background="@color/wk_bat_ar_bows_create_team"
             android:gravity="center"
+            android:paddingTop="@dimen/dimen_5dp"
             android:layout_gravity="end"
             android:paddingRight="@dimen/dimen_10dp"
-            android:textColor="@color/white"
-            android:drawablePadding="3dp"
-            app:drawableStartCompat="@drawable/conflict" />
+            android:textColor="@color/btn_txt_color"
+            android:drawablePadding="5dp"
+            app:drawableStartCompat="@drawable/shake_hands" />
 
 
         <TextView
@@ -198,15 +188,13 @@
             android:layout_height="wrap_content"
             android:text="Play with Friends"
             android:gravity="center"
+            android:paddingLeft="@dimen/dimen_10dp"
             android:layout_below="@+id/relay"
-            android:padding="3dp"
-            android:textStyle="bold"
-            android:layout_marginHorizontal="@dimen/dimen_10dp"
-            android:background="@color/wk_bat_ar_bows_create_team"
-            android:textColor="@color/white"
+            android:background="@color/color_5"
+            android:textColor="@color/btn_txt_color"
             android:layout_gravity="bottom"
             android:visibility="gone"
-            app:drawableStartCompat="@drawable/ic_share_24"
+            app:drawableStartCompat="@drawable/sharing"
            />
 
 

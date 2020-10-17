@@ -275,6 +275,9 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         if (title.toLowerCase().contains("bangalore")) {
             return "Bangalore";
         }
+        if (title.toLowerCase().contains("chennai")) {
+            return "Chennai";
+        }
         else if (title.contains(" ")) {
             String[] titleArray = title.split(" ");
             return titleArray[0];

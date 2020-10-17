@@ -296,16 +296,16 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
 
         MatchesInfo matchesInfo = matchesInfoList.get(position);
 
-            Calendar cal = Calendar.getInstance();
-            String tempdate = matchesInfo.getDate();
-            cal.add(Calendar.HOUR,+ (Integer.parseInt(tempdate.substring(0,tempdate.indexOf("h")))));
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+           // Calendar cal = Calendar.getInstance();
+           // String tempdate = matchesInfo.getDate();
+            //cal.add(Calendar.HOUR,+ (Integer.parseInt(tempdate.substring(0,tempdate.indexOf("h")))));
+            //SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         JSONObject inputJSON = new JSONObject();
         try {
             inputJSON.put("contest_name", groupName);
             inputJSON.put("home_team", matchesInfo.getHomeTeam());
             inputJSON.put("visitor_team", matchesInfo.getVisitorsTeam());
-            inputJSON.put("match_date", dateFormat.format(cal.getTime()));
+            inputJSON.put("match_date",matchesInfo.getDate());
             inputJSON.put("match_time", matchesInfo.getTime());
             inputJSON.put("fi_id", matchesInfo.getId());
             inputJSON.put("status", "upcoming");

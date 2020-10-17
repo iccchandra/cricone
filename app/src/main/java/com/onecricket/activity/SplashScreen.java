@@ -49,6 +49,7 @@ public class SplashScreen extends AppCompatActivity {
 
                 if (saveLogin == true) {
                     HomeScreen();
+                    finish();
                 } else {
                     LoginScreen();
                     finish();
@@ -64,8 +65,7 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     public void HomeScreen() {
-        Intent i = new Intent(SplashScreen.this, HomeActivity.class);
-        startActivity(i);
+        startActivity(new Intent(SplashScreen.this, HomeActivity.class));
     }
 
 

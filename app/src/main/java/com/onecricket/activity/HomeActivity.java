@@ -117,8 +117,7 @@ import static com.onecricket.APICallingPackage.Constants.HOMEBANNERTYPE;
 import static com.onecricket.APICallingPackage.Constants.UPDATEAPPTYPE;
 
 public class HomeActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
-        ResponseManager,
-        LocationServiceManager.Listener
+        ResponseManager
 {
 
     private static final String PREFS_KEY_CURRENT_DATE = "key_current_date";
@@ -156,7 +155,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
     private ImageView[] dots1;
     private int dotscount1;
     private androidx.appcompat.app.AlertDialog progressAlertDialog;
-    private LocationServiceManager locationServiceManager;
+
     private AlertDialogHelper alertDialogHelper;
 
     public static HomeActivity getInstance() {
@@ -176,7 +175,19 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         }
         initialiseHomeActivity();
         checkDateOfBirth();
+        if (isTokenAvailable(this, sessionManager)) {
+            onTokenAvailable();
+        }
+        else {
+            logout();
+        }
+    }
 
+    private boolean isTokenAvailable(Context context, SessionManager sessionManager) {
+        return sessionManager != null &&
+               sessionManager.getUser(context) != null &&
+               sessionManager.getUser(context).getToken() != null &&
+               sessionManager.getUser(context).getToken().trim().length() > 0;
     }
 
     @Override
@@ -188,16 +199,13 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
     private void checkDateOfBirth() {
         String dateOfBirth = sessionManager.getUser(context).getDateOfBirth();
         if (dateOfBirth == null || dateOfBirth.length() == 0) {
-            startActivity(new Intent( context, EditProfileActivity.class));
-            finish();
+            showDobAlertDialog(context,
+                               context.getString(R.string.dob_needed__alert_title),
+                               context.getString(R.string.dob_needed__alert_Message));
         }
     }
 
     private void initialiseHomeActivity() {
-        locationServiceManager = new LocationServiceManagerImpl(this);
-        locationServiceManager.setListener(this);
-        locationServiceManager.startLocationService();
-
         responseManager = this;
         apiRequestManager = new APIRequestManager(activity);
         alertDialogHelper = AlertDialogHelper.getInstance();
@@ -252,7 +260,6 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
         saveLogin = loginPreferences.getBoolean("saveLogin", false);
-
 
         setupTabIcons1();
     }
@@ -529,11 +536,9 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                 String MobileVName = BuildConfig.VERSION_NAME;
                 if (maintenance_status.equals("0")) {
                     AlertDialog.Builder ab = new AlertDialog.Builder(activity);
-                    ab.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            finishAffinity();
-                            finish();
-                        }
+                    ab.setPositiveButton("Exit", (dialog, id) -> {
+                        finishAffinity();
+                        finish();
                     });
                     AlertDialog alert = ab.create();
                     alert.setCanceledOnTouchOutside(false);
@@ -542,8 +547,6 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                 } else if (!MobileVName.equals(NewV)) {
                     Dialog(Note, "Update", "What's new");
                 }
-
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -835,13 +838,6 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
             }
         }
-        else if (requestCode == AppConstants.LOCATION_REQUEST) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                locationServiceManager.getLastKnownLocation();
-            } else {
-                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 
     public boolean isBonusAvailable() {
@@ -914,126 +910,6 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
     public interface DataBindingComponent {
     }
 
-    @Override
-    public void onGpsDisabled() {
-
-    }
-
-    @Override
-    public void onGpsEnabled() {
-        requestLocationPermissions();
-    }
-
-    @Override
-    public void askGpsLocationPermission(Exception e) {
-        try {
-            ResolvableApiException rae = (ResolvableApiException) e;
-            rae.startResolutionForResult((Activity) context, AppConstants.GPS_REQUEST);
-        } catch (IntentSender.SendIntentException sie) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == AppConstants.GPS_REQUEST) {
-                requestLocationPermissions();
-            }
-        }
-    }
-
-    private void requestLocationPermissions() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-        {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{ Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION }, AppConstants.LOCATION_REQUEST);
-        }
-        else {
-            locationServiceManager.getLastKnownLocation();
-        }
-    }
-
-
-    @Override
-    public void onLocationSuccess(double latitude, double longitude) {
-        Geocoder geoCoder = new Geocoder(this, Locale.getDefault()); //it is Geocoder
-        StringBuilder builder = new StringBuilder();
-        try {
-            List<Address> address = geoCoder.getFromLocation(latitude, longitude, 1);
-            String locality = address.get(0).getAdminArea();
-            int maxLines = address.get(0).getMaxAddressLineIndex();
-            for (int i = 0; i < maxLines; i++) {
-                String addressStr = address.get(0).getAddressLine(i);
-                builder.append(addressStr);
-                builder.append(" ");
-            }
-
-            if (locality != null && locality.trim().length() > 0) {
-                callStateStatusApi(locality);
-            }
-
-//            Toast.makeText(context, locality, Toast.LENGTH_SHORT).show();
-
-        } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private boolean isTokenAvailable(Context context, SessionManager sessionManager) {
-        return sessionManager != null &&
-                sessionManager.getUser(context) != null &&
-                sessionManager.getUser(context).getToken() != null &&
-                sessionManager.getUser(context).getToken().trim().length() > 0;
-    }
-
-    private void callStateStatusApi(String locality) {
-        dismissProgressDialog(progressAlertDialog);
-        progressAlertDialog.show();
-
-        ApiInterface apiInterface = ApiClient.getClientWithAuthorisation(sessionManager.getUser(context).getToken()).create(ApiInterface.class);
-
-        JSONObject inputJSON = new JSONObject();
-        try {
-            inputJSON.put("status", "blocked");
-            inputJSON.put("state", locality);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-        Observable<StateResponse> observable = apiInterface.sendStateInfo(ApiClient.getRequestBody(inputJSON));
-        observable.subscribeOn(Schedulers.newThread()).
-                observeOn(AndroidSchedulers.mainThread())
-                .map(result -> result)
-                .subscribe(this::onSuccessResponse, this::onErrorResponse);
-    }
-
-    private void onErrorResponse(Throwable throwable) {
-        dismissProgressDialog(progressAlertDialog);
-    }
-
-    private void onSuccessResponse(StateResponse stateResponse) {
-        dismissProgressDialog(progressAlertDialog);
-        if (stateResponse.getMessage() == null) {
-            showAlertDialog(context, "Error", "Something went wrong. Please try again later.");
-        }
-        else if (stateResponse.getMessage().equalsIgnoreCase("No State Allowed") ) {
-            showAlertDialog(context, "Sorry!", "This app is not allowed in this state.");
-        }
-        else {
-            if (isTokenAvailable(context, sessionManager)) {
-                onTokenAvailable();
-            }
-            else {
-                logout();
-            }
-        }
-    }
-
     public void showAlertDialog(Context context, String title, String message) {
         FlatDialog flatDialog = new FlatDialog(context);
         flatDialog.setCancelable(false);
@@ -1060,25 +936,25 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         flatDialog.setCancelable(false);
         flatDialog.setCanceledOnTouchOutside(false);
         flatDialog.setIcon(R.drawable.crying)
-                .setTitle(title)
-                .setTitleColor(Color.parseColor("#000000"))
-                .setSubtitle(message)
-                .setSubtitleColor(Color.parseColor("#000000"))
-                .setBackgroundColor(Color.parseColor("#a26ea1"))
-                .setFirstButtonColor(Color.parseColor("#f18a9b"))
-                .setFirstButtonTextColor(Color.parseColor("#000000"))
-                .setFirstButtonText("Close")
-                .setSecondButtonColor(Color.parseColor("#f18a9b"))
-                .setSecondButtonTextColor(Color.parseColor("#000000"))
-                .setSecondButtonText("Go to Profile screen")
-                .withFirstButtonListner(view -> {
-                    finish();
-                })
-                .withSecondButtonListner(view -> {
-                    startActivity(new Intent( context, EditProfileActivity.class));
-                    finish();
-                })
-                .show();
+                  .setTitle(title)
+                  .setTitleColor(Color.parseColor("#000000"))
+                  .setSubtitle(message)
+                  .setSubtitleColor(Color.parseColor("#000000"))
+                  .setBackgroundColor(Color.parseColor("#a26ea1"))
+                  .setFirstButtonColor(Color.parseColor("#f18a9b"))
+                  .setFirstButtonTextColor(Color.parseColor("#000000"))
+                  .setFirstButtonText("Close")
+                  .setSecondButtonColor(Color.parseColor("#f18a9b"))
+                  .setSecondButtonTextColor(Color.parseColor("#000000"))
+                  .setSecondButtonText("Go to Profile screen")
+                  .withFirstButtonListner(view -> {
+                      finish();
+                  })
+                  .withSecondButtonListner(view -> {
+                      startActivity(new Intent( context, EditProfileActivity.class));
+                      finish();
+                  })
+                  .show();
 
     }
 }

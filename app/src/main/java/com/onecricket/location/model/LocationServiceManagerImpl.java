@@ -15,8 +15,6 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.onecricket.location.GpsUtils;
 
-import java.util.Locale;
-
 public class LocationServiceManagerImpl implements LocationServiceManager, GpsUtils.onGpsListener {
 
     private Context context;
@@ -31,6 +29,7 @@ public class LocationServiceManagerImpl implements LocationServiceManager, GpsUt
 
     private boolean isContinue = false;
     private boolean isGPS = false;
+    private GpsUtils gpsUtils;
 
     public LocationServiceManagerImpl(Context context) {
         this.context = context;
@@ -71,10 +70,9 @@ public class LocationServiceManagerImpl implements LocationServiceManager, GpsUt
             }
         };
 
-        GpsUtils gpsUtils = new GpsUtils(context);
+        gpsUtils = new GpsUtils(context);
         gpsUtils.setListener(this);
         gpsUtils.turnGPSOn();
-
     }
 
     @Override
@@ -115,5 +113,8 @@ public class LocationServiceManagerImpl implements LocationServiceManager, GpsUt
         });
     }
 
-
+    @Override
+    public void turnGpsOn() {
+        gpsUtils.turnGPSOn();
+    }
 }

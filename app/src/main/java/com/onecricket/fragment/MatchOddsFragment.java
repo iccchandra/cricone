@@ -123,6 +123,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
     private TextView coinsRemainingTextView;
     private TextView coinsRemainingLabelTextView;
     private AlertDialogHelper alertDialogHelper;
+    private boolean stateAllowedToPlayGame = false;
 
 
     @Nullable
@@ -245,6 +246,11 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         Log.d(TAG, "getResult "+message);
     }
 
+
+    public void allowPlayingGame() {
+        stateAllowedToPlayGame = true;
+    }
+
     private class BetSlipSheetCallBack extends BottomSheetBehavior.BottomSheetCallback {
 
         @Override
@@ -278,6 +284,14 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
             Toast.makeText(context, "Please add stakes", Toast.LENGTH_SHORT).show();
         }
         else {
+            if (!stateAllowedToPlayGame) {
+                if (!alertDialogHelper.isShowing()) {
+                    alertDialogHelper.showAlertDialog(context,
+                            "Error",
+                            "Playing game is not allowed in this State");
+                }
+                return;
+            }
             boolean addedBetAmount = true;
             for (int i = 0; i < matchOddsList.size(); i++) {
                 MatchOdds matchOdds = matchOddsList.get(i);

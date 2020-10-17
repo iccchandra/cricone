@@ -117,8 +117,8 @@ import static com.onecricket.APICallingPackage.Constants.HOMEBANNERTYPE;
 import static com.onecricket.APICallingPackage.Constants.UPDATEAPPTYPE;
 
 public class HomeActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
-                                                               ResponseManager,
-                                                               LocationServiceManager.Listener
+        ResponseManager,
+        LocationServiceManager.Listener
 {
 
     private static final String PREFS_KEY_CURRENT_DATE = "key_current_date";
@@ -174,19 +174,18 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         if (sessionManager.getUser(context).getToken() != null) {
             Log.d("HomeActivity-Token", sessionManager.getUser(context).getToken());
         }
-        String dateOfBirth = sessionManager.getUser(context).getDateOfBirth();
-        if (dateOfBirth != null && dateOfBirth.length() > 0) {
-            initialiseHomeActivity();
-        }
-        else {
-            startActivity(new Intent( context, EditProfileActivity.class));
-            finish();
-        }
+        initialiseHomeActivity();
+        checkDateOfBirth();
+
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
+        checkDateOfBirth();
+    }
+
+    private void checkDateOfBirth() {
         String dateOfBirth = sessionManager.getUser(context).getDateOfBirth();
         if (dateOfBirth == null || dateOfBirth.length() == 0) {
             startActivity(new Intent( context, EditProfileActivity.class));
@@ -201,14 +200,14 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
         responseManager = this;
         apiRequestManager = new APIRequestManager(activity);
-
+        alertDialogHelper = AlertDialogHelper.getInstance();
         progressAlertDialog = CommonProgressDialog.getProgressDialog(context);
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 
-        alertDialogHelper = AlertDialogHelper.getInstance();
+
         Animation shake = AnimationUtils.loadAnimation(activity, R.anim.shake);
-      //  binding.imNotification.startAnimation(shake);
+        //  binding.imNotification.startAnimation(shake);
         binding.VPBanner.setNestedScrollingEnabled(false);
         binding.bonus.setOnClickListener(view -> {
             if (NetworkState.isNetworkAvailable(context)) {
@@ -655,7 +654,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
         tv_UpdateNote.setText(UpdateNote);
         tv_UpdateApp.setText(UpdateorInstall);
-     //   tv_WhatsNewHead.setText(WhatsnewHead);
+        //   tv_WhatsNewHead.setText(WhatsnewHead);
 
         tv_DClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -947,11 +946,11 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private void requestLocationPermissions() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         {
             ActivityCompat.requestPermissions(this,
-                                              new String[]{ Manifest.permission.ACCESS_FINE_LOCATION,
-                                                            Manifest.permission.ACCESS_COARSE_LOCATION }, AppConstants.LOCATION_REQUEST);
+                    new String[]{ Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION }, AppConstants.LOCATION_REQUEST);
         }
         else {
             locationServiceManager.getLastKnownLocation();
@@ -986,9 +985,9 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private boolean isTokenAvailable(Context context, SessionManager sessionManager) {
         return sessionManager != null &&
-               sessionManager.getUser(context) != null &&
-               sessionManager.getUser(context).getToken() != null &&
-               sessionManager.getUser(context).getToken().trim().length() > 0;
+                sessionManager.getUser(context) != null &&
+                sessionManager.getUser(context).getToken() != null &&
+                sessionManager.getUser(context).getToken().trim().length() > 0;
     }
 
     private void callStateStatusApi(String locality) {
@@ -1020,7 +1019,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
     private void onSuccessResponse(StateResponse stateResponse) {
         dismissProgressDialog(progressAlertDialog);
         if (stateResponse.getMessage() == null) {
-             showAlertDialog(context, "Error", "Something went wrong. Please try again later.");
+            showAlertDialog(context, "Error", "Something went wrong. Please try again later.");
         }
         else if (stateResponse.getMessage().equalsIgnoreCase("No State Allowed") ) {
             showAlertDialog(context, "Sorry!", "This app is not allowed in this state.");
@@ -1051,6 +1050,33 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                 .withFirstButtonListner(view -> {
                     flatDialog.dismiss();
                     logout();
+                })
+                .show();
+
+    }
+
+    public void showDobAlertDialog(Context context, String title, String message) {
+        FlatDialog flatDialog = new FlatDialog(context);
+        flatDialog.setCancelable(false);
+        flatDialog.setCanceledOnTouchOutside(false);
+        flatDialog.setIcon(R.drawable.crying)
+                .setTitle(title)
+                .setTitleColor(Color.parseColor("#000000"))
+                .setSubtitle(message)
+                .setSubtitleColor(Color.parseColor("#000000"))
+                .setBackgroundColor(Color.parseColor("#a26ea1"))
+                .setFirstButtonColor(Color.parseColor("#f18a9b"))
+                .setFirstButtonTextColor(Color.parseColor("#000000"))
+                .setFirstButtonText("Close")
+                .setSecondButtonColor(Color.parseColor("#f18a9b"))
+                .setSecondButtonTextColor(Color.parseColor("#000000"))
+                .setSecondButtonText("Go to Profile screen")
+                .withFirstButtonListner(view -> {
+                    finish();
+                })
+                .withSecondButtonListner(view -> {
+                    startActivity(new Intent( context, EditProfileActivity.class));
+                    finish();
                 })
                 .show();
 

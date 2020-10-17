@@ -174,7 +174,27 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         if (sessionManager.getUser(context).getToken() != null) {
             Log.d("HomeActivity-Token", sessionManager.getUser(context).getToken());
         }
+        String dateOfBirth = sessionManager.getUser(context).getDateOfBirth();
+        if (dateOfBirth != null && dateOfBirth.length() > 0) {
+            initialiseHomeActivity();
+        }
+        else {
+            startActivity(new Intent( context, EditProfileActivity.class));
+            finish();
+        }
+    }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        String dateOfBirth = sessionManager.getUser(context).getDateOfBirth();
+        if (dateOfBirth == null || dateOfBirth.length() == 0) {
+            startActivity(new Intent( context, EditProfileActivity.class));
+            finish();
+        }
+    }
+
+    private void initialiseHomeActivity() {
         locationServiceManager = new LocationServiceManagerImpl(this);
         locationServiceManager.setListener(this);
         locationServiceManager.startLocationService();

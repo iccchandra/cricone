@@ -2,6 +2,7 @@ package com.onecricket.activity;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.onecricket.Bean.UserDetails;
 import com.onecricket.R;
 import com.onecricket.utils.SessionManager;
 import com.onecricket.databinding.ActivityEditProfileBinding;
+import com.onecricket.utils.crypto.AlertDialogHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -95,22 +97,29 @@ public class EditProfileActivity extends AppCompatActivity implements ResponseMa
             binding.tvEditMale.setBackgroundResource(R.drawable.roundbutton);
             binding.tvEditFeMale.setBackgroundResource(R.drawable.roundbutton_hover_back);
         });
-        binding.tvEditFeMale.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gender = "female";
-                binding.tvEditFeMale.setBackgroundResource(R.drawable.roundbutton);
-                binding.tvEditMale.setBackgroundResource(R.drawable.roundbutton_hover_back);
-            }
+        binding.tvEditFeMale.setOnClickListener(view -> {
+            gender = "female";
+            binding.tvEditFeMale.setBackgroundResource(R.drawable.roundbutton);
+            binding.tvEditMale.setBackgroundResource(R.drawable.roundbutton_hover_back);
         });
 
-        binding.tvEditUpdateProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        binding.tvEditUpdateProfile.setOnClickListener(view -> {
+            if (isDateOfBirthSelected()) {
                 callEditProfile(true);
+            }
+            else {
+                AlertDialogHelper alertDialogHelper = AlertDialogHelper.getInstance();
+                if (!alertDialogHelper.isShowing()) {
+                    alertDialogHelper.showAlertDialog(context, getString(R.string.dob_needed__alert_title), getString(R.string.dob_needed__alert_Message));
+                }
             }
         });
     }
+
+    private boolean isDateOfBirthSelected() {
+        return binding.etEditDob.getText().toString().length() > 0;
+    }
+
     public void initViews() {
         binding.head.tvHeaderName.setText(getResources().getString(R.string.personal_details));
         binding.head.imBack.setOnClickListener(new View.OnClickListener() {
@@ -202,10 +211,11 @@ public class EditProfileActivity extends AppCompatActivity implements ResponseMa
             userDetails.setPincode(binding.etEditPincode.getText().toString());
             userDetails.setState(binding.etEditState.getText().toString());
             userDetails.setToken(sessionManager.getUser(context).getToken());
+            String dateOfBirth = binding.etEditDob.getText().toString();
+            userDetails.setDateOfBirth(dateOfBirth);
             userDetails.setVerify("1");
             sessionManager.setUser(context, userDetails);
-            onBackPressed();
-            finish();
+            gotoHomeScreen();
         }
         else {
             try {
@@ -294,5 +304,11 @@ public class EditProfileActivity extends AppCompatActivity implements ResponseMa
         }
     }
     public interface DataBindingComponent {
+    }
+
+    private void gotoHomeScreen() {
+        Intent intent = new Intent(context, HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }

@@ -155,6 +155,8 @@
     <string name="mega_contest">Mega Contest</string>
     <string name="data_is_not_available">Data not available</string>
     <string name="enter_code">Enter Code</string>
+    <string name= "dob_needed__alert_title">dod_needed</string>
+    <string name= "dob_needed__alert_Message">Please select Date of Birth</string>
 
 
 </resources>

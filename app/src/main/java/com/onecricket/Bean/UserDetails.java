@@ -17,6 +17,7 @@ public class UserDetails {
     private String address;
     private String image;
     private String token;
+    private String dateOfBirth;
 
     public String getImage() {
         return image;
@@ -128,5 +129,13 @@ public class UserDetails {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }

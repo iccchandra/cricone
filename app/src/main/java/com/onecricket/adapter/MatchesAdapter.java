@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.onecricket.R;
 import com.onecricket.fragment.UpcomingMatchesFragment;
 import com.onecricket.pojo.MatchesInfo;
+import com.onecricket.utils.TeamName;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -62,8 +63,8 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         }
         holder.teamsTextView.setText(league);
 
-        holder.teamATextView.setText(getFirstWord(teamA));
-        holder.teamBTextView.setText(getFirstWord(teamB));
+        holder.teamATextView.setText(TeamName.getFirstWord(teamA));
+        holder.teamBTextView.setText(TeamName.getFirstWord(teamB));
         if (matchType.equalsIgnoreCase("upcoming")) {
 
             if( UpcomingMatchesFragment.contest==true) {
@@ -269,23 +270,6 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
             this.code       = itemView.findViewById(R.id.code);
 
         }
-    }
-
-    private String getFirstWord(String title) {
-        if (title.toLowerCase().contains("bangalore")) {
-            return "Bangalore";
-        }
-        else if (title.toLowerCase().contains("chennai")) {
-            return "Chennai";
-        }
-        else if (title.toLowerCase().contains("sunrisers")) {
-            return "Hyderabad";
-        }
-        else if (title.contains(" ")) {
-            String[] titleArray = title.split(" ");
-            return titleArray[0];
-        }
-        return title;
     }
 
     public interface ClickListener {

@@ -16,6 +16,7 @@ import com.onecricket.APICallingPackage.retrofit.betlist.Finished;
 import com.onecricket.APICallingPackage.retrofit.betlist.InProgress;
 import com.onecricket.APICallingPackage.retrofit.betlist.Upcoming;
 import com.onecricket.R;
+import com.onecricket.utils.TeamName;
 
 import java.util.List;
 
@@ -50,11 +51,11 @@ public class MyInPlayPredictionsAdapter extends RecyclerView.Adapter<MyInPlayPre
          if (inProgressList != null) {
             InProgress inProgress = inProgressList.get(position);
             matchName = inProgress.getMatchname();
-            betValue = getFirstWord(inProgress.getBetValue());
+            betValue = TeamName.getFirstWord(inProgress.getBetValue());
             betAmount = inProgress.getBetAmount();
             oddName = inProgress.getOddname();
             oddValue = inProgress.getOddvalue();
-            teams = getFirstWord(inProgress.getHomeTeam()) + " Vs " + getFirstWord(inProgress.getVisitorTeam());
+            teams = TeamName.getFirstWord(inProgress.getHomeTeam()) + " Vs " + TeamName.getFirstWord(inProgress.getVisitorTeam());
             date = inProgress.getMatchDate() + " " + inProgress.getMatchTime();
         }
 
@@ -119,20 +120,4 @@ public class MyInPlayPredictionsAdapter extends RecyclerView.Adapter<MyInPlayPre
         void onDeleteClicked(int position);
     }
 
-    private String getFirstWord(String title) {
-        if (title.toLowerCase().contains("bangalore")) {
-            return "Bangalore";
-        }
-        else if (title.toLowerCase().contains("chennai")) {
-            return "Chennai";
-        }
-        else if (title.toLowerCase().contains("sunrisers")) {
-            return "Hyderabad";
-        }
-        else if (title.contains(" ")) {
-            String[] titleArray = title.split(" ");
-            return titleArray[0];
-        }
-        return title;
-    }
 }

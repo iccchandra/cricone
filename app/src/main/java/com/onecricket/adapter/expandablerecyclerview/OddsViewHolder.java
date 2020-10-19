@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.onecricket.R;
 import com.onecricket.pojo.MatchOdds;
+import com.onecricket.utils.TeamName;
 
 
 public class OddsViewHolder extends ChildViewHolder implements View.OnClickListener{
@@ -25,7 +26,8 @@ public class OddsViewHolder extends ChildViewHolder implements View.OnClickListe
     }
 
     public void bind(MatchOdds matchOdds) {
-        mMoviesTextView.setText(matchOdds.getName());
+        // I personally do not like adding this here. But, the requirements are making me do this.
+        mMoviesTextView.setText(TeamName.getFirstWord(matchOdds.getName()));
         oddsTextView.setText(matchOdds.getOdds());
     }
 

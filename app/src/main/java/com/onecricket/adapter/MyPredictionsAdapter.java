@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.onecricket.APICallingPackage.retrofit.betlist.Upcoming;
 import com.onecricket.R;
+import com.onecricket.utils.TeamName;
 
 import java.util.List;
 
@@ -46,11 +47,11 @@ public class MyPredictionsAdapter extends RecyclerView.Adapter<MyPredictionsAdap
         String date = "";
         Upcoming upcoming = upcomingList.get(position);
         matchName = upcoming.getMatchname();
-        betValue = getFirstWord(upcoming.getBetValue());
+        betValue = TeamName.getFirstWord(upcoming.getBetValue());
         betAmount = upcoming.getBetAmount();
         oddName = upcoming.getOddname();
         oddValue = upcoming.getOddvalue();
-        teams = getFirstWord(upcoming.getHomeTeam()) + " Vs " + getFirstWord(upcoming.getVisitorTeam());
+        teams = TeamName.getFirstWord(upcoming.getHomeTeam()) + " Vs " + TeamName.getFirstWord(upcoming.getVisitorTeam());
         date = upcoming.getMatchDate() + " " + upcoming.getMatchTime();
 
        // holder.matchNameTextView.setText(String.format("Match Name: %s", matchName));
@@ -121,21 +122,5 @@ public class MyPredictionsAdapter extends RecyclerView.Adapter<MyPredictionsAdap
         void onDeleteClicked(int position);
     }
 
-    private String getFirstWord(String title) {
-        if (title.toLowerCase().contains("bangalore")) {
-            return "Bangalore";
-        }
-        else if (title.toLowerCase().contains("chennai")) {
-            return "Chennai";
-        }
-        else if (title.toLowerCase().contains("sunrisers")) {
-            return "Hyderabad";
-        }
-        else if (title.contains(" ")) {
-            String[] titleArray = title.split(" ");
-            return titleArray[0];
-        }
-        return title;
-    }
 
 }

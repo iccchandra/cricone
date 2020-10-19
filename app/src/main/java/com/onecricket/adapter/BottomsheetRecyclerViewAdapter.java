@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.onecricket.R;
 import com.onecricket.pojo.MatchOdds;
+import com.onecricket.utils.TeamName;
 
 import java.util.List;
 
@@ -25,8 +26,6 @@ public class BottomsheetRecyclerViewAdapter extends RecyclerView.Adapter<Bottoms
     private Context context;
     private List<MatchOdds> matchOddsList;
     private ItemChangeListener itemChangeListener;
-    private float              totalBetAmount;
-    private float              totalReturnAmount;
 
     public BottomsheetRecyclerViewAdapter(Context context, List<MatchOdds> matchOddsList) {
         this.context = context;
@@ -54,7 +53,7 @@ public class BottomsheetRecyclerViewAdapter extends RecyclerView.Adapter<Bottoms
     @Override
     public void onBindViewHolder(@NonNull final BottomsheetViewHolder holder, final int position) {
         final MatchOdds matchOdds = matchOddsList.get(position);
-        holder.name.setText(matchOdds.getName());
+        holder.name.setText(TeamName.getFirstWord(matchOdds.getName()));
         holder.points.setText(matchOdds.getOdds());
         /*if (matchOdds.getBetAmount() > 0) {
             holder.stakeInput.setText(String.valueOf(matchOdds.getBetAmount()));

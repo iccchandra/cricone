@@ -53,7 +53,7 @@ public class BottomsheetRecyclerViewAdapter extends RecyclerView.Adapter<Bottoms
     @Override
     public void onBindViewHolder(@NonNull final BottomsheetViewHolder holder, final int position) {
         final MatchOdds matchOdds = matchOddsList.get(position);
-        holder.name.setText(TeamName.getFirstWord(matchOdds.getName()));
+        holder.name.setText((matchOdds.getName()));
         holder.points.setText(matchOdds.getOdds());
         /*if (matchOdds.getBetAmount() > 0) {
             holder.stakeInput.setText(String.valueOf(matchOdds.getBetAmount()));

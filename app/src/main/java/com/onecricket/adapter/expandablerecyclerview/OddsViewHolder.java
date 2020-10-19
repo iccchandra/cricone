@@ -27,8 +27,36 @@ public class OddsViewHolder extends ChildViewHolder implements View.OnClickListe
 
     public void bind(MatchOdds matchOdds) {
         // I personally do not like adding this here. But, the requirements are making me do this.
-        mMoviesTextView.setText(TeamName.getFirstWord(matchOdds.getName()));
+        mMoviesTextView.setText(matchOdds.getName());
         oddsTextView.setText(matchOdds.getOdds());
+    }
+
+    public static String getFirstWord(String title) {
+        if (title.toLowerCase().contains("bangalore")) {
+            return "Bangalore";
+        }
+        else if (title.toLowerCase().contains("chennai")) {
+            return "Chennai";
+        }
+        else if (title.toLowerCase().contains("sunrisers")) {
+            return "Hyderabad";
+        }
+        else if (title.toLowerCase().contains("punjab")) {
+            return "Punjab";
+        }
+        else if (title.toLowerCase().contains("rajasthan")) {
+            return "Rajasthan";
+        }
+        else if (title.toLowerCase().contains("kolkata")) {
+            return "Kolkata";
+        }
+        else if (title.toLowerCase().contains("dehhi")) {
+            return "Delhi";
+        }
+        else if (title.toLowerCase().contains("mumbai")) {
+            return "Mumbai";
+        }
+        return title;
     }
 
     public void disableSelection() {

@@ -19,9 +19,9 @@ public class TeamName {
             return "Rajasthan";
         }
         else if (title.toLowerCase().contains("kolkata")) {
-            return "Punjab";
+            return "Kolkata";
         }
-        else if (title.toLowerCase().contains("dehhi")) {
+        else if (title.toLowerCase().contains("delhi")) {
             return "Delhi";
         }
         else if (title.toLowerCase().contains("mumbai")) {

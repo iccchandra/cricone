@@ -131,7 +131,7 @@ public class ProfileFragment extends Fragment implements ResponseManager {
                     .into(binding.imProfilepic);
         }
         if (UserEmail.equals("")) {
-            binding.tvProfileUserName.setText("Username");
+            binding.tvProfileUserName.setText(sessionManager.getUser(context).getMobile());
         } else {
             binding.tvProfileUserName.setText(UserEmail);
         }

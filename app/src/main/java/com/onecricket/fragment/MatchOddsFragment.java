@@ -887,7 +887,6 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         dismissProgressDialog(progressAlertDialog);
         progressAlertDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-//        final String URL = "http://cricket.atreatit.com/myrest/user/match_bet_details";
         final String URL = ApiClient.BASE_URL +  "/myrest/user/match_bet_details";
         JsonArrayRequest request_json = new JsonArrayRequest(Request.Method.POST, URL, getInputJSON(matchType),
                 response -> {
@@ -938,6 +937,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
                 String responseCode = responseObject.getString("responsecode");
                 if (responseCode.equals("200")) {
                     showBetSuccessAlert();
+                    callMyAccountDetails(true);
                 }
                 else {
                     showFailureAlert("Something went wrong !");

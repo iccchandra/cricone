@@ -1191,9 +1191,10 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         if (liveScoreData.getMoreStats() != null && liveScoreData.getMoreStats().getFirstinnings() != null && liveScoreData.getMoreStats().getFirstinnings().getScore() != null) {
             Log.d(TAG, "First Innings: " + liveScoreData.getMoreStats().getFirstinnings().toString());
             String firstInningsScore = liveScoreData.getMoreStats().getFirstinnings().getScore();
+            String firstwickets = liveScoreData.getMoreStats().getFirstinnings().getWickets();
             firstInningsTeam = liveScoreData.getMoreStats().getFirstinnings().getTeam();
             if (firstInningsScore != null) {
-                firstInningsTextView.setText(String.format("First Innings: %s", firstInningsScore));
+                firstInningsTextView.setText(String.format("First Innings: %s /%s", firstInningsScore,firstwickets));
             }
         }
 
@@ -1205,9 +1206,11 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         if (liveScoreData.getMoreStats().getSecondinnnings() != null && liveScoreData.getMoreStats().getSecondinnnings().getScore() != null) {
             Log.d(TAG, "Second Innings: " + liveScoreData.getMoreStats().getSecondinnnings().toString());
             String secondInningsScore = liveScoreData.getMoreStats().getSecondinnnings().getScore();
+            String secondInningsWickets = liveScoreData.getMoreStats().getSecondinnnings().getWickets();
             secondInningsTeam = liveScoreData.getMoreStats().getSecondinnnings().getTeam();
+
             if (secondInningsScore != null) {
-                secondInningsTextView.setText(String.format("Second Innings: %s", secondInningsScore));
+                secondInningsTextView.setText(String.format("Second Innings: %s /%s ", secondInningsScore,secondInningsWickets));
             }
         }
 

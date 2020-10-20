@@ -59,7 +59,7 @@ public class MoreFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(activity, WebviewAcitivity.class);
-                i.putExtra("Heading","HOW TO PLAY");
+                i.putExtra("Heading","Privacy policy");
                 i.putExtra("URL",Config.HOWTOPLAYURL);
                 startActivity(i);
             }

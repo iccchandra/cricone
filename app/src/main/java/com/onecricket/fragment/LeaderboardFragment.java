@@ -162,6 +162,10 @@ public class LeaderboardFragment extends Fragment {
         circularTextView1 = view.findViewById(R.id.circular_leader_one);
         circularTextView2 = view.findViewById(R.id.circular_leader_two);
         circularTextView3 = view.findViewById(R.id.circular_leader_three);
+
+        firstPositionLayout.setVisibility(View.GONE);
+        secondPositionLayout.setVisibility(View.GONE);
+        thirdPositionLayout.setVisibility(View.GONE);
     }
 
     private void dismissProgressDialog(AlertDialog progressAlertDialog) {
@@ -249,6 +253,7 @@ public class LeaderboardFragment extends Fragment {
     }
 
     private void displayResponseData(JSONObject response) {
+        boolean isDataAvailable = false;
         if (response != null) {
             try {
                 if (response.has("status")) {
@@ -280,33 +285,39 @@ public class LeaderboardFragment extends Fragment {
                                 }
 
                                 if (i == 0) {
+                                    isDataAvailable = true;
                                     showRankOne(data);
                                     continue;
                                 }
                                 else if (i == 1) {
+                                    isDataAvailable = true;
                                     showRankTwo(data);
                                     continue;
                                 }
                                 else if (i == 2) {
+                                    isDataAvailable = true;
                                     showRankThree(data);
                                     continue;
                                 }
                                 leaderBoardList.add(data);
                             }
-                            if (leaderBoardList.size() > 0) {
+
+                            if (isDataAvailable) {
                                 headerLayout.setVisibility(View.VISIBLE);
                                 noDataView.setVisibility(View.GONE);
-                                LeaderBoardRecyclerViewAdapter adapter = new LeaderBoardRecyclerViewAdapter(leaderBoardList);
-                                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                                recyclerView.setHasFixedSize(true);
-                                recyclerView.setAdapter(adapter);
                             }
                             else {
                                 headerLayout.setVisibility(View.GONE);
                                 noDataView.setVisibility(View.VISIBLE);
                             }
-                        }
 
+                            if (leaderBoardList.size() > 0) {
+                                LeaderBoardRecyclerViewAdapter adapter = new LeaderBoardRecyclerViewAdapter(leaderBoardList);
+                                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                recyclerView.setHasFixedSize(true);
+                                recyclerView.setAdapter(adapter);
+                            }
+                        }
                     }
                 }
             } catch (JSONException e) {
@@ -510,6 +521,7 @@ public class LeaderboardFragment extends Fragment {
     }
 
     private void showRankOne(Data data) {
+        firstPositionLayout.setVisibility(View.VISIBLE);
         if (data.getName().trim().length() > 0) {
             name1.setText(String.format("%s %s", data.getName(), data.getState()));
             circularTextView1.setText(String.format("%s", data.getName().toUpperCase().charAt(0)));
@@ -520,6 +532,7 @@ public class LeaderboardFragment extends Fragment {
     }
 
     private void showRankTwo(Data data) {
+        secondPositionLayout.setVisibility(View.VISIBLE);
         if (data.getName().trim().length() > 0) {
             name2.setText(String.format("%s %s", data.getName(), data.getState()));
             circularTextView2.setText(String.format("%s", data.getName().toUpperCase().charAt(0)));
@@ -530,6 +543,7 @@ public class LeaderboardFragment extends Fragment {
     }
 
     private void showRankThree(Data data) {
+        thirdPositionLayout.setVisibility(View.VISIBLE);
         if (data.getName().trim().length() > 0) {
             name3.setText(String.format("%s %s", data.getName(), data.getState()));
             circularTextView3.setText(String.format("%s", data.getName().toUpperCase().charAt(0)));

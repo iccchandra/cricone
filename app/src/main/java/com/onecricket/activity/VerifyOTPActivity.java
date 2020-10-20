@@ -13,9 +13,11 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.onecricket.APICallingPackage.Class.APIRequestManager;
 import com.onecricket.APICallingPackage.Interface.ResponseManager;
 import com.onecricket.Bean.UserDetails;
@@ -296,9 +298,7 @@ public class VerifyOTPActivity extends AppCompatActivity implements ResponseMana
             jsonObject.put("mobile", IntentNumber);
             jsonObject.put("otp", OTP);
             jsonObject.put("user_id", IntentUserId);
-
-
-
+            jsonObject.put("token", FirebaseInstanceId.getInstance().getToken());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -337,7 +337,7 @@ public class VerifyOTPActivity extends AppCompatActivity implements ResponseMana
             jsonObject.put("mobile", IntentNumber);
             jsonObject.put("password", IntentPassword);
             jsonObject.put("type", "Normal");
-
+            jsonObject.put("token", FirebaseInstanceId.getInstance().getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -409,6 +409,7 @@ public class VerifyOTPActivity extends AppCompatActivity implements ResponseMana
 
             Intent i = new Intent(activity, HomeActivity.class);
             startActivity(i);
+            finish();
         }
         else if (type.equals(RESENDOTPTYPE)){
         }

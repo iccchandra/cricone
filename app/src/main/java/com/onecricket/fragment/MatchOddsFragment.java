@@ -786,6 +786,12 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
                 name = matchesInfo.getVisitorsTeam();
             }
 
+            if (jsonObject.has("team")) {
+                String team = jsonObject.getString("team");
+                if (team.trim().length() > 0) {
+                    name = name + " (" + team + ")";
+                }
+            }
             matchOdds.setId(id);
             matchOdds.setOdds(odds);
             matchOdds.setName(name);

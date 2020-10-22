@@ -143,7 +143,7 @@ public class GlobalLeaderFragment2 extends Fragment {
         }
         points2.setText(data.getRoi());
         location2.setText(data.getTotalWinning());
-        position2.setText("1");
+        position2.setText("2");
     }
 
     private void showRankThree(Last7Day data) {
@@ -154,6 +154,6 @@ public class GlobalLeaderFragment2 extends Fragment {
         }
         points3.setText(data.getRoi());
         location3.setText(data.getTotalWinning());
-        position3.setText("1");
+        position3.setText("3");
     }
 }

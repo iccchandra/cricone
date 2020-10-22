@@ -30,6 +30,13 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+
 }
 
 dependencies {
@@ -72,6 +79,8 @@ dependencies {
     implementation 'com.github.mejdi14:Flat-Dialog-Android:1.0.5'
     implementation 'com.github.Shashank02051997:FancyGifDialog-Android:1.2'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.google.android.gms:play-services-basement:17.4.0'
+
 
 
 }

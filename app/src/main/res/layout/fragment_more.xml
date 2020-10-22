@@ -139,7 +139,7 @@
                         android:layout_marginLeft="20dp"
                         android:padding="10dp"
                         android:layout_centerVertical="true"
-                        android:text="How to Play"
+                        android:text="Terms and Conditions"
                         android:layout_toRightOf="@+id/im_HowToPlay"
                         android:layout_toLeftOf="@+id/im_arrow4"
                         android:textColor="@color/white"  />
@@ -234,7 +234,7 @@
                         android:layout_marginLeft="20dp"
                         android:padding="10dp"
                         android:layout_centerVertical="true"
-                        android:text="Helpdesk"
+                        android:text="Privacy policy"
                         android:layout_toRightOf="@+id/im_HelpDesk"
                         android:layout_toLeftOf="@+id/im_arrow5"
                         android:clickable="true"

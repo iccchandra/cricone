@@ -3,7 +3,7 @@ package com.onecricket.APICallingPackage;
 
 public class Constants {
 
-    public static int SPLASH_TIME_OUT = 4000;
+    public static int SPLASH_TIME_OUT = 2000;
 
     public static String LOGINTYPE = "Normal";
     public static String SIGNUPTYPE = "SignUp";

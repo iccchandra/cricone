@@ -217,7 +217,7 @@ public class LeaderboardFragment extends Fragment {
         progressAlertDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         String url = ApiClient.BASE_URL +  "/myrest/user/game_leaderboard";
-
+        System.out.println(url);
         JSONObject inputJSON = new JSONObject();
         try {
             inputJSON.put("home_team", matchesInfo.getHomeTeam());
@@ -523,8 +523,8 @@ public class LeaderboardFragment extends Fragment {
     private void showRankOne(Data data) {
         firstPositionLayout.setVisibility(View.VISIBLE);
         if (data.getName().trim().length() > 0) {
-            name1.setText(String.format("%s %s", data.getName(), data.getState()));
-            circularTextView1.setText(String.format("%s", data.getName().toUpperCase().charAt(0)));
+            name1.setText(String.format("%s", data.getName()));
+            circularTextView1.setText("1");
         }
         points1.setText(data.getRoi());
         location1.setText(data.getState());

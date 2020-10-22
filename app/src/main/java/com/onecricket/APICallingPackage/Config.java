@@ -10,7 +10,7 @@ public class Config {
 
     public static String Authentication = "";
 
-    public static String IMAGEBASEURL = SERVERURL+"uploads/";
+    public static String IMAGEBASEURL = "http://1cricket-7dbd.kxcdn.com/uploads/";
 
     public static String ProfileIMAGEBASEURL = SERVERURL+"uploads/user/";
 
@@ -28,15 +28,15 @@ public class Config {
 
     public static String LEADERBOARDPLAYERIMAGE = IMAGEBASEURL+"leaderboard/";
 
-    public static String TERMSANDCONDITIONSURL = SERVERURL+"terms-&-conditions";
+    public static String TERMSANDCONDITIONSURL = SERVERURL+"docs/Terms_and_Conditions.pdf";
     public static String FANTASYPOINTSYSTEMURL = SERVERURL+"points-system";
-    public static String HOWTOPLAYURL = SERVERURL;
-    public static String ABOUTUSURL = SERVERURL+"about-us";
+    public static String HOWTOPLAYURL = "http://api.1cricket.in/docs/Privacy_Policy.pdf";
+    public static String ABOUTUSURL = "http://1crciket.in";
     public static String HELPDESKURL = SERVERURL;
     public static String PRICING = SERVERURL;
 
-    public static String REFUNDPOLICY = SERVERURL+"refund-policy";
-    public static String LEGALITY = SERVERURL+"legality";
+    public static String REFUNDPOLICY = "http://api.1cricket.in/docs/Privacy_Policy.pdf";
+    public static String LEGALITY = "http://api.1cricket.in/docs/legal_Opinion.pdf";
     public static String WITHDRAWPOLICY = SERVERURL+"withdraw-cash";
 
 

@@ -22,6 +22,8 @@ public class WebviewAcitivity extends AppCompatActivity {
     TextView tv_HeaderName;
     SwipeRefreshLayout swipeRefreshLayout;
     String IntentHeading,IntentURL;
+    String doc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,14 +31,15 @@ public class WebviewAcitivity extends AppCompatActivity {
         context = activity = this;
         IntentHeading = getIntent().getStringExtra("Heading");
         IntentURL = getIntent().getStringExtra("URL");
-        initViews();
+         doc="http://docs.google.com/gview?embedded=true&url="+IntentURL;
 
+        initViews();
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.post(new Runnable() {
                                     @Override
                                     public void run() {
                                         swipeRefreshLayout.setRefreshing(true);
-                                        LoadPage(IntentURL);
+                                        LoadPage(doc);
                                     }
                                 }
         );
@@ -44,7 +47,7 @@ public class WebviewAcitivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                LoadPage(IntentURL);
+                LoadPage(doc);
 
             }
         });
@@ -81,6 +84,7 @@ public class WebviewAcitivity extends AppCompatActivity {
         wv1.getSettings().setLoadsImagesAutomatically(true);
         wv1.getSettings().setJavaScriptEnabled(true);
         wv1.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        wv1.getSettings().setAllowFileAccess(true);
         wv1.loadUrl(Url);
     }
 

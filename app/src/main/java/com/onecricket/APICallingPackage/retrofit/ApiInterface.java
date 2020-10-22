@@ -4,6 +4,7 @@ import com.onecricket.APICallingPackage.retrofit.betlist.SubmittedBets;
 import com.onecricket.APICallingPackage.retrofit.globalleader.GlobalLeaderResponse;
 import com.onecricket.APICallingPackage.retrofit.group.CreateGroupResponse;
 import com.onecricket.APICallingPackage.retrofit.joingroup.JoinGroupResponse;
+import com.onecricket.APICallingPackage.retrofit.livescore.LiveScoreResponse;
 import com.onecricket.APICallingPackage.retrofit.state.StateResponse;
 
 import io.reactivex.Observable;
@@ -12,6 +13,7 @@ import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface ApiInterface {
 

@@ -16,4 +16,7 @@ public interface APIService {
 
     @GET("/myrest/user/bet_list")
     Observable<SubmittedBets> getSubmittedBets();
+
+    @GET("/token/update")
+    Observable<SubmitToken> submitToken(@Query("userid") String userid, @Query("mobiletoken") String mobiletoken);
 }

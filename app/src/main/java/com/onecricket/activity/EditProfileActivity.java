@@ -6,20 +6,28 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.DatePicker;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.onecricket.APICallingPackage.Class.APIRequestManager;
 import com.onecricket.APICallingPackage.Interface.ResponseManager;
+import com.onecricket.APICallingPackage.retrofit.APIService;
+import com.onecricket.APICallingPackage.retrofit.ApiClient;
+import com.onecricket.APICallingPackage.retrofit.SubmitToken;
 import com.onecricket.Bean.UserDetails;
 import com.onecricket.R;
-import com.onecricket.utils.SessionManager;
 import com.onecricket.databinding.ActivityEditProfileBinding;
+import com.onecricket.utils.CommonProgressDialog;
+import com.onecricket.utils.SessionManager;
 import com.onecricket.utils.crypto.AlertDialogHelper;
 
 import org.json.JSONException;
@@ -28,6 +36,16 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.onecricket.APICallingPackage.Class.Validations.ShowToast;
 import static com.onecricket.APICallingPackage.Config.EDITPROFILE;
@@ -38,6 +56,7 @@ import static com.onecricket.APICallingPackage.Constants.VIEWPROFILETYPE;
 public class EditProfileActivity extends AppCompatActivity implements ResponseManager {
 
     private static final String TAG = "EditProfileActivity";
+    private static final String TYPE_UPDATE_FCM_TOKEN = "update_token";
     ResponseManager responseManager;
     APIRequestManager apiRequestManager;
 
@@ -51,13 +70,14 @@ public class EditProfileActivity extends AppCompatActivity implements ResponseMa
     private SharedPreferences.Editor loginPrefsEditor;
 
     ActivityEditProfileBinding binding;
-
+    private AlertDialog progressAlertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding=DataBindingUtil.setContentView(this, R.layout.activity_edit_profile);
         context = activity = this;
+        progressAlertDialog = CommonProgressDialog.getProgressDialog(context);
         initViews();
         sessionManager = new SessionManager();
         Log.d(TAG, sessionManager.getUser(context).getToken());
@@ -215,6 +235,9 @@ public class EditProfileActivity extends AppCompatActivity implements ResponseMa
             userDetails.setDateOfBirth(dateOfBirth);
             userDetails.setVerify("1");
             sessionManager.setUser(context, userDetails);
+            callUpdateTokenAPI();
+        }
+        else if (type.equals(TYPE_UPDATE_FCM_TOKEN)) {
             gotoHomeScreen();
         }
         else {
@@ -280,6 +303,9 @@ public class EditProfileActivity extends AppCompatActivity implements ResponseMa
     @Override
     public void onError(Context mContext, String type, String message) {
         Log.d(TAG, message);
+        if (type.equals(TYPE_UPDATE_FCM_TOKEN)) {
+            gotoHomeScreen();
+        }
     }
 
 
@@ -311,4 +337,65 @@ public class EditProfileActivity extends AppCompatActivity implements ResponseMa
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
+
+    private APIService apiService;
+    private void initialiseRetrofit() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .build();
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApiClient.BASE_URL + ":4040")
+                .client(client)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        apiService = retrofit.create(APIService.class);
+    }
+
+    private void callUpdateTokenAPI() {
+        dismissProgressDialog(progressAlertDialog);
+        progressAlertDialog.show();
+        initialiseRetrofit();
+        String userId = sessionManager.getUser(context).getUser_id();
+        String fcmToken = FirebaseInstanceId.getInstance().getToken();
+        Observable<SubmitToken> observable = apiService.submitToken(userId, fcmToken);
+        observable.subscribeOn(Schedulers.newThread()).
+                observeOn(AndroidSchedulers.mainThread())
+                .map(result -> result)
+                .subscribe(this::onSuccessResponse, this::onErrorResponse);
+
+    }
+
+    private void onSuccessResponse(SubmitToken submitToken) {
+        dismissProgressDialog(progressAlertDialog);
+        gotoHomeScreen();
+
+    }
+
+    private void onErrorResponse (Throwable throwable){
+        dismissProgressDialog(progressAlertDialog);
+        if (throwable.getMessage() != null) {
+            Log.d(TAG, throwable.getMessage());
+        }
+
+    }
+
+    private void dismissProgressDialog(androidx.appcompat.app.AlertDialog progressAlertDialog) {
+        if (progressAlertDialog != null && progressAlertDialog.isShowing()) {
+            progressAlertDialog.dismiss();
+        }
+    }
+
+
 }

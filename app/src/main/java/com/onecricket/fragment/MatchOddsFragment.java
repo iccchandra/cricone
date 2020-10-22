@@ -1146,7 +1146,6 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
     }
 
     private void callLiveScoreAPI(Long aLong) {
-        //http://3.236.20.78:4000/goalserve/live?hometeam=Gloucestershire&vistorteam=Birmingham%20Bears
         Observable<LiveScoreResponse> observable = apiService.getLiveScore(matchesInfo.getHomeTeam(), matchesInfo.getVisitorsTeam());
         observable.subscribeOn(Schedulers.newThread()).
                 observeOn(AndroidSchedulers.mainThread())

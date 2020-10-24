@@ -255,31 +255,6 @@ public class VerifyOTPActivity extends AppCompatActivity implements ResponseMana
     }
 
 
-    private BroadcastReceiver receiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equalsIgnoreCase("otp")) {
-                final String message = intent.getStringExtra("message");
-
-                char o1 = message.charAt(0);
-                char o2 = message.charAt(1);
-                char o3 = message.charAt(2);
-                char o4 = message.charAt(3);
-
-
-                binding.etOtp1.setText(o1+"");
-                binding.etOtp2.setText(o2+"");
-                binding.etOtp3.setText(o3+"");
-                binding.etOtp4.setText(o4+"");
-
-                GetOTP();
-                callVerifyOTPApi(true);
-                countDownTimer.cancel();
-
-            }
-        }
-    };
-
     private void callVerifyOTPApi(boolean isShowLoader) {
         try {
 
@@ -349,24 +324,12 @@ public class VerifyOTPActivity extends AppCompatActivity implements ResponseMana
 
     @Override
     public void onResume() {
-        try {
-            LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("otp"));
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
         super.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        try {
-            LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
     }
 
 

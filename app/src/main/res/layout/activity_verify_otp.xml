@@ -62,6 +62,8 @@
                 android:backgroundTint="@color/login_sign_up"
                 android:gravity="center"
                 android:hint="X"
+                android:inputType = "numberPassword"
+
                 android:padding="10dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white" />
@@ -74,6 +76,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/login_sign_up"
                 android:gravity="center"
+                android:inputType = "numberPassword"
                 android:hint="X"
                 android:padding="10dp"
                 android:textColor="@color/white"
@@ -87,6 +90,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/login_sign_up"
                 android:gravity="center"
+                android:inputType = "numberPassword"
                 android:hint="X"
                 android:padding="10dp"
                 android:textColor="@color/white"
@@ -100,6 +104,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/login_sign_up"
                 android:gravity="center"
+                android:inputType = "numberPassword"
                 android:hint="X"
                 android:padding="10dp"
                 android:textColor="@color/white"

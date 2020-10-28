@@ -94,7 +94,7 @@
 
                         </RelativeLayout>
 
-                        <com.onecricket.ui.CircularTextView
+                        <com.game.onecricket.ui.CircularTextView
                             android:id="@+id/circular_team_a"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

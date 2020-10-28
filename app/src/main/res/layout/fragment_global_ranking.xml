@@ -51,7 +51,7 @@
                 app:cardCornerRadius="50dp"
                 app:cardElevation="0dp">
 
-                <com.onecricket.ui.CircularTextView
+                <com.game.onecricket.ui.CircularTextView
                     android:id="@+id/circular_leader_one"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -122,7 +122,7 @@
                 app:cardCornerRadius="50dp"
                 app:cardElevation="0dp">
 
-                <com.onecricket.ui.CircularTextView
+                <com.game.onecricket.ui.CircularTextView
                     android:id="@+id/circular_leader_two"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -194,7 +194,7 @@
                 app:cardCornerRadius="50dp"
                 app:cardElevation="0dp">
 
-                <com.onecricket.ui.CircularTextView
+                <com.game.onecricket.ui.CircularTextView
                     android:id="@+id/circular_leader_three"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

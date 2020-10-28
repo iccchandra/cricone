@@ -1,4 +1,4 @@
-package com.onecricket;
+package com.game.onecricket;
 
 import org.junit.Test;
 

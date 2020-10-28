@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.onecricket",
+  "applicationId": "com.game.onecricket",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "properties": [],
-      "versionCode": 2,
-      "versionName": "2.0",
+      "versionCode": 4,
+      "versionName": "1.4",
       "enabled": true,
       "outputFile": "app-release.apk"
     }

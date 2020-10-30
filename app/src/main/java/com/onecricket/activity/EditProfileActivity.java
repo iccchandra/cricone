@@ -383,7 +383,7 @@ public class EditProfileActivity extends AppCompatActivity implements ResponseMa
 
     }
 
-    private void onErrorResponse (Throwable throwable){
+    private void onErrorResponse (Throwable throwable) {
         dismissProgressDialog(progressAlertDialog);
         if (throwable.getMessage() != null) {
             Log.d(TAG, throwable.getMessage());

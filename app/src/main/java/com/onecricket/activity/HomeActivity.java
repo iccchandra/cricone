@@ -228,7 +228,9 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
             }
             else {
                 if (!alertDialogHelper.isShowing()) {
-                    alertDialogHelper.showAlertDialog(context, getString(R.string.internet_error_title), getString(R.string.no_internet_message));
+                    alertDialogHelper.showAlertDialog(context,
+                                                      getString(R.string.internet_error_title),
+                                                      getString(R.string.no_internet_message));
                 }
             }
         });
@@ -314,7 +316,12 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                                                       if (tab.getPosition() == 0) {
 //                            replaceFragment(new FragmentFixtures());
                                                           binding.tablayout.setVisibility(View.VISIBLE);
-                                                          replaceFragment(new UpcomingMatchesFragment());
+                                                          if (binding.tablayout.getSelectedTabPosition() == 0) {
+                                                              replaceFragment(new UpcomingMatchesFragment());
+                                                          }
+                                                          else {
+                                                              replaceFragment(new InProgressMatchesFragment());
+                                                          }
                                                           binding.head.setVisibility(View.VISIBLE);
                                                           binding.bonus.setVisibility(View.VISIBLE);
                                                           binding.RLHomeBanner.setVisibility(View.VISIBLE);
@@ -331,7 +338,6 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                                                           replaceFragment(new PrivateMatchesFragment());
                                                           binding.head.setVisibility(View.VISIBLE);
                                                       }
-
                                                       else if (tab.getPosition() == 3) {
                                                           binding.tablayout.setVisibility(View.GONE);
                                                           binding.RLHomeBanner.setVisibility(View.GONE);

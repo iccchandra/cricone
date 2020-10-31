@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.onecricket">
+    package="com.game.onecricket">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission tools:node="remove" android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission tools:node="remove" android:name="android.permission.READ_SMS"/>
+
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -16,9 +19,9 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name=".application.BaseApplication"
+        android:name="com.game.onecricket.application.BaseApplication"
         android:allowBackup="false"
-        android:debuggable="true"
+        android:debuggable="false"
         android:icon="@drawable/round_logo"
         android:label="@string/app_name"
         android:largeHeap="true"
@@ -29,7 +32,7 @@
         tools:ignore="HardcodedDebugMode"
         android:requestLegacyExternalStorage="true"
         tools:replace="android:allowBackup,android:icon,android:roundIcon">
-        <activity android:name=".activity.createactivity"></activity>
+        <activity android:name="com.game.onecricket.activity.createactivity"></activity>
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -37,7 +40,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.onecricket.provider"
+            android:authorities="com.game.onecricket.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -46,7 +49,7 @@
         </provider>
 
         <activity
-            android:name=".activity.SplashScreen"
+            android:name="com.game.onecricket.activity.SplashScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -55,26 +58,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MainActivity"
+            android:name="com.game.onecricket.activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.RegistrationActivity"
+            android:name="com.game.onecricket.activity.RegistrationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.HomeActivity"
+            android:name="com.game.onecricket.activity.HomeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.LoginActivity"
+            android:name="com.game.onecricket.activity.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.VerifyOTPActivity"
+            android:name="com.game.onecricket.activity.VerifyOTPActivity"
             android:screenOrientation="portrait" />
 
-        <receiver android:name=".utils.IncomingSms">
-            <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-            </intent-filter>
-        </receiver>
+
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -97,75 +96,75 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.ForgotVerifyOTPActivity"
+            android:name="com.game.onecricket.activity.ForgotVerifyOTPActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.NewPasswordActivity"
+            android:name="com.game.onecricket.activity.NewPasswordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ContestListActivity"
+            android:name="com.game.onecricket.activity.ContestListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.CreateTeamActivity"
+            android:name="com.game.onecricket.activity.CreateTeamActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ChooseCandVCActivity"
+            android:name="com.game.onecricket.activity.ChooseCandVCActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.MyTeamListActivity"
+            android:name="com.game.onecricket.activity.MyTeamListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.JoinContestActivity"
+            android:name="com.game.onecricket.activity.JoinContestActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.MyJoinedFixtureContestListActivity"
+            android:name="com.game.onecricket.activity.MyJoinedFixtureContestListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.MyFixtureContestDetailsActivity"
+            android:name="com.game.onecricket.activity.MyFixtureContestDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.MyJoinedLiveContestListActivity"
+            android:name="com.game.onecricket.activity.MyJoinedLiveContestListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.MyJoinedResultContestListActivity"
+            android:name="com.game.onecricket.activity.MyJoinedResultContestListActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.MyResultContestDetailsActivity" />
-        <activity android:name=".activity.MyLiveContestDetailsActivity" />
-        <activity android:name=".activity.PaymentOptionActivity" />
-        <activity android:name=".activity.MyAccountActivity" />
-        <activity android:name=".activity.PaytmActivity" />
+        <activity android:name="com.game.onecricket.activity.MyResultContestDetailsActivity" />
+        <activity android:name="com.game.onecricket.activity.MyLiveContestDetailsActivity" />
+        <activity android:name="com.game.onecricket.activity.PaymentOptionActivity" />
+        <activity android:name="com.game.onecricket.activity.MyAccountActivity" />
+        <activity android:name="com.game.onecricket.activity.PaytmActivity" />
         <activity
             android:name="com.paytm.pgsdk.PaytmPGActivity"
             android:configChanges="keyboardHidden|orientation|keyboard"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.EditProfileActivity"
+            android:name="com.game.onecricket.activity.EditProfileActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.AddCashActivity"
+            android:name="com.game.onecricket.activity.AddCashActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.MyTransactionActivity"
+            android:name="com.game.onecricket.activity.MyTransactionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.NotificationActivity"
+            android:name="com.game.onecricket.activity.NotificationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.InviteFriendsActivity"
+            android:name="com.game.onecricket.activity.InviteFriendsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.InvitedFriendListActivity" />
+        <activity android:name="com.game.onecricket.activity.InvitedFriendListActivity" />
         <activity
-            android:name=".activity.PaymentConfirmationActivity"
+            android:name="com.game.onecricket.activity.PaymentConfirmationActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.WebviewAcitivity" />
-        <activity android:name=".activity.WithdrawAmountActivity" />
-        <activity android:name=".activity.PayUMoneyPaymentActivity" />
+        <activity android:name="com.game.onecricket.activity.WebviewAcitivity" />
+        <activity android:name="com.game.onecricket.activity.WithdrawAmountActivity" />
+        <activity android:name="com.game.onecricket.activity.PayUMoneyPaymentActivity" />
         <activity
-            android:name=".activity.GlobalRankActivity"
+            android:name="com.game.onecricket.activity.GlobalRankActivity"
             android:screenOrientation="portrait" />
 
         <service
-            android:name=".FirebaseMessagingService"
+            android:name="com.game.onecricket.FirebaseMessagingService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -173,7 +172,7 @@
             </intent-filter>
         </service>
         <service
-            android:name=".FirebaseInstanceIDService"
+            android:name="com.game.onecricket.FirebaseInstanceIDService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -182,34 +181,34 @@
         </service>
 
         <activity
-            android:name=".activity.UploadKYCActivity"
+            android:name="com.game.onecricket.activity.UploadKYCActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.CreateContestActivity"
+            android:name="com.game.onecricket.activity.CreateContestActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.SelectPrizeCreateActivity"
+            android:name="com.game.onecricket.activity.SelectPrizeCreateActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.EnterInviteCodeContestActivity"
+            android:name="com.game.onecricket.activity.EnterInviteCodeContestActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.InviteInContestActivity"
+            android:name="com.game.onecricket.activity.InviteInContestActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.TrakNPayActivity"
+            android:name="com.game.onecricket.activity.TrakNPayActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.CashfreeActivity"
+            android:name="com.game.onecricket.activity.CashfreeActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.MatchOddsActivity" />
-        <activity android:name=".chatroom.ChatRoomActivity" />
+        <activity android:name="com.game.onecricket.activity.MatchOddsActivity" />
+        <activity android:name="com.game.onecricket.chatroom.ChatRoomActivity" />
         <activity
-            android:name=".activity.MatchOddsTabsActivity"
+            android:name="com.game.onecricket.activity.MatchOddsTabsActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.GlobalLeaderActivity"
+            android:name="com.game.onecricket.activity.GlobalLeaderActivity"
             android:screenOrientation="portrait" />
 
         <meta-data

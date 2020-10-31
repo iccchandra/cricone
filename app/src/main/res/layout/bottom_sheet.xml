@@ -4,7 +4,7 @@
     android:id="@+id/bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/top_border_bg"
+    android:background="?attr/colorPrimary"
     android:orientation="vertical"
     app:behavior_hideable="false"
     app:behavior_peekHeight="80dp"
@@ -83,8 +83,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:background="@color/colorAccent"
-        android:text="Place Bet"
+        android:background="?attr/colorPrimary"
+        android:text="Place Game"
         android:textColor="#fff" />
     </RelativeLayout>
 

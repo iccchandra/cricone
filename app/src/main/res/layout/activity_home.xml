@@ -44,16 +44,7 @@
             android:layout_height="55dp"
             android:background="@drawable/demo_home_2"/>
 
-        <ImageView
-            android:id="@+id/im_Notification"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="11dp"
-            android:padding="10dp"
-            android:src="@drawable/notification_icon_active"
-            android:visibility="visible" />
+
 
     </RelativeLayout>
 
@@ -116,11 +107,11 @@
         android:background="@color/white"
         android:elevation="30dp"
         app:tabGravity="fill"
-        app:tabIndicatorColor="@color/tabtextselected"
+        app:tabIndicatorColor="?attr/colorPrimary"
         app:tabMode="fixed"
         app:tabPaddingEnd="-2dp"
         app:tabPaddingStart="-2dp"
-        app:tabSelectedTextColor="@color/tabtextselected"
+        app:tabSelectedTextColor="?attr/colorPrimary"
         app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
         app:tabTextColor="@color/tabtextunselected">
 

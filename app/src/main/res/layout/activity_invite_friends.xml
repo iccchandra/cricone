@@ -69,7 +69,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="30dp"
                 android:id="@+id/RL_InviteRect"
-                android:backgroundTint="@color/colorPrimaryDark"
+                android:backgroundTint="@color/colorPrimary"
                 android:background="@drawable/dark_rectangle_invite">
                 <LinearLayout
                     android:id="@+id/LL_InviteFriendsCode"
@@ -113,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginTop="-25dp"
-                android:background="@drawable/dark_rectangle"
+                android:background="?attr/colorPrimary"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
                 android:gravity="center"

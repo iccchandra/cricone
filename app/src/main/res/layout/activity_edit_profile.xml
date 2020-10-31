@@ -33,15 +33,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:theme="@style/MyTextInputLayout"
-                    android:textColorHint="@color/white">
+                    android:textColorHint="@color/white"
+                    android:theme="@style/MyTextInputLayout">
 
                     <EditText
+                        android:id="@+id/et_EditName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:backgroundTint="@color/white"
-                        android:id="@+id/et_EditName"
                         android:hint="Name"
                         android:padding="12dp"
                         android:singleLine="true"
@@ -175,19 +175,22 @@
                         android:textColorHint="@color/white"
                         android:textSize="14sp" />
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/input_editState"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:theme="@style/MyTextInputLayout"
-                    android:textColorHint="@color/white">
+                    android:visibility="gone"
+                    android:textColorHint="@color/white"
+                    android:theme="@style/MyTextInputLayout">
+
                     <EditText
+                        android:id="@+id/et_EditState"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:backgroundTint="@color/white"
-                        android:id="@+id/et_EditState"
                         android:hint="State"
                         android:padding="12dp"
                         android:singleLine="true"

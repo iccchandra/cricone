@@ -6,19 +6,25 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.DatePicker;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.onecricket.APICallingPackage.Class.APIRequestManager;
+import com.onecricket.APICallingPackage.Class.Validations;
 import com.onecricket.APICallingPackage.Interface.ResponseManager;
 import com.onecricket.APICallingPackage.retrofit.APIService;
 import com.onecricket.APICallingPackage.retrofit.ApiClient;
@@ -95,9 +101,6 @@ public class EditProfileActivity extends AppCompatActivity implements ResponseMa
             int month = calendar.get(Calendar.MONTH);
             int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-
-
-
             DOBListener dobListener = new DOBListener();
             DatePickerDialog dialog = new DatePickerDialog(activity,
                     android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
@@ -124,16 +127,67 @@ public class EditProfileActivity extends AppCompatActivity implements ResponseMa
         });
 
         binding.tvEditUpdateProfile.setOnClickListener(view -> {
-            if (isDateOfBirthSelected()) {
-                callEditProfile(true);
-            }
-            else {
-                AlertDialogHelper alertDialogHelper = AlertDialogHelper.getInstance();
-                if (!alertDialogHelper.isShowing()) {
-                    alertDialogHelper.showAlertDialog(context, getString(R.string.dob_needed__alert_title), getString(R.string.dob_needed__alert_Message));
+            if (isInputDataAvailable()) {
+                if (isDateOfBirthSelected()) {
+                    callEditProfile(true);
+                } else {
+                    AlertDialogHelper alertDialogHelper = AlertDialogHelper.getInstance();
+                    if (!alertDialogHelper.isShowing()) {
+                        alertDialogHelper.showAlertDialog(context, getString(R.string.dob_needed__alert_title), getString(R.string.dob_needed__alert_Message));
+                    }
                 }
             }
         });
+    }
+
+    private void resetTextInputOnTextChange(TextInputLayout textInputLayout) {
+        EditText editText = textInputLayout.getEditText();
+        if (editText != null) {
+            editText.addTextChangedListener(new TextWatcher() {
+                @Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+                @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    if (textInputLayout.getError() != null) {
+                        textInputLayout.setError(null);
+                    }
+                }
+            });
+        }
+    }
+
+    private boolean isInputDataAvailable() {
+        if (isTextEntered(binding.etEditName)) {
+            if (isTextEntered(binding.etEditEmail)) {
+                if (Validations.isValidEmail(binding.etEditEmail.getText().toString())) {
+                    if (isTextEntered(binding.etEditAddress)) {
+                        if (isTextEntered(binding.etEditCity)) {
+                            if (isTextEntered(binding.etEditPincode)) {
+                                return true;
+                            } else {
+                                binding.inputEditPincode.setError("Please Enter Pincode");
+                            }
+                        } else {
+                            binding.inputEditCity.setError("Please Enter City");
+                        }
+                    } else {
+                        binding.inputEditAddress.setError("Please Enter Address");
+                    }
+                }
+                else {
+                    binding.inputEditEmail.setError("Please Enter Valid Email");
+                }
+            } else {
+                binding.inputEditEmail.setError("Please Enter Email");
+            }
+        } else {
+            binding.inputEditName.setError("Please Enter Name");
+        }
+        return false;
+    }
+
+    private boolean isTextEntered(EditText editText) {
+        return editText.getText().toString().trim().length() > 0;
     }
 
     private boolean isDateOfBirthSelected() {
@@ -151,6 +205,11 @@ public class EditProfileActivity extends AppCompatActivity implements ResponseMa
         binding.etEditCountry.setText(getResources().getString(R.string.India));
         binding.etEditCountry.setEnabled(false);
         binding.etEditCountry.setFocusable(false);
+        resetTextInputOnTextChange(binding.inputEditName);
+        resetTextInputOnTextChange(binding.inputEditEmail);
+        resetTextInputOnTextChange(binding.inputEditAddress);
+        resetTextInputOnTextChange(binding.inputEditCity);
+        resetTextInputOnTextChange(binding.inputEditPincode);
     }
 
     private void callViewProfile(boolean isShowLoader) {
@@ -202,6 +261,7 @@ public class EditProfileActivity extends AppCompatActivity implements ResponseMa
             jsonObject.put("state", binding.etEditState.getText().toString());
             jsonObject.put("country", binding.etEditCountry.getText().toString());
             jsonObject.put("pincode", binding.etEditPincode.getText().toString());
+            jsonObject.put("email", binding.etEditMobile.getText().toString());
 
         } catch (JSONException e) {
             e.printStackTrace();

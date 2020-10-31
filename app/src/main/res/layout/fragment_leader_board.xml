@@ -91,7 +91,7 @@
                 android:textStyle="bold"
                 android:id="@+id/points2"
                 android:text="230"
-                app:drawableStartCompat="@drawable/percentage" />
+                app:drawableEndCompat="@drawable/percentage" />
 
         </RelativeLayout>
 
@@ -158,7 +158,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/location1"
                 android:layout_centerHorizontal="true"
-                android:drawableStart="@drawable/percentage"
+                android:drawableEnd="@drawable/percentage"
                 android:drawablePadding="5dp"
                 android:text="230"
                 android:textColor="@color/white"
@@ -227,7 +227,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/percentage"
+                android:drawableEnd="@drawable/percentage"
                 android:layout_below="@+id/location3"
                 android:layout_centerHorizontal="true"
                 android:drawablePadding="5dp"

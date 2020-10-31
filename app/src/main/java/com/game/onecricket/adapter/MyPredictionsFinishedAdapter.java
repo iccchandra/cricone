@@ -56,14 +56,14 @@ public class MyPredictionsFinishedAdapter extends RecyclerView.Adapter<MyPredict
             date = finished.getMatchDate() + " " + finished.getMatchTime();
             if (finished.getStatus().equals("lost")) {
                 holder.betStatus.setImageResource(R.drawable.lost);
-                holder.result.setVisibility(View.VISIBLE);
-                holder.result.setText("Lost");
+                //holder.result.setVisibility(View.VISIBLE);
+                //holder.result.setText("");
 
             }
             else {
                 holder.betStatus.setImageResource(R.drawable.winner);
-                holder.result.setVisibility(View.VISIBLE);
-                holder.result.setText("Winner");
+               // holder.result.setVisibility(View.VISIBLE);
+               // holder.result.setText("");
             }
         }
 

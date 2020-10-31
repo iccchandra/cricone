@@ -107,11 +107,11 @@
         android:background="@color/white"
         android:elevation="30dp"
         app:tabGravity="fill"
-        app:tabIndicatorColor="@color/tabtextselected"
+        app:tabIndicatorColor="?attr/colorPrimary"
         app:tabMode="fixed"
         app:tabPaddingEnd="-2dp"
         app:tabPaddingStart="-2dp"
-        app:tabSelectedTextColor="@color/tabtextselected"
+        app:tabSelectedTextColor="?attr/colorPrimary"
         app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
         app:tabTextColor="@color/tabtextunselected">
 

@@ -51,7 +51,7 @@
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Therese Butler"
+                    android:text="Player From"
                     android:textColor="@color/colorBlack"
                     android:textStyle="bold" />
 
@@ -70,7 +70,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:drawablePadding="5dp"
-                android:drawableStart="@drawable/dollar"
+                android:drawableEnd="@drawable/percentage"
                 android:paddingEnd="10dp"
                 android:text="230"
                 android:textColor="@color/colorBlack"

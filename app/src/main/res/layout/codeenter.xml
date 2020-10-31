@@ -36,9 +36,9 @@
                 android:text="Click to Join "
                 android:drawablePadding="5dp"
                 android:drawableLeft="@drawable/watch_icon_cont"
-                android:drawableTint="#eb4949"
+                android:drawableTint="?attr/colorPrimary"
                 android:layout_alignParentRight="true"
-                android:textColor="#eb4949" />
+                android:textColor="?attr/colorPrimary" />
         </RelativeLayout>
     </RelativeLayout>
 <LinearLayout

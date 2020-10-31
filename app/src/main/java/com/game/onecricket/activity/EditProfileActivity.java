@@ -1,4 +1,4 @@
-package com.onecricket.activity;
+package com.game.onecricket.activity;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -21,18 +21,18 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.onecricket.APICallingPackage.Class.APIRequestManager;
-import com.onecricket.APICallingPackage.Class.Validations;
-import com.onecricket.APICallingPackage.Interface.ResponseManager;
-import com.onecricket.APICallingPackage.retrofit.APIService;
-import com.onecricket.APICallingPackage.retrofit.ApiClient;
-import com.onecricket.APICallingPackage.retrofit.SubmitToken;
-import com.onecricket.Bean.UserDetails;
-import com.onecricket.R;
-import com.onecricket.databinding.ActivityEditProfileBinding;
-import com.onecricket.utils.CommonProgressDialog;
-import com.onecricket.utils.SessionManager;
-import com.onecricket.utils.crypto.AlertDialogHelper;
+import com.game.onecricket.APICallingPackage.Class.APIRequestManager;
+import com.game.onecricket.APICallingPackage.Class.Validations;
+import com.game.onecricket.APICallingPackage.Interface.ResponseManager;
+import com.game.onecricket.APICallingPackage.retrofit.APIService;
+import com.game.onecricket.APICallingPackage.retrofit.ApiClient;
+import com.game.onecricket.APICallingPackage.retrofit.SubmitToken;
+import com.game.onecricket.Bean.UserDetails;
+import com.game.onecricket.R;
+import com.game.onecricket.databinding.ActivityEditProfileBinding;
+import com.game.onecricket.utils.CommonProgressDialog;
+import com.game.onecricket.utils.SessionManager;
+import com.game.onecricket.utils.crypto.AlertDialogHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,11 +51,11 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.onecricket.APICallingPackage.Class.Validations.ShowToast;
-import static com.onecricket.APICallingPackage.Config.EDITPROFILE;
-import static com.onecricket.APICallingPackage.Config.VIEWPROFILE;
-import static com.onecricket.APICallingPackage.Constants.EDITPROFILETYPE;
-import static com.onecricket.APICallingPackage.Constants.VIEWPROFILETYPE;
+import static com.game.onecricket.APICallingPackage.Class.Validations.ShowToast;
+import static com.game.onecricket.APICallingPackage.Config.EDITPROFILE;
+import static com.game.onecricket.APICallingPackage.Config.VIEWPROFILE;
+import static com.game.onecricket.APICallingPackage.Constants.EDITPROFILETYPE;
+import static com.game.onecricket.APICallingPackage.Constants.VIEWPROFILETYPE;
 
 public class EditProfileActivity extends AppCompatActivity implements ResponseManager {
 

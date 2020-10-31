@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:text="• Verify Your Mobile Number"
-            android:textColor="@color/login_sign_up"
+            android:textColor="?attr/colorPrimary"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:backgroundTint="@color/login_sign_up"
+                android:backgroundTint="?attr/colorPrimary"
                 android:gravity="center"
                 android:hint="X"
                 android:inputType = "numberPassword"
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:backgroundTint="@color/login_sign_up"
+                android:backgroundTint="?attr/colorPrimary"
                 android:gravity="center"
                 android:inputType = "numberPassword"
                 android:hint="X"
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:backgroundTint="@color/login_sign_up"
+                android:backgroundTint="?attr/colorPrimary"
                 android:gravity="center"
                 android:inputType = "numberPassword"
                 android:hint="X"
@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:backgroundTint="@color/login_sign_up"
+                android:backgroundTint="?attr/colorPrimary"
                 android:gravity="center"
                 android:inputType = "numberPassword"
                 android:hint="X"
@@ -126,7 +126,7 @@
             android:padding="12dp"
             android:text="Verify Now"
             android:textAlignment="center"
-            android:textColor="@color/sign_in_btn"
+            android:textColor="?attr/colorPrimary"
             android:textSize="16sp" />
 
         <TextView

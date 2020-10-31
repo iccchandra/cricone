@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#CE404D</color>
-    <color name="colorPrimaryDark">#CE404D</color>
+    <color name="colorPrimary">#E7404A</color>
+    <color name="colorPrimaryDark">#E7404A</color>
     <color name="colorAccent">#7E0A13</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
-    <color name="tabtextselected">#CE404D</color>
+    <color name="tabtextselected">#E7404A</color>
     <color name="tabtextselected2">#02b9aa</color>
     <color name="tabtextunselectednew">#FF1784C7</color>
     <color name="tabtextunselected">#626262</color>
@@ -32,11 +32,11 @@
     
     
     <!--Sign In COlor-->
-    <color name="login_sign_up">#ff6774</color>
+    <color name="login_sign_up">#E7404A</color>
     <!--<color name="btn_txt_color">#b01f40</color>-->
-    <color name="btn_txt_color">@color/colorPrimary</color>
+    <color name="btn_txt_color">#E7404A</color>
     <color name="rounded_corner_lgn">#FFF</color>
-    <color name="sign_in_btn">#b01f40</color>
+    <color name="sign_in_btn">#E7404A</color>
     <color name="lets_play">#b01f40</color>
     <color name="tab_bck">#ffff</color>
     <color name="header_start">#b01f40</color>

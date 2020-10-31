@@ -954,11 +954,11 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                   .setSecondButtonTextColor(Color.parseColor("#000000"))
                   .setSecondButtonText("Go to Profile screen")
                   .withFirstButtonListner(view -> {
-                      finish();
+                      flatDialog.dismiss();
                   })
                   .withSecondButtonListner(view -> {
+                      flatDialog.dismiss();
                       startActivity(new Intent( context, EditProfileActivity.class));
-                      finish();
                   })
                   .show();
 

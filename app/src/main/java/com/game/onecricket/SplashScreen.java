@@ -1,4 +1,4 @@
-package com.game.onecricket.activity;
+package com.game.onecricket;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,13 +8,13 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
 import android.os.Handler;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.util.Base64;
 import android.util.Log;
 
-import com.game.onecricket.R;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.game.onecricket.activity.HomeActivity;
+import com.game.onecricket.activity.LoginActivity;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

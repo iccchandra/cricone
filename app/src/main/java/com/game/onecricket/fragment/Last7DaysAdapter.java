@@ -34,7 +34,7 @@ public class Last7DaysAdapter extends RecyclerView.Adapter<Last7DaysAdapter.Lead
     @Override
     public void onBindViewHolder(@NonNull LeaderBoardViewHolder holder, int position) {
         Last7Day userData = last7DayList.get(position);
-        holder.position.setText(String.format("%d", position + 1));
+        holder.position.setText(String.format("%d", position + 4));
         String roi = userData.getRoi();
         if (roi != null) {
             float roiFloat = Float.parseFloat(roi);

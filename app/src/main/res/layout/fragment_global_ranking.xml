@@ -58,7 +58,7 @@
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:padding="6dp"
-                    android:text="A"
+                    android:text="L"
                     android:textSize="28sp" />
 
             </androidx.cardview.widget.CardView>
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/second_position"
                 android:layout_centerHorizontal="true"
-                android:text="Ashley Morah"
+                android:text="Leader 2"
                 android:textColor="@color/white" />
 
             <TextView
@@ -78,8 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/name2"
                 android:layout_centerHorizontal="true"
-                android:textColor="@color/white"
-                android:text="Mumbai" />
+                android:textColor="@color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -90,7 +89,6 @@
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:id="@+id/points2"
-                android:text="230"
                 app:drawableStartCompat="@drawable/percentage" />
 
         </RelativeLayout>
@@ -129,7 +127,7 @@
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:padding="6dp"
-                    android:text="T"
+                    android:text="L"
                     android:textSize="28sp" />
 
             </androidx.cardview.widget.CardView>
@@ -140,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/first_position"
                 android:layout_centerHorizontal="true"
-                android:text="Therese Butler"
+                android:text="Leader 1"
                 android:textColor="@color/white" />
 
             <TextView
@@ -149,8 +147,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/name1"
                 android:layout_centerHorizontal="true"
-                android:textColor="@color/white"
-                android:text="Hyderabad" />
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/points1"
@@ -158,11 +155,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/location1"
                 android:layout_centerHorizontal="true"
-                android:drawableStart="@drawable/percentage"
                 android:drawablePadding="5dp"
-                android:text="230"
                 android:textColor="@color/white"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/percentage" />
 
         </RelativeLayout>
 
@@ -201,7 +197,7 @@
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:padding="6dp"
-                    android:text="P"
+                    android:text="L"
                     android:textSize="28sp" />
 
             </androidx.cardview.widget.CardView>
@@ -212,7 +208,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/third_position"
                 android:layout_centerHorizontal="true"
-                android:text="John Loreth"
+                android:text="Leader 3"
                 android:textColor="@color/white" />
 
             <TextView

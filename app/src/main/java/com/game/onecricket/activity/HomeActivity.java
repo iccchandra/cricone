@@ -188,7 +188,6 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         }
     }
 
-    @SuppressLint("NonConstantResourceId")
     private void initialiseHomeActivity() {
         responseManager = this;
         apiRequestManager = new APIRequestManager(activity);
@@ -254,34 +253,39 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
             popup.getMenuInflater().inflate(R.menu.menu_home_screen, popup.getMenu());
 
             popup.setOnMenuItemClickListener(item -> {
-                switch (item.getItemId()) {
-                    case R.id.invite_friends:
-                        startActivity(new Intent(HomeActivity.this, InviteFriendsActivity.class));
-                        break;
-                    case R.id.terms:
-                        openWebViewActivity("Terms and Contditions", Config.HOWTOPLAYURL);
-                        break;
-                    case R.id.policy:
-                        openWebViewActivity("Privacy Policy", Config.HELPDESKURL);
-                        break;
-                    case R.id.legality:
-                        openWebViewActivity("LEGALITY", Config.LEGALITY);
-                        break;
-                    case R.id.about_us:
-                        openWebViewActivity("ABOUT US", Config.ABOUTUSURL);
-                        break;
-                    case R.id.notification:
-                        startActivity(new Intent(HomeActivity.this, NotificationActivity.class));
-                        break;
-                    case R.id.logout:
-                        logoutUser();
-                        break;
-                }
+                handlePopUpClickListener(item);
                 return true;
             });
 
             popup.show();
         });
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    private void handlePopUpClickListener(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.invite_friends:
+                startActivity(new Intent(HomeActivity.this, InviteFriendsActivity.class));
+                break;
+            case R.id.terms:
+                openWebViewActivity("Terms and Contditions", Config.HOWTOPLAYURL);
+                break;
+            case R.id.policy:
+                openWebViewActivity("Privacy Policy", Config.HELPDESKURL);
+                break;
+            case R.id.legality:
+                openWebViewActivity("LEGALITY", Config.LEGALITY);
+                break;
+            case R.id.about_us:
+                openWebViewActivity("ABOUT US", Config.ABOUTUSURL);
+                break;
+            case R.id.notification:
+                startActivity(new Intent(HomeActivity.this, NotificationActivity.class));
+                break;
+            case R.id.logout:
+                logoutUser();
+                break;
+        }
     }
 
     private void openWebViewActivity(String s, String aboutusurl) {

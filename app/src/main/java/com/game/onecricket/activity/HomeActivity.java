@@ -46,6 +46,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.flatdialoglibrary.dialog.FlatDialog;
 import com.facebook.login.LoginManager;
+import com.game.onecricket.APICallingPackage.Config;
 import com.game.onecricket.fragment.GlobalLeaderboardFragment;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -63,7 +64,6 @@ import com.game.onecricket.R;
 import com.game.onecricket.adapter.AdapterHomeBanner;
 import com.game.onecricket.databinding.ActivityHomeBinding;
 import com.game.onecricket.fragment.InProgressMatchesFragment;
-import com.game.onecricket.fragment.MoreFragment;
 import com.game.onecricket.fragment.MyContestFragment;
 import com.game.onecricket.fragment.PrivateMatchesFragment;
 import com.game.onecricket.fragment.ProfileFragment;
@@ -249,19 +249,57 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
         binding.optionsMenu.setOnClickListener(view -> {
             PopupMenu popup = new PopupMenu(HomeActivity.this, binding.optionsMenu);
-            //Inflating the Popup using xml file
-            popup.getMenuInflater().inflate(R.menu.poupup_menu, popup.getMenu());
+            popup.getMenuInflater().inflate(R.menu.menu_home_screen, popup.getMenu());
 
-            //registering popup with OnMenuItemClickListener
-            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                public boolean onMenuItemClick(MenuItem item) {
-                    Toast.makeText(HomeActivity.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
-                    return true;
+            popup.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()) {
+                    case R.id.invite_friends:
+                        startActivity(new Intent(HomeActivity.this, InviteFriendsActivity.class));
+                        break;
+                    case R.id.terms:
+                        openWebViewActivity("Terms and Contditions", Config.HOWTOPLAYURL);
+                        break;
+                    case R.id.policy:
+                        openWebViewActivity("Privacy Policy", Config.HELPDESKURL);
+                        break;
+                    case R.id.legality:
+                        openWebViewActivity("LEGALITY", Config.LEGALITY);
+                        break;
+                    case R.id.about_us:
+                        openWebViewActivity("ABOUT US", Config.ABOUTUSURL);
+                        break;
+                    case R.id.notification:
+                        break;
+                    case R.id.logout:
+                        logoutUser();
+                        break;
                 }
+                return true;
             });
 
-            popup.show();//showing popup menu
+            popup.show();
         });
+    }
+
+    private void openWebViewActivity(String s, String aboutusurl) {
+        Intent i = new Intent(activity, WebviewAcitivity.class);
+        i.putExtra("Heading", s);
+        i.putExtra("URL", aboutusurl);
+        startActivity(i);
+    }
+
+    private void logoutUser() {
+        SharedPreferences loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor loginPrefsEditor = loginPreferences.edit();
+
+        LoginManager.getInstance().logOut();
+        loginPrefsEditor.clear();
+        loginPrefsEditor.apply();
+        Auth.GoogleSignInApi.revokeAccess(HomeActivity.mGoogleApiClient).setResultCallback(status -> { });
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 
     private void onShareClicked() {

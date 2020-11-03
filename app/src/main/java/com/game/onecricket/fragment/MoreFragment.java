@@ -35,12 +35,9 @@ public class MoreFragment extends Fragment {
         context = activity = (HomeActivity)getActivity();
 
 
-        binding.RLMoreInviteFriend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(activity, InviteFriendsActivity.class);
-                startActivity(i);
-            }
+        binding.RLMoreInviteFriend.setOnClickListener(view -> {
+            Intent i = new Intent(activity, InviteFriendsActivity.class);
+            startActivity(i);
         });
 
        /* binding.RLFantasyPointSystem.setOnClickListener(new View.OnClickListener() {
@@ -52,50 +49,35 @@ public class MoreFragment extends Fragment {
                 startActivity(i);
             }
         });*/
-        binding.RLMoreHowToPlay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(activity, WebviewAcitivity.class);
-                i.putExtra("Heading","Terms and Contditions");
-                i.putExtra("URL",Config.HOWTOPLAYURL);
-                startActivity(i);
-            }
+        binding.RLMoreHowToPlay.setOnClickListener(view -> {
+            Intent i = new Intent(activity, WebviewAcitivity.class);
+            i.putExtra("Heading","Terms and Contditions");
+            i.putExtra("URL",Config.HOWTOPLAYURL);
+            startActivity(i);
         });
-        binding.RLMoreAboutUs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(activity, WebviewAcitivity.class);
-                i.putExtra("Heading","ABOUT US");
-                i.putExtra("URL",Config.ABOUTUSURL);
-                startActivity(i);
-            }
+        binding.RLMoreAboutUs.setOnClickListener(view -> {
+            Intent i = new Intent(activity, WebviewAcitivity.class);
+            i.putExtra("Heading","ABOUT US");
+            i.putExtra("URL",Config.ABOUTUSURL);
+            startActivity(i);
         });
-        binding.RLMoreHelpDesk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(activity, WebviewAcitivity.class);
-                i.putExtra("Heading","Privacy Policy");
-                i.putExtra("URL",Config.HELPDESKURL);
-                startActivity(i);
-            }
+        binding.RLMoreHelpDesk.setOnClickListener(view -> {
+            Intent i = new Intent(activity, WebviewAcitivity.class);
+            i.putExtra("Heading","Privacy Policy");
+            i.putExtra("URL",Config.HELPDESKURL);
+            startActivity(i);
         });
-        binding.RLPRICING.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(activity, WebviewAcitivity.class);
-                i.putExtra("Heading","PRICING");
-                i.putExtra("URL",Config.PRICING);
-                startActivity(i);
-            }
+        binding.RLPRICING.setOnClickListener(view -> {
+            Intent i = new Intent(activity, WebviewAcitivity.class);
+            i.putExtra("Heading","PRICING");
+            i.putExtra("URL",Config.PRICING);
+            startActivity(i);
         });
-        binding.RLMoreLegality.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(activity, WebviewAcitivity.class);
-                i.putExtra("Heading","LEGALITY");
-                i.putExtra("URL",Config.LEGALITY);
-                startActivity(i);
-            }
+        binding.RLMoreLegality.setOnClickListener(view -> {
+            Intent i = new Intent(activity, WebviewAcitivity.class);
+            i.putExtra("Heading","LEGALITY");
+            i.putExtra("URL",Config.LEGALITY);
+            startActivity(i);
         });
       /*  binding.RLMoreRefundPolicy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +116,5 @@ public class MoreFragment extends Fragment {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         getActivity().finish();
-
     }
 }

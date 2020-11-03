@@ -1,6 +1,7 @@
 package com.game.onecricket.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -187,6 +188,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         }
     }
 
+    @SuppressLint("NonConstantResourceId")
     private void initialiseHomeActivity() {
         responseManager = this;
         apiRequestManager = new APIRequestManager(activity);
@@ -269,6 +271,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                         openWebViewActivity("ABOUT US", Config.ABOUTUSURL);
                         break;
                     case R.id.notification:
+                        startActivity(new Intent(HomeActivity.this, NotificationActivity.class));
                         break;
                     case R.id.logout:
                         logoutUser();

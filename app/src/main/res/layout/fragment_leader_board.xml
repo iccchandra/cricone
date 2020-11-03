@@ -127,7 +127,7 @@
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:padding="6dp"
-                    android:text="T"
+                    android:text="L"
                     android:textSize="28sp" />
 
             </androidx.cardview.widget.CardView>
@@ -199,7 +199,7 @@
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:padding="6dp"
-                    android:text="P"
+                    android:text="L"
                     android:textSize="28sp" />
 
             </androidx.cardview.widget.CardView>

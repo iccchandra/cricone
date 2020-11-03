@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -20,6 +21,13 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.game.onecricket.APICallingPackage.retrofit.ApiInterface;
+import com.game.onecricket.APICallingPackage.retrofit.globalleader.Data;
+import com.game.onecricket.APICallingPackage.retrofit.globalleader.GlobalLeaderResponse;
+import com.game.onecricket.APICallingPackage.retrofit.globalleader.Last30Day;
+import com.game.onecricket.APICallingPackage.retrofit.globalleader.Last7Day;
+import com.game.onecricket.APICallingPackage.retrofit.globalleader.Today;
+import com.game.onecricket.activity.GlobalLeaderActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.game.onecricket.APICallingPackage.retrofit.ApiClient;
 import com.game.onecricket.R;
@@ -28,20 +36,29 @@ import com.game.onecricket.utils.NetworkState;
 import com.game.onecricket.utils.SessionManager;
 import com.game.onecricket.utils.crypto.AlertDialogHelper;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class GlobalLeaderboardFragment extends Fragment {
 
-    private RecyclerView recyclerView;
+    private static final String TAG = "LeaderboardFragment";
     private AlertDialog progressAlertDialog;
     private Context context;
-    private static final String TAG = "LeaderboardFragment";
 
     private AlertDialogHelper alertDialogHelper;
     private SessionManager sessionManager;
-    private boolean isGlobalLeader;
-    private String fId;
+    private GlobalLeaderFragment2 lastWeekFragment;
+    private GlobalLeaderFragment todayFragment;
+    private GlobalLeaderFragment3 lastMonthFragment;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -58,16 +75,12 @@ public class GlobalLeaderboardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_global_leader, container, false);
 
         progressAlertDialog = CommonProgressDialog.getProgressDialog(context);
-
+        alertDialogHelper = AlertDialogHelper.getInstance();
         sessionManager = new SessionManager();
         initialiseTabs(view);
 
         if (NetworkState.isNetworkAvailable(context)) {
-            if (getArguments() != null) {
-                boolean isGlobalLeaderBoard = getArguments().getBoolean("IS_GLOBAL_LEADERBOARD");
-                fId = getArguments().getString("F_ID");
-                callLeaderBoardAPI(isGlobalLeaderBoard);
-            }
+            callGlobalLeaderAPI();
         }
         else {
             if (!alertDialogHelper.isShowing()) {
@@ -77,37 +90,64 @@ public class GlobalLeaderboardFragment extends Fragment {
             }
         }
 
-
-/*
-        userDataList.add(new UserData(4, "Zacharaya", "Bangalore", 220));
-        userDataList.add(new UserData(5, "Louis", "Chennai", 215));
-        userDataList.add(new UserData(6, "Zuren", "Pune", 210));
-        userDataList.add(new UserData(7, "Larrson", "Chandigargh", 205));
-        userDataList.add(new UserData(8, "Josie Ho", "Bangalore", 200));
-        userDataList.add(new UserData(9, "Daria", "Kolkata", 195));
-        userDataList.add(new UserData(10, "Matt Damon", "Ahmedabad", 190));
-        userDataList.add(new UserData(11, "Griffin Kane", "Jaipur", 185));
-        userDataList.add(new UserData(12, "Jude Law", "Lucknow", 180));
-        userDataList.add(new UserData(13, "Teri McEvoy", "Surat", 175));
-        userDataList.add(new UserData(14, "Sue Redman", "Indore", 170));
-        userDataList.add(new UserData(15, "Stef Tovar", "Bhopal", 165));
-        userDataList.add(new UserData(16, "Grace Rex", "Varanasi", 160));
-        userDataList.add(new UserData(17, "Armin Rohde", "Kochi", 155));
-*/
-
-
         return view;
     }
 
+    private void dismissProgressDialog(AlertDialog progressAlertDialog) {
+        if (progressAlertDialog != null && progressAlertDialog.isShowing()) {
+            progressAlertDialog.dismiss();
+        }
+    }
+
+
+    private void callGlobalLeaderAPI() {
+        dismissProgressDialog(progressAlertDialog);
+        progressAlertDialog.show();
+
+        ApiInterface apiInterface = ApiClient.getClientWithAuthorisation(sessionManager.getUser(context).getToken()).create(ApiInterface.class);
+
+        Observable<GlobalLeaderResponse> observable = apiInterface.getGlobalLeaderBoardList();
+        observable.subscribeOn(Schedulers.newThread()).
+                observeOn(AndroidSchedulers.mainThread())
+                .map(result -> result)
+                .subscribe(this::onSuccessResponse, this::onErrorResponse);
+    }
+
+    private void onErrorResponse(Throwable throwable) {
+        dismissProgressDialog(progressAlertDialog);
+    }
+
+    private void onSuccessResponse(GlobalLeaderResponse globalLeaderResponse) {
+        dismissProgressDialog(progressAlertDialog);
+        if (globalLeaderResponse.getData() != null) {
+            Data data = globalLeaderResponse.getData();
+            List<Last7Day> last7DayList = data.getLast7Days();
+            List<Today> todayList = data.getTodays();
+            List<Last30Day> last30DayList = data.getLast30Days();
+
+            if (todayList != null && todayList.size() > 0) {
+                todayFragment.setGlobalLeaderData(todayList);
+            }
+
+            if (last7DayList != null && last7DayList.size() > 0) {
+                lastWeekFragment.setLastWeekList(last7DayList);
+            }
+
+            if (last30DayList != null && last30DayList.size() > 0) {
+                lastMonthFragment.setLastMonthData(last30DayList);
+            }
+        }
+    }
+
+
     private void initialiseTabs(View view) {
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
+        TabLayout tabLayout = view.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Today"));
         tabLayout.addTab(tabLayout.newTab().setText("Last Week"));
         tabLayout.addTab(tabLayout.newTab().setText("Last Month"));
-        alertDialogHelper = AlertDialogHelper.getInstance();
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);
+        final ViewPager viewPager = view.findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter(getFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -117,12 +157,8 @@ public class GlobalLeaderboardFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
             }
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
+            @Override public void onTabUnselected(TabLayout.Tab tab) {}
+            @Override public void onTabReselected(TabLayout.Tab tab) {}
         });
     }
 
@@ -135,20 +171,19 @@ public class GlobalLeaderboardFragment extends Fragment {
         }
         @Override
         public Fragment getItem(int position) {
-            Bundle bundle = new Bundle();
-/*            switch (position) {
+            switch (position) {
                 case 0:
-                    return matchOddsFragment;
+                    todayFragment = new GlobalLeaderFragment();
+                    return todayFragment;
                 case 1:
-
-                    return chatRoomFragment;
+                    lastWeekFragment = new GlobalLeaderFragment2();
+                    return lastWeekFragment;
                 case 2:
-                    return leaderboardFragment;
+                    lastMonthFragment = new GlobalLeaderFragment3();
+                    return lastMonthFragment;
                 default:
                     return null;
-            }*/
-
-            return null;
+            }
         }
 
         @Override
@@ -157,44 +192,4 @@ public class GlobalLeaderboardFragment extends Fragment {
         }
     }
 
-    private void findViewsById(View view) {
-
-
-    }
-
-    private void dismissProgressDialog(AlertDialog progressAlertDialog) {
-        if (progressAlertDialog != null && progressAlertDialog.isShowing()) {
-            progressAlertDialog.dismiss();
-        }
-    }
-
-    private void callLeaderBoardAPI(boolean isGlobalLeaderBoard) {
-        dismissProgressDialog(progressAlertDialog);
-        progressAlertDialog.show();
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String url = ApiClient.BASE_URL + "/myrest/user/leaderboard";;
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
-            dismissProgressDialog(progressAlertDialog);
-            Log.d(TAG, response.toString());
-
-        }, error -> {
-            dismissProgressDialog(progressAlertDialog);
-            if (error.getMessage() != null) {
-                Log.d(TAG, error.getMessage());
-            }
-        })
-        {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                SessionManager sessionManager = new SessionManager();
-                headers.put("Authorization", sessionManager.getUser(context).getToken());
-                Log.d(TAG, sessionManager.getUser(context).getToken());
-                return headers;
-            }
-        };
-
-        requestQueue.add(jsonObjectRequest);
-    }
 }

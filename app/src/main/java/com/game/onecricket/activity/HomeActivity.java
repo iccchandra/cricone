@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
@@ -29,6 +30,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -44,6 +46,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.flatdialoglibrary.dialog.FlatDialog;
 import com.facebook.login.LoginManager;
+import com.game.onecricket.fragment.GlobalLeaderboardFragment;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -243,6 +246,22 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         saveLogin = loginPreferences.getBoolean("saveLogin", false);
 
         setupTabIcons1();
+
+        binding.optionsMenu.setOnClickListener(view -> {
+            PopupMenu popup = new PopupMenu(HomeActivity.this, binding.optionsMenu);
+            //Inflating the Popup using xml file
+            popup.getMenuInflater().inflate(R.menu.poupup_menu, popup.getMenu());
+
+            //registering popup with OnMenuItemClickListener
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                public boolean onMenuItemClick(MenuItem item) {
+                    Toast.makeText(HomeActivity.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+            });
+
+            popup.show();//showing popup menu
+        });
     }
 
     private void onShareClicked() {
@@ -293,7 +312,6 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                                                       tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
 
                                                       if (tab.getPosition() == 0) {
-//                            replaceFragment(new FragmentFixtures());
                                                           binding.tablayout.setVisibility(View.VISIBLE);
                                                           if (binding.tablayout.getSelectedTabPosition() == 0) {
                                                               replaceFragment(new UpcomingMatchesFragment());
@@ -301,7 +319,6 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                                                           else {
                                                               replaceFragment(new InProgressMatchesFragment());
                                                           }
-                                                          binding.head.setVisibility(View.VISIBLE);
                                                           binding.bonus.setVisibility(View.VISIBLE);
                                                           binding.RLHomeBanner.setVisibility(View.VISIBLE);
                                                       } else if (tab.getPosition() == 1) {
@@ -309,26 +326,22 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                                                           binding.RLHomeBanner.setVisibility(View.GONE);
                                                           binding.bonus.setVisibility(View.GONE);
                                                           replaceFragment(new MyContestFragment());
-                                                          binding.head.setVisibility(View.VISIBLE);
                                                       }else if (tab.getPosition() == 2) {
                                                           binding.tablayout.setVisibility(View.GONE);
                                                           binding.RLHomeBanner.setVisibility(View.GONE);
                                                           binding.bonus.setVisibility(View.GONE);
                                                           replaceFragment(new PrivateMatchesFragment());
-                                                          binding.head.setVisibility(View.VISIBLE);
                                                       }
                                                       else if (tab.getPosition() == 3) {
                                                           binding.tablayout.setVisibility(View.GONE);
                                                           binding.RLHomeBanner.setVisibility(View.GONE);
                                                           binding.bonus.setVisibility(View.GONE);
                                                           replaceFragment(new ProfileFragment());
-                                                          binding.head.setVisibility(View.GONE);
                                                       } else {
                                                           binding.tablayout.setVisibility(View.GONE);
                                                           binding.RLHomeBanner.setVisibility(View.GONE);
                                                           binding.bonus.setVisibility(View.GONE);
-                                                          replaceFragment(new MoreFragment());
-                                                          binding.head.setVisibility(View.VISIBLE);
+                                                          replaceFragment(new GlobalLeaderboardFragment());
                                                       }
                                                   }
 

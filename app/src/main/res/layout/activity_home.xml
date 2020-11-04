@@ -93,7 +93,8 @@
         android:layout_margin="12dp"
         android:scaleType="center"
         android:src="@drawable/bonus"
-        app:maxImageSize="56dp" />
+        app:maxImageSize="56dp"
+        android:contentDescription="@null" />
 
 
 
@@ -127,35 +128,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/home_icon_active"
-            android:text="HOME" />
+            android:text="@string/home" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/contest_icon"
-            android:text="MY PREDICT" />
-
-
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/add_group"
-            android:text="GROUPS" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/profile_icon"
-            android:text="PROFILE" />
-
-
+            android:text="@string/my_predict" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/ranking_icon"
-            android:text="RANKING" />
+            android:text="@string/ranking" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/add_group"
+            android:text="@string/groups" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/profile_icon"
+            android:text="@string/profile" />
 
     </com.google.android.material.tabs.TabLayout>
 

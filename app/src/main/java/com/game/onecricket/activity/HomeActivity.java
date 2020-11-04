@@ -375,18 +375,18 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                                                           binding.tablayout.setVisibility(View.GONE);
                                                           binding.RLHomeBanner.setVisibility(View.GONE);
                                                           binding.bonus.setVisibility(View.GONE);
-                                                          replaceFragment(new PrivateMatchesFragment());
+                                                          replaceFragment(new GlobalLeaderboardFragment());
                                                       }
                                                       else if (tab.getPosition() == 3) {
                                                           binding.tablayout.setVisibility(View.GONE);
                                                           binding.RLHomeBanner.setVisibility(View.GONE);
                                                           binding.bonus.setVisibility(View.GONE);
-                                                          replaceFragment(new ProfileFragment());
+                                                          replaceFragment(new PrivateMatchesFragment());
                                                       } else {
                                                           binding.tablayout.setVisibility(View.GONE);
                                                           binding.RLHomeBanner.setVisibility(View.GONE);
                                                           binding.bonus.setVisibility(View.GONE);
-                                                          replaceFragment(new GlobalLeaderboardFragment());
+                                                          replaceFragment(new ProfileFragment());
                                                       }
                                                   }
 

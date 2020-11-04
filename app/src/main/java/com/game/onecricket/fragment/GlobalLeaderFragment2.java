@@ -156,4 +156,9 @@ public class GlobalLeaderFragment2 extends Fragment {
         location3.setText(data.getTotalWinning());
         position3.setText("3");
     }
+
+    public void noDataAvailable() {
+        headerLayout.setVisibility(View.GONE);
+        noDataView.setVisibility(View.VISIBLE);
+    }
 }

@@ -80,6 +80,9 @@ public class GlobalLeaderboardFragment extends Fragment {
         initialiseTabs(view);
 
         if (NetworkState.isNetworkAvailable(context)) {
+            todayFragment = new GlobalLeaderFragment();
+            lastWeekFragment = new GlobalLeaderFragment2();
+            lastMonthFragment = new GlobalLeaderFragment3();
             callGlobalLeaderAPI();
         }
         else {
@@ -128,13 +131,22 @@ public class GlobalLeaderboardFragment extends Fragment {
             if (todayList != null && todayList.size() > 0) {
                 todayFragment.setGlobalLeaderData(todayList);
             }
+            else {
+                todayFragment.noDataAvailable();
+            }
 
             if (last7DayList != null && last7DayList.size() > 0) {
                 lastWeekFragment.setLastWeekList(last7DayList);
             }
+            else {
+                lastWeekFragment.noDataAvailable();
+            }
 
             if (last30DayList != null && last30DayList.size() > 0) {
                 lastMonthFragment.setLastMonthData(last30DayList);
+            }
+            else {
+                lastMonthFragment.noDataAvailable();
             }
         }
     }
@@ -173,13 +185,10 @@ public class GlobalLeaderboardFragment extends Fragment {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    todayFragment = new GlobalLeaderFragment();
                     return todayFragment;
                 case 1:
-                    lastWeekFragment = new GlobalLeaderFragment2();
                     return lastWeekFragment;
                 case 2:
-                    lastMonthFragment = new GlobalLeaderFragment3();
                     return lastMonthFragment;
                 default:
                     return null;

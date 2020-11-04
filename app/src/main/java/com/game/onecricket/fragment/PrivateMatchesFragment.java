@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -69,7 +70,7 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
     public EditText entercode;
     public Button joincode;
     public RelativeLayout LL_CVCInfoHead;
-
+    private TextView nodataView;
 
     @Nullable
     @Override
@@ -82,6 +83,7 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
         LL_CVCInfoHead = view.findViewById(R.id.LL_CVCInfoHead);
         LL_CVCInfoHead.setVisibility(View.VISIBLE);
         entercode = view.findViewById(R.id.entercode);
+        nodataView   = view.findViewById(R.id.no_data_view);
         joincode.setOnClickListener(this);
         recyclerView = view.findViewById(R.id.matches);
         progressAlertDialog = CommonProgressDialog.getProgressDialog(context);
@@ -197,12 +199,22 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
                             matchesInfoList.add(matchesInfo);
                         }
 
-                        MatchesAdapter adapter = new MatchesAdapter(matchesInfoList,"private");
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                        recyclerView.setHasFixedSize(true);
-                        adapter.setRecyclerViewItemClickListener(PrivateMatchesFragment.this);
-                        recyclerView.setAdapter(adapter);
+                        if (matchesInfoList.size() > 0) {
+                            nodataView.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.VISIBLE);
+                            MatchesAdapter adapter = new MatchesAdapter(matchesInfoList, "private");
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            recyclerView.setHasFixedSize(true);
+                            adapter.setRecyclerViewItemClickListener(PrivateMatchesFragment.this);
+                            recyclerView.setAdapter(adapter);
+                        }
+                        else {
+                            nodataView.setVisibility(View.VISIBLE);
+                            recyclerView.setVisibility(View.GONE);
+                        }
                     } catch (JSONException e) {
+                        nodataView.setVisibility(View.VISIBLE);
+                        recyclerView.setVisibility(View.GONE);
                         e.printStackTrace();
                     }
 
@@ -210,6 +222,8 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
                 },
                 error -> {
                     dismissProgressDialog(progressAlertDialog);
+                    nodataView.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
                     Log.e(TAG, "Error: " + error.getMessage());
                 }) {
             @Override

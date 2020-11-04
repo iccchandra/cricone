@@ -52,4 +52,15 @@
         android:layout_below="@+id/LL_CVCInfoHead"
         android:paddingTop="@dimen/dimen_10dp" />
 
+    <TextView
+        android:id="@+id/no_data_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/LL_CVCInfoHead"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:paddingTop="@dimen/dimen_10dp"
+        android:text="@string/no_data"
+        android:textColor="@color/black" />
+
 </RelativeLayout>

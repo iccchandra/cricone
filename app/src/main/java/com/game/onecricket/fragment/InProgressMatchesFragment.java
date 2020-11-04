@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -73,6 +74,7 @@ public class InProgressMatchesFragment extends Fragment implements MatchesAdapte
     private AlertDialog progressAlertDialog;
     private List<MatchesInfo> matchesInfoList;
     private AlertDialogHelper alertDialogHelper;
+    private TextView nodataView;
 
     @Nullable
     @Override
@@ -83,6 +85,7 @@ public class InProgressMatchesFragment extends Fragment implements MatchesAdapte
         View view = inflater.inflate(R.layout.fragment_matches, container, false);
 
         recyclerView = view.findViewById(R.id.matches);
+        nodataView   = view.findViewById(R.id.no_data_view);
         alertDialogHelper = AlertDialogHelper.getInstance();
 
         progressAlertDialog = CommonProgressDialog.getProgressDialog(context);
@@ -238,12 +241,17 @@ public class InProgressMatchesFragment extends Fragment implements MatchesAdapte
                         }
 
                         if (matchesInfoList.size() > 0) {
+                            nodataView.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.VISIBLE);
                             MatchesAdapter adapter = new MatchesAdapter(matchesInfoList, "In-Play");
                             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                             recyclerView.setHasFixedSize(true);
                             adapter.setRecyclerViewItemClickListener(InProgressMatchesFragment.this);
                             recyclerView.setAdapter(adapter);
-
+                        }
+                        else {
+                            nodataView.setVisibility(View.VISIBLE);
+                            recyclerView.setVisibility(View.GONE);
                         }
 
                     } catch (JSONException e) {

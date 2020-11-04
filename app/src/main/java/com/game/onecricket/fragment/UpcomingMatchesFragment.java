@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -76,6 +77,7 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
     private AlertDialogHelper alertDialogHelper;
     public static boolean  contest=false;
     public static String timediffhelp;
+    private TextView nodataView;
 
     @Nullable
     @Override
@@ -84,10 +86,11 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_matches, container, false);
         recyclerView = view.findViewById(R.id.matches);
+        nodataView   = view.findViewById(R.id.no_data_view);
         progressAlertDialog = CommonProgressDialog.getProgressDialog(context);
         sessionManager = new SessionManager();
         contest=false;
-       alertDialogHelper = AlertDialogHelper.getInstance();
+        alertDialogHelper = AlertDialogHelper.getInstance();
         if (NetworkState.isNetworkAvailable(context)) {
             callMatchesAPI(sessionManager.getUser(context).getToken());
         } else {
@@ -184,11 +187,19 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
                             matchesInfoList.add(matchesInfo);
                         }
 
-                        MatchesAdapter adapter = new MatchesAdapter(matchesInfoList, "Upcoming");
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                        recyclerView.setHasFixedSize(true);
-                        adapter.setRecyclerViewItemClickListener(UpcomingMatchesFragment.this);
-                        recyclerView.setAdapter(adapter);
+                        if (matchesInfoList.size() > 0) {
+                            nodataView.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.VISIBLE);
+                            MatchesAdapter adapter = new MatchesAdapter(matchesInfoList, "Upcoming");
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            recyclerView.setHasFixedSize(true);
+                            adapter.setRecyclerViewItemClickListener(UpcomingMatchesFragment.this);
+                            recyclerView.setAdapter(adapter);
+                        }
+                        else {
+                            nodataView.setVisibility(View.VISIBLE);
+                            recyclerView.setVisibility(View.GONE);
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

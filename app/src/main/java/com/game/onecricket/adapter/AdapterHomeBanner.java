@@ -1,9 +1,11 @@
 package com.game.onecricket.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.VideoView;
 
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -11,6 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.game.onecricket.activity.VideoViewActivity;
 import com.joooonho.SelectableRoundedImageView;
 import com.game.onecricket.APICallingPackage.Config;
 import com.game.onecricket.Bean.BeanBanner;
@@ -70,6 +73,13 @@ public class AdapterHomeBanner extends PagerAdapter {
                 if(Imagename.contains("cricket.jpg")){
 
                     System.out.println("banner touched can do something here! "+Imagename);
+                }
+
+                String link = mListenerList.get(position).getLink();
+                if (link != null && link.trim().length() > 0) {
+                    Intent intent = new Intent(context, VideoViewActivity.class);
+                    intent.putExtra("Video_Url", link);
+                    context.startActivity(intent);
                 }
 
             }

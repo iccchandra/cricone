@@ -210,6 +210,7 @@
         <activity
             android:name="com.game.onecricket.activity.GlobalLeaderActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.VideoViewActivity" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"

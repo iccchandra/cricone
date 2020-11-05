@@ -6,6 +6,7 @@ import java.io.Serializable;
 public class BeanBanner implements Serializable {
 
     private String id,banner_image,type;
+    private String link;
 
     public String getId() {
         return id;
@@ -29,5 +30,14 @@ public class BeanBanner implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }

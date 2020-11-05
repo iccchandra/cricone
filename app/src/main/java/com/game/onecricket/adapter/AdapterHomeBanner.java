@@ -66,6 +66,12 @@ public class AdapterHomeBanner extends PagerAdapter {
             @Override
             public void onClick(View view) {
 
+
+                if(Imagename.contains("cricket.jpg")){
+
+                    System.out.println("banner touched can do something here! "+Imagename);
+                }
+
             }
         });
 

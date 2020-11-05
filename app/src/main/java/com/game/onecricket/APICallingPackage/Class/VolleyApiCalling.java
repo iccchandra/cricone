@@ -81,7 +81,7 @@ public class VolleyApiCalling extends Activity implements VolleyRestClient {
                                         message = obj.optString("message");
                                         if(message.contains("Your Mobile is not correct")){
 
-                                            message="please try to register";
+                                            message="please try to register or check mobile number";
                                         }
                                     }
                                     if (obj.has("status")) {

@@ -259,7 +259,7 @@ public class EditProfileActivity extends AppCompatActivity implements ResponseMa
             jsonObject.put("state", binding.etEditState.getText().toString());
             jsonObject.put("country", binding.etEditCountry.getText().toString());
             jsonObject.put("pincode", binding.etEditPincode.getText().toString());
-            jsonObject.put("email", binding.etEditMobile.getText().toString());
+            jsonObject.put("email", binding.etEditEmail.getText().toString());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -420,8 +420,8 @@ public class EditProfileActivity extends AppCompatActivity implements ResponseMa
     }
 
     private void callUpdateTokenAPI() {
-        dismissProgressDialog(progressAlertDialog);
-        progressAlertDialog.show();
+       // dismissProgressDialog(progressAlertDialog);
+        //progressAlertDialog.show();
         initialiseRetrofit();
         String userId = sessionManager.getUser(context).getUser_id();
         String fcmToken = FirebaseInstanceId.getInstance().getToken();

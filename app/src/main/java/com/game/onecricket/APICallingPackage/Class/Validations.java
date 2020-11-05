@@ -7,6 +7,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.CountDownTimer;
 import com.google.android.material.snackbar.Snackbar;
+
+import android.view.Gravity;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,6 +78,7 @@ public class Validations {
 
     public static void ShowToast(Context context, String Message){
       Toast toast=  Toast.makeText(context,Message, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
     }
 

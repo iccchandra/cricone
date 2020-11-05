@@ -256,12 +256,16 @@ public class InProgressMatchesFragment extends Fragment implements MatchesAdapte
 
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        nodataView.setVisibility(View.VISIBLE);
+                        recyclerView.setVisibility(View.GONE);
                     }
 
 
                 },
                 error -> {
                     dismissProgressDialog(progressAlertDialog);
+                    nodataView.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
                     Log.e(TAG, "Error: " + error.getMessage());
                 })
         {

@@ -1,7 +1,5 @@
 package com.game.onecricket.activity;
 
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.widget.MediaController;
 import android.widget.VideoView;
@@ -11,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.game.onecricket.R;
+import com.potyvideo.library.AndExoPlayerView;
+import com.potyvideo.library.globalEnums.EnumResizeMode;
 
 public class VideoViewActivity extends AppCompatActivity {
 
@@ -26,13 +26,16 @@ public class VideoViewActivity extends AppCompatActivity {
         VideoView videoView = findViewById(R.id.videoView);
         final MediaController mediacontroller = new MediaController(this);
         mediacontroller.setAnchorView(videoView);
+        AndExoPlayerView andExoPlayerView = findViewById(R.id.andExoPlayerView);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String url = extras.getString("Video_Url");
-            videoView.setMediaController(mediacontroller);
-            videoView.setVideoURI(Uri.parse(url));
-            videoView.requestFocus();
+            andExoPlayerView.setSource(url);
         }
+
+        andExoPlayerView.setShowController(true);
+        andExoPlayerView.setResizeMode(EnumResizeMode.ZOOM);
+        andExoPlayerView.setPlayWhenReady(true);
     }
 }

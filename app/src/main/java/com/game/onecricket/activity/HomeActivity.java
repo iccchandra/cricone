@@ -96,8 +96,10 @@ import static com.game.onecricket.APICallingPackage.Config.APKURL;
 import static com.game.onecricket.APICallingPackage.Config.HOMEBANNER;
 import static com.game.onecricket.APICallingPackage.Config.STATE_STATUS;
 import static com.game.onecricket.APICallingPackage.Config.UPDATEAPP;
+import static com.game.onecricket.APICallingPackage.Config.VIEWPROFILE;
 import static com.game.onecricket.APICallingPackage.Constants.HOMEBANNERTYPE;
 import static com.game.onecricket.APICallingPackage.Constants.UPDATEAPPTYPE;
+import static com.game.onecricket.APICallingPackage.Constants.VIEWPROFILETYPE;
 
 public class HomeActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
         ResponseManager
@@ -179,13 +181,20 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         checkDateOfBirth();
     }
 
-    private void checkDateOfBirth() {
-        String dateOfBirth = sessionManager.getUser(context).getDateOfBirth();
-        if (dateOfBirth == null || dateOfBirth.length()<0) {
-            showDobAlertDialog(context,
-                               context.getString(R.string.dob_needed__alert_title),
-                               context.getString(R.string.dob_needed__alert_Message));
+    private void callViewProfile(boolean isShowLoader) {
+        try {
+
+            apiRequestManager.callAPIWithAuthorization(VIEWPROFILE,
+                    createRequestJson(), context, activity, VIEWPROFILETYPE,
+                    isShowLoader,responseManager, sessionManager.getUser(context).getToken());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+    }
+
+    private void checkDateOfBirth() {
+        callViewProfile(true);
     }
 
     private void initialiseHomeActivity() {
@@ -596,6 +605,18 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         }
         else if (type.equals(HOMEBANNERTYPE)) {
             onBannerResult(result);
+        }
+        else if (type.equals(VIEWPROFILETYPE)) {
+            try {
+                String dateOfBirth = result.getString("dob");
+                if (dateOfBirth == null || dateOfBirth.length() < 0) {
+                    showDobAlertDialog(context,
+                                       context.getString(R.string.dob_needed__alert_title),
+                                       context.getString(R.string.dob_needed__alert_Message));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 

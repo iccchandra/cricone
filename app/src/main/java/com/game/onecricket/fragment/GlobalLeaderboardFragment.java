@@ -156,7 +156,7 @@ public class GlobalLeaderboardFragment extends Fragment {
         TabLayout tabLayout = view.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Today"));
         tabLayout.addTab(tabLayout.newTab().setText("Last Week"));
-        tabLayout.addTab(tabLayout.newTab().setText("Last Month"));
+        tabLayout.addTab(tabLayout.newTab().setText(context.getString(R.string.monthly)));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final ViewPager viewPager = view.findViewById(R.id.pager);

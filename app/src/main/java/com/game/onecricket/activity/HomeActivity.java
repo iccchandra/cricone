@@ -610,14 +610,26 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
             try {
                 String dateOfBirth = result.getString("dob");
                 if (dateOfBirth == null || dateOfBirth.length() < 0) {
-                    showDobAlertDialog(context,
-                                       context.getString(R.string.dob_needed__alert_title),
-                                       context.getString(R.string.dob_needed__alert_Message));
+                    showDobAlertDialog();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void showDobAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setNegativeButton("Exit", (dialog, id) -> {
+        });
+        builder.setPositiveButton("Check date of Birth", (dialog, id) -> {
+            startActivity(new Intent( context, EditProfileActivity.class));
+        });
+        builder.setTitle(context.getString(R.string.dob_needed__alert_title));
+        builder.setMessage(context.getString(R.string.dob_needed__alert_Message));
+        AlertDialog alert = builder.create();
+        alert.setCanceledOnTouchOutside(false);
+        alert.show();
     }
 
     private void onBannerResult(JSONObject result) {

@@ -141,7 +141,7 @@ public class GlobalLeaderActivity extends AppCompatActivity {
     private void initialiseTabs() {
         TabLayout tabLayout = (TabLayout)findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Today"));
-        tabLayout.addTab(tabLayout.newTab().setText("Last Week"));
+        tabLayout.addTab(tabLayout.newTab().setText("Weekly"));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.monthly));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);

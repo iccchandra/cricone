@@ -136,7 +136,7 @@
 
     <string name="inprogress">In Progress</string>
     <string name="upcoming">Upcoming</string>
-    <string name="no_data">No Data available</string>
+    <string name="no_data">No Predictions at this moment.</string>
     <string name="completed">Completed</string>
 
     <string name="collapsed">collapsed: %s</string>
@@ -153,10 +153,10 @@
     <string name="odd_name">Odd Name</string>
     <string name="game_slip">Game Slip</string>
     <string name="mega_contest">Mega Contest</string>
-    <string name="data_is_not_available">Data not available</string>
+    <string name="data_is_not_available">No Results at this moment.</string>
     <string name="enter_code">Enter Code</string>
-    <string name= "dob_needed__alert_title">Only age 18+ can play.</string>
-    <string name= "dob_needed__alert_Message">Please select Date of Birth</string>
+    <string name="dob_needed__alert_title">Only age 18+ can play.</string>
+    <string name="dob_needed__alert_Message">Please select Date of Birth</string>
     <string name="home">HOME</string>
     <string name="my_predict">MY PREDICT</string>
     <string name="ranking">RANKING</string>

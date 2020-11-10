@@ -214,7 +214,7 @@ public class MatchOddsTabsActivity extends AppCompatActivity implements MatchOdd
 
     private void onShareClicked() {
         Intent intent = new Intent(android.content.Intent.ACTION_SEND);
-        intent.putExtra(Intent.EXTRA_TEXT, "I am betting on " + title + ". Join me if you are interested.");
+        intent.putExtra(Intent.EXTRA_TEXT, "I am Gaming on " + title + ". Join me at https://play.google.com/store/apps/details?id=com.game.onecricket");
         intent.setType("text/plain");
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(Intent.createChooser(intent, getString(R.string.app_name)));

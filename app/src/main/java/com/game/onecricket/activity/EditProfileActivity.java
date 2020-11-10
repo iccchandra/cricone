@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.game.onecricket.databinding.ActivityEditProfileBinding;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
@@ -29,7 +30,6 @@ import com.game.onecricket.APICallingPackage.retrofit.ApiClient;
 import com.game.onecricket.APICallingPackage.retrofit.SubmitToken;
 import com.game.onecricket.Bean.UserDetails;
 import com.game.onecricket.R;
-import com.game.onecricket.databinding.ActivityEditProfileBinding;
 import com.game.onecricket.utils.CommonProgressDialog;
 import com.game.onecricket.utils.SessionManager;
 import com.game.onecricket.utils.crypto.AlertDialogHelper;

@@ -36,7 +36,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:text="You Haven't Joined Any Upcoming Contest"
-                        android:textColor="@color/black"
+                        android:textColor="@color/add_amount_grey"
                         android:visibility="gone" />
                 </RelativeLayout>
             </androidx.core.widget.NestedScrollView>

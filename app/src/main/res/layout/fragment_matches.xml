@@ -61,6 +61,6 @@
         android:layout_centerInParent="true"
         android:paddingTop="@dimen/dimen_10dp"
         android:text="@string/no_data"
-        android:textColor="@color/black" />
+        android:textColor="@color/add_amount_grey" />
 
 </RelativeLayout>

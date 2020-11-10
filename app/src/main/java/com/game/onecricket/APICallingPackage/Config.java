@@ -3,7 +3,6 @@ package com.game.onecricket.APICallingPackage;
 
 public class Config {
 
-//    public static String SERVERURL = "http://cricket.atreatit.com/";
 //    public static String SERVERURL = "http://13.232.85.74/";
     public static String SERVERURL = "http://api.1cricket.in/";
     public static String BASEURL = SERVERURL+"myrest/user/";
@@ -15,7 +14,7 @@ public class Config {
     public static String ProfileIMAGEBASEURL = SERVERURL+"uploads/user/";
 
     //APK URL
-    public static String APKURL = SERVERURL+"apk/1Cricket.apk";
+    public static String APKURL = "https://play.google.com/store/apps/details?id=com.game.onecricket";
     //APK NAME
     public static String APKNAME = "1Cricket.apk";
 

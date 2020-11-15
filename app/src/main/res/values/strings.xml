@@ -163,6 +163,15 @@
     <string name="groups">GROUPS</string>
     <string name="profile">PROFILE</string>
     <string name="monthly">Monthly</string>
+    <string name="our_customer_support_is_available_24_7">Our Customer Support is Available 24/7</string>
+    <string name="invite_friends">Invite Friends</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="legality">Legality</string>
+    <string name="about_us">About Us</string>
+    <string name="notification">Notification</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="email_us">Email Us</string>
+    <string name="contact_1cricket_in">Contact@1cricket.in</string>
 
 
 </resources>

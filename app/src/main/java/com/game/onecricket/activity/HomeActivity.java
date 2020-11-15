@@ -291,6 +291,9 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
             case R.id.notification:
                 startActivity(new Intent(HomeActivity.this, NotificationActivity.class));
                 break;
+            case R.id.contact_us:
+                startActivity(new Intent(HomeActivity.this, ContactUsActivity.class));
+                break;
             case R.id.logout:
                 logoutUser();
                 break;
@@ -609,7 +612,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         else if (type.equals(VIEWPROFILETYPE)) {
             try {
                 String dateOfBirth = result.getString("dob");
-                if (dateOfBirth == null || dateOfBirth.length() < 0) {
+                if (dateOfBirth == null || dateOfBirth.length() <= 0) {
                     showDobAlertDialog();
                 }
             } catch (JSONException e) {

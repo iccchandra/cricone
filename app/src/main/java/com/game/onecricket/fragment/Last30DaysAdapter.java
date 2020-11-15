@@ -34,7 +34,7 @@ public class Last30DaysAdapter extends RecyclerView.Adapter<Last30DaysAdapter.Le
     @Override
     public void onBindViewHolder(@NonNull LeaderBoardViewHolder holder, int position) {
         Last30Day userData = last30DayList.get(position);
-        holder.position.setText(String.format("%d", position + 4));
+        holder.position.setText(String.format("%d", position + 1));
         String roi = userData.getRoi();
         if (roi != null) {
             float roiFloat = Float.parseFloat(roi);

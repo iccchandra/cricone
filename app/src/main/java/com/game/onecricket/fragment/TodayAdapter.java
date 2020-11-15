@@ -34,7 +34,7 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.LeaderBoardV
     @Override
     public void onBindViewHolder(@NonNull LeaderBoardViewHolder holder, int position) {
         Today userData = last7DayList.get(position);
-        holder.position.setText(String.format("%d", position + 4));
+        holder.position.setText(String.format("%d", position + 1));
         String roi = userData.getRoi();
         if (roi != null) {
             float roiFloat = Float.parseFloat(roi);

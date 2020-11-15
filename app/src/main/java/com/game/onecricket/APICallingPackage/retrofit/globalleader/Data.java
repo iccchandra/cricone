@@ -1,11 +1,12 @@
 
 package com.game.onecricket.APICallingPackage.retrofit.globalleader;
 
+import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 @SuppressWarnings("unused")
-public class Data {
+public class Data implements Serializable {
 
     @SerializedName("last_30_days")
     private List<Last30Day> last30Days;

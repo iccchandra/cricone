@@ -2,7 +2,6 @@ package com.game.onecricket.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,39 +9,21 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
+import com.game.onecricket.APICallingPackage.retrofit.ApiClient;
 import com.game.onecricket.APICallingPackage.retrofit.ApiInterface;
 import com.game.onecricket.APICallingPackage.retrofit.globalleader.Data;
 import com.game.onecricket.APICallingPackage.retrofit.globalleader.GlobalLeaderResponse;
-import com.game.onecricket.APICallingPackage.retrofit.globalleader.Last30Day;
-import com.game.onecricket.APICallingPackage.retrofit.globalleader.Last7Day;
-import com.game.onecricket.APICallingPackage.retrofit.globalleader.Today;
-import com.game.onecricket.activity.GlobalLeaderActivity;
-import com.google.android.material.tabs.TabLayout;
-import com.game.onecricket.APICallingPackage.retrofit.ApiClient;
 import com.game.onecricket.R;
 import com.game.onecricket.utils.CommonProgressDialog;
 import com.game.onecricket.utils.NetworkState;
 import com.game.onecricket.utils.SessionManager;
 import com.game.onecricket.utils.crypto.AlertDialogHelper;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.google.android.material.tabs.TabLayout;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -56,9 +37,7 @@ public class GlobalLeaderboardFragment extends Fragment {
 
     private AlertDialogHelper alertDialogHelper;
     private SessionManager sessionManager;
-    private GlobalLeaderFragment2 lastWeekFragment;
-    private GlobalLeaderFragment todayFragment;
-    private GlobalLeaderFragment3 lastMonthFragment;
+    private View view;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -72,17 +51,12 @@ public class GlobalLeaderboardFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.fragment_global_leader, container, false);
+        view = inflater.inflate(R.layout.fragment_global_leader, container, false);
 
         progressAlertDialog = CommonProgressDialog.getProgressDialog(context);
         alertDialogHelper = AlertDialogHelper.getInstance();
         sessionManager = new SessionManager();
-        initialiseTabs(view);
-
         if (NetworkState.isNetworkAvailable(context)) {
-            todayFragment = new GlobalLeaderFragment();
-            lastWeekFragment = new GlobalLeaderFragment2();
-            lastMonthFragment = new GlobalLeaderFragment3();
             callGlobalLeaderAPI();
         }
         else {
@@ -123,44 +97,22 @@ public class GlobalLeaderboardFragment extends Fragment {
     private void onSuccessResponse(GlobalLeaderResponse globalLeaderResponse) {
         dismissProgressDialog(progressAlertDialog);
         if (globalLeaderResponse.getData() != null) {
-            Data data = globalLeaderResponse.getData();
-            List<Last7Day> last7DayList = data.getLast7Days();
-            List<Today> todayList = data.getTodays();
-            List<Last30Day> last30DayList = data.getLast30Days();
-
-            if (todayList != null && todayList.size() > 0) {
-                todayFragment.setGlobalLeaderData(todayList);
-            }
-            else {
-                todayFragment.noDataAvailable();
-            }
-
-            if (last7DayList != null && last7DayList.size() > 0) {
-                lastWeekFragment.setLastWeekList(last7DayList);
-            }
-            else {
-                lastWeekFragment.noDataAvailable();
-            }
-
-            if (last30DayList != null && last30DayList.size() > 0) {
-                lastMonthFragment.setLastMonthData(last30DayList);
-            }
-            else {
-                lastMonthFragment.noDataAvailable();
-            }
+            initialiseTabs(view, globalLeaderResponse.getData());
         }
     }
 
-
-    private void initialiseTabs(View view) {
+    private Data data;
+    private void initialiseTabs(View view, Data data) {
+        this.data = data;
         TabLayout tabLayout = view.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Today"));
         tabLayout.addTab(tabLayout.newTab().setText("Weekly"));
         tabLayout.addTab(tabLayout.newTab().setText(context.getString(R.string.monthly)));
 
+
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final ViewPager viewPager = view.findViewById(R.id.pager);
-        final PagerAdapter adapter = new PagerAdapter(getFragmentManager(), tabLayout.getTabCount());
+        final ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
@@ -174,21 +126,35 @@ public class GlobalLeaderboardFragment extends Fragment {
         });
     }
 
-    private class PagerAdapter extends FragmentStatePagerAdapter {
+    private class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
-        int mNumOfTabs;
-        public PagerAdapter(FragmentManager fm, int NumOfTabs) {
-            super(fm);
-            this.mNumOfTabs = NumOfTabs;
+        private int mNumOfTabs;
+        public ViewPagerAdapter(FragmentManager fragmentManager, int tabsCount) {
+            super(fragmentManager, tabsCount);
+            mNumOfTabs = tabsCount;
         }
+
+        @NonNull
         @Override
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return todayFragment;
+/*                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("Data", data);
+                    GlobalLeaderFragment todayFragment = new GlobalLeaderFragment();
+                    todayFragment.setArguments(bundle);*/
+                    return new GlobalLeaderFragment();
                 case 1:
-                    return lastWeekFragment;
+/*                    Bundle bundle2 = new Bundle();
+                    bundle2.putSerializable("Data", data);
+                    GlobalLeaderFragment2 lastWeekFragment = new GlobalLeaderFragment2();
+                    lastWeekFragment.setArguments(bundle2);*/
+                    return new GlobalLeaderFragment2();
                 case 2:
+                    Bundle bundle3 = new Bundle();
+                    bundle3.putSerializable("Data", data);
+                    GlobalLeaderFragment3 lastMonthFragment = new GlobalLeaderFragment3();
+                    lastMonthFragment.setArguments(bundle3);
                     return lastMonthFragment;
                 default:
                     return null;
@@ -200,5 +166,4 @@ public class GlobalLeaderboardFragment extends Fragment {
             return mNumOfTabs;
         }
     }
-
 }

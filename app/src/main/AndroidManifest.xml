@@ -212,6 +212,8 @@
             android:name=".activity.GlobalLeaderActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.VideoViewActivity" />
+        <activity android:name=".activity.ContactUsActivity" />
+        <activity android:name=".transactionhistory.TranasactionHistoryActivity" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"

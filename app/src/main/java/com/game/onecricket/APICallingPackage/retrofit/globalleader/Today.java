@@ -4,8 +4,10 @@ package com.game.onecricket.APICallingPackage.retrofit.globalleader;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @SuppressWarnings("unused")
-public class Today {
+public class Today implements Serializable {
 
     @SerializedName("bet_amount")
     private String betAmount;

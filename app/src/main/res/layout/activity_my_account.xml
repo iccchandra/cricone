@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<RelativeLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    >
+
+    <include
+        layout="@layout/activity_mainheader"
+        android:id="@+id/head"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/head">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/com_facebook_blue"
+                    android:elevation="3dp"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="401dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/im_wallet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="13dp"
+                            android:src="@drawable/wallethead"
+                            android:textStyle="bold"
+                            android:visibility="visible"></ImageView>
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp">
+
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@color/black" />
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/dimen_10dp">
+
+
+                            <ImageView
+                                android:id="@+id/im_CoinsInfo324"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:padding="@dimen/dimen_5dp"
+                                android:src="@drawable/financing"
+
+
+                                />
+
+
+                            <TextView
+                                android:id="@+id/tv_DepositeHead"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toEndOf="@+id/im_CoinsInfo324"
+                                android:text="@string/cash_balance"
+                                android:textColor="@color/white"
+
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_DepositedAmount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:padding="20dp"
+                                android:text="0"
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true">
+
+                                <ImageView
+                                    android:id="@+id/im_DepositeInfo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginRight="10dp"
+                                    android:src="@drawable/edit_icon"
+                                    android:visibility="invisible" />
+
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@color/black" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/dimen_10dp">
+
+
+                            <ImageView
+                                android:id="@+id/im_CoinsInfo32"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:padding="@dimen/dimen_5dp"
+                                android:src="@drawable/scale"
+
+
+                                />
+
+
+                            <TextView
+                                android:id="@+id/tv_coinsHead"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toEndOf="@+id/im_CoinsInfo32"
+                                android:text="@string/coins_balance"
+                                android:textColor="@color/white"
+
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/coinsbalance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:padding="20dp"
+                                android:text="0"
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:id="@+id/im_coinsinplay2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/edit_icon"
+                                android:visibility="invisible" />
+                        </RelativeLayout>
+
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@color/black" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+
+                            <ImageView
+                                android:id="@+id/im_CoinsInfo3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:padding="@dimen/dimen_10dp"
+                                android:src="@drawable/moneybag"
+
+                                />
+
+
+                            <TextView
+                                android:id="@+id/tv_BonusHead"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toEndOf="@+id/im_CoinsInfo3"
+
+                                android:text="@string/bonus"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_BonusAmount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:padding="20dp"
+                                android:text="0"
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:id="@+id/im_BonusInfo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/edit_icon"
+                                android:visibility="invisible" />
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@color/black" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+
+                            <ImageView
+                                android:id="@+id/im_CoinsInfo31"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:padding="@dimen/dimen_10dp"
+                                android:src="@drawable/coinsinplay"
+
+
+                                />
+
+
+                            <TextView
+                                android:id="@+id/tv_BonusHead1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toEndOf="@+id/im_CoinsInfo31"
+                                android:text="@string/coins_in_play"
+                                android:textColor="@color/white"
+
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/coinsinplay"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:padding="20dp"
+                                android:text="0"
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:id="@+id/im_coinsinplay"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="10dp"
+                                android:src="@drawable/edit_icon"
+                                android:visibility="invisible" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="5dp"
+                 />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:padding="@dimen/dimen_20dp"
+                    app:cardBackgroundColor="@color/com_facebook_blue"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="18dp"
+                    >
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:id="@+id/im_wallet1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/money"
+                            android:textStyle="bold"
+                            android:layout_centerVertical="true"
+
+                            android:padding="@dimen/dimen_10dp"/>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/im_wallet1"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:id="@+id/tv_AddBalance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toRightOf="@+id/im_wallet1"
+                                android:text="@string/add_balance"
+                                android:textColor="@color/white"
+                                android:layout_gravity="fill_horizontal"
+                                android:paddingTop="@dimen/dimen_12sp"
+                                android:textSize="15dp"
+                                android:textStyle="bold"
+
+                                />
+
+                            <TextView
+                                android:id="@+id/belo_balance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="@string/add_balance_below"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+
+                                />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:id="@+id/convert_coins"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/com_facebook_blue"
+                    android:paddingStart="10dp"
+                    android:layout_margin="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="Convert Cash to Coins"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dimen_20dp"
+                    android:id="@+id/RL_MyRecentTransactions"
+                    android:background="@color/design_default_color_secondary"
+                    android:layout_marginTop="10dp"
+                    app:cardBackgroundColor="@color/create_team_unselected_color"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp">
+
+                 <RelativeLayout
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:padding="@dimen/dimen_10dp"
+                     >
+                     <ImageView
+                         android:layout_width="wrap_content"
+                         android:layout_height="match_parent"
+                         android:src="@drawable/sendmoney"
+                         android:id="@+id/transimg"
+                         android:padding="@dimen/dimen_10dp"
+
+                         />
+
+
+                     <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:drawableRight="@drawable/arrow_icon_mr"
+                         android:drawableTint="@color/tabtextunselected"
+                         android:text="@string/my_recent_transactions"
+                         android:textColor="@color/sixtwo"
+                         android:textSize="15sp"
+                         android:textStyle="bold"
+                         android:layout_toEndOf="@+id/transimg"
+
+                         android:layout_centerVertical="true"
+                         />
+                 </RelativeLayout>
+
+
+
+
+                </androidx.cardview.widget.CardView>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:visibility="gone"
+                    android:id="@+id/RL_ManagePayments"
+                    android:background="@drawable/white_rectangle"
+                    android:backgroundTint="#df4949"
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/manage_payments"
+                        android:textColor="@color/white"
+                        android:id="@+id/tv_ManagePayment"
+                        android:textSize="16sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_remove_cards_wallets_etc"
+                        android:textColor="@color/white"
+                        android:layout_below="@+id/tv_ManagePayment"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/arrow_icon_mr"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"/>
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dark_rectangle_contest"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:elevation="3dp">
+
+                </RelativeLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>
+</layout>

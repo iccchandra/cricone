@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/colorPrimary"
+    android:orientation="vertical"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="80dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/header_layout">
+
+        <TextView
+            android:id="@+id/bets_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/circle_bg"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/lato_bold"
+
+            android:text="0"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/game_slip"
+            android:layout_toEndOf="@+id/bets_count"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:fontFamily="@font/lato_bold"
+
+            android:layout_gravity="center"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:id="@+id/points_remaining_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/points_remaining"
+                android:fontFamily="@font/lato_bold"
+
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/points_remaining"
+                android:fontFamily="@font/lato_regular"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/points_remaining_label"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/bets_recycler_view"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_layout"
+        android:layout_below="@+id/header_layout" />
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/bottom_layout"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="@dimen/dimen_20dp"
+        android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/button_place_bet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="@font/lato_bold"
+
+        android:background="?attr/colorPrimary"
+        android:text="Place Game"
+        android:textColor="#ffff" />
+    </RelativeLayout>
+
+</RelativeLayout>

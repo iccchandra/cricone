@@ -460,7 +460,7 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
         dismissProgressDialog(progressAlertDialog);
         entercode.setText("");
         new FancyGifDialog.Builder((Activity) context)
-                .setTitle(joinGroupResponse.getStatus())
+                .setTitle(joinGroupResponse.getStatus().trim())
                 .setMessage(joinGroupResponse.getMessage())
                 .setPositiveBtnBackground("#FF4081")
                 .setPositiveBtnText("OK")

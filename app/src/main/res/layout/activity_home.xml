@@ -39,10 +39,6 @@
             android:src="@drawable/wallet_icon"
             android:visibility="gone" />
 
-        <ImageView
-            android:layout_width="90dp"
-            android:layout_height="55dp"
-            android:background="@drawable/demo_home_2" />
 
         <ImageView
             android:layout_width="24dp"
@@ -103,10 +99,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/RLHomeBanner"
-        android:background="?attr/colorPrimary"
-        android:elevation="6dp"
-        app:tabTextColor="@color/white"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+        android:background="@color/white"
+        android:elevation="3dp"
+        app:tabTextColor="@color/payumoney_black"
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabSelectedTextColor="@color/colorPrimary"
+        android:theme="@style/AppTheme.default" />
+
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
@@ -117,11 +116,12 @@
         android:elevation="30dp"
         app:tabGravity="fill"
         app:tabIndicatorColor="?attr/colorPrimary"
+        app:tabIndicatorGravity="top"
         app:tabMode="fixed"
         app:tabPaddingEnd="-2dp"
         app:tabPaddingStart="-2dp"
         app:tabSelectedTextColor="?attr/colorPrimary"
-        app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
+        app:tabTextAppearance="@style/AppTheme.Button"
         app:tabTextColor="@color/tabtextunselected">
 
         <com.google.android.material.tabs.TabItem
@@ -162,7 +162,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_above="@+id/tabs"
-        android:background="@color/payumoney_grey"
+        android:background="@color/payumoney_separator_color"
 
         android:layout_below="@+id/tablayout"/>
 

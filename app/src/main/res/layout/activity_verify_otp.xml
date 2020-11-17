@@ -27,6 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/lato_bold"
+
             android:layout_gravity="center_horizontal"
             android:text="We just sent an OTP to "
             android:textColor="@color/colorPrimary" />
@@ -123,6 +125,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_below="@+id/tv_VerifyOTP"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/lato_bold"
+
             android:text="Didn't receive the OTP? Request for a new one in"
             android:textAlignment="textStart"
             android:textColor="@color/colorPrimary"
@@ -136,6 +140,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:padding="12dp"
+            android:fontFamily="@font/lato_bold"
+
             android:text="Resend OTP"
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"

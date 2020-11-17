@@ -57,12 +57,12 @@ public class MyInPlayPredictionsAdapter extends RecyclerView.Adapter<MyInPlayPre
         }
 
       //  holder.matchNameTextView.setText(String.format("Match Name: %s", matchName));
-        holder.betValueTextView.setText(String.format(betValue));
-        holder.betAmountTextView.setText(String.format(betAmount));
-        holder.oddNameTextView.setText(String.format(oddName));
-        holder.oddValueTextView.setText(String.format(oddValue));
-        holder.matchDate.setText(String.format(date));
-        holder.teamsTextView.setText(teams);
+        holder.betValueTextView.setText(String.format(betValue).trim());
+        holder.betAmountTextView.setText(String.format(betAmount).trim());
+        holder.oddNameTextView.setText(String.format(oddName).trim());
+        holder.oddValueTextView.setText(String.format(oddValue).trim());
+        holder.matchDate.setText(String.format(date).trim());
+        holder.teamsTextView.setText(teams.trim());
      //   holder.share.setOnClickListener(view -> onShareClicked());
     }
 

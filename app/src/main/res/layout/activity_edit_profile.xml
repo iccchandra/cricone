@@ -43,6 +43,8 @@
                         android:layout_centerHorizontal="true"
                         android:backgroundTint="@color/colorPrimary"
                         android:hint="Name"
+                        android:fontFamily="@font/lato_bold"
+
                         android:padding="12dp"
                         android:singleLine="true"
                         android:textColor="@color/black"
@@ -63,6 +65,8 @@
                         android:layout_centerHorizontal="true"
                         android:backgroundTint="@color/colorPrimary"
                         android:id="@+id/et_EditEmail"
+                        android:fontFamily="@font/lato_bold"
+
                         android:hint="Email"
                         android:padding="12dp"
                         android:singleLine="true"
@@ -84,6 +88,8 @@
                         android:backgroundTint="@color/colorPrimary"
                         android:id="@+id/et_EditMobile"
                         android:hint="Mobile Number"
+                        android:fontFamily="@font/lato_bold"
+
                         android:inputType="number"
                         android:padding="12dp"
                         android:singleLine="true"
@@ -94,6 +100,8 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/input_editDob"
                     android:layout_width="match_parent"
+                    android:fontFamily="@font/lato_bold"
+
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:theme="@style/MyTextInputLayout"
@@ -104,6 +112,8 @@
                         android:layout_centerHorizontal="true"
                         android:backgroundTint="@color/colorPrimary"
                         android:id="@+id/et_EditDob"
+                        android:fontFamily="@font/lato_bold"
+
                         android:hint="Date of Birth"
                         android:editable="false"
                         android:focusable="false"
@@ -117,6 +127,8 @@
                     android:id="@+id/input_editAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato_bold"
+
                     android:layout_marginTop="10dp"
                     android:theme="@style/MyTextInputLayout"
                     android:textColorHint="@color/black">
@@ -124,6 +136,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/lato_bold"
+
                         android:backgroundTint="@color/colorPrimary"
                         android:id="@+id/et_EditAddress"
                         android:hint="Address"
@@ -147,6 +161,8 @@
                         android:backgroundTint="@color/colorPrimary"
                         android:id="@+id/et_EditCity"
                         android:hint="City"
+                        android:fontFamily="@font/lato_bold"
+
                         android:padding="12dp"
                         android:singleLine="true"
                         android:textColor="@color/black"
@@ -168,6 +184,8 @@
                         android:id="@+id/et_EditPincode"
                         android:hint="Pincode"
                         android:inputType="number"
+                        android:fontFamily="@font/lato_bold"
+
                         android:maxLength="6"
                         android:padding="12dp"
                         android:singleLine="true"
@@ -192,6 +210,8 @@
                         android:layout_centerHorizontal="true"
                         android:backgroundTint="@color/colorPrimary"
                         android:hint="State"
+                        android:fontFamily="@font/lato_bold"
+
                         android:padding="12dp"
                         android:singleLine="true"
                         android:textColor="@color/black"
@@ -213,6 +233,8 @@
                         android:id="@+id/et_EditCountry"
                         android:hint="Country"
                         android:padding="12dp"
+                        android:fontFamily="@font/lato_bold"
+
                         android:singleLine="true"
                         android:textColor="@color/black"
                         android:textColorHint="@color/black"
@@ -232,6 +254,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
                         android:layout_weight="1"
+                        android:fontFamily="@font/lato_bold"
+
                         android:background="@drawable/roundbutton"
                         android:drawableLeft="@drawable/male_1"
                         android:drawableTint="@color/textColor"
@@ -252,6 +276,9 @@
                         android:drawableLeft="@drawable/female_2"
                         android:drawableTint="@color/textColor"
                         android:drawablePadding="10dp"
+                        android:fontFamily="@font/lato_bold"
+
+
                         android:padding="10dp"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
@@ -277,6 +304,8 @@
                         android:hint="Add Your Favourite Team"
                         android:padding="12dp"
                         android:singleLine="true"
+                        android:fontFamily="@font/lato_bold"
+
                         android:textColorHint="#626262"
                         android:textSize="14sp" />
                 </com.google.android.material.textfield.TextInputLayout>

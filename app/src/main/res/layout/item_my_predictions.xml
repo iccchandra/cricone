@@ -39,6 +39,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Contest Name"
+                                android:fontFamily="@font/lato_bold"
+
                                 android:textSize="14sp"
                                 android:textColor="@color/textColor"
                                 android:id="@+id/tv_LiveContestName"/>
@@ -48,6 +50,8 @@
                               android:layout_height="wrap_content"
                                 android:layout_below="@+id/tv_LiveContestName"
                                 android:id="@+id/teams"
+                                android:fontFamily="@font/lato_bold"
+
                                 android:textSize="12sp"
                                 android:textStyle="bold"
                                 android:textColor="@color/colorPrimary"
@@ -73,6 +77,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:text="Coins"
+                                android:fontFamily="@font/lato_bold"
+
                                 android:textSize="14sp"
                                 android:textColor="@color/textColor"
                                 android:id="@+id/tv_LiveEntryFeesHead"/>
@@ -82,6 +88,8 @@
                                 android:layout_alignParentRight="true"
                                 android:layout_below="@+id/tv_LiveEntryFeesHead"
                                 android:textSize="16sp"
+                                android:fontFamily="@font/lato_bold"
+
                                 android:textColor="@color/colorPrimary"
                                 android:id="@+id/bet_amount"
                                 android:text="0"/>
@@ -106,6 +114,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Game on"
+                                android:fontFamily="@font/lato_bold"
+
                                 android:textSize="12sp"
                                 android:textColor="@color/textColor"
                                 android:id="@+id/tv_LiveJoinedWithHead"/>
@@ -114,6 +124,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/tv_LiveJoinedWithHead"
                                 android:id="@+id/oddname"
+                                android:fontFamily="@font/lato_bold"
+
                                 android:textSize="14sp"
                                 android:textColor="@color/colorPrimary"
                                 android:text="Team"/>
@@ -128,6 +140,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Game for"
+                                android:fontFamily="@font/lato_bold"
+
                                 android:textSize="12sp"
                                 android:textColor="@color/textColor"
                                 android:layout_centerHorizontal="true"
@@ -138,6 +152,8 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_below="@+id/tv_ContestPointsHead"
                                 android:id="@+id/bet_value"
+                                android:fontFamily="@font/lato_bold"
+
                                 android:textSize="14sp"
                                 android:textColor="@color/colorPrimary"
                                 android:text="90"/>
@@ -154,6 +170,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Game Value"
+                                android:fontFamily="@font/lato_bold"
+
                                 android:textSize="12sp"
                                 android:textColor="@color/textColor"
                                 android:layout_centerHorizontal="true"
@@ -163,6 +181,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/tv_ContestRankHead"
                                 android:textSize="14sp"
+                                android:fontFamily="@font/lato_bold"
+
                                 android:textColor="@color/colorPrimary"
                                 android:layout_centerHorizontal="true"
                                 android:id="@+id/oddvalue"
@@ -178,6 +198,8 @@
                     android:id="@+id/matchdate"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/lato_bold"
+
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:drawablePadding="5dp"
@@ -191,6 +213,8 @@
                     android:text="result"
                     android:textColor="@color/white"
                     android:id="@+id/result"
+                    android:fontFamily="@font/lato_bold"
+
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="5dp"
@@ -206,6 +230,8 @@
                     android:text=""
                     android:visibility="gone"
                     android:textColor="#376ec9"
+                    android:fontFamily="@font/lato_bold"
+
                     android:id="@+id/tv_WinningAmount"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"

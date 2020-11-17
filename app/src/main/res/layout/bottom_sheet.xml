@@ -23,6 +23,8 @@
             android:background="@drawable/circle_bg"
             android:gravity="center"
             android:layout_centerVertical="true"
+            android:fontFamily="@font/lato_bold"
+
             android:text="0"
             android:layout_marginStart="15dp"
             android:textColor="@color/black"
@@ -36,6 +38,8 @@
             android:textColor="@color/white"
             android:layout_marginStart="10dp"
             android:gravity="center"
+            android:fontFamily="@font/lato_bold"
+
             android:layout_gravity="center"
             android:textSize="16sp" />
 
@@ -51,10 +55,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/points_remaining"
+                android:fontFamily="@font/lato_bold"
+
                 android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/points_remaining"
+                android:fontFamily="@font/lato_regular"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -76,16 +84,19 @@
         android:layout_width="match_parent"
         android:id="@+id/bottom_layout"
         android:layout_alignParentBottom="true"
+        android:paddingBottom="@dimen/dimen_20dp"
         android:layout_height="wrap_content">
 
     <Button
         android:id="@+id/button_place_bet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+
+        android:fontFamily="@font/lato_bold"
+
         android:background="?attr/colorPrimary"
         android:text="Place Game"
-        android:textColor="#fff" />
+        android:textColor="#ffff" />
     </RelativeLayout>
 
 </RelativeLayout>

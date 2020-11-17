@@ -372,9 +372,9 @@ public class FragmentFixtures extends Fragment implements ResponseManager {
                 holder.tv_MatchTime.setVisibility(View.GONE);
             }
 
-            holder.tv_TeamOneName.setText(team_short_name1.trim());
-            holder.tv_TeamTwoName.setText(team_short_name2.trim());
-            holder.tv_TeamsName.setText(type);
+            holder.tv_TeamOneName.setText(team_short_name1.trim().trim());
+            holder.tv_TeamTwoName.setText(team_short_name2.trim().trim());
+            holder.tv_TeamsName.setText(type.trim());
             Glide.with(getActivity()).load(Config.TEAMFLAGIMAGE + team_image1)
                      .apply(new RequestOptions()
                                             .diskCacheStrategy(DiskCacheStrategy.ALL))
@@ -408,7 +408,7 @@ public class FragmentFixtures extends Fragment implements ResponseManager {
                             long Seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished));
 
                             String format = "%1$02d";
-                            holder.tv_TimeRemained.setText(String.format(format, Days) + ":" + String.format(format, Hours) + ":" + String.format(format, Minutes) + ":" + String.format(format, Seconds));
+                            holder.tv_TimeRemained.setText(String.format(format, Days) + ":" + String.format(format, Hours) + ":" + String.format(format, Minutes) + ":" + String.format(format, Seconds).trim());
                         }
 
                         public void onFinish() {

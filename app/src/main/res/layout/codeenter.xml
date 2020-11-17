@@ -26,6 +26,8 @@
                 android:layout_toLeftOf="@+id/tv_ContestTimer"
                 android:maxLines="1"
                 android:ellipsize="end"
+                android:fontFamily="@font/lato_bold"
+
                 android:text="Enter Code"
                 android:textColor="@color/textColor" />
             <TextView
@@ -35,6 +37,8 @@
                 android:id="@+id/tv_CreateTeamTimer"
                 android:text="Click to Join "
                 android:drawablePadding="5dp"
+                android:fontFamily="@font/lato_bold"
+
                 android:drawableLeft="@drawable/watch_icon_cont"
                 android:drawableTint="?attr/colorPrimary"
                 android:layout_alignParentRight="true"

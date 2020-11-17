@@ -10,9 +10,11 @@
     android:paddingLeft="18dp"
     android:paddingRight="18dp"
     android:paddingTop="10dp"
-    android:background="@drawable/tab_selector"
-    android:textColor="@drawable/tab_text_color_selector"
+    android:textColor="@color/white"
+    android:background="@drawable/roundbutton"
     android:paddingBottom="10dp"
+
+    android:fontFamily="@font/lato_regular"
     android:layout_marginRight="0dp"
     android:layout_marginLeft="0dp"
     />

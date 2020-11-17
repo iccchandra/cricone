@@ -4,6 +4,7 @@ import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -60,8 +61,8 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         }
         holder.teamsTextView.setText(league);
 
-        holder.teamATextView.setText(TeamName.getFirstWord(teamA));
-        holder.teamBTextView.setText(TeamName.getFirstWord(teamB));
+        holder.teamATextView.setText(TeamName.getFirstWord(teamA).trim());
+        holder.teamBTextView.setText(TeamName.getFirstWord(teamB).trim());
         if (matchType.equalsIgnoreCase("upcoming")) {
 
             if( UpcomingMatchesFragment.contest==true) {
@@ -72,7 +73,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
             else {
 
 
-                String timeleft = String.format(matchesInfo.getDateTime());
+                String timeleft = String.format(matchesInfo.getDateTime()).trim();
                 System.out.println(timeleft);
                 int hoursToGo = Integer.parseInt(timeleft.substring(0, timeleft.indexOf("h")));
                 int minutesToGo = Integer.parseInt(timeleft.substring(timeleft.indexOf("h") + 1, timeleft.indexOf("m")));
@@ -89,7 +90,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
                         int minutes = (int) ((millis / (1000 * 60)) % 60);
                         int hours = (int) ((millis / (1000 * 60 * 60)));
                         // int days   = (int) ((millis / (1000*60*60*60)) % 24);
-                        String text = String.format("%s %s %s", hours + "h", minutes + "m", seconds + "s");
+                        String text = String.format("%s %s %s", hours + "H", minutes + "M", seconds + "s");
                         holder.matchTimeTextView.setText(text);
                     }
 
@@ -135,7 +136,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
 
 
                 // holder.matchTimeTextView.setText(String.format(matchesInfo.getDateTime()));
-                holder.createGroup.setText("Joined");
+               // holder.createGroup.setText("Joined");
             holder.matchTimeTextView.setText(String.format(matchesInfo.getDateTime()));
             Calendar calendar = Calendar.getInstance();
             TimeZone tz = TimeZone.getDefault();
@@ -160,7 +161,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
                     int minutes = (int) ((millis / (1000 * 60)) % 60);
                     int hours = (int) ((millis / (1000 * 60 * 60)));
                     // int days   = (int) ((millis / (1000*60*60*60)) % 24);
-                    String text = String.format("%s %s %s", hours + "h", minutes + "m", seconds + "s");
+                    String text = String.format("%s %s %s", hours + "h ", minutes + "m ", seconds + "s");
                     holder.matchTimeTextView.setText(text);
                     holder.code.setVisibility(View.VISIBLE);
                     holder.code.setText(matchesInfo.getcode());
@@ -183,7 +184,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         }
 
         if (teamA.length() > 0) {
-            holder.circularTextTeamA.setText(String.format("%s", teamA.charAt(0)));
+          //  holder.circularTextTeamA.setText(String.format("%s", teamA.charAt(0)));
         }
 
         if (teamB.length() > 0) {
@@ -198,7 +199,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
             }
         });
 
-        holder.createGroup.setOnClickListener(view -> {
+        holder.private_img.setOnClickListener(view -> {
             if (clickListener != null) {
                 clickListener.onCreateGroupClicked(position);
             }
@@ -251,6 +252,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         private TextView matchTimeTextView;
         private TextView createGroup;
         private TextView code;
+        private LinearLayout private_img;
 
         public MatchesViewHolder(View itemView) {
             super(itemView);
@@ -260,11 +262,12 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
             this.teamAShortName = itemView.findViewById(R.id.team_a_short_name);
             this.teamBShortName = itemView.findViewById(R.id.team_b_short_name);
             this.matchStatus    = itemView.findViewById(R.id.play_status);
-            this.circularTextTeamA = itemView.findViewById(R.id.circular_team_a);
+           // this.circularTextTeamA = itemView.findViewById(R.id.circular_team_a);
            // this.circularTextTeamB = itemView.findViewById(R.id.circular_team_b);
             this.matchTimeTextView = itemView.findViewById(R.id.match_time);
             this.createGroup       = itemView.findViewById(R.id.create_group);
             this.code       = itemView.findViewById(R.id.code);
+            this.private_img       = itemView.findViewById(R.id.private_img);
 
         }
     }

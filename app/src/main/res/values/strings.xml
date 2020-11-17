@@ -158,7 +158,7 @@
     <string name="dob_needed__alert_title">Only age 18+ can play.</string>
     <string name="dob_needed__alert_Message">Please select Date of Birth</string>
     <string name="home">HOME</string>
-    <string name="my_predict">MY PREDICT</string>
+    <string name="my_predict">PREDICTS</string>
     <string name="ranking">RANKING</string>
     <string name="groups">GROUPS</string>
     <string name="profile">PROFILE</string>

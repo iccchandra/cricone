@@ -1,0 +1,439 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E7404A"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textAlignment="center"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/tvInfo"
+            android:visibility="visible"
+            android:text="More Info "
+            android:textColor="@color/white" />
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tvInfo"
+            android:layout_marginBottom="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/RL_InviteFriends"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/RL_MoreInviteFriend"
+                    android:layout_marginTop="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/im_InviteFriends"
+                        android:layout_centerVertical="true"
+                        app:tint="@color/white"
+                        android:src="@drawable/invite_friends" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_InviteFriend"
+                        android:layout_marginLeft="20dp"
+                        android:padding="10dp"
+                        android:layout_centerVertical="true"
+                        android:text="Invite Friends"
+                        android:layout_toRightOf="@+id/im_InviteFriends"
+                        android:layout_toLeftOf="@+id/im_arrow1"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:id="@+id/im_arrow1"
+                        app:tint="@color/white"
+                        android:src="@drawable/arrow_moreopt"
+                        />
+
+
+
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#b3b3b3"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginTop="10dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/im_ContestInvite"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/contest_invite" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_tv_ContestInvite"
+                        android:layout_marginLeft="20dp"
+                        android:padding="10dp"
+                        android:layout_centerVertical="true"
+                        android:text="Contest Invite Code"
+                        android:layout_toRightOf="@+id/im_ContestInvite"
+                        android:layout_toLeftOf="@+id/im_arrow2"
+                        android:textColor="#626262" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:id="@+id/im_arrow2"
+                        app:tint="@color/white"
+                        android:src="@drawable/arrow_moreopt" />
+
+
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/RL_MoreHowToPlay"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/im_HowToPlay"
+                        app:tint="@color/white"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/how_to_play" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_HowToPlay"
+                        android:layout_marginLeft="20dp"
+                        android:padding="10dp"
+                        android:layout_centerVertical="true"
+                        android:text="Terms and Conditions"
+                        android:layout_toRightOf="@+id/im_HowToPlay"
+                        android:layout_toLeftOf="@+id/im_arrow4"
+                        android:textColor="@color/white"  />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:id="@+id/im_arrow4"
+                        app:tint="@color/white"
+                        android:src="@drawable/arrow_moreopt" />
+
+
+
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#b3b3b3"
+                    />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/RL_PRICING"
+                    android:visibility="gone"
+                    android:layout_marginTop="20dp">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/im_PRICING"
+                        android:layout_centerVertical="true"
+
+                        android:src="@drawable/wallet" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_PRICING"
+                        android:layout_marginLeft="20dp"
+                        android:padding="10dp"
+                        android:layout_centerVertical="true"
+                        android:text="Pricing"
+                        android:layout_toRightOf="@+id/im_PRICING"
+                        android:layout_toLeftOf="@+id/im_PS"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:id="@+id/im_PS"
+                        app:tint="@color/white"
+                        android:src="@drawable/arrow_moreopt" />
+
+
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone"
+                    android:background="#b3b3b3"
+                    />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/RL_MoreHelpDesk"
+                    android:layout_marginTop="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/im_HelpDesk"
+                        app:tint="@color/white"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/helpdesk" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_HelpDesk"
+                        android:layout_marginLeft="20dp"
+                        android:padding="10dp"
+                        android:layout_centerVertical="true"
+                        android:text="Privacy policy"
+                        android:layout_toRightOf="@+id/im_HelpDesk"
+                        android:layout_toLeftOf="@+id/im_arrow5"
+                        android:clickable="true"
+                        android:textColor="@color/white"  />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:id="@+id/im_arrow5"
+                        app:tint="@color/white"
+                        android:src="@drawable/arrow_moreopt" />
+
+
+
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#b3b3b3"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/RL_MoreLegality"
+                    android:layout_marginTop="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:tint="@color/white"
+                        android:id="@+id/im_Legality"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/how_to_play" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:padding="10dp"
+                        android:layout_centerVertical="true"
+                        android:text="Legality"
+                        android:layout_toRightOf="@+id/im_Legality"
+                        android:layout_toLeftOf="@+id/im_arrow8"
+                        android:textColor="@color/white"  />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:id="@+id/im_arrow8"
+                        app:tint="@color/white"
+                        android:src="@drawable/arrow_moreopt" />
+                </RelativeLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#b3b3b3"
+                    />
+
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginTop="10dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/im_WWU"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/work_withus" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_WWU"
+                        android:layout_marginLeft="20dp"
+                        android:padding="10dp"
+                        android:layout_centerVertical="true"
+                        android:text="Work With Us"
+                        android:layout_toRightOf="@+id/im_WWU"
+                        android:layout_toLeftOf="@+id/im_arrow6"
+                        android:textColor="#626262" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:id="@+id/im_arrow6"
+                        android:src="@drawable/arrow_moreopt" />
+
+
+
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:visibility="gone"
+                    android:layout_marginTop="10dp"
+                    android:background="#b3b3b3"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/RL_MoreAboutUs"
+                    android:layout_marginTop="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/im_AboutUs"
+                        app:tint="@color/white"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/about_us" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_AboutUs"
+                        android:layout_marginLeft="20dp"
+                        android:padding="10dp"
+                        android:layout_centerVertical="true"
+                        android:text="About Us"
+                        android:layout_toRightOf="@+id/im_AboutUs"
+                        android:layout_toLeftOf="@+id/im_arrow7"
+                        android:textColor="@color/white"  />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:id="@+id/im_arrow7"
+                        app:tint="@color/white"
+                        android:src="@drawable/arrow_icon_mr" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#b3b3b3"
+                    />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/RL_Logout"
+                    android:layout_marginTop="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/im_logout"
+                        app:tint="@color/white"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_logout_new_24" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_logout"
+                        android:layout_marginStart="20dp"
+                        android:padding="10dp"
+                        android:layout_centerVertical="true"
+                        android:text="@string/logout"
+                        android:layout_toEndOf="@+id/im_logout"
+                        android:layout_toStartOf="@+id/im_arrow12"
+                        android:textColor="@color/white"  />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="20dp"
+                        android:id="@+id/im_arrow12"
+                        app:tint="@color/white"
+                        android:src="@drawable/arrow_icon_mr" />
+                </RelativeLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+
+
+    </RelativeLayout>
+</layout>

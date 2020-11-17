@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+ >
+
+ <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="6dp"
+
+        app:cardBackgroundColor="@color/white">
+     <LinearLayout
+         android:layout_width="@dimen/dimen_60dp"
+         android:layout_height="@dimen/dimen_70dp"
+         android:background="@drawable/maincric"
+         />
+
+
+     <LinearLayout
+         android:id="@+id/private_img"
+         android:layout_width="@dimen/dimen_60dp"
+         android:layout_height="@dimen/dimen_70dp"
+         android:layout_alignParentEnd="true"
+         android:layout_gravity="end"
+         android:background="@drawable/hansshake"
+         >
+
+         <TextView
+             android:id="@+id/create_group"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text=""
+             android:fontFamily="@font/lato_bold"
+
+             android:layout_alignParentEnd="true"
+             android:paddingEnd="@dimen/dimen_10dp"
+             android:textStyle="bold"
+             android:gravity="center"
+             android:textColor="#E7404A"
+             android:drawablePadding="5dp"
+             android:visibility="gone"
+             />
+     </LinearLayout>
+
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:id="@+id/headlinear">
+
+
+
+            <RelativeLayout
+                android:id="@+id/header"
+                android:layout_width="@dimen/dimen_0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/teams_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:fontFamily="@font/lato_regular"
+
+                    android:gravity="start|center"
+
+                    android:textColor="@color/black" />
+
+
+
+
+
+
+
+            </RelativeLayout>
+
+         <RelativeLayout
+             android:layout_width="@dimen/dimen_0dp"
+             android:layout_height="@dimen/dimen_20dp"
+             android:textAlignment="center"
+             android:layout_weight="1"
+             android:background="@drawable/timebgnew"
+
+             >
+             <TextView
+                 android:id="@+id/match_time"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Upcoming"
+                 android:layout_centerInParent="true"
+                 android:paddingStart="@dimen/dimen_2dp"
+
+                 android:textAlignment="center"
+
+                 android:textColor="@color/white"
+                 android:fontFamily="@font/lato_regular"
+                 />
+
+
+         </RelativeLayout>
+
+
+         <RelativeLayout
+             android:layout_width="@dimen/dimen_0dp"
+             android:layout_height="wrap_content"
+             android:layout_weight="1">
+
+
+
+
+         </RelativeLayout>
+
+     </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:id="@+id/teams_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:paddingBottom="@dimen/dimen_10dp"
+
+                android:orientation="horizontal">
+
+
+
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/relay"
+                    android:layout_marginLeft="@dimen/dimen_60dp"
+                    android:layout_weight="1">
+
+
+                    <TextView
+                        android:id="@+id/team_a"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:textSize="13dp"
+                        android:fontFamily="@font/lato_bold"
+                        android:lines="2"
+                        android:gravity="end|center"
+
+                        android:textColor="@color/black"
+                        android:text="Team A" />
+
+
+
+
+
+
+
+                </RelativeLayout>
+
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="@dimen/dimen_30dp"
+                    android:src="@drawable/versusnew"
+                    android:layout_centerInParent="true">
+                </ImageView>
+
+
+
+
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dimen_60dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/team_b"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:textSize="13dp"
+                        android:gravity="start|center"
+
+
+                        android:layout_marginRight="@dimen/dimen_10dp"
+                        android:fontFamily="@font/lato_bold"
+                        android:lines="2"
+                    android:textColor="@color/black"
+                        android:text="Team B" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+
+     <TextView
+         android:id="@+id/code"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Play with Friends"
+         android:background="@color/color_5"
+         android:textColor="#E7404A"
+         android:layout_gravity="bottom"
+         android:visibility="gone"
+         android:gravity="center_vertical"
+         android:fontFamily="@font/lato_bold"
+         android:paddingStart="@dimen/dimen_70dp"
+
+         app:drawableStartCompat="@drawable/sharing"
+         />
+
+
+
+
+
+
+
+
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
+
+
+</layout>

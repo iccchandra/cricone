@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorOddsTitle"
+    android:orientation="horizontal"
+    android:padding="@dimen/standard_material_padding">
+
+    <ImageView android:id="@+id/iv_arrow_expand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:src="@drawable/selector_arrow_down"/>
+
+    <TextView
+        android:id="@+id/tv_movie_category"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/iv_arrow_expand"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+</RelativeLayout>

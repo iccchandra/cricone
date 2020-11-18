@@ -25,7 +25,6 @@ public class GlobalLeaderFragment extends Fragment {
 
 
     private RecyclerView recyclerView;
-    private RelativeLayout headerLayout;
     private TextView noDataView;
 
     @Nullable
@@ -55,20 +54,17 @@ public class GlobalLeaderFragment extends Fragment {
     }
 
     private void findViewsById(View view) {
-        headerLayout         = view.findViewById(R.id.header_layout);
         noDataView           = view.findViewById(R.id.no_data_view);
         recyclerView = view.findViewById(R.id.recycler_view);
     }
 
     public void setGlobalLeaderData(List<Today> todayList) {
-        headerLayout.setVisibility(View.VISIBLE);
         noDataView.setVisibility(View.GONE);
         TodayAdapter adapter = new TodayAdapter(todayList);
         recyclerView.setAdapter(adapter);
     }
 
     public void noDataAvailable() {
-        headerLayout.setVisibility(View.GONE);
         noDataView.setVisibility(View.VISIBLE);
     }
 }

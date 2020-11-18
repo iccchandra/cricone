@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,7 +24,6 @@ import com.game.onecricket.APICallingPackage.retrofit.ApiClient;
 import com.game.onecricket.R;
 import com.game.onecricket.pojo.Data;
 import com.game.onecricket.pojo.MatchesInfo;
-import com.game.onecricket.ui.CircularTextView;
 import com.game.onecricket.utils.CommonProgressDialog;
 import com.game.onecricket.utils.NetworkState;
 import com.game.onecricket.utils.SessionManager;
@@ -44,27 +42,9 @@ public class LeaderboardFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private AlertDialog progressAlertDialog;
-    private ImageView position1;
     private Context context;
     private static final String TAG = "LeaderboardFragment";
-    private TextView position2;
-    private TextView position3;
-    private TextView name1;
-    private TextView name2;
-    private TextView name3;
-    private TextView location1;
-    private TextView location2;
-    private TextView location3;
-    private TextView points1;
-    private TextView points2;
-    private TextView points3;
-    private RelativeLayout firstPositionLayout;
-    private RelativeLayout secondPositionLayout;
-    private RelativeLayout thirdPositionLayout;
     private AlertDialogHelper alertDialogHelper;
-    private CircularTextView circularTextView1;
-    private CircularTextView circularTextView2;
-    private CircularTextView circularTextView3;
     private SessionManager sessionManager;
     private boolean isGlobalLeader;
     private String fId;
@@ -138,34 +118,8 @@ public class LeaderboardFragment extends Fragment {
     }
 
     private void findViewsById(View view) {
-
         headerLayout        = view.findViewById(R.id.header_layout);
         noDataView          = view.findViewById(R.id.no_data_view);
-        firstPositionLayout = view.findViewById(R.id.first_position_layout);
-        secondPositionLayout = view.findViewById(R.id.second_position_layout);
-        thirdPositionLayout = view.findViewById(R.id.third_position_layout);
-
-        position1 = view.findViewById(R.id.position1);
-        name1 = view.findViewById(R.id.name1);
-        location1 = view.findViewById(R.id.location1);
-        points1 = view.findViewById(R.id.points1);
-
-        position2 = view.findViewById(R.id.position2);
-        name2 = view.findViewById(R.id.name2);
-        location2 = view.findViewById(R.id.location2);
-        points2 = view.findViewById(R.id.points2);
-
-        position3 = view.findViewById(R.id.position3);
-        name3 = view.findViewById(R.id.name3);
-        location3 = view.findViewById(R.id.location3);
-        points3 = view.findViewById(R.id.points3);
-        circularTextView1 = view.findViewById(R.id.circular_leader_one);
-        circularTextView2 = view.findViewById(R.id.circular_leader_two);
-        circularTextView3 = view.findViewById(R.id.circular_leader_three);
-
-        firstPositionLayout.setVisibility(View.GONE);
-        secondPositionLayout.setVisibility(View.GONE);
-        thirdPositionLayout.setVisibility(View.GONE);
     }
 
     private void dismissProgressDialog(AlertDialog progressAlertDialog) {
@@ -253,7 +207,6 @@ public class LeaderboardFragment extends Fragment {
     }
 
     private void displayResponseData(JSONObject response) {
-        boolean isDataAvailable = false;
         if (response != null) {
             try {
                 if (response.has("status")) {
@@ -284,272 +237,33 @@ public class LeaderboardFragment extends Fragment {
                                     data.setRoi(dataObject.getString("roi"));
                                 }
 
-                                if (i == 0) {
-                                    isDataAvailable = true;
-                                    showRankOne(data);
-                                    continue;
-                                }
-                                else if (i == 1) {
-                                    isDataAvailable = true;
-                                    showRankTwo(data);
-                                    continue;
-                                }
-                                else if (i == 2) {
-                                    isDataAvailable = true;
-                                    showRankThree(data);
-                                    continue;
-                                }
                                 leaderBoardList.add(data);
                             }
 
-                            if (isDataAvailable) {
-                                headerLayout.setVisibility(View.VISIBLE);
-                                noDataView.setVisibility(View.GONE);
-                            }
-                            else {
-                                headerLayout.setVisibility(View.GONE);
-                                noDataView.setVisibility(View.VISIBLE);
-                            }
-
                             if (leaderBoardList.size() > 0) {
+                                recyclerView.setVisibility(View.VISIBLE);
+                                noDataView.setVisibility(View.GONE);
                                 LeaderBoardRecyclerViewAdapter adapter = new LeaderBoardRecyclerViewAdapter(leaderBoardList);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                                 recyclerView.setHasFixedSize(true);
                                 recyclerView.setAdapter(adapter);
+                            }
+                            else {
+                                showNoDataAvailableView();
                             }
                         }
                     }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
+                showNoDataAvailableView();
             }
         }
     }
 
-    private void showResponseData(JSONObject response) {
-        try {
-            JSONArray result = response.getJSONArray("result");
-            int length = result.length();
-            if (length > 0) {
-                switch (length) {
-                   /* case 1:
-                        showRankOne(result.getJSONObject(0));
-                        showTempSecondRank();
-                        showTempThirdRank();
-                        showTempData();
-                        break;
-                    case 2:
-                        showRankOne(result.getJSONObject(0));
-                        showTwoRank(result.getJSONObject(1));
-                        showTempThirdRank();
-                        showTempData();
-                        break;*/
-                    case 3:
-                        showRankOne(result.getJSONObject(0));
-                        showTwoRank(result.getJSONObject(1));
-                        showThreeRank(result.getJSONObject(2));
-                        showTempData();
-                        break;
-                    default:
-                        showDataInRecyclerView(result);
-                        break;
-                }
-
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    private void showNoDataAvailableView() {
+        recyclerView.setVisibility(View.GONE);
+        noDataView.setVisibility(View.VISIBLE);
     }
 
-    private void showTempSecondRank() {
-        name2.setText("Player");
-        points2.setText("XX");
-        location2.setText("Place");
-        position2.setText("2");
-        circularTextView2.setText("P");
-    }
-
-    private void showTempThirdRank() {
-        name3.setText("Player");
-        points3.setText("XX");
-        location3.setText("Place");
-        position3.setText("3");
-        circularTextView3.setText("P");
-    }
-
-    private void showTempData() {
-        List<UserData> userDataList = new ArrayList<>();
-        userDataList.add(new UserData("4", "Player", "Place", "XX"));
-        userDataList.add(new UserData("5", "Player", "Place", "XX"));
-        userDataList.add(new UserData("6", "Player", "Place", "XX"));
-        userDataList.add(new UserData("7", "Player", "Place", "XX"));
-        userDataList.add(new UserData("8", "Player", "Place", "XX"));
-        userDataList.add(new UserData("9", "Player", "Place", "XX"));
-        userDataList.add(new UserData("10", "Player", "Place", "XX"));
-        userDataList.add(new UserData("11", "Player", "Place", "XX"));
-        userDataList.add(new UserData("12", "Player", "Place", "XX"));
-        userDataList.add(new UserData("13", "Player", "Place", "XX"));
-        userDataList.add(new UserData("14", "Player", "Place", "XX"));
-        userDataList.add(new UserData("15", "Player", "Place", "XX"));
-        userDataList.add(new UserData("16", "Player", "Place", "XX"));
-        userDataList.add(new UserData("17", "Player", "Place", "XX"));
-        /*LeaderBoardRecyclerViewAdapter adapter = new LeaderBoardRecyclerViewAdapter(userDataList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(adapter);*/
-    }
-
-    private void showDataInRecyclerView(JSONArray result) {
-        if (result.length() > 2) {
-            List<UserData> userDataList = new ArrayList<>();
-            for (int i = 3; i < result.length(); i++) {
-                try {
-                    JSONObject userInfo = result.getJSONObject(i);
-                    String name = "";
-                    String points = "";
-                    String rank = "";
-                    String location = "";
-                    if (userInfo.has("name")) {
-                        name = userInfo.getString("name");
-                    }
-
-                    if (userInfo.has("roi")) {
-                        points = userInfo.getString("roi");
-                    }
-
-                    if (userInfo.has("rank")) {
-                        rank = userInfo.getString("rank");
-                    }
-
-                    if (userInfo.has("place")) {
-                        location = userInfo.getString("place");
-                    }
-                    UserData userData = new UserData(rank, name, location, points);
-                    userDataList.add(userData);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-/*            LeaderBoardRecyclerViewAdapter adapter = new LeaderBoardRecyclerViewAdapter(userDataList);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setAdapter(adapter);*/
-        }
-    }
-
-    private void showThreeRank(JSONObject response) {
-        try {
-            if (response.has("name")) {
-                String leaderName = response.getString("name");
-                if (leaderName.trim().length() > 0) {
-                    name3.setText(leaderName);
-                    circularTextView3.setText(String.format("%s", leaderName.toUpperCase().charAt(0)));
-                }
-            }
-
-            if (response.has("roi")) {
-                points3.setText(response.getString("roi"));
-            }
-
-            if (response.has("place")) {
-                location3.setText(response.getString("place"));
-            }
-
-            if (response.has("rank")) {
-                position3.setText(response.getString("rank"));
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void showTwoRank(JSONObject response) {
-        try {
-            if (response.has("name")) {
-                String leaderName = response.getString("name");
-                if (leaderName.trim().length() > 0) {
-                    name2.setText(leaderName);
-                    circularTextView2.setText(String.format("%s", leaderName.toUpperCase().charAt(0)));
-                }
-            }
-
-            if (response.has("roi")) {
-                points2.setText(response.getString("roi"));
-            }
-
-            if (response.has("place")) {
-                location2.setText(response.getString("place"));
-            }
-
-            if (response.has("rank")) {
-                position3.setText(response.getString("rank"));
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void showRankOne(JSONObject response) {
-        try {
-            if (response.has("name")) {
-                String leaderName = response.getString("name");
-                if (leaderName.trim().length() > 0) {
-                    name1.setText(leaderName);
-                    circularTextView1.setText(String.format("%s", leaderName.toUpperCase().charAt(0)));
-                }
-            }
-
-            if (response.has("roi")) {
-                points1.setText(response.getString("roi"));
-            }
-
-            if (response.has("place")) {
-                location1.setText(response.getString("place"));
-            }
-
-            if (response.has("rank")) {
-             //   position1.setText(response.getString("rank"));
-            }
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void showRankOne(Data data) {
-        firstPositionLayout.setVisibility(View.VISIBLE);
-        if (data.getName().trim().length() > 0) {
-            name1.setText(String.format("%s", data.getName()));
-            circularTextView1.setText("1");
-        }
-        points1.setText(data.getRoi());
-        location1.setText(data.getState());
-       // position1.setText("1");
-    }
-
-    private void showRankTwo(Data data) {
-        secondPositionLayout.setVisibility(View.VISIBLE);
-        if (data.getName().trim().length() > 0) {
-            name2.setText(String.format("%s %s", data.getName(), data.getState()));
-            circularTextView2.setText(String.format("%s", data.getName().toUpperCase().charAt(0)));
-        }
-        points2.setText(data.getRoi());
-        location2.setText(data.getState());
-        position2.setText("1");
-    }
-
-    private void showRankThree(Data data) {
-        thirdPositionLayout.setVisibility(View.VISIBLE);
-        if (data.getName().trim().length() > 0) {
-            name3.setText(String.format("%s %s", data.getName(), data.getState()));
-            circularTextView3.setText(String.format("%s", data.getName().toUpperCase().charAt(0)));
-        }
-        points3.setText(data.getRoi());
-        location3.setText(data.getState());
-        position3.setText("1");
-    }
 }

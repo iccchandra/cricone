@@ -31,7 +31,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class GlobalLeaderboardFragment extends Fragment {
 
-    private static final String TAG = "LeaderboardFragment";
     private AlertDialog progressAlertDialog;
     private Context context;
 
@@ -101,8 +100,31 @@ public class GlobalLeaderboardFragment extends Fragment {
         }
     }
 
-    private Data data;
-    private void initialiseTabs(View view, Data data) {
+    private void initializeTabs(View view) {
+        TabLayout tabLayout = view.findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Today"));
+        tabLayout.addTab(tabLayout.newTab().setText("Weekly"));
+        tabLayout.addTab(tabLayout.newTab().setText(context.getString(R.string.monthly)));
+
+
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        final ViewPager viewPager = view.findViewById(R.id.pager);
+        final ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+            @Override public void onTabUnselected(TabLayout.Tab tab) {}
+            @Override public void onTabReselected(TabLayout.Tab tab) {}
+        });
+    }
+
+   private Data data;
+   private void initialiseTabs(View view, Data data) {
         this.data = data;
         TabLayout tabLayout = view.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Today"));
@@ -115,7 +137,7 @@ public class GlobalLeaderboardFragment extends Fragment {
         final ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
+        tabLayout.setupWithViewPager(viewPager);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -139,17 +161,17 @@ public class GlobalLeaderboardFragment extends Fragment {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-/*                    Bundle bundle = new Bundle();
+                    Bundle bundle = new Bundle();
                     bundle.putSerializable("Data", data);
                     GlobalLeaderFragment todayFragment = new GlobalLeaderFragment();
-                    todayFragment.setArguments(bundle);*/
-                    return new GlobalLeaderFragment();
+                    todayFragment.setArguments(bundle);
+                    return todayFragment;
                 case 1:
-/*                    Bundle bundle2 = new Bundle();
+                    Bundle bundle2 = new Bundle();
                     bundle2.putSerializable("Data", data);
                     GlobalLeaderFragment2 lastWeekFragment = new GlobalLeaderFragment2();
-                    lastWeekFragment.setArguments(bundle2);*/
-                    return new GlobalLeaderFragment2();
+                    lastWeekFragment.setArguments(bundle2);
+                    return lastWeekFragment;
                 case 2:
                     Bundle bundle3 = new Bundle();
                     bundle3.putSerializable("Data", data);

@@ -61,8 +61,8 @@ public class GlobalLeaderboardFragment extends Fragment {
         else {
             if (!alertDialogHelper.isShowing()) {
                 alertDialogHelper.showAlertDialog(context,
-                        getString(R.string.internet_error_title),
-                        getString(R.string.no_internet_message));
+                                                  getString(R.string.internet_error_title),
+                                                  getString(R.string.no_internet_message));
             }
         }
 
@@ -85,8 +85,8 @@ public class GlobalLeaderboardFragment extends Fragment {
         Observable<GlobalLeaderResponse> observable = apiInterface.getGlobalLeaderBoardList();
         observable.subscribeOn(Schedulers.newThread()).
                 observeOn(AndroidSchedulers.mainThread())
-                .map(result -> result)
-                .subscribe(this::onSuccessResponse, this::onErrorResponse);
+                  .map(result -> result)
+                  .subscribe(this::onSuccessResponse, this::onErrorResponse);
     }
 
     private void onErrorResponse(Throwable throwable) {
@@ -123,8 +123,8 @@ public class GlobalLeaderboardFragment extends Fragment {
         });
     }
 
-   private Data data;
-   private void initialiseTabs(View view, Data data) {
+    private Data data;
+    private void initialiseTabs(View view, Data data) {
         this.data = data;
         TabLayout tabLayout = view.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Today"));
@@ -137,7 +137,6 @@ public class GlobalLeaderboardFragment extends Fragment {
         final ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setupWithViewPager(viewPager);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

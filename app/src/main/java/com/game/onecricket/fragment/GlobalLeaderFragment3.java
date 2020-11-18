@@ -25,7 +25,6 @@ public class GlobalLeaderFragment3 extends Fragment {
 
 
     private RecyclerView recyclerView;
-    private RelativeLayout headerLayout;
     private TextView noDataView;
 
     @Nullable
@@ -58,18 +57,21 @@ public class GlobalLeaderFragment3 extends Fragment {
 
 
     private void findViewsById(View view) {
-        headerLayout         = view.findViewById(R.id.header_layout);
         noDataView           = view.findViewById(R.id.no_data_view);
         recyclerView = view.findViewById(R.id.recycler_view);
     }
 
     public void setLastMonthData(List<Last30Day> last30DayList) {
-        Last30DaysAdapter adapter = new Last30DaysAdapter(last30DayList);
-        recyclerView.setAdapter(adapter);
+        if (last30DayList != null && last30DayList.size() > 0) {
+            Last30DaysAdapter adapter = new Last30DaysAdapter(last30DayList);
+            recyclerView.setAdapter(adapter);
+        }
+        else {
+            noDataAvailable();
+        }
     }
 
     public void noDataAvailable() {
-        headerLayout.setVisibility(View.GONE);
         noDataView.setVisibility(View.VISIBLE);
     }
 }

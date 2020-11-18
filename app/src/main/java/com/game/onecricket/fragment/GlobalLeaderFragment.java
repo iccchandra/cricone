@@ -59,9 +59,14 @@ public class GlobalLeaderFragment extends Fragment {
     }
 
     public void setGlobalLeaderData(List<Today> todayList) {
-        noDataView.setVisibility(View.GONE);
-        TodayAdapter adapter = new TodayAdapter(todayList);
-        recyclerView.setAdapter(adapter);
+        if (todayList != null && todayList.size() > 0) {
+            noDataView.setVisibility(View.GONE);
+            TodayAdapter adapter = new TodayAdapter(todayList);
+            recyclerView.setAdapter(adapter);
+        }
+        else {
+            noDataAvailable();
+        }
     }
 
     public void noDataAvailable() {

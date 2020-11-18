@@ -89,6 +89,7 @@
         android:layout_margin="12dp"
         android:scaleType="center"
         android:src="@drawable/bonus"
+        android:visibility="gone"
         app:maxImageSize="56dp"
         android:contentDescription="@null" />
 

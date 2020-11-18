@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -166,6 +167,8 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         else {
             logout();
         }
+
+
     }
 
     private boolean isTokenAvailable(Context context, SessionManager sessionManager) {
@@ -209,6 +212,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         Animation shake = AnimationUtils.loadAnimation(activity, R.anim.shake);
         //  binding.imNotification.startAnimation(shake);
         binding.VPBanner.setNestedScrollingEnabled(false);
+
         binding.bonus.setOnClickListener(view -> {
             if (NetworkState.isNetworkAvailable(context)) {
                 if (isBonusAvailable()) {
@@ -425,12 +429,24 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
     private boolean isBonusAvailable = false;
     private void disableBonusButton() {
         setBonusAvailable(false);
+        binding.bonus.clearAnimation();
+        binding.bonus.setVisibility(View.GONE);
         binding.bonus.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.bonus_disabled));
     }
 
     private void enableBonusButton() {
         setBonusAvailable(true);
+        binding.bonus.setVisibility(View.VISIBLE);
         binding.bonus.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.bonus));
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                binding.bonus.animate().rotationX(360).withEndAction(this).setDuration(3000).setInterpolator(new LinearInterpolator()).start();
+            }
+        };
+
+        binding.bonus.animate().rotationBy(360).withEndAction(runnable).setDuration(3000).setInterpolator(new LinearInterpolator()).start();
     }
 
     private static final String TYPE_BONUS = "Bonus";
@@ -461,8 +477,8 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private void showBonusAlreadyCreditedAlert() {
         new FancyGifDialog.Builder(this)
-                .setTitle("Your Daily Bonus Already Credited.")
-                .setMessage("Looks like you can earn more.")
+                .setTitle("Boom! Try Tommorow, your Daily Coins Claimed for Today.")
+                .setMessage("you can still Earn coins by sharing with your Friends. ")
                 .setPositiveBtnText("Invite Friends")
                 .setPositiveBtnBackground("#FF4081")
                 .setNegativeBtnText("Close")

@@ -41,6 +41,8 @@ public class GlobalLeaderFragment extends Fragment {
             Data data = (Data) getArguments().getSerializable("Data");
             setData(data);
         }
+
+
         return view;
     }
 

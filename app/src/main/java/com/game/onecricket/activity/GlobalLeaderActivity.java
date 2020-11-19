@@ -1,6 +1,7 @@
 package com.game.onecricket.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -70,14 +71,17 @@ public class GlobalLeaderActivity extends AppCompatActivity {
 
         initialiseTabs();
 
+
         toolbar.setNavigationOnClickListener(view -> finish());
 
         callGlobalLeaderAPI();
+
     }
 
     private void dismissProgressDialog(AlertDialog progressAlertDialog) {
         if (progressAlertDialog != null && progressAlertDialog.isShowing()) {
             progressAlertDialog.dismiss();
+
         }
     }
 

@@ -12,6 +12,8 @@ public class Last7Day {
     private String name;
     @SerializedName("roi")
     private String roi;
+    @SerializedName("state")
+    private String state;
     @SerializedName("total_winning")
     private String totalWinning;
     @SerializedName("userid")
@@ -44,6 +46,12 @@ public class Last7Day {
     public String getTotalWinning() {
         return totalWinning;
     }
+
+    public String getstate() {
+        return state;
+    }
+    public void setstate(String location) {
+        this.state = location; }
 
     public void setTotalWinning(String totalWinning) {
         this.totalWinning = totalWinning;

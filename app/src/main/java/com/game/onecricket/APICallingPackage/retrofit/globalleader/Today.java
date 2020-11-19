@@ -15,8 +15,13 @@ public class Today implements Serializable {
     private String name;
     @Expose
     private String roi;
+    @Expose
+    private String location;
+
     @SerializedName("total_winning")
     private String totalWinning;
+    @SerializedName("state")
+    private String state;
     @Expose
     private String userid;
 
@@ -39,6 +44,14 @@ public class Today implements Serializable {
     public String getRoi() {
         return roi;
     }
+
+    public String getstate() {
+        return state;
+    }
+
+
+    public void setstate(String state) {
+        this.location = location; }
 
     public void setRoi(String roi) {
         this.roi = roi;

@@ -4,47 +4,55 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/position"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="bottom|center"
-        android:textColor="@color/colorBlack"
-        android:textStyle="bold"
-        android:layout_centerVertical="true"
-        android:text="4"
-        app:drawableBottomCompat="@drawable/ic_arrow_drop_down_24" />
+
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:elevation="10dp"
+        android:elevation="2dp"
         android:layout_margin="5dp"
-        android:layout_toEndOf="@+id/position"
-        app:cardCornerRadius="60dp"
+
+        app:cardCornerRadius="15dp"
         android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_10dp"
+            >
+
+
+            <ImageView
+                android:id="@+id/crown1"
+                android:layout_width="@dimen/dimen_30dp"
+                android:layout_height="@dimen/dimen_30dp"
+                android:visibility="gone"
+                android:src="@drawable/trophy"/>
 
         <RelativeLayout
+            android:id="@+id/rlleader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
 
             <com.game.onecricket.ui.CircularTextView
                 android:id="@+id/circular_leader"
-                android:layout_width="70dp"
-                android:layout_margin="10dp"
-                android:layout_height="70dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:gravity="center"
-                android:textColor="@color/white"
-                android:padding="6dp"
+                android:padding="10dp"
+                android:background="@color/colorPrimary"
+                android:fontFamily="@font/lato_bold"
                 android:text="P"
-                android:textSize="28sp" />
+                android:visibility="visible"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
 
-            <LinearLayout
+      <LinearLayout
                 android:id="@+id/profile_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/circular_leader"
+                android:paddingStart="@dimen/dimen_50dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -52,6 +60,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Player From"
+                    android:paddingStart="@dimen/dimen_5dp"
+
+                    android:fontFamily="@font/lato_bold"
                     android:textColor="@color/colorBlack"
                     android:textStyle="bold" />
 
@@ -59,9 +70,19 @@
                     android:id="@+id/location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/dimen_10dp"
+
+                    android:fontFamily="@font/lato_bold"
                     android:text="Hyderabad" />
 
             </LinearLayout>
+
+
+
+
+            </RelativeLayout>
+
+
 
             <TextView
                 android:id="@+id/points"
@@ -69,9 +90,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:drawablePadding="5dp"
-                android:drawableEnd="@drawable/percentage"
-                android:paddingEnd="10dp"
+                android:drawablePadding="0dp"
+                android:fontFamily="@font/lato_bold"
+                android:paddingEnd="30dp"
                 android:text="230"
                 android:textColor="@color/colorBlack"
                 android:textStyle="bold" />

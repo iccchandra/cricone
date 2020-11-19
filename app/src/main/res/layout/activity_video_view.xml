@@ -2,60 +2,29 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#33BBFFFF">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
+
+
+    <ImageView
+        android:id="@+id/closevideo"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:elevation="6dp"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
+        android:padding="@dimen/dimen_80dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/close1" />
 
     <com.potyvideo.library.AndExoPlayerView
         android:id="@+id/andExoPlayerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/appBarLayout" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:layout_below="@id/appBarLayout">
-
-        <TextView
-            android:id="@+id/txtPlaceholder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="16dp"
-            android:text="TAP TO VIEW CONTROLS"
-            android:textStyle="bold" />
+        android:layout_width="230dp"
+        android:layout_height="320dp"
+        android:layout_centerInParent="true"
+        >
 
 
-        <VideoView
-            android:id="@+id/videoView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/txtPlaceholder"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true" />
-
-    </RelativeLayout>
+    </com.potyvideo.library.AndExoPlayerView>
 
 
 </RelativeLayout>

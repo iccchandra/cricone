@@ -57,20 +57,20 @@ public class GlobalLeaderFragment2 extends Fragment {
     }
 
     private void findViewsById(View view) {
-        headerLayout = view.findViewById(R.id.header_layout);
+        //headerLayout = view.findViewById(R.id.header_layout);
         noDataView = view.findViewById(R.id.no_data_view);
         recyclerView = view.findViewById(R.id.recycler_view);
     }
 
     public void setLastWeekList(List<Last7Day> last7DayList) {
-        headerLayout.setVisibility(View.VISIBLE);
+     //   headerLayout.setVisibility(View.VISIBLE);
         noDataView.setVisibility(View.GONE);
         Last7DaysAdapter adapter = new Last7DaysAdapter(last7DayList);
         recyclerView.setAdapter(adapter);
     }
 
     public void noDataAvailable() {
-        headerLayout.setVisibility(View.GONE);
+      //  headerLayout.setVisibility(View.GONE);
         noDataView.setVisibility(View.VISIBLE);
     }
 }

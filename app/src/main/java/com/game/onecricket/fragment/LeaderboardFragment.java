@@ -237,6 +237,10 @@ public class LeaderboardFragment extends Fragment {
                                     data.setRoi(dataObject.getString("roi"));
                                 }
 
+
+
+
+
                                 leaderBoardList.add(data);
                             }
 

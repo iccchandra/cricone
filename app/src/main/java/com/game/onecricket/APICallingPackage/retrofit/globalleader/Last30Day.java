@@ -12,6 +12,8 @@ public class Last30Day {
     private String name;
     @SerializedName("roi")
     private String roi;
+    @SerializedName("state")
+    private String state;
     @SerializedName("total_winning")
     private String totalWinning;
     @SerializedName("userid")
@@ -39,6 +41,13 @@ public class Last30Day {
 
     public void setRoi(String roi) {
         this.roi = roi;
+    }
+    public String getstate() {
+        return state;
+    }
+
+    public void setstate(String state) {
+        this.state = state;
     }
 
     public String getTotalWinning() {

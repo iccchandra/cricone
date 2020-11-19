@@ -35,7 +35,8 @@
         android:usesCleartextTraffic="true"
         tools:ignore="HardcodedDebugMode"
         tools:replace="android:allowBackup,android:icon,android:roundIcon">
-        <activity android:name=".activity.Videoplayer"></activity>
+        <activity android:name=".activity.RoiInfo" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"></activity>
+        <activity android:name=".activity.RankingDescription" />
         <activity android:name=".activity.createactivity" />
 
         <uses-library
@@ -211,7 +212,9 @@
         <activity
             android:name=".activity.GlobalLeaderActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.VideoViewActivity" />
+        <activity
+            android:name=".activity.VideoViewActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
         <activity android:name=".activity.ContactUsActivity" />
         <activity android:name=".transactionhistory.TranasactionHistoryActivity" />
 

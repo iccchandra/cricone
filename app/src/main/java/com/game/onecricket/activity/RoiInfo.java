@@ -27,7 +27,6 @@ public class RoiInfo extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.roibuttton:
-                System.out.println("not closing");
                 finish();
         }
     }

@@ -49,7 +49,6 @@ public class LeaderboardFragment extends Fragment {
     private boolean isGlobalLeader;
     private String fId;
     private MatchesInfo matchesInfo;
-    private RelativeLayout headerLayout;
     private TextView noDataView;
 
     @Override
@@ -118,7 +117,6 @@ public class LeaderboardFragment extends Fragment {
     }
 
     private void findViewsById(View view) {
-        headerLayout        = view.findViewById(R.id.header_layout);
         noDataView          = view.findViewById(R.id.no_data_view);
     }
 
@@ -236,11 +234,6 @@ public class LeaderboardFragment extends Fragment {
                                 if (dataObject.has("roi")) {
                                     data.setRoi(dataObject.getString("roi"));
                                 }
-
-
-
-
-
                                 leaderBoardList.add(data);
                             }
 

@@ -118,7 +118,7 @@ public class LeaderboardFragment extends Fragment {
     }
 
     private void findViewsById(View view) {
-        headerLayout        = view.findViewById(R.id.header_layout);
+      //  headerLayout        = view.findViewById(R.id.header_layout);
         noDataView          = view.findViewById(R.id.no_data_view);
     }
 

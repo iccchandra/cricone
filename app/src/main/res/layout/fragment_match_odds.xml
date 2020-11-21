@@ -16,7 +16,7 @@
             android:id="@+id/match_status_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/background_footer"
+            android:background="@color/gray"
             android:orientation="horizontal"
             android:padding="5dp">
 
@@ -26,6 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/lato_bold"
                 android:textColor="@color/white"
                  />
 
@@ -35,6 +36,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_below="@+id/post"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/lato_bold"
                 android:textColor="@color/white"
                  />
 
@@ -43,6 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_below="@+id/first_innings"
+                android:fontFamily="@font/lato_bold"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                  />
@@ -52,6 +55,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_match_odds"
             android:layout_below="@+id/match_status_layout"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

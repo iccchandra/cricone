@@ -123,7 +123,7 @@
         app:tabPaddingStart="-2dp"
         app:tabSelectedTextColor="?attr/colorPrimary"
         app:tabTextAppearance="@style/AppTheme.Button"
-        app:tabTextColor="@color/tabtextunselected">
+        app:tabTextColor="@color/black">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"

@@ -29,13 +29,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/appBarLayout"
-        android:background="?attr/colorPrimary"
+        android:background="@color/white"
         android:elevation="6dp"
-        app:tabTextColor="@color/white"
+        app:tabSelectedTextColor="@color/yellow"
+        app:tabIndicatorHeight="@dimen/dimen_5dp"
+
+        app:tabTextColor="@color/colorPrimary"
+        app:tabIndicator="@color/white"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/pager"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/tab_layout" />

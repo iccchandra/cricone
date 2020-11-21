@@ -40,7 +40,7 @@ public class Last30DaysAdapter extends RecyclerView.Adapter<Last30DaysAdapter.Le
         String location = userData.getstate();
         if (roi != null) {
             float roiFloat = Float.parseFloat(roi);
-            holder.points.setText(String.format("%.2f", roiFloat));
+            holder.points.setText(String.format("%.1f", roiFloat)+"  %");
         }
 
         String totalWinning = userData.getTotalWinning();
@@ -59,7 +59,7 @@ public class Last30DaysAdapter extends RecyclerView.Adapter<Last30DaysAdapter.Le
 
 
             int imgint= holder.getAdapterPosition();
-            System.out.println("imgint:"+ position);
+           // System.out.println("imgint:"+ position);
 
             if(imgint==0||imgint==1||imgint==2){
                 holder.crown1.setVisibility(View.VISIBLE);
@@ -82,7 +82,7 @@ public class Last30DaysAdapter extends RecyclerView.Adapter<Last30DaysAdapter.Le
         else {
 
             int imgint= holder.getAdapterPosition();
-            System.out.println("imgint:"+ position);
+           // System.out.println("imgint:"+ position);
 
             if(imgint==0||imgint==1||imgint==2){
                 holder.crown1.setVisibility(View.VISIBLE);

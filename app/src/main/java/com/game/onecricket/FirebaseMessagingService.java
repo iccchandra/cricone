@@ -46,19 +46,19 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         }
     }
 
-    private void sendNotification(String title, String message) {
+  /*  private void sendNotification(String title, String message) {
         Intent intent = null;
         if (title != null && !title.isEmpty()) {
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
             Uri sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.clap);
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                    .setSmallIcon(R.mipmap.ic_leadership)
+                    .setSmallIcon(R.mipmap.ic_leadership).setTicker("1Cricket").setWhen(0)
                     .setContentTitle(title)
                     .setAutoCancel(true)
                     .setSound(sound)
                     .setContentIntent(pendingIntent)
-                     .setStyle(new NotificationCompat.BigTextStyle()
+                     .setStyle(new NotificationCompat.BigTextStyle().bigText(message)
                     .bigText("Much longer text that cannot fit one line..."))
                     .setPriority(NotificationCompat.PRIORITY_HIGH);
 
@@ -76,7 +76,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                     .setAutoCancel(true)
                     .setSound(NOTIFICATION_SOUND_URI)
 
-*/
+
 
 
 
@@ -87,7 +87,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
             String CHANNEL_ID = "noti01";
-           /* final Uri NOTIFICATION_SOUND_URI = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + BuildConfig.APPLICATION_ID + "/" + R.raw.clap);
+            final Uri NOTIFICATION_SOUND_URI = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + BuildConfig.APPLICATION_ID + "/" + R.raw.clap);
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
                     .setSmallIcon(R.drawable.round_logo)
                     .setContentTitle(title)
@@ -97,10 +97,10 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                     .setVibrate(new long[]{1000, 1000})
                     .setSound(NOTIFICATION_SOUND_URI)
                     .setContentIntent(pendingIntent);
-*/
 
-            Uri sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.clap);
-            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+
+          //  Uri sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.clap);
+           // NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                     .setSmallIcon(R.mipmap.ic_leadership)
                     .setContentTitle(title)
                     .setAutoCancel(true)
@@ -124,7 +124,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                 notificationManager.notify(0, notificationBuilder.build());
             }
         }
-    }
+    }*/
 
 
     /**
@@ -166,16 +166,15 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         }
 
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "channel_id")
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                                                         .setContentTitle(notification.getTitle())
 //                                                        .setContentText(notification.getBody())
                                                         .setAutoCancel(true)
                                                         .setSound(soundUri)
-                                                         .setSmallIcon(R.mipmap.ic_leadership)
+                                                         .setSmallIcon(R.mipmap.ic_leadership).setTicker("1Cricket").setWhen(0)
                                                         .setContentIntent(pendingIntent)
                                                         .setContentInfo(notification.getTitle())
-                                                        .setStyle(new NotificationCompat.BigTextStyle()
-                                                        .bigText(notification.getBody()))
+                                                        .setStyle(new NotificationCompat.BigTextStyle().bigText(notification.getBody()))
                                                         .setLargeIcon(icon)
                                                         .setColor(Color.RED)
                                                         .setLights(Color.RED, 1000, 300)

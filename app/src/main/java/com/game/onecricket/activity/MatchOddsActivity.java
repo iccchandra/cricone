@@ -60,6 +60,7 @@ public class MatchOddsActivity extends AppCompatActivity implements OddsCategory
     private              BottomsheetRecyclerViewAdapter bottomsheetRecyclerViewAdapter;
     private              TextView                       betsCountView;
     private Button                                      placeBet;
+    private TextView text_bet_info;
 
 
     @Override
@@ -134,6 +135,7 @@ public class MatchOddsActivity extends AppCompatActivity implements OddsCategory
         FloatingActionButton chatFab = findViewById(R.id.fab_chat);
         betsCountView = findViewById(R.id.bets_count);
         placeBet = findViewById(R.id.button_place_bet);
+        text_bet_info =  findViewById(R.id.text_bet_info);
         chatFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -526,8 +528,9 @@ public class MatchOddsActivity extends AppCompatActivity implements OddsCategory
 
         totalBetAmount = betAmount;
         totalReturnAmount = returnAmount;
-        placeBet.setText(String.format("Place Bet Rs. %s\n\nTotal To Return Rs. %s", totalBetAmount,
+        text_bet_info.setText(String.format("Place Game Rs. %s\n\nTotal To Return Rs. %s", totalBetAmount,
                 totalReturnAmount));
+
     }
 
     @Override

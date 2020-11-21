@@ -27,6 +27,7 @@
             android:text="@string/odd_name"
             android:textColor="@color/black"
             android:textSize="12sp"
+            android:fontFamily="@font/lato_bold"
             android:textStyle="bold" />
 
         <TextView
@@ -35,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/odd_name_header"
             android:layout_marginTop="3dp"
+            android:fontFamily="@font/lato_regular"
             android:textColor="@color/black"
             android:textSize="12sp" />
 
@@ -53,6 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bet name"
+            android:fontFamily="@font/lato_bold"
             android:textColor="@color/black"
             android:textSize="12sp" />
 
@@ -72,10 +75,11 @@
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/points"
             android:gravity="center"
+            android:fontFamily="@font/lato_bold"
             android:hint="Stake"
             android:inputType="numberDecimal"
             android:maxLength="6"
-            android:textSize="12sp" />
+            android:textSize="15sp" />
     </RelativeLayout>
 
     <TextView

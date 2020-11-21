@@ -41,7 +41,7 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.LeaderBoardV
         String location = userData.getstate();
         if (roi != null) {
             float roiFloat = Float.parseFloat(roi);
-            holder.points.setText(String.format("%.2f", roiFloat));
+            holder.points.setText(String.format("%.1f", roiFloat)+"  %");
         }
 
         String totalWinning = userData.getTotalWinning();

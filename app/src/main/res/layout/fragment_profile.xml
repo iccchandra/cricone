@@ -60,6 +60,37 @@
                 android:background="@color/black"
                 android:visibility="gone" />
 
+
+                <RelativeLayout
+                    android:id="@+id/RL_ProfilePersonalDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:paddingBottom="10dp"
+                    android:background="@drawable/round_corner_bg"
+                    android:visibility="visible">
+
+
+
+                    <TextView
+                        android:id="@+id/tv_ProfileView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:drawablePadding="10dp"
+                        android:padding="5dp"
+                        android:text="Personal Details                                            Edit"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:drawableRightCompat="@drawable/arrow_icon_mr"
+                        app:drawableTint="@color/colorPrimary" />
+
+
+                </RelativeLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -729,56 +760,13 @@
                 </LinearLayout>
             </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/RL_ProfilePersonalDetail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:paddingBottom="10dp"
-                    android:background="@drawable/round_corner_bg"
-                    android:visibility="visible">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
-                    android:padding="5dp"
-                    android:text="Personal Details"
-                    android:fontFamily="@font/lato_bold"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tv_ProfileView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:drawablePadding="10dp"
-                    android:padding="5dp"
-                    android:text="Edit"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    app:drawableRightCompat="@drawable/arrow_icon_mr"
-                    app:drawableTint="@color/colorPrimary" />
 
-                <TextView
-                    android:id="@+id/tv_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@+id/tv_ProfileView"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"
-                    android:background="@color/colorPrimary" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_line"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
@@ -827,7 +815,7 @@
 
                 </LinearLayout>
 
-            </RelativeLayout>
+
 
         </LinearLayout>
 

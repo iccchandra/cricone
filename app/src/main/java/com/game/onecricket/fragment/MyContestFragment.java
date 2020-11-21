@@ -134,11 +134,12 @@ public class MyContestFragment extends Fragment implements ResponseManager{
 
         binding.FragmentMyTab.setupWithViewPager(binding.myviewpager);
 
-        for (int i = 0; i < binding.FragmentMyTab.getTabCount(); i++) {
+      /*  for (int i = 0; i < binding.FragmentMyTab.getTabCount(); i++) {
             TextView tv = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab, null);
-            tv.setTextColor(Color.RED);
             binding.FragmentMyTab.getTabAt(i).setCustomView(tv);
-        }
+
+
+        }*/
         binding.myviewpager.setOffscreenPageLimit(2);
 
     }

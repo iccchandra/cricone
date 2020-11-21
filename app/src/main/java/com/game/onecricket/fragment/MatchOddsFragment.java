@@ -100,6 +100,8 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
     private BottomsheetRecyclerViewAdapter bottomsheetRecyclerViewAdapter;
     private TextView betsCountView;
     private Button placeBet;
+    private TextView text_bet_info;
+
     private Context context;
     private Listener listener;
     private RelativeLayout bottom_sheet;
@@ -185,6 +187,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
         bottomSheetRecyclerView = view.findViewById(R.id.bets_recycler_view);
         betsCountView = view.findViewById(R.id.bets_count);
         placeBet = view.findViewById(R.id.button_place_bet);
+        text_bet_info =view.findViewById(R.id.text_bet_info);
         matchStatusLayout = view.findViewById(R.id.match_status_layout);
         matchStatusLayout.setVisibility(View.GONE);
         matchStatusText = view.findViewById(R.id.post);
@@ -230,7 +233,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
                     coinsRemainingLabelTextView.setVisibility(View.VISIBLE);
                 }
                 else {
-                    coinsRemainingTextView.setText("No coins left to place bet");
+                    coinsRemainingTextView.setText("No coins left to place Game");
                     coinsRemainingLabelTextView.setVisibility(View.GONE);
                 }
 
@@ -873,7 +876,7 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
 
         float totalBetAmount = Math.round(betAmount);
         float totalReturnAmount = Math.round(returnAmount);
-        placeBet.setText(String.format("Place Bet Coins. %s\n\nTotal To Return Coins. %s",
+        text_bet_info.setText(String.format("Place Game Coins. %s\n\nTotal To Return Coins. %s",
                          totalBetAmount,
                          totalReturnAmount));
 

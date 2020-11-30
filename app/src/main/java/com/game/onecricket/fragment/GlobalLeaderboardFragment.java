@@ -59,8 +59,8 @@ public class GlobalLeaderboardFragment extends Fragment {
         sessionManager = new SessionManager();
         if (NetworkState.isNetworkAvailable(context)) {
             callGlobalLeaderAPI();
-            Intent intent = new Intent(context, RoiInfo.class);
-            context.startActivity(intent);
+          //  Intent intent = new Intent(context, RoiInfo.class);
+           // context.startActivity(intent);
 
         }
         else {

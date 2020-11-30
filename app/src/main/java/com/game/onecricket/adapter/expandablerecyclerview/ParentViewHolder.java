@@ -9,6 +9,7 @@ public class ParentViewHolder extends RecyclerView.ViewHolder implements View.On
     private ParentListItemExpandCollapseListener mParentListItemExpandCollapseListener;
     private boolean mExpanded;
 
+
     /**
      * implementations to be notified of expand/collapse state change events.
      */
@@ -36,7 +37,8 @@ public class ParentViewHolder extends RecyclerView.ViewHolder implements View.On
      */
     public ParentViewHolder(View itemView) {
         super(itemView);
-        mExpanded = false;
+        mExpanded = true;
+
     }
 
     /**
@@ -108,7 +110,7 @@ public class ParentViewHolder extends RecyclerView.ViewHolder implements View.On
     @Override
     public void onClick(View v) {
         if (mExpanded) {
-            collapseView();
+            expandView();
         } else {
             expandView();
         }
@@ -133,10 +135,13 @@ public class ParentViewHolder extends RecyclerView.ViewHolder implements View.On
      */
     protected void expandView() {
         setExpanded(true);
-        onExpansionToggled(false);
+        onExpansionToggled(true);
 
         if (mParentListItemExpandCollapseListener != null) {
+
             mParentListItemExpandCollapseListener.onParentListItemExpanded(getAdapterPosition());
+
+
         }
     }
 
@@ -145,7 +150,7 @@ public class ParentViewHolder extends RecyclerView.ViewHolder implements View.On
      */
     protected void collapseView() {
         setExpanded(false);
-        onExpansionToggled(true);
+        onExpansionToggled(false);
 
         if (mParentListItemExpandCollapseListener != null) {
             mParentListItemExpandCollapseListener.onParentListItemCollapsed(getAdapterPosition());

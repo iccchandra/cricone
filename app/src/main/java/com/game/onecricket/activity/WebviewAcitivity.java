@@ -2,6 +2,8 @@ package com.game.onecricket.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+
+import androidx.appcompat.widget.Toolbar;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
@@ -28,10 +30,22 @@ public class WebviewAcitivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview_acitivity);
+
         context = activity = this;
         IntentHeading = getIntent().getStringExtra("Heading");
         IntentURL = getIntent().getStringExtra("URL");
-         doc="http://docs.google.com/gview?embedded=true&url="+IntentURL;
+        // doc="http://docs.google.com/gview?embedded=true&url="+IntentURL;
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_white_24);
+        toolbar.setTitle(IntentHeading);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));// your drawable
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // Implemented by activity
+            }
+        });
 
         initViews();
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
@@ -39,7 +53,7 @@ public class WebviewAcitivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         swipeRefreshLayout.setRefreshing(true);
-                                        LoadPage(doc);
+                                        LoadPage(IntentURL);
                                     }
                                 }
         );
@@ -56,17 +70,17 @@ public class WebviewAcitivity extends AppCompatActivity {
 
     public void initViews(){
 
-        im_back = findViewById(R.id.im_back);
-        tv_HeaderName = findViewById(R.id.tv_HeaderName);
+       // im_back = findViewById(R.id.im_back);
+        //tv_HeaderName = findViewById(R.id.tv_HeaderName);
         wv1= findViewById(R.id.webView1);
 
-        tv_HeaderName.setText(IntentHeading);
-        im_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+       // tv_HeaderName.setText("About US");
+        //im_back.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+          //  public void onClick(View view) {
+            //    onBackPressed();
+            //}
+        //});
 
     }
 

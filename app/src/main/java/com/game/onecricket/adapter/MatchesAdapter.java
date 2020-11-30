@@ -90,13 +90,13 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
                         int minutes = (int) ((millis / (1000 * 60)) % 60);
                         int hours = (int) ((millis / (1000 * 60 * 60)));
                         // int days   = (int) ((millis / (1000*60*60*60)) % 24);
-                        String text = String.format("%s %s %s", hours + "H", minutes + "M", seconds + "s");
+                        String text = String.format("%s %s %s", hours + "h", minutes + "m", seconds + "s");
                         holder.matchTimeTextView.setText(text);
                     }
 
                     @Override
                     public void onFinish() {
-                        holder.matchTimeTextView.setText("Playing");
+                        holder.matchTimeTextView.setText("Live");
 
                     }
                 }.start();

@@ -52,7 +52,7 @@ public class MoreFragment extends Fragment {
         binding.RLMoreHowToPlay.setOnClickListener(view -> {
             Intent i = new Intent(activity, WebviewAcitivity.class);
             i.putExtra("Heading","Terms and Contditions");
-            i.putExtra("URL",Config.HOWTOPLAYURL);
+            i.putExtra("URL",Config.Privacypolicy);
             startActivity(i);
         });
         binding.RLMoreAboutUs.setOnClickListener(view -> {

@@ -35,7 +35,13 @@
         android:usesCleartextTraffic="true"
         tools:ignore="HardcodedDebugMode"
         tools:replace="android:allowBackup,android:icon,android:roundIcon">
-        <activity android:name=".activity.RoiInfo" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"></activity>
+        <activity
+            android:name=".activity.AboutusActivity"
+            android:label="@string/title_activity_aboutus"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".activity.RoiInfo"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
         <activity android:name=".activity.RankingDescription" />
         <activity android:name=".activity.createactivity" />
 
@@ -220,7 +226,7 @@
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="ch01" />
+            android:value="@string/default_notification_channel_id"/>
     </application>
 
 </manifest>

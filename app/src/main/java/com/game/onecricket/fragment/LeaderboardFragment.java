@@ -51,6 +51,7 @@ public class LeaderboardFragment extends Fragment {
     private MatchesInfo matchesInfo;
     private RelativeLayout headerLayout;
     private TextView noDataView;
+    private TextView roiinfo;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -65,8 +66,9 @@ public class LeaderboardFragment extends Fragment {
                              @Nullable Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_leader_board, container, false);
-
+   //     roiinfo =view.findViewById(R.id.recycler_view);
         recyclerView = view.findViewById(R.id.recycler_view);
+
         progressAlertDialog = CommonProgressDialog.getProgressDialog(context);
 
         sessionManager = new SessionManager();

@@ -27,6 +27,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -103,8 +104,7 @@ import static com.game.onecricket.APICallingPackage.Constants.UPDATEAPPTYPE;
 import static com.game.onecricket.APICallingPackage.Constants.VIEWPROFILETYPE;
 
 public class HomeActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
-        ResponseManager
-{
+        ResponseManager {
 
     private static final String PREFS_KEY_CURRENT_DATE = "key_current_date";
     private int[] tabIcons = {
@@ -121,6 +121,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
     //Auto Login
     private SharedPreferences loginPreferences;
     private Boolean saveLogin;
+    private RelativeLayout homeinfo;
     private SharedPreferences.Editor loginPrefsEditor;
     public static GoogleApiClient mGoogleApiClient;
     Typeface LatoBold, LatoRegular, Ravenscroft;
@@ -152,6 +153,8 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
+        RelativeLayout homeinfo = (RelativeLayout) findViewById(R.id.homeinfo);
+        homeinfo.setVisibility(View.VISIBLE);
 
         context = activity = this;
         homeActivity = this;
@@ -163,8 +166,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         checkDateOfBirth();
         if (isTokenAvailable(this, sessionManager)) {
             onTokenAvailable();
-        }
-        else {
+        } else {
             logout();
         }
 
@@ -173,9 +175,9 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private boolean isTokenAvailable(Context context, SessionManager sessionManager) {
         return sessionManager != null &&
-               sessionManager.getUser(context) != null &&
-               sessionManager.getUser(context).getToken() != null &&
-               sessionManager.getUser(context).getToken().trim().length() > 0;
+                sessionManager.getUser(context) != null &&
+                sessionManager.getUser(context).getToken() != null &&
+                sessionManager.getUser(context).getToken().trim().length() > 0;
     }
 
     @Override
@@ -189,7 +191,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
             apiRequestManager.callAPIWithAuthorization(VIEWPROFILE,
                     createRequestJson(), context, activity, VIEWPROFILETYPE,
-                    isShowLoader,responseManager, sessionManager.getUser(context).getToken());
+                    isShowLoader, responseManager, sessionManager.getUser(context).getToken());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -213,23 +215,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         //  binding.imNotification.startAnimation(shake);
         binding.VPBanner.setNestedScrollingEnabled(false);
 
-        binding.bonus.setOnClickListener(view -> {
-            if (NetworkState.isNetworkAvailable(context)) {
-                if (isBonusAvailable()) {
-                    callBonusAPI(false);
-                }
-                else {
-                    showBonusAlreadyCreditedAlert();
-                }
-            }
-            else {
-                if (!alertDialogHelper.isShowing()) {
-                    alertDialogHelper.showAlertDialog(context,
-                                                      getString(R.string.internet_error_title),
-                                                      getString(R.string.no_internet_message));
-                }
-            }
-        });
+
 
       /*  binding.imNotification.setOnClickListener(view -> {
             Intent i = new Intent(activity, NotificationActivity.class);
@@ -281,16 +267,16 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                 startActivity(new Intent(HomeActivity.this, InviteFriendsActivity.class));
                 break;
             case R.id.terms:
-                openWebViewActivity("Terms and Contditions", Config.HOWTOPLAYURL);
+                openWebViewActivity("Terms and Contditions", Config.HELPDESKURL);
                 break;
             case R.id.policy:
-                openWebViewActivity("Privacy Policy", Config.HELPDESKURL);
+                openWebViewActivity("Privacy Policy", Config.Privacypolicy);
                 break;
             case R.id.legality:
                 openWebViewActivity("LEGALITY", Config.LEGALITY);
                 break;
             case R.id.about_us:
-                openWebViewActivity("ABOUT US", Config.ABOUTUSURL);
+                openWebViewActivity("About US and Disclaimer", Config.ABOUTUSURL);
                 break;
             case R.id.notification:
                 startActivity(new Intent(HomeActivity.this, NotificationActivity.class));
@@ -318,7 +304,8 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         LoginManager.getInstance().logOut();
         loginPrefsEditor.clear();
         loginPrefsEditor.apply();
-        Auth.GoogleSignInApi.revokeAccess(HomeActivity.mGoogleApiClient).setResultCallback(status -> { });
+        Auth.GoogleSignInApi.revokeAccess(HomeActivity.mGoogleApiClient).setResultCallback(status -> {
+        });
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -374,34 +361,40 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
                                                       if (tab.getPosition() == 0) {
                                                           binding.tablayout.setVisibility(View.VISIBLE);
-                                                          if (binding.tablayout.getSelectedTabPosition() == 0) {
+                                                          binding.homeinfo.setVisibility(View.VISIBLE);                                                          if (binding.tablayout.getSelectedTabPosition() == 0) {
                                                               replaceFragment(new UpcomingMatchesFragment());
-                                                          }
-                                                          else {
+                                                          } else {
                                                               replaceFragment(new InProgressMatchesFragment());
                                                           }
-                                                          binding.bonus.setVisibility(View.VISIBLE);
+                                                          // binding.bonus.setVisibility(View.VISIBLE);
                                                           binding.RLHomeBanner.setVisibility(View.VISIBLE);
                                                       } else if (tab.getPosition() == 1) {
                                                           binding.tablayout.setVisibility(View.GONE);
                                                           binding.RLHomeBanner.setVisibility(View.GONE);
-                                                          binding.bonus.setVisibility(View.GONE);
+                                                          binding.homeinfo.setVisibility(View.GONE);
+
+                                                          // binding.bonus.setVisibility(View.GONE);
                                                           replaceFragment(new MyContestFragment());
-                                                      }else if (tab.getPosition() == 2) {
+                                                      } else if (tab.getPosition() == 2) {
                                                           binding.tablayout.setVisibility(View.GONE);
                                                           binding.RLHomeBanner.setVisibility(View.GONE);
-                                                          binding.bonus.setVisibility(View.GONE);
+                                                          binding.homeinfo.setVisibility(View.GONE);
+
+                                                          // binding.bonus.setVisibility(View.GONE);
                                                           replaceFragment(new GlobalLeaderboardFragment());
-                                                      }
-                                                      else if (tab.getPosition() == 3) {
+                                                      } else if (tab.getPosition() == 3) {
                                                           binding.tablayout.setVisibility(View.GONE);
                                                           binding.RLHomeBanner.setVisibility(View.GONE);
-                                                          binding.bonus.setVisibility(View.GONE);
+                                                          binding.homeinfo.setVisibility(View.GONE);
+
+                                                          // binding.bonus.setVisibility(View.GONE);
                                                           replaceFragment(new PrivateMatchesFragment());
                                                       } else {
                                                           binding.tablayout.setVisibility(View.GONE);
                                                           binding.RLHomeBanner.setVisibility(View.GONE);
-                                                          binding.bonus.setVisibility(View.GONE);
+                                                          binding.homeinfo.setVisibility(View.GONE);
+
+                                                          //  binding.bonus.setVisibility(View.GONE);
                                                           replaceFragment(new ProfileFragment());
                                                       }
                                                   }
@@ -421,7 +414,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         );
 
         //Uncomment Below Line for In-App-Update
-        callCheckUpdateVersion(false);
+        // callCheckUpdateVersion(false);
         if (getCurrentDate() > getSavedDate(loginPreferences)) {
             enableBonusButton();
         } else {
@@ -430,17 +423,35 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     private boolean isBonusAvailable = false;
+
     private void disableBonusButton() {
         setBonusAvailable(false);
-        binding.bonus.clearAnimation();
-        binding.bonus.setVisibility(View.GONE);
-        binding.bonus.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.bonus_disabled));
+        // binding.bonus.clearAnimation();
+        //binding.bonus.setVisibility(View.GONE);
+        //binding.bonus.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.bonus_disabled));
     }
 
     private void enableBonusButton() {
         setBonusAvailable(true);
-        binding.bonus.setVisibility(View.VISIBLE);
-        binding.bonus.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.bonus));
+
+        if (NetworkState.isNetworkAvailable(context)) {
+            if (isBonusAvailable()) {
+                callBonusAPI(false);
+            } else {
+                showBonusAlreadyCreditedAlert();
+            }
+        } else {
+            if (!alertDialogHelper.isShowing()) {
+                alertDialogHelper.showAlertDialog(context,
+                        getString(R.string.internet_error_title),
+                        getString(R.string.no_internet_message));
+            }
+        }
+
+
+
+      /* binding.bonus.setVisibility(View.VISIBLE);
+       binding.bonus.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.bonus));
 
         Runnable runnable = new Runnable() {
             @Override
@@ -449,8 +460,10 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
             }
         };
 
-        binding.bonus.animate().rotationBy(360).withEndAction(runnable).setDuration(3000).setInterpolator(new LinearInterpolator()).start();
+       binding.bonus.animate().rotationBy(360).withEndAction(runnable).setDuration(3000).setInterpolator(new LinearInterpolator()).start();
+     */
     }
+
 
     private static final String TYPE_BONUS = "Bonus";
 
@@ -500,7 +513,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         dismissProgressDialog(progressAlertDialog);
         progressAlertDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String URL = ApiClient.BASE_URL +  ":4040/daily/update?userid=" +
+        String URL = ApiClient.BASE_URL + ":4040/daily/update?userid=" +
                 sessionManager.getUser(context).getUser_id() +
                 "&token=" +
                 sessionManager.getUser(context).getToken();
@@ -554,6 +567,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     private static final String TYPE_STATES = "states";
+
     private void callBlockedStates(boolean isShowLoader) {
         try {
             JSONObject jsonObject = new JSONObject();
@@ -621,11 +635,9 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        else if (type.equals(HOMEBANNERTYPE)) {
+        } else if (type.equals(HOMEBANNERTYPE)) {
             onBannerResult(result);
-        }
-        else if (type.equals(VIEWPROFILETYPE)) {
+        } else if (type.equals(VIEWPROFILETYPE)) {
             try {
                 String dateOfBirth = result.getString("dob");
                 if (dateOfBirth == null || dateOfBirth.length() <= 0) {
@@ -642,7 +654,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         builder.setNegativeButton("Exit", (dialog, id) -> {
         });
         builder.setPositiveButton("Check date of Birth", (dialog, id) -> {
-            startActivity(new Intent( context, EditProfileActivity.class));
+            startActivity(new Intent(context, EditProfileActivity.class));
         });
         builder.setTitle(context.getString(R.string.dob_needed__alert_title));
         builder.setMessage(context.getString(R.string.dob_needed__alert_Message));
@@ -656,7 +668,8 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
             JSONArray jsonArray = result.getJSONArray("data");
             if (jsonArray.length() > 0) {
                 binding.RLHomeBanner.setVisibility(View.VISIBLE);
-                List<BeanBanner> beanHomeFixtures = new Gson().fromJson(jsonArray.toString(), new TypeToken<List<BeanBanner>>() {}.getType());
+                List<BeanBanner> beanHomeFixtures = new Gson().fromJson(jsonArray.toString(), new TypeToken<List<BeanBanner>>() {
+                }.getType());
                 adapterHomeBanner = new AdapterHomeBanner(beanHomeFixtures, HomeActivity.this);
                 binding.VPBanner.setAdapter(adapterHomeBanner);
                 BannerDotView();
@@ -713,7 +726,6 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
             }
         });
     }
-
 
 
     @Override
@@ -845,8 +857,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         int selectedTabPosition = binding.tabs.getSelectedTabPosition();
         if (selectedTabPosition == 1 || selectedTabPosition == 2) {
             binding.tabs.selectTab(binding.tabs.getTabAt(0), true);
-        }
-        else {
+        } else {
             /*AlertDialog.Builder ab = new AlertDialog.Builder(activity);
             ab.setPositiveButton("Exit", (dialog, id) -> {
                 finishAffinity();
@@ -892,9 +903,9 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         loginPrefsEditor.clear();
         loginPrefsEditor.commit();
 //        Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
-  //              status -> {
+        //              status -> {
 
-    //            });
+        //            });
         Intent intent = new Intent(activity, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -1026,32 +1037,6 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
     }
 
-    public void showDobAlertDialog(Context context, String title, String message) {
-        FlatDialog flatDialog = new FlatDialog(context);
-        flatDialog.setCancelable(false);
-        flatDialog.setCanceledOnTouchOutside(false);
-        flatDialog.setIcon(R.drawable.dob)
-                  .setTitle(title)
-                  .setTitleColor(Color.parseColor("#000000"))
-                  .setSubtitle(message)
-                  .setSubtitleColor(Color.parseColor("#000000"))
-                  .setBackgroundColor(Color.parseColor("#a26ea1"))
-                  .setFirstButtonColor(Color.parseColor("#f18a9b"))
-                  .setFirstButtonTextColor(Color.parseColor("#000000"))
-                  .setFirstButtonText("Exit")
-                  .setSecondButtonColor(Color.parseColor("#f18a9b"))
-                  .setSecondButtonTextColor(Color.parseColor("#000000"))
-                  .setSecondButtonText("Check date of Birth")
-                  .withFirstButtonListner(view -> {
-                      flatDialog.dismiss();
-                  })
-                  .withSecondButtonListner(view -> {
-                      flatDialog.dismiss();
-                      startActivity(new Intent( context, EditProfileActivity.class));
-                  })
-                  .show();
-
-    }
 }
 
 

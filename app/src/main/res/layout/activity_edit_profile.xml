@@ -32,11 +32,10 @@
                     android:id="@+id/input_editName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:textColorHint="@color/black"
-                    android:theme="@style/MyTextInputLayout">
+                    android:hint="Name">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_EditName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -56,7 +55,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:theme="@style/MyTextInputLayout"
                     android:textColorHint="@color/black">
 
                     <EditText
@@ -79,7 +77,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:theme="@style/MyTextInputLayout"
                     android:textColorHint="@color/black">
                     <EditText
                         android:layout_width="match_parent"
@@ -89,8 +86,7 @@
                         android:id="@+id/et_EditMobile"
                         android:hint="Mobile Number"
                         android:fontFamily="@font/lato_bold"
-
-                        android:inputType="number"
+                         android:inputType="number"
                         android:padding="12dp"
                         android:singleLine="true"
                         android:textColor="@color/black"
@@ -104,7 +100,6 @@
 
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:theme="@style/MyTextInputLayout"
                     android:textColorHint="@color/black">
                     <EditText
                         android:layout_width="match_parent"
@@ -128,16 +123,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato_bold"
-
+                    android:hint="Address"
                     android:layout_marginTop="10dp"
-                    android:theme="@style/MyTextInputLayout"
                     android:textColorHint="@color/black">
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:fontFamily="@font/lato_bold"
-
+                        android:tooltipText="Address"
                         android:backgroundTint="@color/colorPrimary"
                         android:id="@+id/et_EditAddress"
                         android:hint="Address"
@@ -152,7 +146,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:theme="@style/MyTextInputLayout"
                     android:textColorHint="@color/black">
                     <EditText
                         android:layout_width="match_parent"
@@ -174,7 +167,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:theme="@style/MyTextInputLayout"
                     android:textColorHint="@color/black">
                     <EditText
                         android:layout_width="match_parent"
@@ -201,7 +193,7 @@
                     android:layout_marginTop="10dp"
                     android:visibility="gone"
                     android:textColorHint="@color/black"
-                    android:theme="@style/MyTextInputLayout">
+                    >
 
                     <EditText
                         android:id="@+id/et_EditState"
@@ -223,7 +215,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:theme="@style/MyTextInputLayout"
                     android:textColorHint="@color/black">
                     <EditText
                         android:layout_width="match_parent"
@@ -291,7 +282,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:theme="@style/MyTextInputLayout"
+
                     android:visibility="gone"
                     app:hintEnabled="false">
 

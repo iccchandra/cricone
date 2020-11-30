@@ -184,7 +184,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int id) {
                 String new_username = input.getText().toString().trim();
                 if ((!new_username.equals(username)) && (!username.equals("anonymous"))) {
-                    process_new_message("Welcome to chat " + new_username, true);
+                  //  process_new_message("Welcome to chat " + new_username, true);
                 }
                 username = new_username;
                 databaseRef.child("users").child(userID).setValue(username);

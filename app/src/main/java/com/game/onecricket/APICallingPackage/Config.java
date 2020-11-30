@@ -27,15 +27,15 @@ public class Config {
 
     public static String LEADERBOARDPLAYERIMAGE = IMAGEBASEURL+"leaderboard/";
 
-    public static String TERMSANDCONDITIONSURL = "http://api.1cricket.in/docs/Terms_and_Conditions.pdf";
-    public static String FANTASYPOINTSYSTEMURL = SERVERURL+"points-system";
-    public static String HOWTOPLAYURL = "http://api.1cricket.in/docs/Terms_and_Conditions.pdf";
-    public static String ABOUTUSURL = "http://1crciket.in";
-    public static String HELPDESKURL = "http://api.1cricket.in/docs/Privacy_Policy.pdf";
+    public static String TERMSANDCONDITIONSURL = "http://1cricket.in/tandcmobile.html";
+    public static String legality = "http://1cricket.in/legalitymobile.html";
+    public static String Privacypolicy = "http://1cricket.in/privacymobile.html";
+    public static String ABOUTUSURL = "http://1cricket.in/aboutmobile.html";
+    public static String HELPDESKURL = "http://1cricket.in/tandcmobile.html";
     public static String PRICING = SERVERURL;
 
     public static String REFUNDPOLICY = "http://api.1cricket.in/docs/Privacy_Policy.pdf";
-    public static String LEGALITY = "http://api.1cricket.in/docs/legal_Opinion.pdf";
+    public static String LEGALITY = "http://1cricket.in/legalitymobile.html";
     public static String WITHDRAWPOLICY = SERVERURL+"withdraw-cash";
 
 

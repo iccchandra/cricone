@@ -25,7 +25,6 @@
     </style>
 
 
-
     <style name="MyTextInputLayout" parent="AppTheme">
         <item name="colorAccent">@color/white</item>
     </style>
@@ -52,6 +51,11 @@
         <item name="cornerFamilyBottomRight">cut</item>
         <item name="cornerSizeTopRight">50%</item>
         <item name="cornerSizeBottomRight">50%</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
 

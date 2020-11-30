@@ -21,6 +21,7 @@ public class OddsViewHolder extends ChildViewHolder implements View.OnClickListe
         mMoviesTextView = itemView.findViewById(R.id.tv_movies);
         oddsTextView = itemView.findViewById(R.id.tv_movies_odd);
         layout = itemView.findViewById(R.id.child_layout);
+
         //enableSelection();
     }
 
@@ -64,6 +65,7 @@ public class OddsViewHolder extends ChildViewHolder implements View.OnClickListe
 
     public void enableSelection() {
         layout.setOnClickListener(this);
+        layout.setSelected(true);
     }
 
     @Override

@@ -44,14 +44,19 @@ public class OddsCategoryAdapter extends ExpandableRecyclerAdapter<OddsCategoryV
 
     @Override
     public void onBindParentViewHolder(OddsCategoryViewHolder oddsCategoryViewHolder, int position, ParentListItem parentListItem) {
+        System.out.println("Parent position:"+position);
+
         OddsCategory movieCategory = (OddsCategory) parentListItem;
         oddsCategoryViewHolder.bind(movieCategory);
     }
 
     private SparseBooleanArray selectedItems = new SparseBooleanArray();
 
+
     @Override
     public void onBindChildViewHolder(OddsViewHolder oddsViewHolder, final int position, Object childListItem) {
+        System.out.println("position:"+position);
+
         final MatchOdds matchOdds = (MatchOdds) childListItem;
         oddsViewHolder.itemView.setOnClickListener(view -> {
             if (allowSelection) {

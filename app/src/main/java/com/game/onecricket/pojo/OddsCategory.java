@@ -26,7 +26,7 @@ public class OddsCategory implements ParentListItem {
 
     @Override
     public boolean isInitiallyExpanded() {
-        return false;
+        return true;
     }
 
     @Override

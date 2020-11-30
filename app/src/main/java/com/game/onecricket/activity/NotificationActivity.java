@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.game.onecricket.R;
@@ -161,6 +162,7 @@ public class NotificationActivity extends AppCompatActivity implements ResponseM
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
             TextView tv_NotificationTitle,tv_NotificationContest ;
+            ImageView imgnotification;
 
 
 
@@ -170,6 +172,8 @@ public class NotificationActivity extends AppCompatActivity implements ResponseM
 
                 tv_NotificationTitle = view.findViewById(R.id.tv_NotificationTitle);
                 tv_NotificationContest = view.findViewById(R.id.tv_NotificationContest);
+                imgnotification = view.findViewById(R.id.imgnotification);
+
 
             }
 
@@ -191,12 +195,25 @@ public class NotificationActivity extends AppCompatActivity implements ResponseM
         public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
 
-            final String ContestName = mListenerList.get(position).getContest_name();
-            String Title= mListenerList.get(position).getTitle();
+            final String ContestName = mListenerList.get(position).getmessage();
+            String Title= mListenerList.get(position).getbet_id();
 
 
             holder.tv_NotificationTitle.setText(Title);
             holder.tv_NotificationContest.setText(ContestName);
+            if(ContestName.contains("Lost")||Title.contains("Lost")){
+
+                holder.imgnotification.setImageDrawable(getResources().getDrawable(R.drawable.lost));
+
+            }
+             else if(ContestName.contains("Congratulations")||Title.contains("Congratulations")){
+                holder.imgnotification.setImageDrawable(getResources().getDrawable(R.drawable.winner));
+
+            }
+             else {
+                holder.imgnotification.setImageDrawable(getResources().getDrawable(R.drawable.notification_icon));
+            }
+
 
 
 

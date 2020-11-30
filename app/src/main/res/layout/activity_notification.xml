@@ -3,7 +3,7 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cb_dark_blue_button">
+    android:background="@color/white">
 
     <include
         layout="@layout/activity_mainheader"
@@ -28,7 +28,8 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:visibility="gone"
-        android:textColor="@color/white"
+        android:drawableTop="@drawable/notification_icon_active"
+        android:textColor="@color/black"
         android:id="@+id/tv_NoDataAvailable"/>
 </RelativeLayout>
 </layout>

@@ -32,9 +32,12 @@
         android:background="?attr/colorPrimary"
         android:elevation="6dp"
         android:paddingStart="@dimen/dimen_20dp"
+        app:tabIndicatorColor="@color/white"
         android:paddingEnd="@dimen/dimen_20dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:tabTextColor="@color/white" />
+        app:tabTextColor="@color/black"
+        app:tabSelectedTextColor="@color/white"
+        />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/pager"

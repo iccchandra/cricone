@@ -13,13 +13,30 @@
         android:id="@+id/RL_TransMain"
         android:background="@drawable/dark_rectangle_contest"
         android:elevation="0dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/notifyimg">
+
+
+            <ImageView
+                android:id="@+id/imgnotification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/winner"/>
+
+
+        </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="12sp"
-            android:textColor="@color/textColor"
-            android:textStyle="bold"
+            android:text="ID"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/lato_bold"
+
+            android:layout_toRightOf="@+id/notifyimg"
             android:id="@+id/tv_NotificationTitle"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
@@ -35,13 +52,21 @@
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:text="Contest"
-            android:textColor="@color/colorPrimary"
-            android:textSize="11sp" />
+            android:textSize="15sp"
+
+            android:fontFamily="@font/lato_bold"
+            android:textColor="@color/black"
+             />
 
 
     </RelativeLayout>
 
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black"/>
 
 </RelativeLayout>
+
+
 </layout>

@@ -476,8 +476,8 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private void showBonusCreditedAlert() {
         new FancyGifDialog.Builder(this)
-                .setTitle("Your Daily Bonus Credited.")
-                .setMessage("Looks like you can earn more.")
+                .setTitle("Your Daily 100 Bonus Coins Credited.")
+                .setMessage("Invite Friends earn more.")
                 .setPositiveBtnText("Invite Friends")
                 .setPositiveBtnBackground("#FF4081")
                 .setNegativeBtnText("Close")

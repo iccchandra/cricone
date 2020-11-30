@@ -147,6 +147,7 @@ public class GlobalLeaderActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Today"));
         tabLayout.addTab(tabLayout.newTab().setText("Weekly"));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.monthly));
+        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.white));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);

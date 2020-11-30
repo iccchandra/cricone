@@ -124,7 +124,6 @@ public class GlobalLeaderboardFragment extends Fragment {
        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-
                 viewPager.setCurrentItem(tab.getPosition());
             }
 
@@ -147,10 +146,8 @@ public class GlobalLeaderboardFragment extends Fragment {
         @NonNull
         @Override
         public Fragment getItem(int position) {
-            System.out.println("int: "+position );
             switch (position) {
                 case 0:
-                    System.out.println("im here 3");
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("Data", data);
                     GlobalLeaderFragment todayFragment = new GlobalLeaderFragment();
@@ -158,21 +155,18 @@ public class GlobalLeaderboardFragment extends Fragment {
                     return  todayFragment;
 
                 case 1:
-                    System.out.println("im here 4");
                     Bundle bundle2 = new Bundle();
                     bundle2.putSerializable("Data", data);
                     GlobalLeaderFragment2 lastWeekFragment = new GlobalLeaderFragment2();
                     lastWeekFragment.setArguments(bundle2);
                     return lastWeekFragment;
                 case 2:
-                    System.out.println("im here 5");
                     Bundle bundle3 = new Bundle();
                     bundle3.putSerializable("Data", data);
                     GlobalLeaderFragment3 lastMonthFragment = new GlobalLeaderFragment3();
                     lastMonthFragment.setArguments(bundle3);
                     return lastMonthFragment;
                 default:
-                    System.out.println("im here 6");
                     Bundle bundle4 = new Bundle();
                     bundle4.putSerializable("Data", data);
                     GlobalLeaderFragment todayFragment1 = new GlobalLeaderFragment();

@@ -326,8 +326,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         callBlockedStates(false);
         replaceFragment(new UpcomingMatchesFragment());
 
-        binding.tablayout.addTab(binding.tablayout.newTab().setText("Upcoming"));
-        binding.tablayout.addTab(binding.tablayout.newTab().setText("In-Progress"));
+        binding.tablayout.addTab(binding.tablayout.newTab().setText("Matches"));
         binding.tablayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         binding.tablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

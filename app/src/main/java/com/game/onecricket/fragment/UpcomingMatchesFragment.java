@@ -199,6 +199,8 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
                      recyclerView.setHasFixedSize(true);
                      adapter.setRecyclerViewItemClickListener(UpcomingMatchesFragment.this);
                      recyclerView.setAdapter(adapter);
+                     adapter.notifyDataSetChanged();
+
                      nodataView.setVisibility(View.GONE);
                      recyclerView.setVisibility(View.VISIBLE);
                      callMatchesAPI(sessionManager.getUser(context).getToken());
@@ -282,6 +284,8 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
                             nodataView.setVisibility(View.GONE);
                             recyclerView.setVisibility(View.VISIBLE);
                             adapter.setMatchesInfoList(matchesInfoList);
+                            adapter.notifyDataSetChanged();
+
                         }
                         else {
                             nodataView.setVisibility(View.VISIBLE);

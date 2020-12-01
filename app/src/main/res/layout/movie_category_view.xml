@@ -14,8 +14,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="@color/cb_dark_blue_button"
-    android:paddingEnd="@dimen/dimen_40dp"
-    android:padding="@dimen/standard_material_padding">
+    android:padding="@dimen/dimen_10dp">
 
 
 

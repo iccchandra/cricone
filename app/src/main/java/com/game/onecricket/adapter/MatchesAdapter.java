@@ -134,7 +134,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
                         int minutes = (int) ((millis / (1000 * 60)) % 60);
                         int hours = (int) ((millis / (1000 * 60 * 60)));
                         // int days   = (int) ((millis / (1000*60*60*60)) % 24);
-                        String text = String.format("%s %s %s", hours + "h", minutes + "m", seconds + "s");
+                        String text = String.format("%s %s ", hours + "h", minutes + "m");
                         holder.matchTimeTextView.setText(text);
 
                     }
@@ -177,7 +177,10 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
                     }
                 }.start();
 
-            }*/}
+            }*/
+
+        }
+
         else if (matchType.equalsIgnoreCase("private")) {
 
 
@@ -221,6 +224,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
                     matchesInfoList.get(position).setplaying(true);
                     holder.matchTimeTextView.setText("Inplay");
                     holder.teams_win.setText("To win");
+                    notifyDataSetChanged();
 
 
                 }

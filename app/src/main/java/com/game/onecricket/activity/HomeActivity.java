@@ -491,6 +491,25 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                 .build();
     }
 
+    private void showBonusnewCreditedAlert() {
+        new FancyGifDialog.Builder(this)
+                .setTitle("Congrats!!! 1000 Bonus Coins Credited.")
+                .setMessage("Invite Friends earn more.")
+                .setPositiveBtnText("Invite Friends")
+                .setPositiveBtnBackground("#FF4081")
+                .setNegativeBtnText("Close")
+                .setNegativeBtnBackground("#FF4081")
+                .setGifResource(R.drawable.bonus_credited)   //Pass your Gif here
+                .isCancellable(true)
+                .OnPositiveClicked(() -> {
+                    Intent i = new Intent(HomeActivity.this, InviteFriendsActivity.class);
+                    startActivity(i);
+                })
+                .build();
+    }
+
+
+
     private void showBonusAlreadyCreditedAlert() {
         new FancyGifDialog.Builder(this)
                 .setTitle("Boom! Try Tommorow, your Daily Coins Claimed for Today.")

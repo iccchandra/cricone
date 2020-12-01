@@ -12,13 +12,17 @@
         android:background="@android:color/transparent">
 
 
+
+
         <RelativeLayout
             android:id="@+id/match_status_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/gray"
+            android:background="@color/cb_dark_blue_button"
             android:orientation="horizontal"
             android:padding="5dp">
+
+
 
 
             <TextView

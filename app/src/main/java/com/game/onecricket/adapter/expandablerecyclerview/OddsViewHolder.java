@@ -1,7 +1,11 @@
 package com.game.onecricket.adapter.expandablerecyclerview;
 
+import android.content.Context;
+import android.util.DisplayMetrics;
 import android.util.SparseBooleanArray;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -9,7 +13,7 @@ import com.game.onecricket.R;
 import com.game.onecricket.pojo.MatchOdds;
 
 
-public class OddsViewHolder extends ChildViewHolder implements View.OnClickListener{
+public class OddsViewHolder extends ChildViewHolder implements View.OnClickListener {
 
     private TextView mMoviesTextView;
     private TextView oddsTextView;
@@ -29,31 +33,27 @@ public class OddsViewHolder extends ChildViewHolder implements View.OnClickListe
         // I personally do not like adding this here. But, the requirements are making me do this.
         mMoviesTextView.setText(matchOdds.getName());
         oddsTextView.setText(matchOdds.getOdds());
+        layout.getLayoutParams().width = getLayoutPosition() / 2;
+
     }
+
 
     public static String getFirstWord(String title) {
         if (title.toLowerCase().contains("bangalore")) {
             return "Bangalore";
-        }
-        else if (title.toLowerCase().contains("chennai")) {
+        } else if (title.toLowerCase().contains("chennai")) {
             return "Chennai";
-        }
-        else if (title.toLowerCase().contains("sunrisers")) {
+        } else if (title.toLowerCase().contains("sunrisers")) {
             return "Hyderabad";
-        }
-        else if (title.toLowerCase().contains("punjab")) {
+        } else if (title.toLowerCase().contains("punjab")) {
             return "Punjab";
-        }
-        else if (title.toLowerCase().contains("rajasthan")) {
+        } else if (title.toLowerCase().contains("rajasthan")) {
             return "Rajasthan";
-        }
-        else if (title.toLowerCase().contains("kolkata")) {
+        } else if (title.toLowerCase().contains("kolkata")) {
             return "Kolkata";
-        }
-        else if (title.toLowerCase().contains("dehhi")) {
+        } else if (title.toLowerCase().contains("dehhi")) {
             return "Delhi";
-        }
-        else if (title.toLowerCase().contains("mumbai")) {
+        } else if (title.toLowerCase().contains("mumbai")) {
             return "Mumbai";
         }
         return title;

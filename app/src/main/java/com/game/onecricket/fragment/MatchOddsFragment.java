@@ -448,11 +448,6 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
 
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
             recyclerView.setLayoutManager(linearLayoutManager);
-            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                    linearLayoutManager.getOrientation());
-            recyclerView.addItemDecoration(dividerItemDecoration);
-
-
             recyclerView.setAdapter(oddsCategoryAdapter);
 
             List<MatchOdds> matchOdds = new ArrayList<>();
@@ -739,13 +734,8 @@ public class MatchOddsFragment extends Fragment implements OddsCategoryAdapter.C
 
                     oddsCategoryAdapter.setChildClickListener(MatchOddsFragment.this);
 
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
                     recyclerView.setLayoutManager(linearLayoutManager);
-                    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                            linearLayoutManager.getOrientation());
-                    recyclerView.addItemDecoration(dividerItemDecoration);
-
-
                     recyclerView.setAdapter(oddsCategoryAdapter);
 
                     List<MatchOdds> matchOdds = new ArrayList<>();

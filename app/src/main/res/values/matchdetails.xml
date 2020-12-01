@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+     <string-array name="matchrandom">
+        <item>To Win</item>
+        <item>Toss win</item>
+         <item>Hundred</item>
+    </string-array>
+
+</resources>

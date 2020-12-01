@@ -195,6 +195,7 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
                             recyclerView.setHasFixedSize(true);
                             adapter.setRecyclerViewItemClickListener(UpcomingMatchesFragment.this);
                             recyclerView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
                         }
                         else {
                             nodataView.setVisibility(View.VISIBLE);

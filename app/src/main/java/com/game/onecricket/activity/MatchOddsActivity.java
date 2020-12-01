@@ -405,11 +405,6 @@ public class MatchOddsActivity extends AppCompatActivity implements OddsCategory
 
                                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MatchOddsActivity.this);
                                     recyclerView.setLayoutManager(linearLayoutManager);
-                                    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                                            linearLayoutManager.getOrientation());
-                                    recyclerView.addItemDecoration(dividerItemDecoration);
-
-
                                     recyclerView.setAdapter(oddsCategoryAdapter);
 
                                     List<MatchOdds> matchOdds = new ArrayList<>();

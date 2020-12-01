@@ -1,5 +1,8 @@
 package com.game.onecricket.adapter;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.database.DataSetObserver;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +25,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.TimeZone;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesViewHolder>{
 
@@ -30,6 +36,8 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
     private List<MatchesInfo> matchesInfoList;
     public String matchType;
     private ClickListener clickListener;
+    public Context context;
+
 
     public MatchesAdapter(List<MatchesInfo> matchesInfoList, String matchType) {
         this.matchesInfoList = matchesInfoList;
@@ -50,6 +58,9 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
 
     @Override
     public void onBindViewHolder(@NonNull MatchesViewHolder holder, final int position) {
+        Resources res = getApplicationContext().getResources();
+        String[] array = res.getStringArray(R.array.matchrandom);
+
         MatchesInfo matchesInfo = matchesInfoList.get(position);
         String teamA = matchesInfo.getHomeTeam();
         String teamB = matchesInfo.getVisitorsTeam();
@@ -63,6 +74,33 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
 
         holder.teamATextView.setText(TeamName.getFirstWord(teamA).trim());
         holder.teamBTextView.setText(TeamName.getFirstWord(teamB).trim());
+        String randomString = array[new Random().nextInt(array.length)];
+
+        holder.odd_winA.setText(TeamName.getFirstWord(teamB).trim());
+        holder.odd_winb.setText(TeamName.getFirstWord(teamB).trim());
+        holder.teams_win.setText(randomString.trim());
+
+        if(randomString.trim().matches("To Win")){
+
+            holder.odd_winA.setText("1.98");
+            holder.odd_winb.setText("2.30");
+        }
+        else if(randomString.trim().contains("Toss win")){
+
+            holder.odd_winA.setText("1.90");
+            holder.odd_winb.setText("1.90");
+
+        }
+        else{
+
+            holder.odd_winA.setText("Yes");
+            holder.odd_winb.setText("No");
+        }
+
+
+
+
+
         if (matchType.equalsIgnoreCase("upcoming")) {
 
             if( UpcomingMatchesFragment.contest==true) {
@@ -75,6 +113,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
 
                 String timeleft = String.format(matchesInfo.getDateTime()).trim();
                 System.out.println(timeleft);
+
                 int hoursToGo = Integer.parseInt(timeleft.substring(0, timeleft.indexOf("h")));
                 int minutesToGo = Integer.parseInt(timeleft.substring(timeleft.indexOf("h") + 1, timeleft.indexOf("m")));
                 int secondsToGo = Integer.parseInt(timeleft.substring(timeleft.indexOf("m") + 1, timeleft.indexOf("s")));
@@ -92,6 +131,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
                         // int days   = (int) ((millis / (1000*60*60*60)) % 24);
                         String text = String.format("%s %s %s", hours + "h", minutes + "m", seconds + "s");
                         holder.matchTimeTextView.setText(text);
+
                     }
 
                     @Override
@@ -100,6 +140,8 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
 
                     }
                 }.start();
+
+
 
             }
            /* }
@@ -165,13 +207,16 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
                     holder.matchTimeTextView.setText(text);
                     holder.code.setVisibility(View.VISIBLE);
                     holder.code.setText(matchesInfo.getcode());
+                    holder.teams_win.setText("To win");
+
                 }
 
                 @Override
                 public void onFinish() {
 
                     matchesInfoList.get(position).setplaying(true);
-                    holder.matchTimeTextView.setText("Playing");
+                    holder.matchTimeTextView.setText("inplay");
+                    holder.teams_win.setText("To win");
 
 
                 }
@@ -180,16 +225,12 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         }
         else {
             holder.matchTimeTextView.setText("inplay");
+            holder.teams_win.setText("To win");
 
         }
 
-        if (teamA.length() > 0) {
-          //  holder.circularTextTeamA.setText(String.format("%s", teamA.charAt(0)));
-        }
 
-        if (teamB.length() > 0) {
-          //  holder.circularTextTeamB.setText(String.format("%s", teamB.charAt(0)));
-        }
+
        // holder.teamAShortName.setText(capitailizeWord(teamA));
         //holder.teamBShortName.setText(capitailizeWord(teamB));
 
@@ -251,6 +292,9 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         private TextView circularTextTeamB;
         private TextView matchTimeTextView;
         private TextView createGroup;
+        private TextView odd_winA;
+        private TextView teams_win;
+        private TextView odd_winb;
         private TextView code;
         private LinearLayout private_img;
 
@@ -268,6 +312,9 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
             this.createGroup       = itemView.findViewById(R.id.create_group);
             this.code       = itemView.findViewById(R.id.code);
             this.private_img       = itemView.findViewById(R.id.private_img);
+            this.odd_winA       = itemView.findViewById(R.id.odd_winA);
+            this.teams_win       = itemView.findViewById(R.id.teams_win);
+            this.odd_winb       = itemView.findViewById(R.id.odd_winb);
 
         }
     }
@@ -279,5 +326,8 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
     }
 
     // countdowntimer is an abstract class, so extend it and fill in methods
+
+
+
 
 }

@@ -326,31 +326,6 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         callBlockedStates(false);
         replaceFragment(new UpcomingMatchesFragment());
 
-        binding.tablayout.addTab(binding.tablayout.newTab().setText("Matches"));
-        binding.tablayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-        binding.tablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getPosition() == 0) {
-                    replaceFragment(new UpcomingMatchesFragment());
-                    binding.head.setVisibility(View.VISIBLE);
-                } else if (tab.getPosition() == 1) {
-                    replaceFragment(new InProgressMatchesFragment());
-                    binding.head.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
         binding.tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
                                                   @Override
@@ -359,37 +334,29 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                                                       tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
 
                                                       if (tab.getPosition() == 0) {
-                                                          binding.tablayout.setVisibility(View.VISIBLE);
-                                                          binding.homeinfo.setVisibility(View.VISIBLE);                                                          if (binding.tablayout.getSelectedTabPosition() == 0) {
-                                                              replaceFragment(new UpcomingMatchesFragment());
-                                                          } else {
-                                                              replaceFragment(new InProgressMatchesFragment());
-                                                          }
+                                                          binding.homeinfo.setVisibility(View.VISIBLE);
+                                                          replaceFragment(new UpcomingMatchesFragment());
                                                           // binding.bonus.setVisibility(View.VISIBLE);
                                                           binding.RLHomeBanner.setVisibility(View.VISIBLE);
                                                       } else if (tab.getPosition() == 1) {
-                                                          binding.tablayout.setVisibility(View.GONE);
                                                           binding.RLHomeBanner.setVisibility(View.GONE);
                                                           binding.homeinfo.setVisibility(View.GONE);
 
                                                           // binding.bonus.setVisibility(View.GONE);
                                                           replaceFragment(new MyContestFragment());
                                                       } else if (tab.getPosition() == 2) {
-                                                          binding.tablayout.setVisibility(View.GONE);
                                                           binding.RLHomeBanner.setVisibility(View.GONE);
                                                           binding.homeinfo.setVisibility(View.GONE);
 
                                                           // binding.bonus.setVisibility(View.GONE);
                                                           replaceFragment(new GlobalLeaderboardFragment());
                                                       } else if (tab.getPosition() == 3) {
-                                                          binding.tablayout.setVisibility(View.GONE);
                                                           binding.RLHomeBanner.setVisibility(View.GONE);
                                                           binding.homeinfo.setVisibility(View.GONE);
 
                                                           // binding.bonus.setVisibility(View.GONE);
                                                           replaceFragment(new PrivateMatchesFragment());
                                                       } else {
-                                                          binding.tablayout.setVisibility(View.GONE);
                                                           binding.RLHomeBanner.setVisibility(View.GONE);
                                                           binding.homeinfo.setVisibility(View.GONE);
 

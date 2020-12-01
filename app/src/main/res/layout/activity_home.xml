@@ -80,28 +80,13 @@
 
     </RelativeLayout>
 
-
-
-
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tablayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/RLHomeBanner"
-        android:background="@color/white"
-        android:elevation="3dp"
-        app:tabTextColor="@color/payumoney_black"
-        app:tabIndicatorColor="@color/colorPrimary"
-        app:tabSelectedTextColor="@color/colorPrimary"
-        android:theme="@style/AppTheme.default" />
- <RelativeLayout
+    <RelativeLayout
         android:id="@+id/homeinfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/RLHomeBanner"
         android:background="@color/gray"
-        android:visibility="visible"
-     android:layout_below="@+id/tablayout">
+        android:visibility="visible">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,7 +94,7 @@
             android:textSize="13dp"
             android:gravity="center"
             android:textColor="@color/white"
-            android:text="Click the upcoming/In-play match and submit your BET with Real Time ODDS. \n Enjoy the same thrill of BETTING using Virtual Currency."></TextView>
+            android:text="Submit your BET with Real Time ODDS. \n Enjoy the same thrill of BETTING using Virtual Currency."></TextView>
  </RelativeLayout>
 
 

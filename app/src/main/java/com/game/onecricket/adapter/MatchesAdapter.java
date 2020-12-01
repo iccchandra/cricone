@@ -178,7 +178,6 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
                 }.start();
 
             }*/}
-
         else if (matchType.equalsIgnoreCase("private")) {
 
 
@@ -220,7 +219,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
                 public void onFinish() {
 
                     matchesInfoList.get(position).setplaying(true);
-                    holder.matchTimeTextView.setText("inplay");
+                    holder.matchTimeTextView.setText("Inplay");
                     holder.teams_win.setText("To win");
 
 
@@ -228,8 +227,8 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
             }.start();
 
         }
-        else {
-            holder.matchTimeTextView.setText("inplay");
+        else if (matchesInfo.getMatchType().equalsIgnoreCase("InPlay")){
+            holder.matchTimeTextView.setText("Inplay");
             holder.teams_win.setText("To win");
 
         }

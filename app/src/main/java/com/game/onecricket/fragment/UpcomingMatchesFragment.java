@@ -190,11 +190,11 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
                          JSONObject awayJSON = results.getJSONObject("away");
                          String away = awayJSON.getString("name");
                          matchesInfo.setVisitorsTeam(away);
-                         matchesInfo.setMatchType("In-Play");
+                         matchesInfo.setMatchType("InPlay");
                          matchesInfoList.add(matchesInfo);
                      }
 
-                     adapter = new MatchesAdapter(matchesInfoList, "In-Play");
+                     adapter = new MatchesAdapter(matchesInfoList, "InPlay");
                      recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                      recyclerView.setHasFixedSize(true);
                      adapter.setRecyclerViewItemClickListener(UpcomingMatchesFragment.this);

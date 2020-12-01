@@ -107,6 +107,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         ResponseManager {
 
     private static final String PREFS_KEY_CURRENT_DATE = "key_current_date";
+   public String firsttime ="no";
     private int[] tabIcons = {
             R.drawable.home_icon,
             R.drawable.contest_icon,
@@ -169,6 +170,12 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         } else {
             logout();
         }
+        Intent o = getIntent();
+        firsttime=o.getStringExtra("firsttime");
+        if(firsttime!=null){
+            showBonusnewCreditedAlert();
+        }
+
 
 
     }

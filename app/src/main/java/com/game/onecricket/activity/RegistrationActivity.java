@@ -176,14 +176,7 @@ public class RegistrationActivity extends AppCompatActivity implements ResponseM
             }
         });
 
-        binding.RLGmailLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                LoginType = "Email";
-                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-                startActivityForResult(signInIntent, RC_SIGN_IN);
-            }
-        });
+
         binding.LLEnterCode.setOnClickListener(view -> {
             /*Intent i = new Intent(activity,RegistrationActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -341,6 +334,7 @@ public class RegistrationActivity extends AppCompatActivity implements ResponseM
                     i.putExtra("Number", mobile);
                     i.putExtra("Activity", "Normal");
                     i.putExtra("UserId", UserId);
+                    i.putExtra("firsttime", "yes");
                     // i.putExtra("Password", Password);
                     startActivity(i);
                 } else {

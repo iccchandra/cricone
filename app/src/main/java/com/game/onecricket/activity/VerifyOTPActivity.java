@@ -40,7 +40,7 @@ public class VerifyOTPActivity extends AppCompatActivity implements ResponseMana
     Context context;
     VerifyOTPActivity activity;
     String OTP;
-    String IntentNumber,IntentUserId,IntentPassword,IntentActivity;
+    String IntentNumber,IntentUserId,IntentPassword,IntentActivity,firsttime;
     private static CountDownTimer countDownTimer;
     //Auto Login
     private SharedPreferences loginPreferences;
@@ -70,6 +70,7 @@ public class VerifyOTPActivity extends AppCompatActivity implements ResponseMana
         IntentUserId = o.getStringExtra("UserId");
         IntentPassword = o.getStringExtra("Password");
         IntentActivity= o.getStringExtra("Activity");
+        firsttime=o.getStringExtra("firsttime");
 
 
 
@@ -367,6 +368,9 @@ public class VerifyOTPActivity extends AppCompatActivity implements ResponseMana
 
 
             Intent i = new Intent(activity, HomeActivity.class);
+            if(firsttime.equals("yes")){
+                i.putExtra("firsttime", firsttime);
+            }
             startActivity(i);
             finish();
         }

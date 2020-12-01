@@ -42,6 +42,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
     public MatchesAdapter(List<MatchesInfo> matchesInfoList, String matchType) {
         this.matchesInfoList = matchesInfoList;
         this.matchType = matchType;
+
     }
 
     public void setRecyclerViewItemClickListener(ClickListener clickListener) {
@@ -89,6 +90,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
 
             holder.odd_winA.setText("1.98");
             holder.odd_winb.setText("2.30");
+
         }
         else if(randomString.trim().contains("Toss win")){
 
@@ -100,6 +102,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
 
             holder.odd_winA.setText("Yes");
             holder.odd_winb.setText("No");
+
         }
 
 
@@ -107,7 +110,6 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
 
 
         if (matchesInfo.getMatchType().equalsIgnoreCase("upcoming")) {
-
             if( UpcomingMatchesFragment.contest==true) {
 
                 holder.matchTimeTextView.setText(String.format(matchesInfo.getDateTime()));
@@ -134,7 +136,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
                         int minutes = (int) ((millis / (1000 * 60)) % 60);
                         int hours = (int) ((millis / (1000 * 60 * 60)));
                         // int days   = (int) ((millis / (1000*60*60*60)) % 24);
-                        String text = String.format("%s %s %s", hours + "h", minutes + "m", seconds + "s");
+                        String text = String.format("%s %s ", hours + "h", minutes + "m");
                         holder.matchTimeTextView.setText(text);
 
                     }
@@ -142,6 +144,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
                     @Override
                     public void onFinish() {
                         holder.matchTimeTextView.setText("Live");
+
 
                     }
                 }.start();
@@ -177,7 +180,9 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
                     }
                 }.start();
 
-            }*/}
+            }*/
+
+        }
 
         else if (matchType.equalsIgnoreCase("private")) {
 
@@ -214,6 +219,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
                     holder.code.setText(matchesInfo.getcode());
                     holder.teams_win.setText("To win");
 
+
                 }
 
                 @Override
@@ -222,6 +228,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
                     matchesInfoList.get(position).setplaying(true);
                     holder.matchTimeTextView.setText("inplay");
                     holder.teams_win.setText("To win");
+                    notifyDataSetChanged();
 
 
                 }

@@ -20,6 +20,7 @@ public class MatchesInfo implements Serializable {
     private boolean playing;
     private String contestName;
     private String contestId;
+    private String matchType;
 
     public String getcode() {
         return code;
@@ -158,5 +159,13 @@ public class MatchesInfo implements Serializable {
 
     public void setContestId(String contestId) {
         this.contestId = contestId;
+    }
+
+    public String getMatchType() {
+        return matchType;
+    }
+
+    public void setMatchType(String matchType) {
+        this.matchType = matchType;
     }
 }

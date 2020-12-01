@@ -48,6 +48,11 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         this.clickListener = clickListener;
     }
 
+    public void setMatchesInfoList(List<MatchesInfo> matchesInfoList) {
+        this.matchesInfoList = matchesInfoList;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public MatchesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -101,7 +106,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
 
 
 
-        if (matchType.equalsIgnoreCase("upcoming")) {
+        if (matchesInfo.getMatchType().equalsIgnoreCase("upcoming")) {
 
             if( UpcomingMatchesFragment.contest==true) {
 

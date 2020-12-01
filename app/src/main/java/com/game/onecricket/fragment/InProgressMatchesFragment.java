@@ -119,24 +119,6 @@ public class InProgressMatchesFragment extends Fragment implements MatchesAdapte
         this.context = context;
     }
 
-    private void callMatchesAPIRetrofit() {
-//        final ApiInterface      apiService = RetrofitClient.getClient().create(ApiInterface.class);
-//        Call<ResponseBody> call       = apiService.getMatchesData();
-//        call.enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(@NonNull Call<ResponseBody> call,
-//                                   @NonNull retrofit2.Response<ResponseBody> response)
-//            {
-//                Log.d(TAG, response.toString());
-//            }
-//
-//            @Override
-//            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
-//                Log.d(TAG, "response.toString()");
-//            }
-//        });
-
-    }
 
     private void callMatchesAPI() {
         dismissProgressDialog(progressAlertDialog);

@@ -78,6 +78,7 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
     public static boolean  contest=false;
     public static String timediffhelp;
     private TextView nodataView;
+    private MatchesAdapter adapter;
 
     @Nullable
     @Override
@@ -92,7 +93,7 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
         contest=false;
         alertDialogHelper = AlertDialogHelper.getInstance();
         if (NetworkState.isNetworkAvailable(context)) {
-            callMatchesAPI(sessionManager.getUser(context).getToken());
+            callInProgressMatchesAPI();
         } else {
             if (!alertDialogHelper.isShowing()) {
                 alertDialogHelper.showAlertDialog(context,
@@ -139,6 +140,96 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
 
     }
 
+    private void callInProgressMatchesAPI() {
+        dismissProgressDialog(progressAlertDialog);
+        progressAlertDialog.show();
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        String URL = ApiClient.BASE_URL +  ":4040/inplay/matches";
+        Log.d(TAG, URL);
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+                                                             URL ,
+                                                             null,
+             response -> {
+                dismissProgressDialog(progressAlertDialog);
+                 Log.d(TAG, "callPointsScanAPI response: " + response.toString());
+                 matchesInfoList = new ArrayList<>();
+                 try {
+//                         JSONObject responseJson = new JSONObject(responseStr);
+                     JSONArray resultsArray = response.getJSONArray("results");
+                     for (int i = 0; i < resultsArray.length(); i++) {
+                         MatchesInfo matchesInfo = new MatchesInfo();
+                         JSONObject results = resultsArray.getJSONObject(i);
+
+                         if (results.has("id")) {
+                             String id = results.getString("id");
+                             matchesInfo.setId(id);
+                         }
+
+                         if (results.has("league")) {
+                             JSONObject leagueJSON = results.getJSONObject("league");
+                             String leagueName = leagueJSON.getString("name");
+                             matchesInfo.setLeagueName(leagueName);
+                         }
+                         else {
+                             matchesInfo.setLeagueName("");
+                         }
+
+                         if (results.has("time")) {
+                             String time = results.getString("time");
+                             matchesInfo.setTime(DateFormat.getReadableTimeFormat(time));
+                             matchesInfo.setDate(DateFormat.getReadableDateFormat(time));
+                             matchesInfo.setDateTime(DateFormat.getReadableDateFormat(time));
+                         }
+
+                         matchesInfo.setMatchInProgress(true);
+
+                         JSONObject homeJSON = results.getJSONObject("home");
+                         String name = homeJSON.getString("name");
+                         matchesInfo.setHomeTeam(name);
+
+                         JSONObject awayJSON = results.getJSONObject("away");
+                         String away = awayJSON.getString("name");
+                         matchesInfo.setVisitorsTeam(away);
+                         matchesInfo.setMatchType("In-Play");
+                         matchesInfoList.add(matchesInfo);
+                     }
+
+                     adapter = new MatchesAdapter(matchesInfoList, "In-Play");
+                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                     recyclerView.setHasFixedSize(true);
+                     adapter.setRecyclerViewItemClickListener(UpcomingMatchesFragment.this);
+                     recyclerView.setAdapter(adapter);
+                     nodataView.setVisibility(View.GONE);
+                     recyclerView.setVisibility(View.VISIBLE);
+                     callMatchesAPI(sessionManager.getUser(context).getToken());
+
+                 } catch (JSONException e) {
+                     e.printStackTrace();
+                     nodataView.setVisibility(View.VISIBLE);
+                     recyclerView.setVisibility(View.GONE);
+                 }
+
+
+             },
+             error -> {
+                 dismissProgressDialog(progressAlertDialog);
+                 nodataView.setVisibility(View.VISIBLE);
+                 recyclerView.setVisibility(View.GONE);
+                 Log.e(TAG, "Error: " + error.getMessage());
+             })
+        {
+
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+        };
+
+        requestQueue.add(jsonObjReq);
+
+    }
+
+
     private void callMatchesAPI(String token) {
         dismissProgressDialog(progressAlertDialog);
         progressAlertDialog.show();
@@ -155,7 +246,6 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
                 response -> {
                     dismissProgressDialog(progressAlertDialog);
                     Log.d(TAG, "callMatchesAPI response: " + response.toString());
-                    matchesInfoList = new ArrayList<>();
                     try {
                         JSONArray resultsArray = response.getJSONArray("results");
                         for (int i = 0; i < resultsArray.length(); i++) {
@@ -184,18 +274,14 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
                             JSONObject awayJSON = results.getJSONObject("away");
                             String away = awayJSON.getString("name");
                             matchesInfo.setVisitorsTeam(away);
+                            matchesInfo.setMatchType("Upcoming");
                             matchesInfoList.add(matchesInfo);
                         }
 
                         if (matchesInfoList.size() > 0) {
                             nodataView.setVisibility(View.GONE);
                             recyclerView.setVisibility(View.VISIBLE);
-                            MatchesAdapter adapter = new MatchesAdapter(matchesInfoList, "Upcoming");
-                            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                            recyclerView.setHasFixedSize(true);
-                            adapter.setRecyclerViewItemClickListener(UpcomingMatchesFragment.this);
-                            recyclerView.setAdapter(adapter);
-                            adapter.notifyDataSetChanged();
+                            adapter.setMatchesInfoList(matchesInfoList);
                         }
                         else {
                             nodataView.setVisibility(View.VISIBLE);

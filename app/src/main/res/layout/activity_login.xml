@@ -161,13 +161,7 @@
                 android:gravity="center"
                 android:padding="5dp">
 
-                <ImageView
-                    android:id="@+id/im_goggleicon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:scaleType="center"
-                    android:src="@drawable/google_icon" />
+
             </RelativeLayout>
         </LinearLayout>
 

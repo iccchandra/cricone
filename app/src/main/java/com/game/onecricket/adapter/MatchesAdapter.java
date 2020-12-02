@@ -210,7 +210,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
                     int minutes = (int) ((millis / (1000 * 60)) % 60);
                     int hours = (int) ((millis / (1000 * 60 * 60)));
                     // int days   = (int) ((millis / (1000*60*60*60)) % 24);
-                    String text = String.format("%s %s %s", hours + "h ", minutes + "m ", seconds + "s");
+                    String text = String.format("%s %s", hours + "h ", minutes + "m ");
                     holder.matchTimeTextView.setText(text);
                     holder.code.setVisibility(View.VISIBLE);
                     holder.code.setText(matchesInfo.getcode());
@@ -232,7 +232,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
 
         }
         else if (matchesInfo.getMatchType().equalsIgnoreCase("InPlay")){
-            holder.matchTimeTextView.setText("Inplay");
+            holder.matchTimeTextView.setText("In-play");
             holder.teams_win.setText("To win");
 
         }

@@ -196,25 +196,34 @@ public class NotificationActivity extends AppCompatActivity implements ResponseM
 
 
             final String ContestName = mListenerList.get(position).getmessage();
+            System.out.println(ContestName+"ContestName");
             String Title= mListenerList.get(position).getbet_id();
 
 
             holder.tv_NotificationTitle.setText(Title);
             holder.tv_NotificationContest.setText(ContestName);
-            if(ContestName.contains("Lost")||Title.contains("Lost")){
+            if(ContestName!=null||Title!=null) {
 
-                holder.imgnotification.setImageDrawable(getResources().getDrawable(R.drawable.lost));
+                if (ContestName.length() > 2) {
 
+                    if (ContestName.contains("Lost") || Title.contains("Lost")) {
+
+                        holder.imgnotification.setImageDrawable(getResources().getDrawable(R.drawable.lost));
+
+                    } else if (ContestName.contains("Congratulations") || Title.contains("Congratulations")) {
+                        holder.imgnotification.setImageDrawable(getResources().getDrawable(R.drawable.winner));
+
+                    } else {
+                        holder.imgnotification.setImageDrawable(getResources().getDrawable(R.drawable.notification_icon));
+                    }
+
+                }
             }
-             else if(ContestName.contains("Congratulations")||Title.contains("Congratulations")){
-                holder.imgnotification.setImageDrawable(getResources().getDrawable(R.drawable.winner));
-
+            else{
+                binding.tvNoDataAvailable.setVisibility(View.VISIBLE);
+                binding.RVNotification.setVisibility(View.GONE);
+                binding.swipeRefreshLayout.setRefreshing(false);
             }
-             else {
-                holder.imgnotification.setImageDrawable(getResources().getDrawable(R.drawable.notification_icon));
-            }
-
-
 
 
 

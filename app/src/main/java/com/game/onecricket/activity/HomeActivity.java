@@ -449,11 +449,11 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private void showBonusCreditedAlert() {
         new FancyGifDialog.Builder(this)
-                .setTitle("Your Daily 100 Bonus Coins Credited.")
+                .setTitle("Congratulations!!! 100 bonus coins credited to your account.")
                 .setMessage("Invite Friends earn more.")
                 .setPositiveBtnText("Invite Friends")
                 .setPositiveBtnBackground("#FF4081")
-                .setNegativeBtnText("Close")
+                .setNegativeBtnText("Keep Playing")
                 .setNegativeBtnBackground("#FF4081")
                 .setGifResource(R.drawable.bonus_credited)   //Pass your Gif here
                 .isCancellable(true)
@@ -466,11 +466,11 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private void showBonusnewCreditedAlert() {
         new FancyGifDialog.Builder(this)
-                .setTitle("Congrats!!! 1000 Bonus Coins Credited.")
+                .setTitle("Congrats!!! 1000 Bonus Coins Credited to your account.")
                 .setMessage("Invite Friends earn more.")
                 .setPositiveBtnText("Invite Friends")
                 .setPositiveBtnBackground("#FF4081")
-                .setNegativeBtnText("Close")
+                .setNegativeBtnText("Keep Playing")
                 .setNegativeBtnBackground("#FF4081")
                 .setGifResource(R.drawable.bonus_credited)   //Pass your Gif here
                 .isCancellable(true)
@@ -489,7 +489,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                 .setMessage("you can still Earn coins by sharing with your Friends. ")
                 .setPositiveBtnText("Invite Friends")
                 .setPositiveBtnBackground("#FF4081")
-                .setNegativeBtnText("Close")
+                .setNegativeBtnText("Keep Playing")
                 .setNegativeBtnBackground("#FF4081")
                 .setGifResource(R.drawable.common_gif)   //Pass your Gif here
                 .isCancellable(true)

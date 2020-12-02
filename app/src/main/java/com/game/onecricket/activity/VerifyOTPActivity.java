@@ -368,9 +368,13 @@ public class VerifyOTPActivity extends AppCompatActivity implements ResponseMana
 
 
             Intent i = new Intent(activity, HomeActivity.class);
-            if(firsttime.equals("yes")){
-                i.putExtra("firsttime", firsttime);
+            if(firsttime!=null){
+                if(firsttime.equals("yes")){
+                    i.putExtra("firsttime", firsttime);
+                }
             }
+
+
             startActivity(i);
             finish();
         }

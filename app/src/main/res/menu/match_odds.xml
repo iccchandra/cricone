@@ -2,10 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+
+    <item
+        android:id="@+id/pvt_img"
+        android:icon="@drawable/invite_friends"
+        android:title="Private"
+        app:showAsAction="always" />
+
     <item
         android:id="@+id/share"
         android:icon="@drawable/ic_share_24"
         android:title="@string/share"
         app:showAsAction="always" />
+
+
 
 </menu>

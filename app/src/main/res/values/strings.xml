@@ -35,7 +35,7 @@
     <string name="aboutus">About Us</string>
     <string name="aboutustext">1Cricket is a new start-up gaming company in registered in Bangalore which started operations in June 2020. The founders have taken a passion towards ‘innovative’ games which are more user friendly, risk-free and filled with fun elements. Which is why one would surely love to play on 1Cricket.
 
-For any kind of queries, please write to contact@1cricket.in</string>
+For any kind of queries, please write to info@1cricket.in</string>
 
        <string name="disclaimer">DISCLAIMER</string>
         <string name="disclaimertext">The 1Cricket.in platform (the “Platform”) provides access to online games. The Company or any person working for the Company, do not promote or intend to promote any gambling or betting activity on the Platform. The users of the Platform can play the social games provided therein without any entry fee or redemption option. The users of the Platform are encouraged to play the games only for thrill and excitement. At no time would the Company ask any user to pay money or anything of value to play the games, nor would any prize be provided to the user upon winning.</string>
@@ -184,7 +184,7 @@ For any kind of queries, please write to contact@1cricket.in</string>
     <string name="notification">Notification</string>
     <string name="contact_us">Contact Us</string>
     <string name="email_us">Email Us</string>
-    <string name="contact_1cricket_in">Contact@1cricket.in</string>
+    <string name="contact_1cricket_in">info@1cricket.in</string>
     <string name="title_activity_aboutus">About Us</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
@@ -275,6 +275,9 @@ For any kind of queries, please write to contact@1cricket.in</string>
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="email_subject">Feed Back</string>
+    <string name="emailid">info@1cricket.in</string>
+    <string name="messageWithLink">&lt;a href="http://1cricket.in/#faq">FAQs&lt;/a></string>
 
 
 </resources>

@@ -93,6 +93,7 @@
             android:fontFamily="@font/lato_bold"
             android:textSize="13dp"
             android:gravity="center"
+            android:layout_centerInParent="true"
             android:textColor="@color/white"
             android:text="Submit your BET with Real Time ODDS. \n Enjoy the same thrill of BETTING using Virtual Currency."></TextView>
  </RelativeLayout>

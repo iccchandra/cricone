@@ -254,6 +254,7 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
     public void onItemClickListener(int position) {
         Intent intent = new Intent(getActivity(), MatchOddsTabsActivity.class);
         intent.putExtra("MatchInfo", matchesInfoList.get(position));
+        intent.putExtra("Is_Group", true);
         startActivity(intent);
     }
 

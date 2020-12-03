@@ -88,6 +88,7 @@ public class MatchOddsTabsActivity extends AppCompatActivity implements MatchOdd
     private AlertDialog progressAlertDialog;
     private Context context;
     private MatchOddsFragment matchOddsFragment;
+    private boolean isGroup;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,6 +101,8 @@ public class MatchOddsTabsActivity extends AppCompatActivity implements MatchOdd
         if (getIntent().getExtras() != null) {
             Bundle extras = getIntent().getExtras();
             matchesInfo = (MatchesInfo) extras.getSerializable("MatchInfo");
+            isGroup = extras.getBoolean("Is_Group");
+
             if (matchesInfo != null) {
                 Log.d(TAG, String.valueOf(matchesInfo.getId()));
 /*
@@ -220,6 +223,8 @@ public class MatchOddsTabsActivity extends AppCompatActivity implements MatchOdd
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.match_odds, menu);
+        MenuItem group = menu.findItem(R.id.pvt_img);
+        group.setVisible(!isGroup);
         return true;
     }
 

@@ -335,55 +335,55 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
         binding.tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
-                                                  @Override
-                                                  public void onTabSelected(TabLayout.Tab tab) {
-                                                      int tabIconColor = ContextCompat.getColor(activity, R.color.tabtextselected);
-                                                      tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+              @Override
+              public void onTabSelected(TabLayout.Tab tab) {
+                  int tabIconColor = ContextCompat.getColor(activity, R.color.tabtextselected);
+                  tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
 
-                                                      if (tab.getPosition() == 0) {
-                                                          binding.homeinfo.setVisibility(View.VISIBLE);
-                                                          replaceFragment(new UpcomingMatchesFragment());
-                                                          // binding.bonus.setVisibility(View.VISIBLE);
-                                                          binding.RLHomeBanner.setVisibility(View.VISIBLE);
-                                                      } else if (tab.getPosition() == 1) {
-                                                          binding.RLHomeBanner.setVisibility(View.GONE);
-                                                          binding.homeinfo.setVisibility(View.GONE);
+                  if (tab.getPosition() == 0) {
+                      binding.homeinfo.setVisibility(View.VISIBLE);
+                      replaceFragment(new UpcomingMatchesFragment());
+                      // binding.bonus.setVisibility(View.VISIBLE);
+                      binding.RLHomeBanner.setVisibility(View.VISIBLE);
+                  } else if (tab.getPosition() == 1) {
+                      binding.RLHomeBanner.setVisibility(View.GONE);
+                      binding.homeinfo.setVisibility(View.GONE);
 
-                                                          // binding.bonus.setVisibility(View.GONE);
-                                                          replaceFragment(new MyContestFragment());
-                                                      } else if (tab.getPosition() == 2) {
-                                                          binding.RLHomeBanner.setVisibility(View.GONE);
-                                                          binding.homeinfo.setVisibility(View.GONE);
+                      // binding.bonus.setVisibility(View.GONE);
+                      replaceFragment(new MyContestFragment());
+                  } else if (tab.getPosition() == 2) {
+                      binding.RLHomeBanner.setVisibility(View.GONE);
+                      binding.homeinfo.setVisibility(View.GONE);
 
-                                                          // binding.bonus.setVisibility(View.GONE);
-                                                          replaceFragment(new GlobalLeaderboardFragment());
-                                                      } else if (tab.getPosition() == 3) {
-                                                          binding.RLHomeBanner.setVisibility(View.GONE);
-                                                          binding.homeinfo.setVisibility(View.GONE);
+                      // binding.bonus.setVisibility(View.GONE);
+                      replaceFragment(new GlobalLeaderboardFragment());
+                  } else if (tab.getPosition() == 3) {
+                      binding.RLHomeBanner.setVisibility(View.GONE);
+                      binding.homeinfo.setVisibility(View.GONE);
 
-                                                          // binding.bonus.setVisibility(View.GONE);
-                                                          replaceFragment(new PrivateMatchesFragment());
-                                                      } else {
-                                                          binding.RLHomeBanner.setVisibility(View.GONE);
-                                                          binding.homeinfo.setVisibility(View.GONE);
+                      // binding.bonus.setVisibility(View.GONE);
+                      replaceFragment(new PrivateMatchesFragment());
+                  } else {
+                      binding.RLHomeBanner.setVisibility(View.GONE);
+                      binding.homeinfo.setVisibility(View.GONE);
 
-                                                          //  binding.bonus.setVisibility(View.GONE);
-                                                          replaceFragment(new ProfileFragment());
-                                                      }
-                                                  }
+                      //  binding.bonus.setVisibility(View.GONE);
+                      replaceFragment(new ProfileFragment());
+                  }
+              }
 
-                                                  @Override
-                                                  public void onTabUnselected(TabLayout.Tab tab) {
+              @Override
+              public void onTabUnselected(TabLayout.Tab tab) {
 
-                                                      int tabIconColor = ContextCompat.getColor(activity, R.color.tabtextunselected);
-                                                      tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
-                                                  }
+                  int tabIconColor = ContextCompat.getColor(activity, R.color.tabtextunselected);
+                  tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+              }
 
-                                                  @Override
-                                                  public void onTabReselected(TabLayout.Tab tab) {
+              @Override
+              public void onTabReselected(TabLayout.Tab tab) {
 
-                                                  }
-                                              }
+              }
+          }
         );
 
         //Uncomment Below Line for In-App-Update

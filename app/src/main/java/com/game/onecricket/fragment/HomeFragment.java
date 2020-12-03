@@ -55,6 +55,7 @@ public class HomeFragment extends Fragment implements ResponseManager {
         adapter.addFragment(new FragmentFixtures(), getResources().getString(R.string.cricket));
 
         binding.viewpager.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         binding.FragmentTab.setupWithViewPager(viewPager);
 
         for (int i = 0; i < binding.FragmentTab.getTabCount(); i++) {

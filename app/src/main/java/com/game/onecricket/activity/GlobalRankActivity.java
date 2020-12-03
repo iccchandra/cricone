@@ -129,6 +129,7 @@ public class GlobalRankActivity extends AppCompatActivity implements ResponseMan
                     }.getType());
             adapterGlobalRankList = new AdapterGlobalRankList(beanContestLists, activity);
             binding.RVGlobalRankList.setAdapter(adapterGlobalRankList);
+            adapterGlobalRankList.notifyDataSetChanged();
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -18,7 +18,7 @@
             android:id="@+id/match_status_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/cb_dark_blue_button"
+            android:background="@color/activate_text_color"
             android:orientation="horizontal"
             android:padding="5dp">
 

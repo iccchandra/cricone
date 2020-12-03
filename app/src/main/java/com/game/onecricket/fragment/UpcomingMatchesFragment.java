@@ -60,6 +60,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.recyclerview.widget.SimpleItemAnimator;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -201,6 +202,8 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
                      recyclerView.setAdapter(adapter);
                      adapter.notifyDataSetChanged();
 
+
+
                      nodataView.setVisibility(View.GONE);
                      recyclerView.setVisibility(View.VISIBLE);
                      callMatchesAPI(sessionManager.getUser(context).getToken());
@@ -285,6 +288,7 @@ public class UpcomingMatchesFragment extends Fragment implements MatchesAdapter.
                             recyclerView.setVisibility(View.VISIBLE);
                             adapter.setMatchesInfoList(matchesInfoList);
                             adapter.notifyDataSetChanged();
+
 
                         }
                         else {

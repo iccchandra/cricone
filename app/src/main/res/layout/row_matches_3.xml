@@ -159,7 +159,7 @@
                  android:id="@+id/match_time"
                  android:layout_width="100dp"
                  android:layout_height="wrap_content"
-                 android:text="Upcoming"
+                 android:text="In-play"
                  android:layout_centerInParent="true"
                  android:paddingStart="@dimen/dimen_2dp"
 

@@ -664,6 +664,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
                 }.getType());
                 adapterHomeBanner = new AdapterHomeBanner(beanHomeFixtures, HomeActivity.this);
                 binding.VPBanner.setAdapter(adapterHomeBanner);
+                adapterHomeBanner.notifyDataSetChanged();
                 BannerDotView();
             } else {
                 binding.RLHomeBanner.setVisibility(View.GONE);

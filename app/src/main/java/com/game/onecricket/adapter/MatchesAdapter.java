@@ -37,6 +37,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
     public String matchType;
     private ClickListener clickListener;
     public Context context;
+    String timeleft;
 
 
     public MatchesAdapter(List<MatchesInfo> matchesInfoList, String matchType) {
@@ -58,6 +59,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
     public MatchesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View listItem = layoutInflater.inflate(R.layout.row_matches_3, parent, false);
+
         return new MatchesViewHolder(listItem);
     }
 
@@ -116,7 +118,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
             else {
 
 
-                String timeleft = String.format(matchesInfo.getDateTime()).trim();
+                 timeleft = String.format(matchesInfo.getDateTime()).trim();
                 System.out.println(timeleft);
 
                 int hoursToGo = Integer.parseInt(timeleft.substring(0, timeleft.indexOf("h")));
@@ -125,27 +127,28 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
                 ;
 
                 int millisToGo = secondsToGo * 1000 + minutesToGo * 1000 * 60 + hoursToGo * 1000 * 60 * 60;
+                if (holder.timer == null) {
 
-                new CountDownTimer(millisToGo, 1000) {
+                    holder.timer = new CountDownTimer(millisToGo, 1000) {
 
-                    @Override
-                    public void onTick(long millis) {
-                        int seconds = (int) (millis / 1000) % 60;
-                        int minutes = (int) ((millis / (1000 * 60)) % 60);
-                        int hours = (int) ((millis / (1000 * 60 * 60)));
-                        // int days   = (int) ((millis / (1000*60*60*60)) % 24);
-                        String text = String.format("%s %s ", hours + "h", minutes + "m");
-                        holder.matchTimeTextView.setText(text);
+                        @Override
+                        public void onTick(long millis) {
+                            int seconds = (int) (millis / 1000) % 60;
+                            int minutes = (int) ((millis / (1000 * 60)) % 60);
+                            int hours = (int) ((millis / (1000 * 60 * 60)));
+                            // int days   = (int) ((millis / (1000*60*60*60)) % 24);
+                            String text = String.format("%s %s ", hours + "h", minutes + "m");
+                            holder.matchTimeTextView.setText(text);
 
-                    }
+                        }
 
-                    @Override
-                    public void onFinish() {
-                        holder.matchTimeTextView.setText("Live");
+                        @Override
+                        public void onFinish() {
+                            holder.matchTimeTextView.setText("Live");
 
-                    }
-                }.start();
-
+                        }
+                    }.start();
+                }
 
 
             }
@@ -202,39 +205,43 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
 
 
 
-            new CountDownTimer(diff, 1000) {
+            if (holder.timer == null) {
+                holder.timer = new CountDownTimer(diff, 1000) {
 
-                @Override
-                public void onTick(long millis) {
-                    int seconds = (int) (millis / 1000) % 60;
-                    int minutes = (int) ((millis / (1000 * 60)) % 60);
-                    int hours = (int) ((millis / (1000 * 60 * 60)));
-                    // int days   = (int) ((millis / (1000*60*60*60)) % 24);
-                    String text = String.format("%s %s", hours + "h ", minutes + "m ");
-                    holder.matchTimeTextView.setText(text);
-                    holder.code.setVisibility(View.VISIBLE);
-                    holder.code.setText(matchesInfo.getcode());
-                    holder.teams_win.setText("To win");
+                    @Override
+                    public void onTick(long millis) {
+                        int seconds = (int) (millis / 1000) % 60;
+                        int minutes = (int) ((millis / (1000 * 60)) % 60);
+                        int hours = (int) ((millis / (1000 * 60 * 60)));
+                        // int days   = (int) ((millis / (1000*60*60*60)) % 24);
+                        String text = String.format("%s %s", hours + "h ", minutes + "m ");
+                        holder.matchTimeTextView.setText(text);
+                        holder.code.setVisibility(View.VISIBLE);
+                        holder.code.setText(matchesInfo.getcode());
+                        holder.teams_win.setText("To win");
 
-                }
+                    }
 
-                @Override
-                public void onFinish() {
+                    @Override
+                    public void onFinish() {
 
-                    matchesInfoList.get(position).setplaying(true);
-                    holder.matchTimeTextView.setText("Inplay");
-                    holder.teams_win.setText("To win");
-                    notifyDataSetChanged();
+                        matchesInfoList.get(position).setplaying(true);
+                        holder.matchTimeTextView.setText("In-play");
+                        holder.teams_win.setText("To win");
+                        notifyDataSetChanged();
 
 
-                }
-            }.start();
-
+                    }
+                }.start();
+            }
         }
         else if (matchesInfo.getMatchType().equalsIgnoreCase("InPlay")){
-            holder.matchTimeTextView.setText("In-play");
-            holder.teams_win.setText("To win");
 
+            if(holder.matchTimeTextView.getText()==null) {
+
+                holder.matchTimeTextView.setText("In-play");
+                holder.teams_win.setText("To win");
+            }
         }
 
 
@@ -305,6 +312,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
         private TextView odd_winb;
         private TextView code;
         private LinearLayout private_img;
+        CountDownTimer timer;
 
         public MatchesViewHolder(View itemView) {
             super(itemView);
@@ -335,7 +343,15 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesV
 
     // countdowntimer is an abstract class, so extend it and fill in methods
 
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 
 
 }

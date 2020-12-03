@@ -230,6 +230,7 @@ public class InProgressMatchesFragment extends Fragment implements MatchesAdapte
                             recyclerView.setHasFixedSize(true);
                             adapter.setRecyclerViewItemClickListener(InProgressMatchesFragment.this);
                             recyclerView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
                         }
                         else {
                             nodataView.setVisibility(View.VISIBLE);

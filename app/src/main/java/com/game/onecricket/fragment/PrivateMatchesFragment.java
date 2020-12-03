@@ -207,6 +207,7 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
                             recyclerView.setHasFixedSize(true);
                             adapter.setRecyclerViewItemClickListener(PrivateMatchesFragment.this);
                             recyclerView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
                         }
                         else {
                             nodataView.setVisibility(View.VISIBLE);

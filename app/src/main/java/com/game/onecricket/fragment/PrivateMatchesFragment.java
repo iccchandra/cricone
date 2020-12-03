@@ -193,6 +193,12 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
                                 String contestId = results.getString("contest_id");
                                 matchesInfo.setContestId(contestId);
                             }
+
+                            if (results.has("status")) {
+                                String status = results.getString("status");
+                                matchesInfo.setMatchType(status);
+                            }
+
                            // JSONObject awayJSON = results.getJSONObject("away");
                             String away = results.getString("visitor_team");
                             matchesInfo.setVisitorsTeam(away);
@@ -201,6 +207,7 @@ public class PrivateMatchesFragment extends Fragment implements MatchesAdapter.C
 
                         if (matchesInfoList.size() > 0) {
                             nodataView.setVisibility(View.GONE);
+                            System.out.println("matchesInfoList.size():"+matchesInfoList.size());
                             recyclerView.setVisibility(View.VISIBLE);
                             MatchesAdapter adapter = new MatchesAdapter(matchesInfoList, "private");
                             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
